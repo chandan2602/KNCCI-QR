@@ -1,0 +1,25 @@
+h3,h4{text-align: center;}
+
+.card_poll{
+    width: 50%;
+    margin: 5px auto;
+   
+}
+/* #0000FF #BEE0F9 */
+.first{
+    height: 10px;
+    background-color:#0000FF;
+
+}
+.secound{
+    height: 10px;
+    background-color:#BEE0F9;
+}
+.three{
+    height: 10px;
+    background-color:yellow;  
+}
+.four{
+    height: 10px;
+    background-color:green;
+}

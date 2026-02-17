@@ -1,0 +1,51 @@
+.page-banner-section {
+    /* padding-top: 80px; */
+    min-height:350px;
+    display: flex;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.page-banner .title {
+    font-size: 60px;
+    line-height: 1.25;
+    font-family: "Manrope", sans-serif;
+    display: inline-block;
+    font-weight: 700;
+    color: #ffffff;
+    position: relative;
+    z-index: 1;
+}
+
+.page-banner .breadcrumb {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+.page-banner .breadcrumb .breadcrumb-item {
+    color: #ffffff;
+    font-size: 16px;
+    font-family: "Manrope", sans-serif;
+    font-weight: 700;
+}
+
+a, button {
+    color: inherit;
+    display: inline-block;
+    line-height: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+ .title {
+    font-size:24px;
+    /* line-height: 36px; */
+    color: #000000;
+    font-weight: 500;
+
+}

@@ -1,0 +1,96 @@
+<section *ngIf="isShw()">
+    <div style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;"
+        class="page-header-area sec-overlay sec-overlay-black">
+        <div class="container pt--0 pb--0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-header-content">
+                        <h2 class="title">Start-ups</h2>
+                        <nav class="breadcrumb-area">
+                            <ul class="breadcrumb justify-content-center">
+                                <li><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-sep"> / </li>
+                                <li>Start-ups</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="recent-job-area bg-color-gray">
+    <div class="bg-light">
+        <div class="container py-4 popularjobs mt-2">
+            <div class="row g-4" *ngIf="!isShow">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2" *ngFor="let item of startUpList"
+                    (click)="editData=item;isShow=!isShow;">
+                    <div class="card text-center h-100">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <h5 class="card-title">
+                                <a class="text-decoration-none text-dark">
+                                    {{item.ProgramName}}</a>
+                            </h5>
+                            <p class="text-muted mb-0">{{item.SectorName}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="isShow">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header">
+                            <button class="btn btn-sm btn-primary mt-2 float-right" title="back" (click)="isShow=!isShow"><i class="bi bi-arrow-left-circle"></i></button>
+                        </div>
+                        <div class="card-body">
+                            <div class="main_section mt-3 mb-3 shadow-sm" style="border-radius: 15px;" *ngIf="editData !=''">
+                                <!-- Top Header Section -->
+                                <div class="d-flex justify-content-center align-items-center mb-3">
+                                    <img src="../../assets/img/logo1-new.png" alt="Logo" class="logo me-3" width="60px" />
+                                </div>
+                                <hr>
+                                <!-- Card 2: Address Information -->
+                                <div class="card " style="border: 0px solid rgb(224, 224, 224);">
+                                    <div class="card-body p-0">
+                                        <div class="highlight-title">Start-up Details</div>
+                                        <table class="table table-borderless mb-0">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="data-label">Start-up / Project Name </td>
+                                                    <td class="data-value">{{editData?.project_name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="data-label">One-line Pitch / Tagline</td>
+                                                    <td class="data-value">{{editData?.tagline}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="data-label">Problem Statement</td>
+                                                    <td class="data-value">{{editData?.statement}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="data-label">Solution Overview</td>
+                                                    <td colspan="3" class="data-value">
+                                                        {{editData?.solution}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="data-label">Stage of Idea</td>
+                                                    <td class="data-value">{{editData?.stage_of_idea_Name}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="data-label">Sector</td>
+                                                    <td colspan="3" class="data-value">
+                                                        {{editData?.SectorName}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,109 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Incubator Dashboard</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row dashboardcards">
+
+
+
+                                            <!-- Approved -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="card shadow text-center">
+                                                    <div class="card-body">
+                                                        <div class="progress-circle approved">
+                                                            <span class="progress-value">{{listGrid?.accepted}}</span>
+                                                        </div>
+                                                        <div class="progress-label">Approved</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Rejected -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="card shadow text-center">
+                                                    <div class="card-body">
+                                                        <div class="progress-circle rejected">
+                                                            <span class="progress-value">{{listGrid?.rejected}}</span>
+                                                        </div>
+                                                        <div class="progress-label">Rejected</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Waiting Confirmation -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="card shadow text-center">
+                                                    <div class="card-body">
+                                                        <div class="progress-circle waiting">
+                                                            <span
+                                                                class="progress-value">{{listGrid?.in_progress}}</span>
+                                                        </div>
+                                                        <div class="progress-label">Pending for Review</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- In Progress -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="card shadow text-center">
+                                                    <div class="card-body">
+                                                        <div class="progress-circle in-progress">
+                                                            <span class="progress-value">{{listGrid?.total}}</span>
+                                                        </div>
+                                                        <div class="progress-label">Total</div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-xl-12 mt-2">
+                                                <div class="card mb-2">
+                                                    <div class="card-body">
+                                                        <h5 style="color: #ff7f50; font-weight: bold;">Welcome, Incubator!</h5>
+                                                        <p> This dashboard is your central hub to
+                                                            manage and evaluate startup ideas submitted by aspiring
+                                                            founders. You’ll receive ideas relevant to your sector,
+                                                            complete with detailed information, supporting documents,
+                                                            videos, and photos. For each submission, you can review the
+                                                            content, assign a rating (0–10), provide feedback in the
+                                                            comments section, and take action by approving or rejecting
+                                                            the idea. Approved ideas will automatically be routed to
+                                                            suitable investors for further consideration. Track the
+                                                            number of received, approved, and rejected ideas at a
+                                                            glance. Use this space to mentor, support, and accelerate
+                                                            promising startups that align with your mission.</p>
+                                                        <a href="" class="text-danger d-none"><i
+                                                                class="bi bi-camera-video-fill"></i> Video</a>
+                                                        &nbsp;
+                                                        <a href="" class="text-danger d-none"><i
+                                                                class="bi bi-file-earmark-pdf-fill"></i>
+                                                            PDF</a> &nbsp;
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

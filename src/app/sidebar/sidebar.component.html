@@ -1,0 +1,83 @@
+<div class="wrapper">
+  <div class="sidebar-wrapper" data-simplebar="true">
+    <div class="sidebar-header">
+      <div class="mt-2 mb-2">
+        <img src="../../assets/img/logo1-new.png" class="img-fluid" alt="logo icon" style="width: 100px;">
+      </div>
+      <!-- <div>
+        <h4 class="logo-text">LMS</h4>
+      </div> -->
+      <!-- <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+      </div> -->
+    </div>
+    <!--navigation-->
+    <ul class="metismenu" id="menu">
+      <li class="mm-active">
+        <a [routerLink]="['/HOME/trainer-dashboard']">
+          <div class="parent-icon">
+            <svg width="17" height="17" fill="#A3AED0" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.944444 9.44444H6.61111C7.13056 9.44444 7.55556 9.01944 7.55556 8.5V0.944444C7.55556 0.425 7.13056 0 6.61111 0H0.944444C0.425 0 0 0.425 0 0.944444V8.5C0 9.01944 0.425 9.44444 0.944444 9.44444ZM0.944444 17H6.61111C7.13056 17 7.55556 16.575 7.55556 16.0556V12.2778C7.55556 11.7583 7.13056 11.3333 6.61111 11.3333H0.944444C0.425 11.3333 0 11.7583 0 12.2778V16.0556C0 16.575 0.425 17 0.944444 17ZM10.3889 17H16.0556C16.575 17 17 16.575 17 16.0556V8.5C17 7.98056 16.575 7.55556 16.0556 7.55556H10.3889C9.86944 7.55556 9.44444 7.98056 9.44444 8.5V16.0556C9.44444 16.575 9.86944 17 10.3889 17ZM9.44444 0.944444V4.72222C9.44444 5.24167 9.86944 5.66667 10.3889 5.66667H16.0556C16.575 5.66667 17 5.24167 17 4.72222V0.944444C17 0.425 16.575 0 16.0556 0H10.3889C9.86944 0 9.44444 0.425 9.44444 0.944444Z" />
+            </svg>
+
+          </div>
+          <div class="menu-title">Dashboard</div>
+        </a>
+      </li>
+
+      <li class="mm-active">
+        <a [routerLink]="['/HOME/approval-domain']">
+          <div class="parent-icon">
+            <svg width="17" height="17" fill="#A3AED0" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.944444 9.44444H6.61111C7.13056 9.44444 7.55556 9.01944 7.55556 8.5V0.944444C7.55556 0.425 7.13056 0 6.61111 0H0.944444C0.425 0 0 0.425 0 0.944444V8.5C0 9.01944 0.425 9.44444 0.944444 9.44444ZM0.944444 17H6.61111C7.13056 17 7.55556 16.575 7.55556 16.0556V12.2778C7.55556 11.7583 7.13056 11.3333 6.61111 11.3333H0.944444C0.425 11.3333 0 11.7583 0 12.2778V16.0556C0 16.575 0.425 17 0.944444 17ZM10.3889 17H16.0556C16.575 17 17 16.575 17 16.0556V8.5C17 7.98056 16.575 7.55556 16.0556 7.55556H10.3889C9.86944 7.55556 9.44444 7.98056 9.44444 8.5V16.0556C9.44444 16.575 9.86944 17 10.3889 17ZM9.44444 0.944444V4.72222C9.44444 5.24167 9.86944 5.66667 10.3889 5.66667H16.0556C16.575 5.66667 17 5.24167 17 4.72222V0.944444C17 0.425 16.575 0 16.0556 0H10.3889C9.86944 0 9.44444 0.425 9.44444 0.944444Z" />
+            </svg>
+
+          </div>
+          <div class="menu-title">Approval Domain</div>
+        </a>
+      </li>
+      <li class="mm-active">
+        <a [routerLink]="['/HOME/approval-signup']">
+          <div class="parent-icon">
+            <svg width="17" height="17" fill="#A3AED0" viewBox="0 0 17 17" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.944444 9.44444H6.61111C7.13056 9.44444 7.55556 9.01944 7.55556 8.5V0.944444C7.55556 0.425 7.13056 0 6.61111 0H0.944444C0.425 0 0 0.425 0 0.944444V8.5C0 9.01944 0.425 9.44444 0.944444 9.44444ZM0.944444 17H6.61111C7.13056 17 7.55556 16.575 7.55556 16.0556V12.2778C7.55556 11.7583 7.13056 11.3333 6.61111 11.3333H0.944444C0.425 11.3333 0 11.7583 0 12.2778V16.0556C0 16.575 0.425 17 0.944444 17ZM10.3889 17H16.0556C16.575 17 17 16.575 17 16.0556V8.5C17 7.98056 16.575 7.55556 16.0556 7.55556H10.3889C9.86944 7.55556 9.44444 7.98056 9.44444 8.5V16.0556C9.44444 16.575 9.86944 17 10.3889 17ZM9.44444 0.944444V4.72222C9.44444 5.24167 9.86944 5.66667 10.3889 5.66667H16.0556C16.575 5.66667 17 5.24167 17 4.72222V0.944444C17 0.425 16.575 0 16.0556 0H10.3889C9.86944 0 9.44444 0.425 9.44444 0.944444Z" />
+            </svg>
+
+          </div>
+          <div class="menu-title">Manage Users</div>
+        </a>
+      </li>
+      <li metis-menu class="mt-0 " *ngFor='let item of menus'>
+        <a href="courses-module.html" *ngIf="item.childs.length" [attr.href]="'#'+getId(item.Name)" class="has-arrow">
+          <div class="menu-title">{{item.Name}}</div>
+        </a>
+
+        <ul class="parent-icon" *ngIf="item.childs.length" [attr.id]="getId(item.Name)">
+          <li *ngFor="let subMenu of item.childs"><a class="has-arrow" (click)="navigate(subMenu.path,subMenu)"><i
+                class="bx bx-right-arrow-alt"></i>{{subMenu.Name}} </a>
+            <ul *ngIf='subMenu.childs.length' style="top:0px;">
+              <li class="nav-item" (click)="navigate(menu.path,menu)" *ngFor="let menu of subMenu.childs">
+                <a><i class="bx bx-right-arrow-alt"></i>{{menu.Name}} </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      </li>
+      <li class="parent" *ngIf="roleId==4"><a [routerLink]="['/HOME/advertisements']">
+          <span class="icon"><i class="fas fa-user"></i></span>&nbsp;&nbsp;<span class="text">Approve
+            Advertisements</span></a>
+      </li>
+      <li class="parent" *ngIf="roleId==4"><a [routerLink]="['/HOME/aprve-job-internship']">
+          <span class="icon"><i class="fas fa-user"></i></span>&nbsp;&nbsp;<span class="text">Approve
+            Jobs / Internships</span></a>
+      </li>
+      <app-tutore-menu *ngIf="(roleId==2||roleId==1)"></app-tutore-menu>
+      <app-student-menu *ngIf="roleId==3"></app-student-menu>
+      <app-founder-menu *ngIf="roleId==6 ||roleId==7 || roleId==8"></app-founder-menu>
+    </ul>
+
+  </div>
+</div>

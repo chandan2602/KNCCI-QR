@@ -1,0 +1,60 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">My Posts</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul id="tabsJustified"
+                                                    class="nav nav-tabs tabsactive tabinactive ml-3  border-0">
+                                                    <li (click)='selectTab(1)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase"
+                                                            [ngClass]="{'active':case==1}">Published posts</a></li>
+                                                    <li (click)='selectTab(2)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==2}">Drafts</a></li>
+                                                    <li (click)='selectTab(3)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==3}">Pending</a></li>
+                                                    <li (click)='selectTab(4)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==4}">Decline</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="card">
+                                            <div class="card-body p-3 overflow-auto" style="height: 400px ;">
+                                                <div class='row' [ngSwitch]="case">
+                                                    <div class="col-xl-12">
+                                                        <app-published-posts *ngSwitchCase="'1'"></app-published-posts>
+                                                        <app-draftmyposts [type]='"draft"' *ngSwitchCase="'2'">
+                                                        </app-draftmyposts>
+                                                        <app-draftmyposts [type]='"pending"' *ngSwitchCase="'3'">
+                                                        </app-draftmyposts>
+                                                        <app-draftmyposts [type]='"decline"' *ngSwitchCase="'4'">
+                                                        </app-draftmyposts>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

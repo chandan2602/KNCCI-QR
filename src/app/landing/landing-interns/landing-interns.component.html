@@ -1,0 +1,64 @@
+<section *ngIf="isShw()">
+    <div class="page-header-area sec-overlay sec-overlay-black"
+        style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;">
+        <div class="container pt--0 pb--0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-header-content">
+                        <h2 class="title">Internship</h2>
+                        <nav class="breadcrumb-area">
+                            <ul class="breadcrumb justify-content-center">
+                                <li><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-sep"> / </li>
+                                <li>Internship</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="post pt-1 container pb-2 pt-2">
+    <div class="row">
+        <div class="col-xl-4 mb-2">
+            <select id="companySelect" class="form-select form-select-sm shadow-sm rounded"
+                [(ngModel)]="intrenshipPL" name="company_id" (change)="getCourseList()">
+            <option value="0" selected>Choose Company</option>
+            <option *ngFor="let item of companyList" [value]="item.COMPANY_ID">{{
+                item.COMPANY_NAME }}</option>
+        </select>
+        </div>
+    </div>
+    <div class="row DCB-card">
+        <div class="col-xl-4 col-md-6 mb-5" *ngFor="let course of courseList;" (click)="intrenshipDetails(course)">
+            <div class="card profile-card-3 h-100">
+                <div class="background-block">
+                    <img [src]="course.IMAGE_URL" alt="profile-sample1"
+                        class="background" />
+                </div>
+
+                <div class="card-content p-4">
+                    <div class="text-start mb-3">
+                        <h4 class="">{{course.COURSE_NAME}}</h4>
+                        <h6>{{course?.COURSESHD_STARTDATE | date: 'dd-MM-yyyy'}} - {{course?.COURSESHD_ENDDATE | date: 'dd-MM-yyyy'}}</h6><br>
+                        <p>{{course?.courseshd_classifiedtype_id == 1 ? "Full Time" : "Part Time"}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="courseList.length == 0">
+            <h3>No Records Found</h3>
+        </div>
+
+    </div>
+    <!-- <div class="row mb-2">
+        <div class="col-xl-12 text-end">
+            <button class="btn btn-sm btn-seeall"
+                (click)="backToCompanies()">Back</button>
+        </div>
+    </div> -->
+                                <!-- <div class="text-center mb-3">
+        <button type="button" class="btn btn-blue btn-sm">Small button</button>
+    </div> -->
+</div>

@@ -1,0 +1,31 @@
+.modal-lg
+{
+    max-width: 80%;
+}
+.description
+{
+    padding-top: 20px;
+}
+.title:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+    
+    
+
+}
+#title
+{
+    color: #075d96;
+    font-size: 25px;
+}
+#event{
+    color: #075d96;
+    font-size: 15px;
+}
+
+.date{
+    font-size: 12px;
+}
+
+

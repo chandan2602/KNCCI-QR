@@ -1,0 +1,133 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0" *ngIf="questions.length">
+                    <div *ngIf="!isSubmited">
+                        <div class="card">
+                            <div class="card-header">
+                                <countdown *ngIf="time" [config]="{leftTime: time}" (event)="handleEvent($event)">
+                                </countdown>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-center">{{AssessmentInformation.ASSESSMENT_ASSESSMENT_NAME}}
+                                </h5>
+                                <div>
+                                    <div *ngFor="let item of questions">
+                                        <div *ngIf="item.isShow">
+                                            <div class="q_header"><span>{{item.SRNO}} .</span>
+                                                {{item.QUESTION_QUESTION}} </div>
+                                            <div *ngIf="item.TYPEID==1">
+                                                <!-- <input type="text" [(ngModel)]="item.ANSWER_GIVENANSWER"> -->
+
+                                                <textarea name="" [(ngModel)]="item.ANSWER_GIVENANSWER" id="" cols="30"
+                                                    rows="5"></textarea>
+                                            </div>
+                                            <div *ngIf="item.TYPEID==0">
+                                                <div class="radio" *ngFor='let option of item.options'>
+                                                    <label><input type="radio" [value]='option.QSTOPT_OPTION'
+                                                            [(ngModel)]="item.ANSWER_GIVENANSWER"
+                                                            name={{item.QUESTION_ID}}>
+                                                        {{option.QSTOPT_OPTION}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="btn-group col-md-4" role="group" aria-label="Basic example">
+                                        <button type="button" [disabled]="isPrev" (click)="prev()"
+                                            class="btn btn-secondary">prev</button>
+                                        <button type="button" [disabled]="isNext" (click)="next()"
+                                            class="btn btn-secondary">Next</button>
+
+                                    </div>
+                                    <div class=" col-md-8">
+                                        <button style="float: right;" class="btn btn-sm btn-primary"
+                                            (click)="confirm()">submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="isSubmited">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Post Assessment Result</h5>
+                                <div>
+                                    <Label> <strong> Assessment Name &nbsp;: </strong> &nbsp;</Label>
+                                    <span>{{AssessmentInformation.ASSESSMENT_ASSESSMENT_NAME}}</span><br>
+                                    <label> <strong> Course Name &nbsp; : </strong> &nbsp;</label>
+                                    <span>{{AssessmentInformation.COURSE_NAME}}</span>
+                                    <p *ngIf="!result"> Your assessment is submitted for validation and will get back to
+                                        you at the
+                                        earliest</p>
+                                    <div *ngIf="result">
+                                        <label> <strong>Percentage Scored : </strong></label>
+                                        <span>{{result.RESULT_PERCENTAGESCORED}}</span> <br>
+                                        <label> <strong>Result : </strong></label>
+                                        <span>{{result.RESULT_STATUS}}</span>
+                                    </div>
+                                </div>
+                                <a *ngIf="result" class="check_answer" data-toggle="modal" data-target="#myModal"
+                                    style="float: right;">Check Your Answers</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Check Answers</h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Correct Answer</th>
+                            <th>Given Answer</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of answers">
+                            <td>{{item.QUESTION_QUESTION}}</td>
+                            <td>{{item.QUESTION_ANSWER}}</td>
+                            <td>{{item.ANSWER_GIVENANSWER}}</td>
+                            <td>
+                                <img *ngIf="item.ANSWER_ISINCORRECT" src="../../../assets/images/sprites/wrong.png"
+                                    alt="">
+                                <img *ngIf="item.ANSWER_ISCORRECT" src="../../../assets/images/sprites/right.png"
+                                    alt="">
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

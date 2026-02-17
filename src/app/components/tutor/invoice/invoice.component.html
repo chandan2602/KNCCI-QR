@@ -1,0 +1,205 @@
+<body>
+    <div class="invoice-1" style="width:60%; margin: auto; " id="print">
+        <h2 style="text-align: center;">Tax Invoice</h2>
+        <div style="border:1px solid grey; padding-left: 20px;padding-right: 20px; margin-bottom: 10px;">
+            <p>If you have any special discount on this invoice before send to organization</p>
+        </div>
+        <div style="border: 1px solid rgb(155, 154, 154);">
+            <div style="padding: 15px 25px">
+                <table style="width:100%; ">
+                    <tr>
+                        <td style="vertical-align: top; text-align:center; width: 15%;" *ngIf="false"><img
+                                src="../../../assets/img/img_logo_1.ico" style="width: 70% ; height:auto"></td>
+                        <td style="vertical-align: top;" *ngIf="false">
+                            <h4 style="margin: 15px 0px 0px 0px;">Indian Aviation Academy </h4>
+                            <h6 style="margin-top: 5px;"> Nurturing Aviation for the Future</h6>
+                        </td>
+                        <td class="address">
+                            <!-- <h5 style="margin: 0px 0px; font-weight: 600; font-size: 15px;">INDIAN
+                                AVIATION ACADEMY (NIAMAR SOCIETY)</h5>
+                            <p>Nangal Dewat Road, Vasant Kunj, </p>
+                            <p>New Delhi - 110070</p>
+                            <p>Company's Pan: AABAN1657L</p>
+                            <p>GSTIN/UIN: <span>07AABAN1657L1ZE</span></p>
+                            <p>State Name: <span>Delhi, Code: 07</span></p>
+                            <p>Contact: <span>011-26132359 Ext. No. 210,260</span></p>
+                            <p>www.iaa.edu.in</p> -->
+                            <h5 class="mb-3"
+                                style="margin: 0px 0px; font-weight: 600; font-size: 15px;text-align: center;">Samvaad
+                                Info Tech Pvt Ltd
+                            </h5>
+                            <p style="text-align: right;">1-8-44, Lakshmi Building, 5th & 6th Floors,</p>
+                            <p style="text-align: right;">Hyderabad, Telangana.</p>
+                            <p style="text-align: right;">India, PIN 500003.</p>
+                            <p style="text-align: right;">Ph: +91 40 49135000</p>
+                            <div class="row justify-content-end" style="font-size: 12px">
+                                <div class="col-6">
+                                    <div class="row ">
+                                        <div class="col-5">Company's Pan</div>
+                                        <div class="col-1">:</div>
+                                        <div class="col-5 fw-bold"><b>ABECS5765Q</b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5">GSTIN/UIN:</div>
+                                        <div class="col-1">:</div>
+                                        <div class="col-5 fw-bold"><span><b>36ABECS5765Q1ZG</b></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <hr style="margin: 0px 27px;">
+            <div style="padding: 15px 25px">
+                <table style="width: 100%; ">
+                    <tr>
+                        <td class="address ad_1">
+                            <!-- <p>Buyer</p> -->
+                            <!-- <h5 style="margin: 0px 0px; font-weight: 600; font-size: 15px;">{{invoiceList[0].firstname}}
+                            </h5> -->
+                            <p><b>Email :</b> {{invoiceList[0]?.username}}</p>
+                            <p><b>Mobile No :</b> {{invoiceList[0]?.mobileno}}</p>
+                            <p><b>Full Name :</b> {{invoiceList[0]?.firstname}}</p>
+                            <!-- <p><b>Org Id :</b> {{paymentData.org_id}}</p> -->
+                            <!-- <p><b>Gst Number :</b> {{paymentData.gst_number}}</p> -->
+
+                            <!-- <p>GSTIN/UIN: <span>{{paymentData.gst_number}}</span></p> -->
+
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <hr style="margin: 0px 27px;">
+            <div style="padding:25px 25px 0px 25px">
+                <table style="width: 100%; ">
+                    <tr>
+                        <td style="width: 42%;">
+                            Invoice NO.
+                            <p style="margin: 2px 0px; font-weight: 600;">{{invoiceList[0]?.payment_id}}</p>
+                        </td>
+                        <td style="width: 35%;">
+                            Service Name
+                            <p style="margin: 2px 0px;font-weight: 600;">Online E-course Training</p>
+                        </td>
+                        <td style="width: 28%;">
+                            <div style="text-align: left;">
+                                Dated
+                                <p style="margin: 2px 0px;font-weight: 600;">{{invoiceList[0]?.courseshd_startdate |
+                                    date:'dd-MMM-yyyy'}}</p>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="padding: 15px 25px">
+                <table class="custom_table" style="width: 100%;">
+                    <tr style="background-color: #0056a7; color:white">
+                        <th> S.No. </th>
+                        <th> Course Name </th>
+                        <th> Start Date </th>
+                        <th> End Date </th>
+                        <th> Amount </th>
+                    </tr>
+                    <tr *ngFor="let item of invoiceList ;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{item.course_name}} </td>
+                        <td>{{item.courseshd_startdate | date:'dd-MMM-yyyy'}}</td>
+                        <td>{{item.courseshd_enddate | date:'dd-MMM-yyyy'}}</td>
+                        <td style="text-align: right;">
+                            <p>{{item.courseshd_amount | currency:'INR'}}</p>
+                        </td>
+                        <!-- <td style="text-align: right;">{{item.courseshd_amount | currency:'INR'}}</td> -->
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;" colspan="4">Taxable Amount</td>
+                        <td style="text-align: right;">{{invoiceList[0]?.courseshd_amount | currency:'INR'}}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;" colspan="4">Total Tax Amount (18%)</td>
+                        <td style="text-align: right;">{{((invoiceList[0]?.courseshd_amount)*18/100 | currency:'INR')}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; font-weight: 600; " colspan="4">Total Invoice Amount</td>
+                        <td style="text-align: right; font-weight: 600;">
+                            {{((invoiceList[0]?.courseshd_amount)*18/100+invoiceList[0]?.courseshd_amount |
+                            currency:'INR')}}</td>
+                        <!-- <td style="text-align: right; font-weight: 600;"></td> -->
+                    </tr>
+
+                </table>
+            </div>
+            <div style="padding: 0px 25px">
+                <table style="width: 100%;">
+                    <!-- <tr>
+                        <td style="color:#0056a7;"><b>20% Pandemic Discount after 1st april 2022</b></td>
+                        <td style="text-align:right; ">E. & O.E</td>
+                    </tr> -->
+                </table>
+            </div>
+            <hr style="margin-top: 25px;" />
+            <div style="padding: 5px 25px 15px 25px">
+                <table style="width: 100%; ">
+                    <tr style="vertical-align: top;">
+                        <td style="font-size: 13px">Amount Chargeable (in words)
+                            <p style="margin:0px"><b>INR
+                                    {{words}}
+                                </b></p>
+                            <p>(Excluding Gst Taxes.)</p>
+                        </td>
+                        <td *ngIf="false">
+                            <h4 style="margin:0px">Company's Bank Details</h4>
+                            <table style="width: 100%; ">
+                                <tr>
+                                    <td> <span style="font-weight:500"> Bank Name</span></td>
+                                    <td> <span>:State Bank Of India</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td> <span style="font-weight:500"> A/C NO.</span></td>
+                                    <td> <span>:31470388392</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td> <span style="font-weight:500">Branch & IFS Code</span></td>
+                                    <td> <span>:AAI RANGPURI &SBIN0010648</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td> <span style="font-weight:500"> Swift Code</span></td>
+                                    <td> <span>:SBININBB</span></td>
+
+                                </tr>
+                            </table>
+
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-top: 7px; font-size: 12px;" colspan="2"><strong>NOTE:</strong>
+                            Bank/Transaction charges to be borne by the trainee. Payment received should match to
+                            theinvoice amount.</td>
+                    </tr>
+                </table>
+            </div>
+            <hr style="margin: 0px 27px 10px 27px;">
+            <div style="text-align: center; padding-bottom: 10px; font-size: 12px;">
+                This is a Proforma Invoice, Tax Invoice will be sent after payment confirmation.
+            </div>
+
+        </div>
+        <!-- <div style="margin: 20px 27px 10px 27px; text-align: center;" class="print-btn"><button type="button"
+                *ngIf="!isPrint" (click)="send()"
+                style="text-align:center; background-color: #0056a7; border: 1px #0056a7 solid; color: #fff; padding: 8px 50px; border-radius: 25px; cursor: pointer;"><b>Send</b></button>
+        </div> -->
+
+        <div style="margin: 20px 27px 10px 27px; text-align: center;" class="print-btn"><button type="button"
+                 (click)="print()"
+                style="text-align:center; background-color: #0056a7; border: 1px #0056a7 solid; color: #fff; padding: 8px 50px; border-radius: 25px; cursor: pointer;"><b>Print</b></button>
+        </div>
+    </div>
+
+
+</body>

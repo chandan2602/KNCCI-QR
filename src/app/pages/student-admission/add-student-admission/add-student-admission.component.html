@@ -1,0 +1,1237 @@
+<div class="pad">
+
+</div>
+
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card rounded shadow-lg">
+                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+
+                        <h5 *ngIf="!isEdit" class="mb-0 text-center"> Add Student Admission Form</h5>
+                        <h5 *ngIf="isEdit" class="mb-0 text-center">Edit Student Admission Form</h5>
+
+                    </div>
+                    <div id="accordion" class="accordion">
+                        <div class="card mb-0 active">
+                            <div class="card-header collapsed accordion1" data-toggle="collapse" href="#collapseOne">
+                                <a class="card-title">
+                                    Personal Details
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="card-body collapse show" data-parent="#accordion">
+
+                                <div class="col-xl-12">
+                                    <div class="table">
+                                        <form class="well form-horizontal" [formGroup]="myForm"
+                                            (ngSubmit)="onSubmit(myForm)">
+                                            <fieldset>
+                                                <div class="row">
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                DateOfAdmission<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input id="DOA" name="DOA"
+                                                                        [(ngModel)]='DATE_OF_ADMISSION'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        formControlName='DATE_OF_ADMISSION' type="date">
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('DATE_OF_ADMISSION').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('DATE_OF_ADMISSION').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Admission Number<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='admissionNum'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                        formControlName='ADMISSION_NO'>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('ADMISSION_NO').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('ADMISSION_NO').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Admission into Class<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='admissionintoCls'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        formControlName='ADMISSION_INTO_CLASS'>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('ADMISSION_INTO_CLASS').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('ADMISSION_INTO_CLASS').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                First Name<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='fname'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        formControlName='FIRST_NAME'>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('FIRST_NAME').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('FIRST_NAME').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                LastName<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='lname'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        formControlName='LAST_NAME'>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('LAST_NAME').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('LAST_NAME').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Middle Name</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='mname'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        formControlName='MIDDLE_NAME'>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('MIDDLE_NAME').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('MIDDLE_NAME').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label mt-2">
+                                                                Gender <span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <select [(ngModel)]='gender'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                        formControlName='GENDER'>
+                                                                        <option value="" [selected]="true">
+                                                                            select
+                                                                        </option>
+                                                                        <option [value]='item.DICTIONARYID'
+                                                                            *ngFor='let item of genders'>
+                                                                            {{item.DICTIONARYNAME}}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('GENDER').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('GENDER').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Mother Tongue<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='mothertonge'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        formControlName='MOTHER_TONGE'>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('MOTHER_TONGE').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('MOTHER_TONGE').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Other Languages Known</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='otherlan'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                        formControlName='OTHER_LANGUAGE'>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('OTHER_LANGUAGE').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('OTHER_LANGUAGE').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label">
+                                                                Date Of Birth<span class="text-danger">*</span>
+                                                            </label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input class="form-control" id="DOB" name="DOB"
+                                                                        [(ngModel)]="dob" formControlName='DOB'
+                                                                        type="date">
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('DOB').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('DOB').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Nationality<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <select [(ngModel)]='nationality'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                        formControlName='NATIONALITY'>
+                                                                        <option value="" [selected]="true">
+                                                                            select
+                                                                        </option>
+                                                                        <option value=1 id="ind" name="ind">
+                                                                            Indian</option>
+                                                                        <option value=2 id="us" name="us">
+                                                                            American</option>
+
+                                                                        <!-- <option value="" [selected]="true">
+                                                                        select
+                                                                    </option>
+                                                                    <option [value]='item.DICTIONARYID'
+                                                                        *ngFor='let item of genders'>
+                                                                        {{item.DICTIONARYNAME}}</option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('NATIONALITY').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('NATIONALITY').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Religion<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    <select formControlName='RELIGION'
+                                                                        [(ngModel)]='religion'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">
+                                                                            select
+                                                                        </option>
+
+                                                                        <option value=1 id="Hinduism" name="">Hinduism
+                                                                        </option>
+                                                                        <option value=2 id="Islam" name="">
+                                                                            Islam
+                                                                        </option>
+                                                                        <option value=3 id="Christianity" name="">
+                                                                            Christianity</option>
+                                                                        <option value=4 id="Buddhism" name="">Buddhism
+                                                                        </option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                            {{course.COURSE_NAME}}
+                                        </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('RELIGION').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('RELIGION').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Caste<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='caste'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        formControlName='CASTE'>
+                                                                </div>
+                                                                <!-- <div *ngIf="myform.get('CASTE').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('CASTE').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div> -->
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="card-header collapsed accordion1 mt-1" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapseTwo">
+                                <a class="card-title">
+                                    Father/Guardian Details
+                                </a>
+                            </div>
+                            <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+
+                                <div class="col-xl-12">
+                                    <div class="table">
+                                        <form class="well form-horizontal" [formGroup]="myForm"
+                                            (ngSubmit)="onSubmit(myForm)">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Name</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_NAME'
+                                                                        [(ngModel)]='fathername'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Age</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_AGE'
+                                                                        [(ngModel)]='fatherage'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+
+
+                                                                    <!-- <select formControlName='FATHER_AGE'
+                                                                        [(ngModel)]='fatherage'
+                                                                        (change)="onChangeAge($event.target.value)"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" selected>select</option>
+
+                                                                        <option value="1">18</option>
+                                                                        <option value="2">20</option>
+                                                                        <option value="3">22</option>
+                                                                        <option value="4">23</option>
+                                                                        
+                                                                    </select> -->
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Education Qualifications</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_QULIFICATION'
+                                                                        [(ngModel)]='fatherqualification'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Occupation/Designation</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_DESIGNATION'
+                                                                        [(ngModel)]='fatherdesignation'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Residence Address</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_RESIDENCE_ADDRESS'
+                                                                        [(ngModel)]='residenceaddress'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                phone Number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_RESIDENCE_PHONE'
+                                                                        [(ngModel)]='phonenum'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Mobile Number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_RESIDENCE_MOBILE'
+                                                                        [(ngModel)]='mobnum'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Email</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_RESIDENCE_EMAIL'
+                                                                        [(ngModel)]='remail'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="email">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Office Address</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_OFFICE_ADDRESS'
+                                                                        [(ngModel)]='ofcaddress'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Office phone Number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_OFFICE_PHONE'
+                                                                        [(ngModel)]='ofcphnnum'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Office Mobile Number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_OFFICE_MOBILE'
+                                                                        [(ngModel)]='ofcmblnum'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Office Email</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_OFFICE_EMAIL'
+                                                                        [(ngModel)]='ofcemail'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="email">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Aadhar number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input formControlName='FATHER_ADHAR'
+                                                                        [(ngModel)]='adrnum'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="card-header collapsed accordion1 mt-1" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapseThree">
+                                <a class="card-title">
+                                    Mother Details
+                                </a>
+                            </div>
+                            <div id="collapseThree" class="card-body collapse" data-parent="#accordion">
+
+                                <div class="col-xl-12">
+                                    <div class="table">
+                                        <form class="well form-horizontal" [formGroup]="myForm"
+                                            (ngSubmit)="onSubmit(myForm)">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Name</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='mothername'
+                                                                        formControlName='MOTHER_NAME'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Age</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motherage'
+                                                                        formControlName='MOTHER_AGE'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Education Qualifications</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='educationqualification'
+                                                                        formControlName='MOTHER_QULIFICATION'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Occupation/Designation</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motherdesignation'
+                                                                        formControlName='MOTHER_DESIGNATION'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Residence Address</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motherresidence'
+                                                                        formControlName='MOTHER_RESIDENCE_ADDRESS'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                phone Number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motherphonenum'
+                                                                        formControlName='MOTHER_RESIDENCE_PHONE'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Mobile Number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='mothermblnum'
+                                                                        formControlName='MOTHER_RESIDENCE_MOBILE'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Email</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motheremail'
+                                                                        formControlName='MOTHER_RESIDENCE_EMAIL'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="email">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Office Address</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motherofcadd'
+                                                                        formControlName='MOTHER_OFFICE_ADDRESS'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Office phone Number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motherofcphnnum'
+                                                                        formControlName='MOTHER_OFFICE_PHONE'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Office Mobile Number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motherofcmblnum'
+                                                                        formControlName='MOTHER_OFFICE_MOBILE'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Office Email</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motherofcemail'
+                                                                        formControlName='MOTHER_OFFICE_EMAIL'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="email">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Aadhar number</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='motheradharnum'
+                                                                        formControlName='MOTHER_ADHAR'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="card-header collapsed accordion1 mt-1" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapseFour">
+                                <a class="card-title">
+                                    Details of siblings in school
+                                </a>
+                            </div>
+                            <div id="collapseFour" class="card-body collapse" data-parent="#accordion">
+
+                                <div class="col-xl-12">
+                                    <div class="table">
+                                        <form class="well form-horizontal" [formGroup]="myForm"
+                                            (ngSubmit)="onSubmit(myForm)">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+
+                                                            <div class="col-md-12 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <h5 class="opt">Name</h5>
+                                                                    &nbsp;
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+
+                                                            <div class="col-md-12 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <h5 class="opt">Relation</h5>
+                                                                    &nbsp;
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+
+                                                            <div class="col-md-12 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <h5 class="opt"> Class</h5>
+                                                                    &nbsp;
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-12 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <h5 class="opt">Section</h5>
+                                                                    &nbsp;
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                     <!-- <div class="col-md-3">
+
+
+                                                        <div class="form-group row">
+                                                            <div class="col-md-12 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='Name'
+                                                                        formControlName='SIBILING_NAME'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="text">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-12 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='relations'
+                                                                        formControlName='RELATION'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="text">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-12 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='Class'
+                                                                        formControlName='SIBILING_CLASS'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="text">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-12 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='Section'
+                                                                        formControlName='SIBILING_SECTION'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="text">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>  -->
+
+
+
+
+                                                    <div class="col-md-12">
+                                                        <div *ngIf="myForm.controls['formArray']">
+                                                            <div formArrayName='formArray'>
+                                                                <div class="form-group row" 
+                                                                    *ngFor="let item of myForm.controls['formArray'].controls;let i=index"
+                                                                    [formGroupName]="i">
+
+                                                                    <div class="col-md-3 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                            &nbsp;
+                                                                            <input formControlName="SIBILING_NAME" 
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                                type="text">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                            &nbsp;
+                                                                            <input formControlName="RELATION" 
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                                type="text">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                            &nbsp;
+                                                                            <input formControlName="SIBILING_CLASS"
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                                type="text">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-3 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                            &nbsp;
+                                                                            <input formControlName="SIBILING_SECTION" 
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                                type="text">
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-md-3">
+                                                        <div *ngIf="myForm.controls['formArray']">
+                                                            <div formArrayName='formArray'>
+
+                                                                <div class="form-group row"
+                                                                    *ngFor="let item of myForm.controls['formArray'].controls;let i=index"
+                                                                    [formGroupName]="i">
+                                                                   
+                                                                    <div class="col-md-12 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                            &nbsp;
+                                                                            <input formControlName="RELATION"
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                                type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div *ngIf="myForm.controls['formArray']">
+                                                            <div formArrayName='formArray'>
+                                                                <div class="form-group row"
+                                                                    *ngFor="let item of myForm.controls['formArray'].controls;let i=index"
+                                                                    [formGroupName]="i">
+                                                                   
+                                                                    <div class="col-md-12 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                            &nbsp;
+                                                                            <input formControlName="SIBILING_CLASS"
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                                type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div *ngIf="myForm.controls['formArray']">
+                                                            <div formArrayName='formArray'>
+
+                                                                <div class="form-group row"
+                                                                    *ngFor="let item of myForm.controls['formArray'].controls;let i=index"
+                                                                    [formGroupName]="i">
+                                                                   
+                                                                    <div class="col-md-12 inputGroupContainer">
+                                                                        <div class="input-group">
+                                                                            &nbsp;
+                                                                            <input formControlName="SIBILING_SECTION"
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                                type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                </div>
+                                            </fieldset>
+                                        </form>
+
+
+
+                                        <br>
+                                        <br>
+                                        <div class="text-center" style="margin-top:-46px">
+                                            <button class="btn text-success rem_2" *ngIf="isAdd()"
+                                                (click)="add()">+</button> &nbsp; &nbsp;
+                                            <button class="btn text-danger rem_2" *ngIf="isVisable()"
+                                                (click)="delete()">-</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="card-header collapsed accordion1 mt-1" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapseFive">
+                                <a class="card-title">
+                                    Certificates Submitted at the time of Admission
+                                </a>
+                            </div>
+                            <div id="collapseFive" class="card-body collapse" data-parent="#accordion">
+
+                                <div class="col-xl-12">
+                                    <div class="table">
+                                        <form class="well form-horizontal" [formGroup]="myForm"
+                                            (ngSubmit)="onSubmit(myForm)">
+                                            <fieldset>
+                                                <div class="row">
+
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            [(ngModel)]='birthcertificate'
+                                                            formControlName='DOB_CERTIFICATE' value=""
+                                                            id="flexCheckDefault">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Date of birth certificate(Photo copy)
+                                                        </label><br>
+                                                        <input class="form-check-input" type="checkbox" [(ngModel)]='tc'
+                                                            formControlName='TRANSFER_CERTIFICATE' value=""
+                                                            id="flexCheckChecked">
+                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                            Record Sheet/Transfer Certificate of previous
+                                                            school(original)
+                                                        </label><br>
+                                                        <input class="form-check-input" type="checkbox"
+                                                            [(ngModel)]='bonafied' formControlName='STUDY_CERTIFICATE'
+                                                            value="" id="flexCheckChecked">
+                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                            Bonafide/Conduct/Study Certificate(Original)
+                                                        </label><br>
+                                                        <input class="form-check-input" type="checkbox"
+                                                            [(ngModel)]='castecertificate'
+                                                            formControlName='CASTE_CERTIFICATE' value=""
+                                                            id="flexCheckChecked">
+                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                            Caste Certificate(Photo Copy)
+                                                        </label><br>
+                                                        <input class="form-check-input" type="checkbox"
+                                                            [(ngModel)]='adarcard' formControlName='ADHAR_CARD_COPY'
+                                                            value="" id="flexCheckChecked">
+                                                        <label class="form-check-label" for="flexCheckChecked">
+                                                            Adhaar Card(Photo Copy)
+                                                        </label>
+                                                    </div>
+
+
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="card-header collapsed accordion1 mt-1" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapsesix">
+                                <a class="card-title">
+                                    Details
+                                </a>
+                            </div>
+                            <div id="collapsesix" class="card-body collapse" data-parent="#accordion">
+
+                                <div class="col-xl-12">
+                                    <div class="table">
+                                        <form class="well form-horizontal" [formGroup]="myForm"
+                                            (ngSubmit)="onSubmit(myForm)">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Previous School details</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='previousscldetails'
+                                                                        formControlName='PREVIOUS_SCHOOL'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="text">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Personal Intrests/hobbies</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='personalintrests'
+                                                                        formControlName='PERSONAL_INTERSTS'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                IdentificationMarks 1</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='IdentificationMarks1'
+                                                                        formControlName='IDETFICATION_MARKS1'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                IdentificationMarks 2</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='IdentificationMarks2'
+                                                                        formControlName='IDETFICATION_MARKS2'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Contact number in emergency case</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='numinemgcase'
+                                                                        formControlName='EMERGENCY_CONTACT'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Mobile number for bulk sms</label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    &nbsp;
+                                                                    <input [(ngModel)]='bulksms'
+                                                                        formControlName='MOBILE_NUMBER_SMS'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+
+                            <div class="text-center">
+                                <!-- [disabled]="myForm.invalid" -->
+                                <button type="button"  *ngIf="!isEdit"
+                                    (click)="onSubmit(myForm)" class="btn btn-success">Save</button>
+                                &nbsp;&nbsp;
+                                <button type="button"  *ngIf="isEdit"
+                                    (click)="onSubmit(myForm)" class="btn btn-success">Update</button>
+                                &nbsp;&nbsp;
+                                <button type="button" class="btn btn-danger" (click)="close()"
+                                    id="md_close"><i class="bi bi-arrow-left-circle fa-2x"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pad"></div>
+</div>

@@ -1,0 +1,33 @@
+.img-profile {
+    border-radius: 50%;
+    
+}
+
+.fa-star.checked {
+    color: orange;
+}
+
+
+
+.badge_clr {
+    background-color: #43d477;
+}
+
+.profile_name {
+    color: #171347;
+    font-weight: 800;
+
+}
+
+.btn_fallow {
+    color: #FFFFFF;
+    background-color: #43d477;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn_fallow:hover {
+    color: #43d477;
+    background-color: #ffffff;
+    border-color: #43d477;
+}

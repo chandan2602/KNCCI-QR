@@ -1,0 +1,111 @@
+<div class="wrapper" style="height: auto; overflow: hidden">
+  <!--sidebar wrapper -->
+  <div class="sidebar-wrapper" data-simplebar="true">
+
+    <div class="sidebar-menu-wrapper">
+      <div class="sidebar-header">
+        <div>
+          <img src="../../../assets/img/logo2-new.png" class="img-fluid" alt="logo icon">
+        </div>
+        <!-- <div>
+                <h4 class="logo-text">LMS</h4>
+              </div> -->
+        <!-- <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
+              </div> -->
+      </div>
+      <div class="wrapper" style="margin-top: 9.6vh">
+        <ul class="style-1 shadow nav-active1" style="display:block;">
+
+          <li class="parent"><a [routerLink]="['/HOME/userRegistration']" class=""><span class="icon"><i
+                  class="fas fa-user"></i></span>&nbsp;&nbsp;<span class="text">My Profile</span></a>
+          </li>
+          <li class="parent"><a class="has-arrow"><span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                  height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                  <path
+                    d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1z" />
+                </svg></span>&nbsp;&nbsp;<span class="text">Job & Internship Management</span></a>
+            <div class="wrapper">
+              <ul>
+                <!-- <li><a [routerLink]="['/HOME/jobsMnu']">Jobs</a></li> -->
+                <li><a [routerLink]="['/HOME/sIntrnShpMnu']">Internships</a></li>
+                <li><a [routerLink]="['/HOME/sjobsMnu']">Jobs</a></li>
+                <!-- <li *ngIf="RoleId==5 || RoleId==1"><a [routerLink]="['/HOME/resumeLst']">Resumes</a></li> -->
+              </ul>
+            </div>
+          </li>
+
+          <!-- <li class="parent"><a class="has-arrow"><span class="icon"><i class="fas fa-cogs"></i></span>&nbsp;&nbsp;<span
+                class="text">Internships</span></a>
+            <div class="wrapper">
+              <ul>
+                <li class="parent"><a [routerLink]="['/HOME/intereShipList']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Apply Internships</span></a>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/appliedInternships']" class=""><span class="icon"><i
+                        class="fas fa-file"></i></span>&nbsp;&nbsp;<span class="text">Applied Internships</span></a>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/my-courses']" class=""><span class="icon"><i
+                        class="fas fa-file-signature"></i></span>&nbsp;&nbsp;<span class="text">My
+                      Internships</span></a>
+                </li>
+              </ul>
+            </div>
+          </li> -->
+
+
+          <li class="parent" *ngIf="false"><a [routerLink]="['/HOME/my-tutors']" class=""><span class="icon"><i
+                  class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text">My Tutors</span></a>
+          </li>
+
+
+          <li class="parent" *ngIf="false"><a [routerLink]="['/HOME/myresults']" class=""><span class="icon"><i
+                  class="fas fa-briefcase"></i></span>&nbsp;&nbsp;<span class="text">My Results</span></a>
+          </li>
+
+          <!-- <li class="parent"><a [routerLink]="['/HOME/submitassignment']" class=""><span class="icon"><i
+                  class="fas fa-pen"></i></span>&nbsp;&nbsp;<span class="text">Submit Assignment</span></a>
+          </li> -->
+          <li class="parent" *ngIf="false"><a [routerLink]="['/HOME/learning-resources']" class=""><span class="icon"><i
+                  class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text"> Learning Resources
+              </span></a>
+          </li>
+          <!-- <li class="parent"><a class="has-arrow"><span class="icon"><i class="fas fa-cogs"></i></span>&nbsp;&nbsp;<span
+                class="text">Jobs</span></a>
+            <div class="wrapper">
+              <ul>
+                <li class="parent"><a [routerLink]="['/HOME/myJobs']" class=""><span class="icon"><i
+                        class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text"> My Jobs
+                    </span></a>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/cmpnyLst']" class=""><span class="icon"><i
+                        class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text"> Job Application
+                    </span></a>
+                </li>
+              </ul>
+            </div>
+          </li> -->
+
+
+          <!-- <li class="parent"><a [routerLink]="['/HOME/subscribe']" class=""><span class="icon"><i
+                  class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text"> Subscribe
+              </span></a>
+          </li>
+          <li class="parent"><a [routerLink]="['/HOME/my-subscriptions']" class=""><span class="icon"><i
+                  class="fas fa-file-invoice-dollar"></i></span>&nbsp;&nbsp;<span class="text">My
+                Subscriptions</span></a>
+          </li> -->
+          <li class="parent"><a class="has-arrow"><i class="fas fa-file-invoice-dollar"></i>
+              &nbsp;&nbsp;<span class="text">Subscriptions & Packages</span></a>
+            <div class="wrapper">
+              <ul>
+                <li><a [routerLink]="['/HOME/subscribe']">Subscribe</a></li>
+                <li><a [routerLink]="['/HOME/my-subscriptions']">My Subscriptions</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+.box_cnt{
+    height: 200px;
+    width: 90%;
+    margin: auto;
+    border: 1px solid gray;
+    overflow-y: auto;
+}
+.col-md-1 div{
+    margin: 4px auto;
+}
+.eligible_criteria{
+    width: 50%;
+    margin: 20px auto;
+    margin-top:40px;
+}
+.item_checked{
+    background: grey;
+}
+.mdi-arrow-left:before {
+    /* content: "\F04D"; */
+    content:\f060;
+}

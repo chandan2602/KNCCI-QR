@@ -1,0 +1,112 @@
+<!-- Stepper Navigation -->
+
+<div class="limiter" [formGroup]="setupRegForm">
+    <div class="container-login100 justify-content-end"
+        style="background-image: url('../../../assets/images/dhanush/bg-login.png');">
+
+        <div class="wrap-login100 pe-4 ps-4 pt-2 pb-2">
+            <div class="d-flex pt-2 justify-content-between">
+                <div class="d-flex">
+                <div class="text-center mt-2"> <img id="homepageimage_path" src="../../../assets/img/logo1-new.png"
+                        [routerLink]="['']" style="cursor:pointer;height:40px;" class="img-fluid" /></div>
+                <h6 class="text-center pt-4 fw-bold">Founder Registration</h6>
+                </div>
+                 <a [routerLink]="['/default']">  <i class="bi bi-arrow-left-circle fa-2x"></i> </a>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card mb-4 mt-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> First Name :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='firstname' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500"
+                                            [ngClass]="{ 'is-invalid': isSubmt && fc['firstname'].errors }">
+                                        <div *ngIf="isSubmt && fc['firstname'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['firstname'].errors['required']">First name is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Last Name :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='lastname' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500"
+                                            [ngClass]="{ 'is-invalid': isSubmt && fc['lastname'].errors }">
+                                        <div *ngIf="isSubmt && fc['lastname'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['lastname'].errors['required']">Last name is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Email :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='username' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500"
+                                            [ngClass]="{ 'is-invalid': isSubmt && fc['username'].errors }">
+                                        <div *ngIf="isSubmt && fc['username'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['username'].errors['required']">Email is required</div>
+                                            <div *ngIf="fc['username'].errors['pattern']">Please enter valid email</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Mobile Number :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='mobileno' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="10"
+                                            onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'
+                                            [ngClass]="{ 'is-invalid': isSubmt && fc['mobileno'].errors }">
+                                        <div *ngIf="isSubmt && fc['mobileno'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['mobileno'].errors['required']">Mobile No. is required</div>
+                                            <div *ngIf="fc['mobileno'].errors['pattern']">Please enter valid mobile
+                                            </div>
+                                            <div *ngIf="fc['mobileno'].errors['minlength']">Please enter 10 digit number
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Date of Birth :<span
+                                                class="text-danger">*</span></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control group-input form-control-sm eBSDP"
+                                                placeholder="DD-MM-YYYY" [bsConfig]="dtPkrCnfg" bsDatepicker
+                                                #dpAD="bsDatepicker" onkeypress='return event.charCode == 8'
+                                                formControlName="dob" [maxDate]="dt2Day"
+                                                [ngClass]="{ 'is-invalid': isSubmt && fc['dob'].errors }" [attr.disabled]="screenType == 'view' ? true : null">
+                                            <span class="input-group-text input-group-text1 eBSDP">
+                                                <button class="btn btn-outline-bsdp btn-sm p-0 eBtnDP" type="button"
+                                                    (click)="dpAD.toggle()" [attr.aria-expanded]="dpAD.isOpen"
+                                                    title="Calendar"
+                                                    [attr.disabled]="screenType == 'view' ? true : null">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div *ngIf="isSubmt && fc['dob'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['dob'].errors['required']">Date of Birth is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 mt-4 float-right">
+                                        <div class="float-right">
+                                            <button type="button" (click)='isSubmt=true;Save()'
+                                                class="btn btn-sm  btn-success me-1 mt-2"
+                                                *ngIf="screenType != 'view'">{{screenType == 'add'? 'Save':
+                                                'Update'}}</button>
+                                            <!-- <button type="button" (click)="Back()" class="btn btn-sm btn-danger">Close</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

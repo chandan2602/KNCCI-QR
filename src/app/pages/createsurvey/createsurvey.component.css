@@ -1,0 +1,14 @@
+.edit_icon{
+    height: 20px;
+    width: 12px;
+    cursor: pointer;
+    margin: auto;
+}
+.publish_icon{
+    height: 15px;
+    width: 15px;
+}
+.none_all{
+    pointer-events: none;
+    visibility: hidden;
+}

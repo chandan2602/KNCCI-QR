@@ -1,0 +1,206 @@
+<div class="default_class">
+    <div class="content-wrapper p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 *ngIf="!isEdit" class="mb-0 text-center">Add Content </h5>
+                            <h5 *ngIf="isEdit" class="mb-0 text-center">Edit Content </h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="custom_container">
+                                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                                    <fieldset>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> Name <span
+                                                    class="text-danger">*</span> </label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <input formControlName="CNTREPO_NAME"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> Class <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        formControlName="CNTREPO_CLASSID">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let course of classes"
+                                                            [value]='course.cnt_class_id'>{{course.cnt_class_name}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> Subject <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        formControlName="CNTREPO_SUBJECTID">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let course of subjects"
+                                                            [value]='course.CNT_SUB_ID'>{{course.CNT_SUB_NAME}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> Chapter <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        formControlName="CNTREPO_CHAPTERID">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let course of chapters"
+                                                            [value]='course.cnt_chapter_id'>{{course.cnt_chapter_name}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> Board <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        formControlName="CNTREPO_BOARDID">
+                                                        <option [value]='item.DICTIONARYID' *ngFor='let item of board'>
+                                                            {{item.DICTIONARYNAME}}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> Medium <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        formControlName="CNTREPO_MEDIUMID">
+                                                        <option [value]='item.DICTIONARYID' *ngFor='let item of medium'>
+                                                            {{item.DICTIONARYNAME}}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> File Mode <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        formControlName="CNTREPO_MODETYPEID">
+                                                        <option [value]='item.DICTIONARYID'
+                                                            *ngFor='let item of fileModes'>
+                                                            {{item.DICTIONARYNAME}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> Content Type <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        formControlName="CONTENT_TYPE">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option value="1">External link</option>
+                                                        <option value="2">Normal Content </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> File Name<span
+                                                    class="text-danger">*</span> </label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <input formControlName="CNTREPO_FILENAME"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label"> File Url <span
+                                                    class="text-danger">*</span> </label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <input formControlName="CNTREPO_FILEPATH"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                Description <span class="text-danger">*</span> </label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <textarea placeholder="" formControlName='CNTREPO_DESCRIPTION'
+                                                        class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf='false' class="form-group row">
+                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                File <span class="text-danger">*</span> </label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group">
+                                                    <input type="file" (change)="changeFile($event)" placeholder=""
+                                                        class="form-control">
+                                                    <br>
+                                                    <span *ngIf='fileName'>{{fileName}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </fieldset>
+                                </form>
+                                <div class="text-center">
+                                    <button type="button" *ngIf="!isEdit" class="btn btn-success"
+                                        (click)="onSubmit(myForm)" [disabled]="myForm.invalid">Save</button>
+                                    &nbsp; <button type="button" *ngIf="isEdit" class="btn btn-success"
+                                        (click)="onSubmit(myForm)" [disabled]="myForm.invalid">Update</button>
+                                    &nbsp; <button type="button" class="btn btn-danger" id="md_close"
+                                        (click)="close()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

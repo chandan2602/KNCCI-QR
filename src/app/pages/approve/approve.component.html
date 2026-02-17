@@ -1,0 +1,132 @@
+<input type="button" id="btnOpenModel" class="d-none" data-bs-toggle="modal" data-bs-target="#myModal">
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2 " style="border-radius: 0pxs;">
+                <h4 class="modal-title w-100"> Approval Details</h4>
+                <button type="button" id="btnClose" class="close" (click)="close()" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="approvalForm">
+                    <fieldset>
+                        <!-- <div class="row">
+                        <div class="col-xl-8 offset-xl-1">
+                           
+                        </div>
+                       </div> -->
+                        <div class="row">
+
+
+                            <div class="col-xl-6 mb-3">
+                                <label class="float-end control-label line_2 rem_1 "> Is SubDomain<span
+                                        class="text-danger">*</span>&nbsp;
+                                </label>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" (change)="domainChange()" formControlName='issubdomain' name="issubdomain"
+                                     id="subDomain" [value]="true" >
+                                    <label class="form-check-label" for="subDomain" >Yes</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" (change)="domainChange()" formControlName='issubdomain' name="issubdomain"
+                                    id="subDomain" [value]="false">
+                                    <label class="form-check-label">No</label>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3" >
+                                <label class=" float-end  control-label line_2 rem_1"> SubDomain name<span
+                                        class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-xl-6 mb-3" >
+                                <input type="text" formControlName='subdomainname'
+                                [ngClass]="{ 'is-invalid': submitted && f.subdomainname.errors }"
+                                    class="form-control form-control-sm shadow-sm rounded-lg" (change)="domainChange()">
+                                    <div *ngIf="submitted && f.subdomainname.errors" class="invalid-feedback">
+                                        <div *ngIf="f.subdomainname.errors.required"> SubDomain name is required.</div>
+                                    </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3 ">
+                                <label class=" float-end control-label line_2 rem_1"> Approval Status <span
+                                        class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <select formControlName='approval_status' 
+                                [ngClass]="{ 'is-invalid': submitted && f.approval_status.errors }"
+                                    class="form-select form-select-sm shadow-sm rounded-lg" >
+                                    <option value="0" selected>Select Approval Status </option>
+                                    <option *ngFor="let approval of approvalStatus" [value]="approval.id">
+                                        {{approval.name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && f.approval_status.errors" class="invalid-feedback">
+                                    <div *ngIf="f.approval_status.errors.required"> Approval Status is required.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <label class=" float-end  control-label line_2 rem_1"> Approval Date <span
+                                        class="text-danger"  >*</span>
+                                </label>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <input type="date" formControlName='approved_date' 
+                                [ngClass]="{ 'is-invalid': submitted && f.approved_date.errors }"
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+                                    <div *ngIf="submitted && f.approved_date.errors" class="invalid-feedback">
+                                        <div *ngIf="f.approved_date.errors.required"> Approval Date is required.</div>
+                                    </div>
+                            </div>
+
+                            <div class="col-xl-6 mb-3">
+                                <label class=" float-end  control-label line_2 rem_1"> Reject Date <span
+                                        class="text-danger" >*</span>
+                                </label>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <input type="date" formControlName='rejected_date' 
+                                [ngClass]="{ 'is-invalid': submitted && f.rejected_date.errors }"
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+                                    <div *ngIf="submitted && f.rejected_date.errors" class="invalid-feedback">
+                                        <div *ngIf="f.rejected_date.errors.required"> Reject Date is required.</div>
+                                    </div>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <label class=" float-end  control-label line_2 rem_1"> Remarks <span
+                                        class="text-danger">*</span>
+                                </label>
+                            </div>
+                            <div class="col-xl-6 mb-3">
+                                <input type="text" formControlName='remarks'
+                                [ngClass]="{ 'is-invalid': submitted && f.remarks.errors }"
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+                                    <div *ngIf="submitted && f.remarks.errors" class="invalid-feedback">
+                                        <div *ngIf="f.remarks.errors.required"> Remarks is required.</div>
+                                    </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" (click)="onSubmit(approvalForm)" class="btn btn-sm   btn-save ps-4 pe-4">Save</button>
+                <button type="button" id="btnCloseModel" (click)="close()" class="btn btn-danger btn-sm ps-4 pe-4"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+       
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <h3>{{pollData.PollTitle}}</h3>
+                                    <div *ngIf="!result.length">
+
+                                        <div class="card card_poll">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center">{{pollData.PollQuestion}}</h5>
+
+                                                <div class="radio" *ngFor='let item of pollQuestions'>
+                                                    <label><input type="radio" [value]='item.OptionId'
+                                                            [(ngModel)]="pollId" name="optradio">
+                                                        {{item.OptionText}}</label>
+                                                </div>
+                                                <div class="text-center">
+                                                    <button class="btn btn-sm btn-save" (click)="save()"> save</button>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div *ngIf="result.length">
+                                        <div class="card card_poll">
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center">{{pollData.PollQuestion}}</h5>
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item" *ngFor="let item of result">
+                                                        <strong>{{item.OptionText}}</strong>
+                                                        <div [style]='{"width":getWidth(item.userCount)}'
+                                                            [class]="item.class"></div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

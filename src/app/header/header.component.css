@@ -1,0 +1,15 @@
+.brand-logo img{
+    max-width: 100PX;
+}
+
+/* .header-notifications-list{
+    overflow-y: scroll !important;
+}
+ */
+
+#message {
+    width: 35ch;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,1262 @@
+<div class="page-wrapper pt-4" *ngIf="childData =='' && parentUser == 0">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row" [formGroup]="startsUpForm">
+                            <div class="col-xl-12">
+                                <div class="card mb-4 mt-2">
+                                    <div class="card-header">
+                                        <button class="btn btn-sm btn-primary mt-2 float-right" title="back"
+                                            [routerLink]="['/HOME/startsupList']"><i
+                                                class="bi bi-arrow-left-circle"></i> </button>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="stepper">
+                                            <div #stepHeaderRef class="step-header">Basic Details</div>
+                                            <div #stepHeaderRef class="step-header">Start-up Idea Details</div>
+                                            <div #stepHeaderRef class="step-header">Incubator Details</div>
+                                            <div #stepHeaderRef class="step-header">Market & Customers</div>
+                                            <div #stepHeaderRef class="step-header">Funding & Financials</div>
+                                            <div #stepHeaderRef class="step-header">Support & Consent</div>
+                                        </div>
+
+                                        <!-- Form -->
+                                        <div>
+                                            <!-- Step 1 -->
+                                            <div #stepRef class="step active">
+                                                <div class="row g-3">
+                                                    <div class="col-xl-3">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Full Name of Applicants<span><sup
+                                                                        class="text-danger">*</sup></span></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName='name' required
+                                                                [disabled]="screenType === 'view'">
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.name.touched && fc.name.errors">
+                                                                <small *ngIf="fc['name'].errors['required']">Full Name
+                                                                    of Applicants is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="mb-3">
+                                                            <label>Email Address<span><sup
+                                                                        class="text-danger">*</sup></span></label>
+                                                            <input type="email" class="form-control form-control-sm"
+                                                                placeholder="Email" formControlName="email_id"
+                                                                [disabled]="screenType === 'view'" required>
+                                                            <div *ngIf="fc.name.touched && fc.name.errors"
+                                                                class="text-danger">
+                                                                <small *ngIf="fc['email_id'].errors['required']">Email
+                                                                    is required
+                                                                </small>
+                                                                <small *ngIf="fc['email_id'].errors['pattern']">Please
+                                                                    enter valid
+                                                                    email</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="mb-3">
+                                                            <label>Mobile Number<span><sup
+                                                                        class="text-danger">*</sup></span></label>
+                                                            <input type="tel" class="form-control form-control-sm"
+                                                                placeholder="9XXXXXXXX0" maxlength="10"
+                                                                formControlName="mobile_no" required
+                                                                onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'
+                                                                [disabled]="screenType === 'view'">
+                                                            <div *ngIf="fc.name.touched && fc.name.errors"
+                                                                class="text-danger">
+                                                                <small *ngIf="fc['mobile_no'].errors['required']">Mobile
+                                                                    No. is
+                                                                    required</small>
+                                                                <small *ngIf="fc['mobile_no'].errors['pattern']">Please
+                                                                    enter
+                                                                    valid
+                                                                    mobile</small>
+                                                                <small
+                                                                    *ngIf="fc['mobile_no'].errors['minlength']">Please
+                                                                    enter 10
+                                                                    digit number</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="mb-3">
+                                                            <label>Institution / University</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                name="institution" formControlName='institution'
+                                                                [disabled]="screenType === 'view'">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="mb-3">
+                                                            <label>Course / Program</label>
+                                                            <select class="form-select form-select-sm" name="course"
+                                                                formControlName='program'
+                                                                [disabled]="screenType === 'view'">
+                                                                <option value="0">Select</option>
+                                                                <option [value]='item.id'
+                                                                    *ngFor='let item of allDropDwns.courses'>
+                                                                    {{item.name}}</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="mb-3">
+                                                            <label>Year of Study</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                name="year_of_study" formControlName='year_of_study'
+                                                                [disabled]="screenType === 'view'">
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>How many people are currently in your team?<span><sup
+                                                                        class="text-danger">*</sup></span></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName='team_size' required
+                                                                [disabled]="screenType === 'view'">
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.team_size.touched && fc.team_size.errors">
+                                                                <small *ngIf="fc['team_size'].errors['required']">How many people are currently in your team? is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>What are the core team’s strengths?<span><sup
+                                                                        class="text-danger">*</sup></span></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='core_team_strengths' required
+                                                                [disabled]="screenType === 'view'">
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.core_team_strengths.touched && fc.core_team_strengths.errors">
+                                                                <small *ngIf="fc['core_team_strengths'].errors['required']">What are the core team’s strengths? is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>What gaps, if any, exist in your team?</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='team_gaps'
+                                                                [disabled]="screenType === 'view'">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>Are any of the founders working full-time on this startup?<span><sup
+                                                                        class="text-danger">*</sup></span></label>
+                                                            <select class="form-select form-select-sm"      
+                                                                name="validated" formControlName='founders_working_fulltime'
+                                                                [(ngModel)]="fullTime"
+                                                                [disabled]="screenType === 'view'" required>
+                                                                <option value="no">No</option>
+                                                                <option value="yes">Yes</option>
+                                                            </select>
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.founders_working_fulltime.touched && fc.founders_working_fulltime.errors">
+                                                                <small
+                                                                    *ngIf="fc['founders_working_fulltime'].errors['required']">Are any of the founders working full-time on this startup? is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                     <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>Team Members (Names & Roles)</label>
+                                                            <textarea class="form-control form-control-sm"
+                                                                name="team_members" rows="2"
+                                                                formControlName='team_members'
+                                                                [disabled]="screenType === 'view'"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3" *ngIf="fullTime=='yes'">
+                                                        <div class="mb-3">
+                                                            <label></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName='yes_founders_working_full_time'
+                                                                [disabled]="screenType === 'view'">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <option value="no">No</option>
+                                                                    <option value="yes">Yes</option> -->
+                                                    
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-12 text-end">
+                                                        <button type="button"
+                                                            class="btn btn-sm btn-primary mt-2 ms-auto"
+                                                            (click)="nextPrev(1)">Next</button>
+
+                                                    </div>
+                                                </div>
+                                                <!-- your step 1 inputs -->
+
+                                            </div>
+
+                                            <!-- Step 2 -->
+                                            <div #stepRef class="step">
+                                                <div class="row g-3">
+                                                    <div class="row">
+                                                        <div class="col-xl-3">
+                                                            <div class="mb-3">
+                                                                <label>Start-up / Project Name<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'"
+                                                                    name="startup_name" formControlName='project_name' required>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.project_name.touched && fc.project_name.errors">
+                                                                    <small
+                                                                        *ngIf="fc['project_name'].errors['required']">Start-up
+                                                                        / Project Name of Applicants is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="mb-3">
+                                                                <label>One-line Pitch / Tagline<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'" name="tagline"
+                                                                    formControlName='tagline' required>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.tagline.touched && fc.tagline.errors">
+                                                                    <small
+                                                                        *ngIf="fc['tagline'].errors['required']">One-line
+                                                                        Pitch / Tagline is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                         <div class="col-xl-3">
+                                                            <div class="mb-3">
+                                                                <label>Stage of Idea<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <select class="form-select form-select-sm" name="stage"
+                                                                    formControlName='stage_of_idea'
+                                                                    [disabled]="screenType === 'view'" required>
+                                                                    <option value="0">Select</option>
+                                                                    <option [value]='item.id'
+                                                                        *ngFor='let item of allDropDwns.stageofidea'>
+                                                                        {{item.name}}</option>
+                                                                </select>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.stage_of_idea.touched && fc.stage_of_idea.errors">
+                                                                    <small
+                                                                        *ngIf="fc['stage_of_idea'].errors['required']">Stage
+                                                                        of Idea is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="mb-3">
+                                                                <label>Have you validated idea?<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <select class="form-select form-select-sm"
+                                                                    name="validated" formControlName='validated_idea'
+                                                                    [(ngModel)]="valdIdea"
+                                                                    [disabled]="screenType === 'view'" required>
+                                                                    <option value="no">No</option>
+                                                                    <option value="yes">Yes</option>
+                                                                </select>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.validated_idea.touched && fc.validated_idea.errors">
+                                                                    <small
+                                                                        *ngIf="fc['validated_idea'].errors['required']">Have
+                                                                        you validated the idea is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3">
+                                                                <label>Problem Statement<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <textarea class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'"
+                                                                    name="problem_statement" rows="2"
+                                                                    formControlName='statement' required></textarea>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.statement.touched && fc.statement.errors">
+                                                                    <small
+                                                                        *ngIf="fc['statement'].errors['required']">Problem
+                                                                        Statement is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3">
+                                                                <label>Solution Overview<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <textarea class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'" name="solution"
+                                                                    rows="2" formControlName='solution' required></textarea>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.solution.touched && fc.solution.errors">
+                                                                    <small
+                                                                        *ngIf="fc['solution'].errors['required']">Solution
+                                                                        Overview is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3">
+                                                                <label>Target Audience / Market<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <textarea class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'"
+                                                                    name="target_market" rows="2"
+                                                                    formControlName='target_audience' required></textarea>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.target_audience.touched && fc.target_audience.errors">
+                                                                    <small
+                                                                        *ngIf="fc['target_audience'].errors['required']">Target
+                                                                        Audience is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3">
+                                                                <label>What makes your idea unique?
+                                                                    (USP)<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <textarea class="form-control form-control-sm"
+                                                                    name="usp" [disabled]="screenType === 'view'"
+                                                                    rows="2" formControlName='idea_unique' required></textarea>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.idea_unique.touched && fc.idea_unique.errors">
+                                                                    <small
+                                                                        *ngIf="fc['idea_unique'].errors['required']">USP
+                                                                        is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                        <div class="col-xl-3" *ngIf="valdIdea == 'yes'">
+                                                            <div class="mb-3">
+                                                                <label>Explanation</label>
+                                                                <textarea class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'"
+                                                                    name="validation_explanation"
+                                                                    formControlName='explanation' rows="2"
+                                                                    maxlength="1000"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3">
+                                                                <label>What is your business model?<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='business_model' required   
+                                                                    [disabled]="screenType === 'view'">
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.business_model.touched && fc.business_model.errors">
+                                                                    <small *ngIf="fc['business_model'].errors['required']">What is your business model? is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3">
+                                                                <label>Who are your main competitors?</label>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='main_competitors'
+                                                                    [disabled]="screenType === 'view'">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3">
+                                                                <label>Date Founded<span><sup
+                                                                            class="text-danger">*</sup></span></label>
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='date_founded' required
+                                                                    [disabled]="screenType === 'view'">
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.date_founded.touched && fc.date_founded.errors">
+                                                                    <small *ngIf="fc['date_founded'].errors['required']">Date Founded is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3">
+                                                                <label>Location</label>
+                                                                <textarea class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'"
+                                                                    name="location"
+                                                                    formControlName='location' rows="2"
+                                                                    maxlength="1000"></textarea>
+                                                                <div class="text-danger"
+                                                                    *ngIf="fc.location.touched && fc.location.errors">
+                                                                    <small *ngIf="fc['location'].errors['required']">Location is required</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <h5 class="mt-4">Uploads</h5>
+                                                    <div class="row">
+                                                        <div class="col-xl-3">
+                                                            <div class="mb-3">
+                                                                <label>Pitch Deck (PDF)</label>
+                                                                <div class="inputGroupContainer">
+                                                                    <div class="input-group">
+                                                                        <input type="file"
+                                                                            (change)="changeFile($event, 'pitch')"
+                                                                            name="pitch_deck"
+                                                                            class="form-control form-control-sm"
+                                                                            [disabled]="screenType === 'view'">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="mb-3">
+                                                                <label>Business Plan Document</label>
+                                                                <div class="inputGroupContainer">
+                                                                    <div class="input-group">
+                                                                        <input type="file"
+                                                                            (change)="changeFile($event, 'gobusinessvt')"
+                                                                            name="business_plan"
+                                                                            class="form-control form-control-sm"
+                                                                            [disabled]="screenType === 'view'">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="mb-3">
+                                                                <label>Prototype / Demo Link</label>
+                                                                <input type="url" class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'" name="demo_link"
+                                                                    formControlName='demo_link'>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-3">
+                                                            <div class="mb-3">
+                                                                <label>Video Pitch Link</label>
+                                                                <input type="url" class="form-control form-control-sm"
+                                                                    [disabled]="screenType === 'view'"
+                                                                    name="video_pitch" formControlName='video_link'>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-xl-12 text-end">
+                                                        <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                            (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                        <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                            (click)="nextPrev(1)">Next</button>
+
+                                                    </div>
+                                                </div>
+
+                                                <!-- your step 2 inputs -->
+
+
+                                            </div>
+
+                                        </div>
+                                        <!-- Step 3 -->
+                                        <div #stepRef class="step">
+                                            <div class="row g-3">
+                                                <div class="col-xl-3 mb-2">
+                                                    <div class="mb-0">
+                                                        <label>Sector <span><sup
+                                                                    class="text-danger">*</sup></span></label>
+                                                        <select class="form-select form-select-sm" name="support_needed"
+                                                            formControlName='sector_id'
+                                                            [disabled]="screenType === 'view'"
+                                                            (change)="LoadIncubaters($any($event.target).value)" required>
+                                                            <option value="0">Select</option>
+                                                            <option [value]='item.id'
+                                                                *ngFor='let item of allDropDwns.target_sectors'>
+                                                                {{item.name}}</option>
+                                                        </select>
+                                                        <div class="text-danger"
+                                                            *ngIf="fc.sector_id.touched && fc.sector_id.errors">
+                                                            <small *ngIf="fc['sector_id'].errors['required']">Sector is
+                                                                required</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-9 mb-2">
+                                                    <div class="mb-0">
+                                                        <div *ngIf="incubatersLst.length">
+                                                            <table id="patreggraph" datatable
+                                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                                style="width:100%">
+                                                                <thead class="top"
+                                                                    style="background-color: #2e7a91; color:#ffffff;">
+                                                                    <tr>
+                                                                        <th>S. No</th>
+                                                                        <th>Incubator Name</th>
+                                                                        <th>Select</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let g of incubatersLst; let i= index">
+                                                                        <td>{{i+1}}</td>
+                                                                        <td>{{g.incubator_name}}</td>
+                                                                        <td>
+                                                                            <input type="checkbox" [(ngModel)]="g.isChk"
+                                                                                [ngModelOptions]="{standalone: true}">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- your step 3 inputs -->
+                                            <div class="row">
+                                                <div class="col-xl-12 text-end">
+                                                    <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                        (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                    <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                        (click)="nextPrev(1)">Next</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Step 3 -->
+                                        <div #stepRef class="step">
+                                            <div class="row g-3">
+                                                <div class="col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label>Who is your target customer?<span class="text-danger">*</span></label>
+                                                        <textarea class="form-control form-control-sm"
+                                                            [disabled]="screenType === 'view'"
+                                                            name="target_customer"
+                                                            formControlName='target_customer' rows="2"
+                                                            maxlength="1000" required></textarea>
+                                                        <div class="text-danger"
+                                                            *ngIf="fc.target_customer.touched && fc.target_customer.errors">
+                                                            <small *ngIf="fc['target_customer'].errors['required']">Who is your target customer? is required</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                 <div class="col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label>What is your go-to-market strategy?<span class="text-danger">*</span></label>
+                                                        <textarea class="form-control form-control-sm"
+                                                            [disabled]="screenType === 'view'"
+                                                            name="your_market_strategy"
+                                                            formControlName='your_market_strategy' rows="2"
+                                                            maxlength="1000" required></textarea>
+                                                        <div class="text-danger"
+                                                            *ngIf="fc.your_market_strategy.touched && fc.your_market_strategy.errors">
+                                                            <small *ngIf="fc['your_market_strategy'].errors['required']">What is your go-to-market strategy? is required</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label>What is the size of your target market?<span class="text-danger">*</span></label>
+                                                        <div class="inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='target_market_size' required
+                                                                    [disabled]="screenType === 'view'">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label>How are you acquiring customers currently?<span class="text-danger">*</span></label>
+                                                        <div class="inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='customer_acquisition' required
+                                                                    [disabled]="screenType === 'view'">
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.customer_acquisition.touched && fc.customer_acquisition.errors">
+                                                                <small *ngIf="fc['customer_acquisition'].errors['required']">How are you acquiring customers currently? is required</small>
+                                                            </div>  
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label>How many active users/customers do you currently have?<span class="text-danger">*</span></label>
+                                                        <div class="inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='active_users_currently' required
+                                                                    [disabled]="screenType === 'view'">
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.active_users_currently.touched && fc.active_users_currently.errors">
+                                                                <small *ngIf="fc['active_users_currently'].errors['required']">How many active users/customers do you currently have? is required</small>
+                                                            </div>
+                                                            </div>  
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label>What is your current monthly revenue (if any)?<span class="text-danger">*</span></label>
+                                                        <div class="inputGroupContainer">
+                                                            <div class="input-group">   
+                                                                <input type="text" class="form-control form-control-sm"
+                                                                    formControlName='monthly_revenue' required
+                                                                    [disabled]="screenType === 'view'">
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.monthly_revenue.touched && fc.monthly_revenue.errors">
+                                                                <small *ngIf="fc['monthly_revenue'].errors['required']">What is your current monthly revenue (if any)? is required</small>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>  
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="mb-3">  
+                                                        <label>What key milestones have you achieved so far?<span class="text-danger">*</span></label>
+                                                        <textarea class="form-control form-control-sm"
+                                                            [disabled]="screenType === 'view'"
+                                                            name="milestones_achieved"
+                                                            formControlName='milestones_achieved' rows="2"
+                                                            maxlength="1000" required></textarea>
+                                                        <div class="text-danger"
+                                                            *ngIf="fc.milestones_achieved.touched && fc.milestones_achieved.errors">
+                                                            <small *ngIf="fc['milestones_achieved'].errors['required']">What key milestones have you achieved so far? is required</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="mb-3">
+                                                        <label>What are your next 3–6 month goals?<span class="text-danger">*</span></label>
+                                                        <textarea class="form-control form-control-sm"
+                                                            [disabled]="screenType === 'view'"
+                                                            name="goals_next_3_6_months"
+                                                            formControlName='goals_next_3_6_months' rows="2"
+                                                            maxlength="1000" required></textarea>
+                                                        <div class="text-danger"
+                                                            *ngIf="fc.goals_next_3_6_months.touched && fc.goals_next_3_6_months.errors">
+                                                            <small *ngIf="fc['goals_next_3_6_months'].errors['required']">What are your next 3–6 month goals? is required</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- your step 3 inputs -->
+                                            <div class="row">
+                                                <div class="col-xl-12 text-end">
+                                                    <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                        (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                    <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                        (click)="nextPrev(1)">Next</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div #stepRef class="step">
+                                            <div class="row g-3">
+                                                <div class="col-xl-6">
+                                                    <div class="mb-0">  
+                                                        <label>How have you funded the company so far? <span><sup
+                                                                    class="text-danger">*</sup></span></label>
+                                                        <select class="form-select form-select-sm" name="funded_company"
+                                                                formControlName='funded_company' [(ngModel)]="fundedCompany"
+                                                            [disabled]="screenType === 'view'" required>
+                                                            <option value="0">None</option>
+                                                            <option [value]='item.id'
+                                                                *ngFor='let item of allDropDwns.Funded_Company'>
+                                                                {{item.funded}}</option>
+                                                        </select>
+                                                        <div class="text-danger"
+                                                            *ngIf="fc.funded_company.touched && fc.funded_company.errors">
+                                                            <small *ngIf="fc['funded_company'].errors['required']">How have you funded the company so far?
+                                                                is required</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    <div class="col-xl-6" *ngIf="fundedCompany!='0'">
+                                                        <div class="mb-3">
+                                                            <label>How much capital have you raised to date?<span><sup
+                                                                        class="text-danger">*</sup></span></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName='capital_raised'
+                                                                [disabled]="screenType === 'view'">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>What is your monthly burn rate?</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName='monthly_burn_rat'
+                                                                [disabled]="screenType === 'view'">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>Are you currently raising funds? If yes, how much and for what purpose?<span><sup
+                                                                        class="text-danger">*</sup></span></label>
+                                                            <select class="form-select form-select-sm"
+                                                                name="validated" formControlName='currently_raising_funds'
+                                                                [(ngModel)]="isPurpose"
+                                                                [disabled]="screenType === 'view'" required>
+                                                                <option value="no">No</option>
+                                                                <option value="yes">Yes</option>
+                                                            </select>
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.currently_raising_funds.touched && fc.currently_raising_funds.errors">
+                                                                <small
+                                                                    *ngIf="fc['currently_raising_funds'].errors['required']">Are you currently raising funds? If yes, how much and for what purpose? is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6" *ngIf="isPurpose=='yes'">
+                                                        <div class="mb-3">
+                                                            <label></label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                formControlName='yes_currently_raising_funds'
+                                                                [disabled]="screenType === 'view'">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">      
+                                                            <label>What is your long-term vision for the company?<span><sup class="text-danger">*</sup></span></label>
+                                                            <textarea class="form-control form-control-sm"
+                                                                [disabled]="screenType === 'view'"  
+                                                                name="long_term_vision"
+                                                                formControlName='long_term_vision' rows="2"
+                                                                maxlength="1000" required></textarea>
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.long_term_vision.touched && fc.long_term_vision.errors">
+                                                                <small *ngIf="fc['long_term_vision'].errors['required']">What is your long-term vision for the company? is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>Why do you want to join our incubator?<span><sup class="text-danger">*</sup></span></label>
+                                                            <textarea class="form-control form-control-sm"
+                                                                [disabled]="screenType === 'view'"
+                                                                        name="incubator_motivation"
+                                                                formControlName='incubator_motivation' rows="2"
+                                                                maxlength="1000" required></textarea>
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.incubator_motivation.touched && fc.incubator_motivation.errors">
+                                                                <small *ngIf="fc['incubator_motivation'].errors['required']">Why do you want to join our incubator? is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>What specific support do you hope to receive from us?<span><sup class="text-danger">*</sup></span></label>
+                                                            <textarea class="form-control form-control-sm"
+                                                                [disabled]="screenType === 'view'"
+                                                                name="support_expected"
+                                                                formControlName='support_expected' rows="2"
+                                                                maxlength="1000" required></textarea>
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.support_expected.touched && fc.support_expected.errors">
+                                                                <small *ngIf="fc['support_expected'].errors['required']">What specific support do you hope to receive from us? is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3">
+                                                            <label>How do you think you’ll contribute to the incubator community?<span><sup class="text-danger">*</sup></span></label>
+                                                            <textarea class="form-control form-control-sm"
+                                                                [disabled]="screenType === 'view'"
+                                                                name="incubator_contribution"
+                                                                formControlName='incubator_contribution' rows="2"
+                                                                maxlength="1000" required></textarea>
+                                                            <div class="text-danger"
+                                                                *ngIf="fc.incubator_contribution.touched && fc.incubator_contribution.errors">
+                                                                <small *ngIf="fc['incubator_contribution'].errors['required']">How do you think you’ll contribute to the incubator community? is required</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            <!-- your step 3 inputs -->
+                                            <div class="row">
+                                                <div class="col-xl-12 text-end">
+                                                    <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                        (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                    <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                        (click)="nextPrev(1)">Next</button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Step 4 -->
+                                        <!-- Step 6 -->
+                                        <!-- Step 6 -->
+                                        <div #stepRef class="step">
+                                            <div class="row g-3">
+                                                <div class="col-xl-4">
+                                                    <div class="mb-0">
+                                                        <label>Type of Support Needed<span><sup
+                                                                    class="text-danger">*</sup></span></label>
+                                                        <select class="form-select form-select-sm" name="support_needed"
+                                                            formControlName='support_type'
+                                                            [disabled]="screenType === 'view'" required>
+                                                            <option value="">Select</option>
+                                                            <option [value]='item.id'
+                                                                *ngFor='let item of allDropDwns.supporttype'>
+                                                                {{item.name}}</option>
+                                                        </select>
+                                                        <div class="text-danger"
+                                                            *ngIf="fc.support_type.touched && fc.support_type.errors">
+                                                            <small *ngIf="fc['support_type'].errors['required']">Type of Support Needed
+                                                                is required</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="mb-0">
+                                                        <label>Date of Submission<span><sup
+                                                                    class="text-danger">*</sup></span></label>
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="text"
+                                                                class="form-control group-input form-control-sm eBSDP"
+                                                                placeholder="DD-MM-YYYY" [bsConfig]="dtPkrCnfg"
+                                                                bsDatepicker #dpAD="bsDatepicker"
+                                                                [disabled]="screenType === 'view'" required
+                                                                onkeypress='return event.charCode == 8'
+                                                                formControlName="submission_date" [maxDate]="dt2Day">
+                                                            <span class="input-group-text input-group-text1 eBSDP">
+                                                                <button class="btn btn-outline-bsdp btn-sm eBtnDP"
+                                                                    type="button" (click)="dpAD.toggle()"
+                                                                    [attr.aria-expanded]="dpAD.isOpen" title="Calendar"
+                                                                    [disabled]="screenType === 'view'">
+                                                                    <i class="fa fa-calendar"></i>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                        <div class="text-danger"
+                                                            *ngIf="fc.submission_date.touched && fc.submission_date.errors">
+                                                            <small
+                                                                *ngIf="fc['submission_date'].errors['required']">Sector
+                                                                is required</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+
+                                                <div class="col-xl-12">
+                                                    <div class="mb-3 form-check mt-4">
+                                                        <input type="checkbox" class="form-check-input" id="declaration"
+                                                            formControlName='declared'
+                                                            [disabled]="screenType === 'view'">
+                                                        <label class="form-check-label" for="declaration">I declare that
+                                                            this idea is original and owned by my
+                                                            team.<span><sup class="text-danger">*</sup></span></label>
+                                                    </div>
+                                                    <div class="mb-3 form-check">
+                                                        <input type="checkbox" class="form-check-input" id="terms"
+                                                            formControlName='agree' [disabled]="screenType === 'view'">
+                                                        <label class="form-check-label" for="terms">I agree to the Terms
+                                                            & Conditions.<span><sup
+                                                                    class="text-danger">*</sup></span></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-xl-12 text-end">
+                                                    <button type="button" class="btn btn-sm btn-primary"
+                                                        (click)="nextPrev(-1)">Previous</button>
+                                                    &nbsp;
+                                                    <button type="submit" class="btn btn-sm btn-success"
+                                                        *ngIf="screenType == 'add'"
+                                                        (click)="isSubmt=true;Save()">Submit</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- More steps... -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" [formGroup]="startsUpForm" *ngIf="childData !='' && parentUser != 0">
+    <div class="col-12">
+        <div class="card mb-4 mt-2">
+            <div class="card-body pt-0">
+                <div class="stepper">
+                    <div #stepHeaderRef class="step-header">Student / Team Details</div>
+                    <div #stepHeaderRef class="step-header">Start-up Idea Details</div>
+                    <div #stepHeaderRef class="step-header">Incubator Details</div>
+                    <div #stepHeaderRef class="step-header">Support & Consent</div>
+                </div>
+                <!-- Form -->
+                <div>
+                    <!-- Step 1 -->
+                    <div #stepRef class="step active">
+                        <div class="row g-3">
+                            <div class="col-xl-3">
+                                <div class="mb-3">
+                                    <label>Full Name of Applicant</label>
+                                    <input type="text" class="form-control form-control-sm" formControlName='name'
+                                        [disabled]="screenType === 'view'"
+                                        [ngClass]="{ 'is-invalid': isSubmt && fc['name'].errors }">
+                                    <div *ngIf="isSubmt && fc['name'].errors" class="invalid-feedback">
+                                        <div *ngIf="fc['name'].errors['required']">Incubator Name
+                                            is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="mb-3">
+                                    <label>Email Address</label>
+                                    <input type="email" class="form-control form-control-sm" placeholder="Email"
+                                        formControlName="email_id" [disabled]="screenType === 'view'"
+                                        [ngClass]="{ 'is-invalid': isSubmt && fc['email_id'].errors }">
+                                    <div *ngIf="isSubmt && fc['email_id'].errors" class="invalid-feedback">
+                                        <div *ngIf="fc['email_id'].errors['required']">Email is required
+                                        </div>
+                                        <div *ngIf="fc['email_id'].errors['pattern']">Please enter valid
+                                            email</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="mb-3">
+                                    <label>Mobile Number</label>
+                                    <input type="tel" class="form-control form-control-sm" placeholder="9XXXXXXXX0"
+                                        maxlength="10" formControlName="mobile_no"
+                                        onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'
+                                        [ngClass]="{ 'is-invalid': isSubmt && fc['mobile_no'].errors }"
+                                        [disabled]="screenType === 'view'">
+                                    <div *ngIf="isSubmt && fc['mobile_no'].errors" class="invalid-feedback">
+                                        <div *ngIf="fc['mobile_no'].errors['required']">Mobile No. is
+                                            required</div>
+                                        <div *ngIf="fc['mobile_no'].errors['pattern']">Please enter
+                                            valid
+                                            mobile</div>
+                                        <div *ngIf="fc['mobile_no'].errors['minlength']">Please enter 10
+                                            digit number</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="mb-3">
+                                    <label>Institution / University</label>
+                                    <input type="text" class="form-control form-control-sm" name="institution"
+                                        formControlName='institution' [disabled]="screenType === 'view'">
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="mb-3">
+                                    <label>Course / Program</label>
+                                    <select class="form-select form-select-sm" name="course" formControlName='program'
+                                        [disabled]="screenType === 'view'">
+                                        <option value="">Select</option>
+                                        <option [value]='item.id' *ngFor='let item of allDropDwns.courses'>
+                                            {{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xl-3">
+                                <div class="mb-3">
+                                    <label>Year of Study</label>
+                                    <input type="text" class="form-control form-control-sm" name="year_of_study"
+                                        formControlName='year_of_study' [disabled]="screenType === 'view'">
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label>Team Members (Names & Roles)</label>
+                                    <textarea class="form-control form-control-sm" name="team_members" rows="2"
+                                        formControlName='team_members' [disabled]="screenType === 'view'"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12 text-end">
+                                <button type="button" class="btn btn-sm btn-primary mt-2 ms-auto"
+                                    (click)="nextPrev(1)">Next</button>
+
+                            </div>
+                        </div>
+                        <!-- your step 1 inputs -->
+
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div #stepRef class="step">
+                        <div class="row g-3">
+                            <div class="row">
+                                <div class="col-xl-3">
+                                    <div class="mb-3">
+                                        <label>Start-up / Project Name</label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [disabled]="screenType === 'view'" name="startup_name"
+                                            formControlName='project_name'>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="mb-3">
+                                        <label>One-line Pitch / Tagline</label>
+                                        <input type="text" class="form-control form-control-sm"
+                                            [disabled]="screenType === 'view'" name="tagline" formControlName='tagline'>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label>Problem Statement</label>
+                                        <textarea class="form-control form-control-sm"
+                                            [disabled]="screenType === 'view'" name="problem_statement" rows="2"
+                                            formControlName='statement'></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label>Solution Overview</label>
+                                        <textarea class="form-control form-control-sm"
+                                            [disabled]="screenType === 'view'" name="solution" rows="2"
+                                            formControlName='solution'></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label>Target Audience / Market</label>
+                                        <textarea class="form-control form-control-sm"
+                                            [disabled]="screenType === 'view'" name="target_market" rows="2"
+                                            formControlName='target_audience'></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="mb-3">
+                                        <label>What makes your idea unique?
+                                            (USP)</label>
+                                        <textarea class="form-control form-control-sm" name="usp"
+                                            [disabled]="screenType === 'view'" rows="2"
+                                            formControlName='idea_unique'></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="mb-3">
+                                        <label>Stage of Idea</label>
+                                        <select class="form-select form-select-sm" name="stage"
+                                            formControlName='stage_of_idea' [disabled]="screenType === 'view'">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns.stageofidea'>
+                                                {{item.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="mb-3">
+                                        <label>Have you validated the idea?</label>
+                                        <select class="form-select form-select-sm" name="validated"
+                                            formControlName='validated_idea' [(ngModel)]="valdIdea"
+                                            [disabled]="screenType === 'view'">
+                                            <option value="no">No</option>
+                                            <option value="yes">Yes</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4" *ngIf="valdIdea == 'yes'">
+                                    <div class="mb-3">
+                                        <label>Explanation</label>
+                                        <textarea class="form-control form-control-sm"
+                                            [disabled]="screenType === 'view'" name="validation_explanation"
+                                            formControlName='explanation' rows="2" maxlength="1000"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="mt-4">Uploads</h5>
+                            <div class="row">
+                                <div class="col-xl-3">
+                                    <div class="mb-3">
+                                        <label>Pitch Deck (PDF)</label>
+                                        <div class="inputGroupContainer">
+                                            <div class="input-group">
+                                                <input type="file" (change)="changeFile($event, 'pitch')"
+                                                    name="pitch_deck" class="form-control form-control-sm"
+                                                    [disabled]="screenType === 'view'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="mb-3">
+                                        <label>Business Plan Document</label>
+                                        <div class="inputGroupContainer">
+                                            <div class="input-group">
+                                                <input type="file" (change)="changeFile($event, 'gobusinessvt')"
+                                                    name="business_plan" class="form-control form-control-sm"
+                                                    [disabled]="screenType === 'view'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="mb-3">
+                                        <label>Prototype / Demo Link</label>
+                                        <input type="url" class="form-control form-control-sm"
+                                            [disabled]="screenType === 'view'" name="demo_link"
+                                            formControlName='demo_link'>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="mb-3">
+                                        <label>Video Pitch Link</label>
+                                        <input type="url" class="form-control form-control-sm"
+                                            [disabled]="screenType === 'view'" name="video_pitch"
+                                            formControlName='video_link'>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xl-12 text-end">
+                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                    (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                    (click)="nextPrev(1)">Next</button>
+
+                            </div>
+                        </div>
+
+                        <!-- your step 2 inputs -->
+
+
+                    </div>
+
+                </div>
+                <!-- Step 3 -->
+                <div #stepRef class="step">
+                    <div class="row g-3">
+                        <div class="col-xl-3 mb-2">
+                            <div class="mb-0">
+                                <label>Sector</label>
+                                <select class="form-select form-select-sm" name="support_needed"
+                                    formControlName='sector_id' [disabled]="screenType === 'view'"
+                                    (change)="LoadIncubaters($any($event.target).value)">
+                                    <option value="0">Select</option>
+                                    <option [value]='item.id' *ngFor='let item of allDropDwns.target_sectors'>
+                                        {{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-9 mb-2">
+                            <div class="mb-0">
+                                <div *ngIf="incubatersLst.length">
+                                    <table id="patreggraph" datatable
+                                        class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                        style="width:100%">
+                                        <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                            <tr>
+                                                <th>S. No</th>
+                                                <th>Incubator Name</th>
+                                                <th>Select</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let g of incubatersLst; let i= index">
+                                                <td>{{i+1}}</td>
+                                                <td>{{g.incubator_name}}</td>
+                                                <td>
+                                                    <input type="checkbox" [(ngModel)]="g.isChk"
+                                                        [ngModelOptions]="{standalone: true}">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- your step 3 inputs -->
+                    <div class="row">
+                        <div class="col-xl-12 text-end">
+                            <button type="button" class="btn btn-sm btn-primary mt-2"
+                                (click)="nextPrev(-1)">Previous</button> &nbsp;
+                            <button type="button" class="btn btn-sm btn-primary mt-2"
+                                (click)="nextPrev(1)">Next</button>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 4 -->
+                <!-- Step 6 -->
+                <!-- Step 6 -->
+                <div #stepRef class="step">
+                    <div class="row g-3">
+                        <div class="col-xl-4">
+                            <div class="mb-0">
+                                <label>Type of Support Needed</label>
+                                <select class="form-select form-select-sm" name="support_needed"
+                                    formControlName='support_type' [disabled]="screenType === 'view'">
+                                    <option value="0">Select</option>
+                                    <option [value]='item.id' *ngFor='let item of allDropDwns.supporttype'>
+                                        {{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="mb-0">
+                                <label>Date of Submission</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control group-input form-control-sm eBSDP"
+                                        placeholder="DD-MM-YYYY" [bsConfig]="dtPkrCnfg" bsDatepicker
+                                        #dpAD="bsDatepicker" [disabled]="screenType === 'view'"
+                                        onkeypress='return event.charCode == 8' formControlName="submission_date"
+                                        [maxDate]="dt2Day">
+                                    <span class="input-group-text input-group-text1 eBSDP">
+                                        <button class="btn btn-outline-bsdp btn-sm eBtnDP" type="button"
+                                            (click)="dpAD.toggle()" [attr.aria-expanded]="dpAD.isOpen" title="Calendar"
+                                            [disabled]="screenType === 'view'">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <div class="mb-3 form-check mt-4">
+                                <input type="checkbox" class="form-check-input" id="declaration"
+                                    formControlName='declared' [disabled]="screenType === 'view'">
+                                <label class="form-check-label" for="declaration">I declare that this idea is original
+                                    and owned by my
+                                    team.</label>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" formControlName='agree'
+                                    [disabled]="screenType === 'view'">
+                                <label class="form-check-label" for="terms">I agree to the Terms & Conditions.</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-12 text-end">
+                            <button type="button" class="btn btn-sm btn-primary"
+                                (click)="nextPrev(-1)">Previous</button>
+                            &nbsp;
+                            <!-- <button type="submit" class="btn btn-sm btn-success" *ngIf="screenType == 'add'" (click)="isSubmt=true;Save()">Submit</button> -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- More steps... -->
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

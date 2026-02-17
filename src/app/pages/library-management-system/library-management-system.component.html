@@ -1,0 +1,182 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Library Management System</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-right mb-1">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#myModal">Add</button>
+                                        </div>
+                                        <div *ngIf="table.length">
+                                            <table id="patergraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>Book Name </th>
+                                                        <!-- <th>Available Books</th> -->
+                                                        <th>Author</th>
+                                                        <th>Description</th>
+                                                        <th>Action</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.BOOK_NAME}}</td>
+                                                        <!-- <td>{{item.AVAILABLE_BOOKS}}</td> -->
+                                                        <td>{{item.BOOK_AUTHOR}}</td>
+                                                        <td>{{item.BOOK_DESCRIPTION}}</td>
+
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon" (click)="edit(item.BOOK_ID)">
+                                                                <i class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="!table.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-2">
+                <h6 *ngIf="!isEdit" class=" modal-title w-100">Add Library Management System</h6>
+                <h6 *ngIf="isEdit" class=" modal-title w-100">Edit Library Management System</h6>
+                <button type="button" (click)="close()" class="close" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label ">Book ID/ISBN <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control" formControlName="BOOK_CODE">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label ">Book Name <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control" formControlName="BOOK_NAME">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label ">Author </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control"
+                                        formControlName="BOOK_AUTHOR">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">category</label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"><strong>:</strong> &nbsp;
+                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                        formControlName="BOOK_DEPARTMENT_ID">
+                                        <option value="" [selected]="true">select</option>
+                                        <option *ngFor="let category of categories" [value]='category.DEPARTMENT_ID'>
+                                            {{category.DEPARTMENT_NAME}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label ">Publication </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control"
+                                        formControlName="BOOK_PUBLICATION">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label ">Edition </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control"
+                                        formControlName="BOOK_EDITION">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label ">Description <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control"
+                                        formControlName="BOOK_DESCRIPTION">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label ">Number of copies available <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control"
+                                        formControlName="BOOK_NO_OF_COPIES">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label ">Price </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control" formControlName="BOOK_PRICE">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Save</button>
+                <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Update</button>
+                <button type="button" class="btn btn-sm btn-danger" id='md_close' (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

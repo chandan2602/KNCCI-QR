@@ -1,0 +1,122 @@
+
+/* dashboard */
+
+.dashboardcards .card {
+    border-radius: .5rem !important;
+    border: 0;
+    /* margin: 10px; */
+}
+
+.progress-circle {
+    position: relative;
+    width: 60px;           /* Reduced from 100px */
+    min-width: 60px !important;
+    height: 60px;
+    min-height: 60px !important;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    /* margin: 10px auto 5px;  */
+}
+
+.progress-circle::before {
+    content: '';
+    position: absolute;
+    width: 51px;           /* Reduced from 80px */
+    height: 51px;
+    background: #d3cbcb;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.progress-value {
+    position: relative;
+    z-index: 2;
+    font-size: 12px;       /* Reduced for smaller circle */
+    font-weight: 700;
+}
+
+.progress-label {
+    text-align: start;
+    font-size: 14px;
+    word-wrap: break-word !;
+    color: #ffffff !important;
+    /* margin-top: -5px; */
+    font-weight: bold;
+}
+.progress-label{
+    color: #ffffff !important;
+}
+
+/* Color Themes */
+/* .bg_approved{
+     background: #28a745;
+    color: #ffffff;
+}
+.approved {
+    background: conic-gradient(#ffffff 0% 80%, #2afc5b 80% 100%);
+    color: #ffffff;
+}
+
+.bg_rejected{
+     background: #dc3545;
+    color: #ffffff;
+}
+.rejected {
+    background: conic-gradient(#ffffff 0% 35%, #ff495b 35% 100%);
+    color: #ffffff;
+}
+.bg_waiting {
+    background: #ffc107;
+    color: #ffffff;
+}
+.waiting {
+    background: conic-gradient(#ffffff 0% 60%, #ffd24a 60% 100%);
+    color: #ffffff;
+}
+.bg_in-progress{
+    background: #0d6efd;
+    color: #ffffff;
+}
+.in-progress {
+    background: conic-gradient(#ffffff 0% 50%, #569aff 50% 100%);
+    color: #ffffff;
+} */
+
+
+
+.bg_approved{
+    background: linear-gradient(-90deg, #4ff576, #33d459, #02a829);
+    color: #ffffff;
+}
+.approved {
+    background: conic-gradient(#ffffff 0% 80%, #2afc5bda 80% 100%);
+  color: #ffffff;
+}
+
+.bg_rejected{
+     background: linear-gradient(-90deg, #e93639, #d1172a, #b90214);
+    color: #ffffff;
+}
+.rejected {
+    background: conic-gradient(#ffffff 0% 35%, #fd0019 35% 100%);
+    color: #ffffff;
+}
+.bg_waiting {
+    background: linear-gradient(-90deg, #f5d03b, #e9b824, #d4a003);
+    color: #ffffff;
+}
+.waiting {
+    background: conic-gradient(#ffffff 0% 60%, #ffd24a 60% 100%);
+    color: #ffffff;
+}
+.bg_in-progress{
+    background: linear-gradient(-90deg, #3a70d8, #024ec0, #013a8f);
+    color: #ffffff;
+}
+.in-progress {
+    background: conic-gradient(#ffffff 0% 50%, #569aff 50% 100%);
+    color: #ffffff;
+}

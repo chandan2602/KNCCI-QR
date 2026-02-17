@@ -1,0 +1,51 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Jobs</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <a class="nav-link" [class.active]="activeTab === 'jobLst'"
+                                                    (click)="activeTab = 'jobLst'">My Jobs</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="postNewJob-tab" [class.active]="activeTab === 'postNewJob'"
+                                                    aria-controls="postNewJob" aria-selected="false" (click)="activeTab = 'postNewJob'">Job Application</button>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent">
+                                            <div class="tab-pane fade"
+                                                id="jobLst" role="tabpanel"
+                                                aria-labelledby="jobLst-tab"
+                                                [class.active]="activeTab === 'jobLst'"
+                                                [class.show]="activeTab === 'jobLst'">
+                                                <app-my-jobs *ngIf="activeTab === 'jobLst'"></app-my-jobs>
+                                            </div>
+                                            <div class="tab-pane fade"
+                                                id="postNewJob" role="tabpanel"
+                                                aria-labelledby="postNewJob-tab"
+                                                [class.active]="activeTab === 'postNewJob'"
+                                                [class.show]="activeTab === 'postNewJob'">
+                                                 <button type="button" (click)="activeTab = 'jobLst'" *ngIf="activeTab === 'postNewJob'"
+                                                    class="btn btn-sm btn-danger"><i class="bi bi-arrow-left-circle fa-2x"></i></button>
+                                                <app-jobs-in-company-lst *ngIf="activeTab === 'postNewJob'"></app-jobs-in-company-lst>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

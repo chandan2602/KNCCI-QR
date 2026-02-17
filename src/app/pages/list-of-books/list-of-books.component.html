@@ -1,0 +1,75 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0"> List Of Books </h5>
+                                    </div>
+                                    <div class="card body">
+                                        <div class="table">
+                                            <fieldset>
+                                                <div *ngIf="table.length">
+                                                    <table id="patreggraph" datatable
+                                                        class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                        style="width:100%">
+                                                        <thead class="top"
+                                                            style="background-color: #2e7a91; color:#ffffff;">
+                                                            <tr>
+                                                                <th>
+                                                                    Book Name </th>
+                                                                <th>Book Id/ISDN</th>
+                                                                <th>Availbility</th>
+                                                                <th>Assign</th>
+                                                                <th>Return Date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of table">
+                                                                <td>{{item.BOOK_NAME}}</td>
+                                                                <td>{{item.BOOK_CODE}}</td>
+                                                                <td>{{item.RESULT}}</td>
+                                                                <td style="display: flex;"> <input type="checkbox"
+                                                                        class="checkbox"
+                                                                        (change)="isChecked($event,item)">
+
+                                                                </td>
+                                                                <td>
+                                                                    <div class="col-md-8 ">
+                                                                        <input class="form-control" type="date"
+                                                                            [(ngModel)]="item.BOOK_STD_RETURN_DATE ">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+
+                                                    </table>
+
+                                                </div>
+                                                <div class="text-center" *ngIf="!table.length">
+                                                    No Records to display
+                                                </div>
+                                            </fieldset>
+                                            <div class="modal-footer">
+                                                <button type="button" [disabled]="checked" class="btn btn-sm  btn-save"
+                                                    (click)="onSubmit(isChecked)">Assign</button>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

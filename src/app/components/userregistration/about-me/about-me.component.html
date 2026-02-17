@@ -1,0 +1,62 @@
+<div>
+    <div class="row">
+        <div class="col-md-4 img_div">
+            <div class="card">
+                <div class="card-header">
+                    <span>Profile Picture</span>
+                    <input type="file" (change)="changeFile($event)" class="ml-1">
+                </div>
+                <div class="card-body">
+                    <img class="card-img-bottom" id="screenshot-img"  [src]="getImage()" alt="No image" style="width:100%">
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm  btn-save me-3" (click)='upload()'>Upload</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <span class="float-start"></span>
+                    <span class="float-end">
+                        <button class="btn btn-sm btn-success me-2" (click)="CaptureVideo()">Enable Webcam</button>
+                        <button class="btn btn-sm btn-success" (click)="screenshotButton()">Take Photo</button>
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div id="screenshot" style="text-align:center;">
+                        <video class="videostream" autoplay="" width="300" height="300" ></video>
+                        <!-- <img id="screenshot-img"> -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4 img_div">
+            <div class="card">
+                <div class="card-header">
+                    <span>Digital Signature</span>
+                    <input type="file" (change)="changeFile1($event)" class="ml-1">
+                </div>
+                <div class="card-body">
+                    <img class="card-img-bottom" id="screenshot-img"  [src]="getSignature()" alt="No image" style="width:100%">
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-sm  btn-save me-3" (click)='uploadSignature()'>Upload</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <span>About Me</span>
+                </div>
+                <div class="card-body">
+                    <textarea class="form-control" [(ngModel)]='personalData.PROFILESUMMARY' placeholder="About Me"
+                        rows="4"></textarea>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

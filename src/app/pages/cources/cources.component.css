@@ -1,0 +1,28 @@
+.fa-user-plus:hover .span{
+    visibility: visible;
+}
+.fa-desktop:hover .span{
+  visibility: visible;
+
+}
+.span{
+    visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 4px ;
+  border-radius: 6px;
+  font-size: 12px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+.modal_up_table, th, td{
+  border: 1px solid #dee2e6;
+  /* border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6; */
+}
+.modal_up_table th{
+  background-color: rgba(0,0,0,.03);
+}

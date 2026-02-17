@@ -1,0 +1,15 @@
+<div class="container-scroller wrapper">
+  <app-header></app-header>
+  <div class="container-fluid page-body-wrapper" style="position:absolute;">
+    <div class="">
+      <app-sidebar></app-sidebar>
+      <div class="main-panel">
+        <!-- <h6><span>jobs: {{subscribeData?.jobs_remaining}}</span>&nbsp;<b>|</b>&nbsp;<span>Internships: {{subscribeData?.internships_remaining}}</span>
+        &nbsp;<b>|</b>&nbsp;<span>Starts-Ups: {{subscribeData?.startups_remaining}}</span></h6> -->
+        <router-outlet></router-outlet>
+        <app-footer></app-footer>
+      </div>
+    </div>
+
+  </div>
+</div>

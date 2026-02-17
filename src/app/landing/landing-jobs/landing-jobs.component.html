@@ -1,0 +1,475 @@
+<section *ngIf="isShw()">
+    <div class="page-header-area sec-overlay sec-overlay-black"
+        style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;">
+        <div class="container pt--0 pb--0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-header-content">
+                        <h2 class="title">Jobs</h2>
+                        <nav class="breadcrumb-area">
+                            <ul class="breadcrumb justify-content-center">
+                                <li><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-sep"> / </li>
+                                <li>Jobs</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="recent-job-area bg-color-gray" *ngIf="!isShowhide">
+    <div class="vh-section-outer d-table w-100 bg-secondary text-white">
+        <div class="section-inner d-table-cell align-middle">
+            <div class="">
+                <div class="tabSection bg-white text-dark p-0 rounded">
+                    <ul class="nav nav-pills justify-content-center flex-wrap mb-3" id="productTabs" role="tablist"
+                        *ngIf="!isShw()">
+                        <li class="nav-item category-link" role="presentation">
+                            <button class="nav-link active" id="product1-tab" data-bs-toggle="pill"
+                                data-bs-target="#product1" type="button" role="tab">Popular Jobs</button>
+                        </li>
+                        <li class="nav-item category-link" role="presentation">
+                            <button class="nav-link" id="product2-tab" data-bs-toggle="pill" data-bs-target="#product2"
+                                type="button" role="tab">Start-ups</button>
+                        </li>
+                        <li class="nav-item category-link" role="presentation">
+                            <button class="nav-link" id="product3-tab" data-bs-toggle="pill" data-bs-target="#product3"
+                                type="button" role="tab">Internships</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content pt-4" id="productTabsContent">
+                        <div class="tab-pane fade show active" id="product1" role="tabpanel">
+                            <section class="recent-job-area bg-color-gray">
+                                <div class="container aos-init aos-animate mt-2 mb-0 pt-4 pb-4" data-aos="fade-down">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="section-title text-center mb-4">
+                                                <h3 class="title">Popular Jobs</h3>
+                                                <div class="desc">
+                                                    <p>Browse the most popular jobs chosen by thousands. <br />
+                                                        Your next big opportunity could be just a click away.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-4" *ngFor="let item of listGrid"
+                                            (click)="jobDetails(item)">
+                                            <div class="recent-job-item p-3">
+                                                <!-- <div class="company-info card-body">
+                                                    <div class="logo">
+                                                        <a>
+                                                            <img src="../../../../assets/images/new-images/OUK_Logo 1.png"
+                                                                width="75" height="75" alt="Image-HasTech">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h4 class="name"><a>{{item.company_name}}</a></h4>
+                                                        <p class="address">{{item?.sub_counties_name}},
+                                                            {{item?.counties_name}}</p>
+                                                    </div>
+                                                </div> -->
+                                                <div class="main-content">
+                                                    <h3 class="title"><a>{{item.job_title}}</a></h3>
+                                                    <h5 class="work-type">{{item?.job_type}}</h5>
+                                                    <span><i class="bi bi-calendar-check-fill"></i>
+                                                        {{item?.experience_level}}</span> &nbsp;
+                                                </div>
+                                                <div class="recent-job-info">
+                                                    <div class="salary">
+                                                        <span> <i class="bi bi-geo-alt-fill"></i>
+                                                            {{item?.counties_name}} - {{item?.sub_counties_name}}</span>
+                                                        &nbsp;
+                                                    </div>
+                                                    <a class="btn btn-theme btn-sm" (click)="jobDetails(item)">Apply Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-pane fade" id="product2" role="tabpanel">
+                            <section>
+                                <!-- <div class="container pt-3 pb-0 mb-2">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <h3 class="fw-bold">Popular Categories </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                 -->
+
+                                 <div class="container pt-0">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="section-title text-center mb-4">
+                                            <h3 class="title">Work with Trailblazers. Intern at Startups Changing the
+                                                World</h3>
+                                            <div class="desc">
+                                                <p class="mb-2">Get hands-on experience at fast-growing startups across
+                                                    Kenya and beyond. <br> Learn directly from founders, take on
+                                                    meaningful
+                                                    responsibilities, and make a real impact from day one.</p>
+                                                <ul class="d-flex text-center justify-content-center mb-2 cstm_list_content">
+                                                    <li class="btn btn-outline-primary">Fast-paced learning environments
+                                                    </li> &nbsp;
+                                                    <li class="btn btn-outline-primary">Collaborate directly with
+                                                        founders and small teams</li>
+                                                </ul>
+                                                <ul class="d-flex text-center justify-content-center cstm_list_content">
+                                                    <li class="btn btn-outline-primary">High-growth exposure with real
+                                                        outcomes
+                                                    </li> &nbsp;
+                                                    <li class="btn btn-outline-primary">Pathways to full-time employment
+                                                    </li>
+                                                </ul>
+                                                <p class="text-center  d-flex justify-content-center"><a (click)="ApplyNow()"
+                                                        class="btn btn-sm btn-theme w-50 startup_cstm_btn">
+                                                        Don’t wait. Kickstart your
+                                                        career with the right internship today. <i
+                                                            class="bi bi-arrow-right-circle"></i></a></p>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                                <div class="container py-4 popularjobs">
+                                    <div class="row g-4">
+                                       <div class="row g-4">
+                                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2" *ngFor="let item of startUpList"
+                                                (click)="editData=item;isShow=!isShow;">
+                                                <div class="card text-center h-100">
+                                                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                        <h5 class="card-title">
+                                                            <a class="text-decoration-none text-dark">
+                                                                {{item.ProgramName}}</a>
+                                                        </h5>
+                                                        <p class="text-muted mb-0">{{item.SectorName}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-pane fade" id="product3" role="tabpanel">
+                            <div class="container pt-1 pb-1">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="section-title text-center mb-4">
+                                            <h3 class="title">Intern. Learn. Lead.</h3>
+                                            <div class="desc">
+                                                <p class="mb-2">Discover internships across multiple domains from
+                                                    software engineering and HR to data science and marketing. <br> Gain
+                                                    real-world experience, develop practical skills, and take the first
+                                                    step toward your future career.</p>
+                                                <ul class="d-flex text-center justify-content-center mb-2 cstm_list_content">
+                                                    <li class="btn btn-outline-primary">Designed for OUK learners and
+                                                        graduates</li> &nbsp;
+                                                    <li class="btn btn-outline-primary">Hands-on projects with real
+                                                        impact</li>
+                                                </ul>
+                                                <ul class="d-flex text-center justify-content-center cstm_list_content">
+                                                    <li class="btn btn-outline-primary">Verified internship completion
+                                                    </li> &nbsp;
+                                                    <li class="btn btn-outline-primary">Mentorship and career
+                                                        development
+                                                    </li>
+                                                </ul>
+                                                <p class="text-center  d-flex justify-content-center"><a (click)="ApplyNow()"
+                                                        class="btn btn-sm btn-theme w-50 startup_cstm_btn">
+                                                        Don’t wait. Kickstart your
+                                                        career with the right internship today. <i
+                                                            class="bi bi-arrow-right-circle"></i></a></p>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                              <div class="container-fluid px-3">
+  <div class="row">
+    <div
+      class="col-12 col-sm-6 col-lg-3 mb-4"
+      *ngFor="let item of companyList"
+    >
+      <div class="recent-job-item h-100 text-center border rounded shadow-sm p-3 d-flex flex-column justify-content-between">
+        <div class="main-content">
+          <h5 class="title mb-3">{{ item.COMPANY_NAME }}</h5>
+          <div class="thumb">
+            <img
+              *ngIf="item.cmp_logo"
+              [src]="fileUrl + item.cmp_logo"
+              alt="{{ item.COMPANY_NAME }}"
+              height="100"
+              width="100"
+              class="img-fluid img-thumbnail"
+            />
+          </div>
+        </div>
+        <div class="recent-job-info mt-3">
+          <button
+            class="btn btn-sm btn-outline-primary"
+            (click)="SrchType(item)"
+          >
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+                        </div>
+                        <div class="tab-pane fade" id="product3" role="tabpanel" *ngIf="false">
+                            <!-- <app-tutor-home></app-tutor-home>  this.companyList-->
+                            <section [ngClass]="{'pt-1':!isShowAll}" [ngStyle]="{'padding-top':isShowAll?'7rem':null}"
+                                *ngIf="jobSearchType != 'job'">
+                                <div class="page-header-area sec-overlay sec-overlay-black"
+                                    *ngIf="isShowCourseSche || isShowCourseSch"
+                                    style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;">
+                                    <div class="container pt--0 pb--0">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="page-header-content">
+                                                    <h2 class="title">Internship Details</h2>
+                                                    <nav class="breadcrumb-area">
+                                                        <ul class="breadcrumb justify-content-center">
+                                                            <li><a href="">Home</a></li> <span>/ </span>
+                                                            <li><a routerLink="/menu/internships">Internship Details</a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="container pt-2 pb-2">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-lg-4 col-xl-3 mb-2 "
+                                                *ngFor="let category of categoryList;">
+                                                <div class="team-item h-100">
+                                                    <div class="thumb">
+                                                        <a (click)="onCategoryChanged(category.id)">
+                                                            <img *ngIf="category.cmp_logo" alt="Image-HasTech"
+                                                                [src]="fileUrl + category.cmp_logo" height="120"
+                                                                class="img-thumbnail img-fluid" width="120">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h6 class="name">{{category.name}}</h6>
+                                                        <a class="btn-theme btn-white btn-sm"
+                                                            (click)="onCategoryChanged(category.id)">View Profile</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container pt-1 pb-1" *ngIf="isShowCourseSche || isShowCourseSch">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="bg-white">
+                                                <form>
+                                                    <div class="row g-3 mt-5 align-items-center">
+                                                        <div class="col-6">
+                                                            <label for="companySelect"
+                                                                class="form-label fw-semibold mb-0">
+                                                                Search Company</label>
+                                                            <select id="searchname"
+                                                                class="form-select form-select-sm shadow-sm rounded mt-1 mb-1"
+                                                                [(ngModel)]="intrmcompany_id" name="company_id"
+                                                                (change)="getAllCourseCategory('Iner')">
+                                                                <option value="0" selected>Choose Company</option>
+                                                                <option *ngFor="let item of companyList"
+                                                                    [value]="item.COMPANY_ID">
+                                                                    {{item.COMPANY_NAME }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-6 text-end">
+                                                            <h3 class="fw-bold">
+                                                                <button
+                                                                    class="btn btn-sm btn-info mb-0 bg-transparent border-0"
+                                                                    (click)="backToCompanies()">
+                                                                    <i class="bi bi-arrow-left-circle-fill"></i>
+                                                                </button>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12" *ngFor="let course of courseList;">
+                                            <div class="card mb-2 bg-light shadow-sm">
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div>
+                                                            <img [src]="course.COURSE_IMAGE || course.IMAGE_URL"
+                                                                width="130" height="130" alt="profile-sample1"
+                                                                class=" img-fluid img_crs_1" />
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="title mb-0 fw-bold">{{course.COURSE_NAME}}</h6>
+                                                        </div>
+                                                        <div>
+                                                            <i class="bi bi-play-circle-fill  me-2"></i><br />
+                                                            Start date: {{course?.COURSESHD_STARTDATE |
+                                                            date:'dd-MM-yyyy'}}
+                                                        </div>
+                                                        <div>
+                                                            <i class="bi bi-cash-coin  me-3"></i><br />
+                                                            Stipend: ₹ {{course?.COURSESHD_AMOUNT}} /month
+                                                        </div>
+                                                        <div>
+                                                            <button class="btn-theme p-1"
+                                                                (click)="gotoCourseDetail(course)">
+                                                                <i class="bi bi-eye-fill"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="row mt-2 mb-2 container" *ngIf="isShowhide">
+    <div class="col-xl-3">
+        <div class="card shadow-sm rounded bg-white sticky-top">
+            <div class="card-body">
+                <div>
+                    <div class="row g-3" style="font-size:13px; font-weight: 500;">
+                        <!-- Company Dropdown -->
+                        <div class="col-12 pt-3 pb-2">
+                            <label for="companySelect" class="form-label fw-semibold mb-0">Search
+                                Company</label>
+                            <select id="companySelect" class="form-select form-select-sm shadow-sm rounded"
+                                [(ngModel)]="company_id" name="company_id" (change)="LoadGrid('Iner')">
+                                <option value="0" selected>Choose Company</option>
+                                <option *ngFor="let item of companyList" [value]="item.COMPANY_ID">{{
+                                    item.COMPANY_NAME }}</option>
+                            </select>
+                        </div>
+
+                        <!-- Categories -->
+                        <div class="col-12 pb-2">
+                            <label for="categorySelect" class="form-label fw-semibold mb-0">Categories</label>
+                            <select id="categorySelect" class="form-select form-select-sm shadow-sm rounded"
+                                [(ngModel)]="job_category_id" name="job_category_id" (change)="LoadGrid('Iner')">
+                                <option value="0" selected>Choose Job Category</option>
+                                <option *ngFor="let item of allDropDwns?.job_category" [value]="item.id">{{
+                                    item.name }}</option>
+                            </select>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="col-12 pb-2">
+                            <label for="locationSelect" class="form-label fw-semibold mb-0">Location</label>
+                            <select id="locationSelect" class="form-select form-select-sm shadow-sm rounded"
+                                [(ngModel)]="county_id" name="county_id" (change)="LoadGrid('Iner')">
+                                <option value="0" selected>Choose County</option>
+                                <option *ngFor="let item of allDropDwns?.counties" [value]="item.counties_id">{{
+                                    item.counties_name }}</option>
+                            </select>
+                        </div>
+
+                        <!-- Job Types -->
+                        <div class="col-12  pb-2">
+                            <label class="form-label fw-semibold mb-0">Job Types</label>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <div *ngFor="let d of jobTypeLst" class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="jobType{{d.id}}"
+                                        [(ngModel)]="d.isSts" [ngModelOptions]="{ standalone: true }">
+                                    <label class="form-check-label" for="jobType{{d.id}}">{{ d.name
+                                        }}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Salary -->
+                        <div class="col-12 pb-2">
+                            <label class="form-label fw-semibold mb-0">Salary</label>
+                            <div class="mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="salary1" name="salaryRadio"
+                                        (click)="isSalary='1';job_salary_from=10000;job_salary_to=15000"
+                                        [checked]="isSalary=='1'">
+                                    <label class="form-check-label" for="salary1">10k - 15k</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="salary2" name="salaryRadio"
+                                        (click)="isSalary='2';job_salary_from=15000;job_salary_to=25000"
+                                        [checked]="isSalary=='2'">
+                                    <label class="form-check-label" for="salary2">15k - 25k</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="salary3" name="salaryRadio"
+                                        (click)="isSalary='3';job_salary_from=25000;job_salary_to=10000000"
+                                        [checked]="isSalary=='3'">
+                                    <label class="form-check-label" for="salary3">More than 25k</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="col-12">
+                            <button type="button" class="btn btn-success w-100" (click)="LoadGrid('Iner')">Apply
+                                Filter</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-9">
+        <div class="row" *ngIf="listGrid.length > 0">
+            <div class="col-xl-6 mb-2 pntr" *ngFor="let item of listGrid" (click)="jobDetails(item)">
+                <div class="card mb-2 shadow-sm bg-white h-100" style="border-radius: 10px;">
+                    <div class="card-body ">
+
+                        <div class="d-flex justify-content-between">
+
+                            <div>
+                                <h5 class="mb-1 fw-bold">{{item.job_title}}</h5>
+                            </div>
+                            <div></div>
+                        </div>
+                        <small><strong></strong></small>
+                        <div class="">
+                            <div class="text-muted">
+                                <span><i class="bi bi-calendar-check-fill"></i>
+                                    {{item?.experience_level}}</span> &nbsp;
+                                <br>
+                                <br>
+                                <span> <i class="bi bi-geo-alt-fill"></i>
+                                    {{item?.counties_name}} - {{item?.sub_counties_name}}</span> &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="listGrid.length == 0">
+            <h4>No Records Found</h4>
+        </div>
+    </div>
+</div>

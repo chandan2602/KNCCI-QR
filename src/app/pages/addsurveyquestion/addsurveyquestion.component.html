@@ -1,0 +1,175 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Survey Questionnaire</h5>
+                                    </div>
+
+
+                                    <div class="card-body">
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-primary" (click)="add()"
+                                                data-bs-toggle="modal" data-bs-target="#myModal">Add</button>
+
+                                        </div>
+                                        <br>
+                                        <div *ngIf="table.length">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>
+
+                                                            S.No</th>
+                                                        <th>
+                                                            Title
+                                                        </th>
+                                                        <th>Type</th>
+                                                        <th>Options</th>
+                                                        <th>Action</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table;let i=index">
+                                                        <td>{{i+1}}</td>
+                                                        <td>{{item.SurveyQuestion}}</td>
+                                                        <td>
+                                                            <!-- {{item.DictionaryCode}} -->
+                                                            <img *ngIf="item.DictionaryCode == 'fbd5afa6'"
+                                                                src="../../../assets//images/sprites/YesNo.png">
+                                                            <img *ngIf="item.DictionaryCode =='dd57541d'"
+                                                                src="../../../assets/images/sprites/MChoice.png" alt="">
+                                                            <img *ngIf="item.DictionaryCode =='39080bf1'"
+                                                                src="../../../assets/images/sprites/MAnswer.png" alt="">
+                                                            <img *ngIf="item.DictionaryCode =='797537f0'"
+                                                                src="../../../assets/images/sprites/Open.png" alt="">
+                                                        </td>
+                                                        <td>{{item.Options}}</td>
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon" (click)="edit(item)">
+                                                                <i class="fas fa-pen pt-1 mt-1"></i></span><button
+                                                                class="btn text-danger rem_1"
+                                                                (click)="delete(item)">X</button>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div *ngIf="!table.length" class="text-center">No Records to Display</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" *ngIf="!isEdit"> Add Questionnaire</h4>
+                <h4 class="modal-title" *ngIf="isEdit"> Edit Questionnaire</h4>
+                <button type="button" (click)="close()" class="close" data-bs-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="header_body">
+                    <div class="row">
+                        <div class="col-md-3 text-center" *ngIf="!this.isEdit||this.qId=='fbd5afa6'">
+                            <img class="pointer" [ngClass]='{"active":this.qId=="fbd5afa6"}'
+                                (click)="selectType('fbd5afa6','first')"
+                                src="../../../assets//images/sprites/YesNo.png">
+                        </div>
+                        <div class="col-md-3 text-center " *ngIf="!this.isEdit||this.qId=='dd57541d'">
+                            <img class="pointer" [ngClass]='{"active":this.qId=="dd57541d"}'
+                                (click)="selectType('dd57541d','first')"
+                                src="../../../assets/images/sprites/MChoice.png" alt="">
+                        </div>
+                        <div class="col-md-3 text-center" *ngIf="!this.isEdit||this.qId=='39080bf1'">
+                            <img class="pointer" [ngClass]='{"active":this.qId=="39080bf1"}'
+                                (click)="selectType('39080bf1','first')"
+                                src="../../../assets/images/sprites/MAnswer.png" alt="">
+                        </div>
+                        <div class="col-md-3 text-center" *ngIf="!this.isEdit||this.qId=='797537f'">
+                            <img class="pointer" [ngClass]='{"active":this.qId=="797537f0"}'
+                                (click)="selectType('797537f0','secound')" src="../../../assets/images/sprites/Open.png"
+                                alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="body_model">
+                    <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                        <fieldset>
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label line_2 rem_1">
+                                    Question <span class="text-danger">*</span></label>
+                                <div class="col-md-8 inputGroupContainer">
+                                    <div class="input-group">
+                                        <textarea placeholder="" class="form-control"
+                                            formControlName="QUESTION"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right pt-2">
+                                <input type="checkbox" formControlName='isMandatory'>&nbsp;
+                                <label> Is Mandatory</label>
+                            </div>
+                            <div *ngIf="myForm.controls['formArray']">
+                                <div formArrayName='formArray'>
+
+                                    <div class="form-group row pt-4"
+                                        *ngFor="let item of myForm.controls['formArray'].controls;let i=index"
+                                        [formGroupName]="i">
+                                        <label class="col-md-4 control-label">
+                                            option {{i+1}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                <textarea rows="1" class="form-control"
+                                                    formControlName="option"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div class="text-right" style="margin-top:-6px" *ngIf="qId=='dd57541d'||qId=='39080bf1'">
+                        <button class="btn text-success rem_2" (click)="addQuestion()">+</button> <button
+                            class="btn text-danger rem_2" (click)="deleteQuestion()">-</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" class="btn btn-success" [disabled]="myForm.invalid"
+                    (click)="onSubmit(myForm)">Save</button>
+                <button type="button" *ngIf="isEdit" class="btn btn-success" [disabled]="myForm.invalid"
+                    (click)="onSubmit(myForm)">Update</button>
+                <button type="button" class="btn btn-danger" id='md_close' (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+<div class="default_class">
+    <div class="content-wrapper p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 class="mb-0 text-center">Content Authoring</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group ">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="sel1">Tenant Type : </label>
+                                        <select [(ngModel)]='tId ' (change)="change()"
+                                            class="form-control form-control-sm shadow-sm rounded-lg" id="sel1">
+                                            <option value="" selected>select</option>
+                                            <option *ngFor='let item of tenants' [value]='item.TNT_CODE'>
+                                                {{item.TNT_NAME}}</option>
+
+
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="text-right">
+                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
+                                    data-target="#myModal" [disabled]='!tId' (click)="add()">Add</button>
+                            </div>
+                            <div *ngIf="table.length">
+                                <table id="patreggraph" datatable
+                                    class=" table-striped table-bordered mt-2 pt-2 table-sm small" style="width:100%">
+                                    <thead class="top" style="background-color: #0d9bc4; color:#ffffff;">
+                                        <tr>
+                                            <th> Course Name </th>
+                                            <th>
+                                                Chapter Name
+                                            </th>
+                                            <th> Course Content </th>
+
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of table">
+                                            <td>{{item.COURSE_NAME}}</td>
+                                            <td>{{item.CHAPTER_NAME}}</td>
+
+                                            <td>{{item.CourseContents}}</td>
+                                            <td class=" text-center"><input type="image" data-toggle="modal"
+                                                    data-target="#myModal"
+                                                    src="./../../../assets/images/sprites/edit.svg"
+                                                    class="edit_icon text-center" (click)="edit(item)"><button
+                                                    class="btn text-danger rem_1" (click)="delete(item)">X</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center" *ngIf="!table.length">
+                                No Records to display
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 *ngIf="!isEdit" class="modal-title"> Add </h4>
+                <h4 *ngIf="isEdit" class="modal-title"> Edit </h4>
+                <button type="button" (click)="close()" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Course Name <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <select [(ngModel)]='courceId ' formControlName="CourseId"
+                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                        (change)="courseChange()">
+                                        <option value="" selected>select</option>
+                                        <option *ngFor="let course of courses" [value]='course.COURSE_ID'>
+                                            {{course.COURSE_NAME}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                                <div *ngIf="myForm.get('CourseId').touched">
+                                    <span class="text-danger" *ngIf="myForm.get('CourseId').hasError('required')">
+                                        This field is required.
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Chapter Name <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <select formControlName="ChapterId"
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+                                        <option value="" selected>select</option>
+                                        <option *ngFor="let chapter of chapters" [value]='chapter.CHAPTER_ID'>
+                                            {{chapter.CHAPTER_NAME}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                                <div *ngIf="myForm.get('ChapterId').touched">
+                                    <span class="text-danger" *ngIf="myForm.get('ChapterId').hasError('required')">
+                                        This field is required.
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Content <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <textarea class="form-control" formControlName="Content" rows="3">
+                                    </textarea>
+                                </div>
+                                <div *ngIf="myForm.get('Content').touched">
+                                    <span class="text-danger" *ngIf="myForm.get('Content').hasError('required')">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" class="btn btn-success" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Save</button>
+                <button type="button" *ngIf="isEdit" class="btn btn-success" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Update</button>
+                <button type="button" class="btn btn-danger" id="md_close" (click)="close()"
+                    data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,216 @@
+<div class="custom_container">
+    <form class="well form-horizontal" [formGroup]="myform">
+        <fieldset>
+            <!-- <div class="form-group row">
+                <label class="col-md-4 control-label mt-2">
+                    Title <span class="text-danger">*</span></label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group"> <strong>:</strong> &nbsp;
+                        <select class="form-control form-control-sm shadow-sm rounded-lg" formControlName='Title'>
+                            <option value="" [selected]="true">select</option>
+                            <option [value]='item.DICTIONARYID' *ngFor='let item of titles'>{{item.DICTIONARYNAME}}
+                            </option>
+                        </select>
+                    </div>
+                    <div *ngIf="myform.get('Title').touched">
+                        <span class="text-danger" *ngIf="myform.get('Title').hasError('required')">
+                            This field is required.
+                        </span>
+
+                    </div>
+                </div>
+            </div> -->
+            <div class="form-group row pt-4">
+                <label class="col-md-4 control-label">
+                    First Name <span class="text-danger">*</span></label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group" (keypress)="keyPressAlphaNumericwithSlash($event)"> <strong>:</strong> &nbsp;
+                        <input class="form-control" formControlName='FirstName' type="text">
+                    </div>
+                    <div *ngIf="myform.get('FirstName').touched">
+                        <span class="text-danger" *ngIf="myform.get('FirstName').hasError('required')">
+                            This field is required.
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pt-4">
+                <label class="col-md-4 control-label">
+                    Last Name <span class="text-danger">*</span></label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group" (keypress)="keyPressAlphaNumericwithSlash($event)"> <strong>:</strong> &nbsp;
+                        <input class="form-control" formControlName='LastName' type="text">
+                    </div>
+                    <div *ngIf="myform.get('LastName').touched">
+                        <span class="text-danger" *ngIf="myform.get('LastName').hasError('required')">
+                            This field is required.
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pt-4">
+                <label class="col-md-4 control-label">
+                    Date Of Birth<span class="text-danger">*</span> </label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group"> <strong>:</strong> &nbsp;
+                        <input class="form-control"  formControlName='dob' type="date" id="age" >
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pt-4">
+                <label class="col-md-4 control-label mt-2">
+                    Gender <span class="text-danger">*</span></label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group"> <strong>:</strong> &nbsp;
+                        <select class="form-select form-select-sm shadow-sm rounded-lg" formControlName='Gender'>
+                            <option value="" [selected]="true">select</option>
+                            <option [value]='item.DICTIONARYID' *ngFor='let item of genders'>{{item.DICTIONARYNAME}}
+                            </option>
+                        </select>
+                    </div>
+                    <div *ngIf="myform.get('Gender').touched">
+                        <span class="text-danger" *ngIf="myform.get('Gender').hasError('required')">
+                            This field is required.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-group row pt-4">
+                <label class="col-md-4 control-label mt-2">
+                    Marital Status <span class="text-danger">*</span></label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group"> <strong>:</strong> &nbsp;
+                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                            formControlName='MartialStatus'>
+                            <option value="" [selected]="true">select</option>
+                            <option [value]='item.DICTIONARYID' *ngFor='let item of marriageStatus'>
+                                {{item.DICTIONARYNAME}}
+                            </option>
+                        </select>
+                    </div>
+                    <div *ngIf="myform.get('MartialStatus').touched">
+                        <span class="text-danger" *ngIf="myform.get('MartialStatus').hasError('required')">
+                            This field is required.
+                        </span>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="form-group row pt-4">
+                <label class="col-md-4 control-label mt-2">
+                    ID Number <span class="text-danger">*</span></label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group"> <strong>:</strong> &nbsp;
+                        <input class="form-control form-control-sm shadow-sm rounded-lg" formControlName='idNumber'>
+
+                    </div>
+                    <div *ngIf="myform.get('idNumber').touched">
+                        <span class="text-danger" *ngIf="myform.get('idNumber').hasError('required')">
+                            This field is required.
+                        </span>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="form-group row pt-4">
+                <label class="col-md-4 control-label mt-2">
+                    Branch <span class="text-danger">*</span></label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group"> <strong>:</strong> &nbsp;
+                        <select class="form-control form-control-sm shadow-sm rounded-lg" formControlName='Branch'>
+                            <option value="" [selected]="true">select</option>
+                            <option [value]='item.COURSE_ID' *ngFor='let item of branchs'>{{item.COURSE_NAME}}
+                            </option>
+                        </select>
+                    </div>
+                    <div *ngIf="myform.get('Branch').touched">
+                        <span class="text-danger" *ngIf="myform.get('Branch').hasError('required')">
+                            This field is required.
+                        </span>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div *ngIf='roleId==3'>
+                <div class="form-group row pt-4">
+                    <label class="col-md-4 control-label mt-2">
+                        Year Of Registration <span class="text-danger">*</span></label>
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <select class="form-select form-select-sm shadow-sm rounded-lg"
+                                formControlName='YearOfRegistration'>
+                                <option value="" [selected]="true">select</option>
+                                <option *ngFor="let year of years" [value]='year.YearId'>
+                                    {{year.Year}}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="myform.get('YearOfRegistration').touched">
+                            <span class="text-danger" *ngIf="myform.get('YearOfRegistration').hasError('required')">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row pt-4">
+                    <label class="col-md-4 control-label mt-2">
+                        Parent Name <span class="text-danger">*</span></label>
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <input class="form-control form-control-sm shadow-sm rounded-lg"
+                                formControlName='ParentName'>
+                        </div>
+                        <div *ngIf="myform.get('ParentName').touched">
+                            <span class="text-danger" *ngIf="myform.get('ParentName').hasError('required')">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row pt-4">
+                    <label class="col-md-4 control-label mt-2">
+                        Parent Mobile Number <span class="text-danger">*</span></label>
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <input class="form-control form-control-sm shadow-sm rounded-lg" minlength="10" maxlength="10"
+                                onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                formControlName='ParentMobileNumber'>
+                        </div>
+                        <div *ngIf="myform.get('ParentMobileNumber').touched">
+                            <span class="text-danger" *ngIf="myform.get('ParentMobileNumber').hasError('required')">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row pt-4">
+                    <label class="col-md-4 control-label mt-2">
+                        Parent RelationShip <span class="text-danger">*</span></label>
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <input class="form-control form-control-sm shadow-sm rounded-lg"
+                                formControlName='ParentRelationShip'>
+                        </div>
+                        <div *ngIf="myform.get('ParentRelationShip').touched">
+                            <span class="text-danger" *ngIf="myform.get('ParentRelationShip').hasError('required')">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="form-group row pt-4">
+                <label class="col-md-4 control-label mt-2">
+                    Status </label>
+                <div class="col-md-8 inputGroupContainer">
+                    <div class="input-group"> <strong>:</strong> &nbsp;
+                        <select class="form-select form-select-sm shadow-sm rounded-lg" formControlName='status'>
+                            <option [ngValue]='1'>Active</option>
+                            <option [ngValue]='0'>Inactive</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+        </fieldset>
+    </form>
+
+</div>

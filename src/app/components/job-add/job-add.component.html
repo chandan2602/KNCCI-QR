@@ -1,0 +1,362 @@
+<div class="pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <h5 class="text-left"><b>Job <button class="btn btn-sm"
+                        [appTooltip]="tooltipContent">
+                        <i class="bi bi-info-circle-fill"></i>
+                    </button></b></h5>
+                        <div class="custom_container">
+                            <div class="well form-horizontal" [formGroup]="createJobForm">
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Job Title :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='job_title' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500">
+                                        <div class="text-danger" *ngIf="f.job_title.touched && f.job_title.errors">
+                                            <small *ngIf="f.job_title.errors?.['required']">Job Title is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Job Description :<span
+                                                class="text-danger">*</span></label>
+                                        <textarea formControlName='job_description'
+                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500">
+                                        </textarea>
+                                        <div class="text-danger" *ngIf="f.job_description.touched && f.job_description.errors">
+                                            <small *ngIf="f.job_description.errors?.['required']">Job Description is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Job Category :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            [(ngModel)]="jobCatgry" formControlName='job_category_id'
+                                            [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns?.job_category'>
+                                                {{item.name}}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.job_category_id.touched && f.job_category_id.errors">
+                                            <small *ngIf="f.job_category_id.errors?.['required']">Job Category is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Job Responsibilities :<span
+                                                class="text-danger">*</span></label>
+                                            <textarea formControlName='job_responsibilities'
+                                                class="form-control form-control-sm shadow-sm rounded-lg"
+                                                [attr.disabled]="screenType == 'view' ? true : null" maxlength="500">
+                                            </textarea>
+                                            <div class="text-danger" *ngIf="f.job_responsibilities.touched && f.job_responsibilities.errors">
+                                            <small *ngIf="f.job_responsibilities.errors?.['required']">Job Responsibilities is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Skills / Technologies :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='job_skills' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500">
+                                            <div class="text-danger" *ngIf="f.job_skills.touched && f.job_skills.errors">
+                                            <small *ngIf="f.job_skills.errors?.['required']">Job Skills is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Qualifications :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='education_level_id'
+                                            [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns.education_level'>
+                                                {{item.name}}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.education_level_id.touched && f.education_level_id.errors">
+                                            <small *ngIf="f.education_level_id.errors?.['required']">Qualification is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Experience :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='experience_level_id'
+                                            [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns.experience_level'>
+                                                {{item.name}}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.experience_level_id.touched && f.experience_level_id.errors">
+                                            <small *ngIf="f.experience_level_id.errors?.['required']">Experience is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3" *ngIf="false">
+                                        <label class="control-label mt-2"> Company :<span
+                                                class="text-danger">*</span></label>
+                                        <!-- <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='Gender' [(ngModel)]="cmpny_id">
+                                            <option value="">Select</option>
+                                            <option [value]='item.DICTIONARYID' *ngFor='let item of allDropDwns'>
+                                                {{item.DICTIONARYNAME}}</option>
+                                        </select> -->
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Country<span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-select" aria-label="Default select example"
+                                            formControlName="country_id"
+                                            (change)="countyDropdowns($event.target.value)">
+                                            <option value=""> select </option>
+                                            <option *ngFor="let item of CountryList" [value]="item.country_id">
+                                                {{ item.country_name }}
+                                            </option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.country_id.touched && f.country_id.errors">
+                                            <small *ngIf="f.country_id.errors?.['required']">Country is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> County/State :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            [attr.disabled]="screenType == 'view' ? true : null"
+                                            formControlName='county_id'
+                                            (change)="subCounty='';contyChange($event.target.value)">
+                                            <option value="">Select</option>
+                                            <option [value]='item.COUNTIES_CODE' *ngFor='let item of countyList'>
+                                                {{item.COUNTIES_NAME}}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.county_id.touched && f.county_id.errors">
+                                            <small *ngIf="f.county_id.errors?.['required']">County is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Sub County/District :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            [attr.disabled]="screenType == 'view' ? true : null"
+                                            formControlName='sub_county_id' [(ngModel)]="subCounty">
+                                            <option value="">Select</option>
+                                            <option [value]='item.sub_counties_id' *ngFor='let item of subCountyList'>
+                                                {{item.sub_counties_name}}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.sub_county_id.touched && f.sub_county_id.errors">
+                                            <small *ngIf="f.sub_county_id.errors?.['required']">Sub County is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Zip Code / Pin Code :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='zip_code' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="10"
+                                            onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'>
+                                        <div class="text-danger" *ngIf="f.zip_code.touched && f.zip_code.errors">
+                                            <small *ngIf="f.zip_code.errors?.['required']">Zip Code is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Job Type :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='job_type_id'
+                                            [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns?.jobtype'>
+                                                {{item.name}}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.job_type_id.touched && f.job_type_id.errors">
+                                            <small *ngIf="f.job_type_id.errors?.['required']">Job Type is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Shift<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='shift_id'
+                                            [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns?.shift'>
+                                                {{item.name}}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.shift_id.touched && f.shift_id.errors">
+                                            <small *ngIf="f.shift_id.errors?.['required']">Shift is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Salary Range From :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='job_salary_from' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null"
+                                            onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'
+                                            [(ngModel)]="slryFrm">
+                                        <div class="text-danger" *ngIf="f.job_salary_from.touched && f.job_salary_from.errors">
+                                            <small *ngIf="f.job_salary_from.errors?.['required']">Salary Range From is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Salary Range To :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='job_salary_to' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null"
+                                            onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'
+                                            [(ngModel)]="slryTo" (change)="salryValdtn()">
+                                        <div class="text-danger" *ngIf="f.job_salary_to.touched && f.job_salary_to.errors">
+                                            <small *ngIf="f.job_salary_to.errors?.['required']">Salary Range To is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Pay Type :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='pay_type_id'
+                                            [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns?.paytype'>
+                                                {{item.name}}</option>
+                                        </select>
+                                        <div class="text-danger" *ngIf="f.pay_type_id.touched && f.pay_type_id.errors">
+                                            <small *ngIf="f.pay_type_id.errors?.['required']">Pay Type is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Number of Openings :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='no_of_positions' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null"
+                                            onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'
+                                            maxlength="5">
+                                        <div class="text-danger" *ngIf="f.no_of_positions.touched && f.no_of_positions.errors">
+                                            <small *ngIf="f.no_of_positions.errors?.['required']">No Of Openings is Required</small>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Gender :<span class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='gender_id' [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns.gender'>
+                                                {{item.name}}</option>
+                                        </select>
+                                    </div> -->
+                                    <!-- <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Age Limit :<span class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='jobTitle' type="text"
+                                            onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'>
+                                    </div> -->
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Language :<span
+                                                class="text-danger">*</span></label>
+                                        <!-- <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='language_ids' [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns.languages'>
+                                                {{item.name}}</option>
+                                        </select> -->
+                                        <ng-multiselect-dropdown [settings]="stngsMSD(false, 'id', 'name')"
+                                            (onSelect)="onMSD('s', 'Ln', $event)"
+                                            (onDeSelect)="onMSD('d', 'Ln', $event)"
+                                            [ngModelOptions]="{standalone: true}"
+                                            (onSelectAll)="onMSD('a', 'Ln', $event)"
+                                            (onDeSelectAll)="onMSD('r', 'Ln', $event)" [data]="allDropDwns.languages"
+                                            class="ngMsd droplist" [(ngModel)]="slctLngList">
+                                        </ng-multiselect-dropdown>
+                                        <!-- formControlName='language_ids' -->
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Application Deadline :<span
+                                                class="text-danger">*</span></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control group-input form-control-sm eBSDP"
+                                                placeholder="DD-MM-YYYY" [bsConfig]="dtPkrCnfg" bsDatepicker
+                                                #dpAD="bsDatepicker" onkeypress='return event.charCode == 8'
+                                                formControlName="job_expiry_date" [minDate]="dt2Day">
+                                            <span class="input-group-text input-group-text1 eBSDP"
+                                                [attr.disabled]="screenType == 'view' ? true : null">
+                                                <button class="btn btn-outline-bsdp btn-sm p-2 eBtnDP" type="button"
+                                                    (click)="dpAD.toggle()" [attr.aria-expanded]="dpAD.isOpen"
+                                                    title="Calendar"
+                                                    [attr.disabled]="screenType == 'view' ? true : null">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div class="text-danger" *ngIf="f.job_expiry_date.touched && f.job_expiry_date.errors">
+                                            <small *ngIf="f.job_expiry_date.errors?.['required']">Job Expiry is Required</small>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Job Start Date :<span class="text-danger">*</span></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control group-input form-control-sm eBSDP"
+                                                placeholder="DD-MM-YYYY" [bsConfig]="dtPkrCnfg" bsDatepicker #dpFD="bsDatepicker"
+                                                onkeypress='return event.charCode == 8' [maxDate]="dt2Day" formControlName="job_expiry_date">
+                                            <span class="input-group-text input-group-text1 eBSDP">
+                                                <button class="btn btn-outline-bsdp btn-sm p-2 eBtnDP" type="button" (click)="dpFD.toggle()"
+                                                    [attr.aria-expanded]="dpFD.isOpen" title="Calendar">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Job End Date / Duration :<span class="text-danger">*</span></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control group-input form-control-sm eBSDP"
+                                                placeholder="DD-MM-YYYY" [bsConfig]="dtPkrCnfg" bsDatepicker #dpED="bsDatepicker"
+                                                onkeypress='return event.charCode == 8' [maxDate]="dt2Day" formControlName="job_expiry_date">
+                                            <span class="input-group-text input-group-text1 eBSDP">
+                                                <button class="btn btn-outline-bsdp btn-sm p-2 eBtnDP" type="button" (click)="dpED.toggle()"
+                                                    [attr.aria-expanded]="dpED.isOpen" title="Calendar">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Posted Date :<span
+                                                class="text-danger">*</span></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control group-input form-control-sm eBSDP"
+                                                placeholder="DD-MM-YYYY" [bsConfig]="dtPkrCnfg" bsDatepicker
+                                                #dpPD="bsDatepicker" onkeypress='return event.charCode == 8'
+                                                [maxDate]="dt2Day" formControlName="job_posted_date" readonly >
+                                            <!-- <span class="input-group-text input-group-text1 eBSDP"
+                                                [attr.disabled]="screenType == 'view' ? true : null">
+                                                <button class="btn btn-outline-bsdp btn-sm p-2 eBtnDP" type="button"
+                                                    (click)="dpPD.toggle()" [attr.aria-expanded]="dpPD.isOpen"
+                                                    title="Calendar"
+                                                    [attr.disabled]="screenType == 'view' ? true : null">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span> -->
+                                        </div>
+                                        <div class="text-danger" *ngIf="f.job_posted_date.touched && f.job_posted_date.errors">
+                                            <small *ngIf="f.job_posted_date.errors?.['required']">Job Posted is Required</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9"></div>
+                                    <div class="col-xl-3 mt-4 float-end">
+                                        <div class="float-right">
+                                            <button type="button" (click)='Save()' class="btn btn-sm  btn-save me-1"
+                                                *ngIf="screenType != 'view'">{{screenType == 'add'? 'Save':
+                                                'Update'}}</button>
+                                            <!-- <button type="button" (click)="Back()"
+                                                class="btn btn-sm btn-danger"><i class="bi bi-arrow-left-circle fa-2x"></i>Back</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="text-end float-end pt-4">
+                                <button type="button" (click)='Save()' class="btn btn-sm  btn-save me-1">Save</button>
+                                <button type="button" (click)="Back()" class="btn btn-sm btn-danger">Close</button>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

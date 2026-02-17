@@ -1,0 +1,25 @@
+.search_box .form-control {
+    padding-left: 2.375rem;
+}
+
+.search_box .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+.table_mail td, .table_mail th{vertical-align: middle}
+.table_mail .unread td{background: #D3D3D3	 !important; border: 1px solid #ccc;}
+.table_mail .unread td .text-muted, .table_mail .unread td{color: #000000 !important; font-weight: 600}
+.none{
+    display: none !important;
+}
+.mail_button{border: 1px #ccc solid; font-weight: normal !important; font-family: "ubuntu-regular", sans-serif;}
+.mail_button, .mail_button .btn{color: #495057 !important;  font-family: "ubuntu-regular", sans-serif;}
+.addButton btn.focus, .addButton .btn:focus {outline: 0 !important; box-shadow: none !important;}
+.mail_button .dropdown-menu, .mail_button .dropdown-item{color: #495057 !important; font-size: 0.9rem !important;  font-family: "ubuntu-regular", sans-serif;}

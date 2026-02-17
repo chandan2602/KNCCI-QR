@@ -1,0 +1,110 @@
+<div class="pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+
+        <div class="default_class">
+            <div class="content-wrapper p-0">
+                <div class="">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card rounded shadow-lg">
+                                <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                    <span class="float-start">
+                                        <h5 class="mb-0 ">Batch Schedule
+                                            <button class="btn btn-sm" [appTooltip]="tooltipContent">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </button>
+                                        </h5>
+                                    </span>
+                                    <span class="float-end">
+                                        <button type="button" class="btn btn-sm btn-primary mb-1" *ngIf="isPermission"
+                                            (click)="add()">Add</button>
+                                    </span>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <div class="form-group ">
+                                        <div class="row">
+                                            <div *ngIf='isSuperAdmin' class="col-md-3">
+                                                <label for="sel1">Tenant Name : </label>
+                                                <select [(ngModel)]='tId ' (change)="changeTname()"
+                                                    class="form-control form-control-sm shadow-sm rounded-lg" id="sel1">
+                                                    <option value="" [selected]="true">select</option>
+                                                    <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
+                                                        {{item.TNT_NAME}}</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2">
+                                        <table datatable id="DataTables_Table_0" [dtOptions]="dtOptions"
+                                            [dtTrigger]="dtTrigger"
+                                            class=" table-striped table-bordered mt-2 pt-2 table-sm small display"
+                                            style="width:100%">
+                                            <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                <tr>
+                                                    <th>Internship Name </th>
+                                                    <th> Batch Detail </th>
+                                                    <th> Start Date </th>
+                                                    <th> End Date </th>
+                                                    <th> Action </th>
+                                                    <!-- <th>Sessions</th> -->
+                                                    <!-- <th>Join Meeting</th> -->
+                                                    <!-- <th>View</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of table">
+                                                    <td>{{item.COURSESHD_COURSE_ID}}</td>
+                                                    <td>{{item.COURSESHD_NAME}}</td>
+                                                    <td>{{item.COURSESHD_STARTDATE | date:'dd-MM-yyyy'}}</td>
+                                                    <td>{{item.COURSESHD_ENDDATE | date:'dd-MM-yyyy'}}</td>
+                                                    <td style="display: flex; text-align: center;">
+                                                        <a data-bs-toggle="modal" data-bs-target="#myModal"
+                                                            (click)="edit(item)" *ngIf="isPermission"><i
+                                                                class="zmdi zmdi-edit zmdi-hc-2x">
+                                                            </i></a>
+
+
+                                                        <!-- <button class="btn"><i class="fa fa-user"
+                                                                (click)="navigate(item,'courseSchedule-AssignUser')"
+                                                                style='font-size:24px'> <span class="span">Users</span>
+                                                            </i>
+                                                        </button> -->
+                                                        <button class="btn" *ngIf="RoleId==1"><i class='fa fa-user-plus'
+                                                                (click)="navigate(item,'courseSchedule-AssignTrainer')"
+                                                                style='font-size:24px'> <span class="span">Add
+                                                                    Trainers</span> </i> </button>
+                                                    </td>
+                                                    <!-- <td class="text-center"><input type="image" (click)='sessions(item)'
+                                                            src="./../../../assets/images/sprites/Sessions.png"
+                                                            class="  text-center"></td> -->
+                                                    <!-- <td>
+                                                        <a *ngIf="item.HOST_URL" href="javascript: void(0)"
+                                                            (click)="joinMeeting(item.HOST_URL)"><span>link</span></a>
+                                                    </td> -->
+                                                    <!-- <td> <a href="javascript: void(0)"
+                                                        (click)="changeStatus(item.HOST_URL)">Recording</a> </td> -->
+
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="text-center" *ngIf="false">
+                                        No Records to display
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-recording-schedule *ngIf="isSubmitted" (closeModelEvent)="closeModel($event)"
+    [RecordingList]="RecordingList"></app-recording-schedule>

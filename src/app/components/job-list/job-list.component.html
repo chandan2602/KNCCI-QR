@@ -1,0 +1,75 @@
+<div class="pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Job <button class="btn btn-sm" [appTooltip]="tooltipContent">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </button></h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- <div class="text-right" *ngIf='isAdmin'>
+                                            <button type="button" class="btn btn-primary mb-1"
+                                                (click)="add()">Post New Jobs</button>
+                                        </div> -->
+                                        <div *ngIf="listGrid.length">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>S. No</th>
+                                                        <th>Job Title</th>
+                                                        <th>Job Posted Date</th>
+                                                        <th>Job Expiry Date</th>
+                                                        <th>Job Category</th>
+                                                        <th>Approval / Reject Status </th>
+                                                        <th>Approved / Reject Date </th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of listGrid; let i= index">
+                                                        <td>{{i+1}}</td>
+                                                        <td>{{item.job_title}}</td>
+                                                        <td>{{item.job_posted_date | date: 'dd-MM-yyyy'}}</td>
+                                                        <td>{{item.job_expiry_date | date: 'dd-MM-yyyy'}}</td>
+                                                        <td>{{item.job_category}}</td>
+                                                        <td>{{item.super_admin_app_rej_status == '2' ? 'Approve':
+                                                            (item.super_admin_app_rej_status == '3' ? 'Reject':
+                                                            'Pending')}}</td>
+                                                        <td>{{item.super_admin_app_rej_status != '1' ?
+                                                            (item.super_admin_app_rej_at | date: 'dd-MM-yyyy'): ''}}
+                                                        </td>
+                                                        <td style="display: flex;">
+                                                            <button class="edit_icon btn btn-primary btn-sm me-1" *ngIf="item.super_admin_app_rej_status != '2' && item.super_admin_app_rej_status != '3'"
+                                                                (click)="OnEditView(item, 'edit')">
+                                                                <i class="bi bi-pencil-square"></i> </button>
+                                                            <button class="edit_icon btn btn-primary btn-sm"
+                                                                (click)="OnEditView(item, 'view')">
+                                                                <i class="fas fa-eye"></i></button>
+                                                            <!-- <button type="button" class="btn btn-primary mb-1"
+                                                                (click)="ApplyJob(item)">Apply Job</button> -->
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="!listGrid.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,194 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Samvaad Meetings</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Course Name : </label>
+                                                    <select [(ngModel)]='courceId '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="courceChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let course of cources"
+                                                            [value]='course.COURSE_ID'>
+                                                            {{course.COURSE_NAME}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Batch Schedule :</label>
+                                                    <select [(ngModel)]='schedulId '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let schedul of scheduls"
+                                                            [value]='schedul.COURSESHD_ID'>
+                                                            {{schedul.COURSESHD_NAME}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="sel1">FromDate </label>
+                                                    <input class="form-control" type="date" id="todayDate"
+                                                        [(ngModel)]="fromDate">
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label for="sel1">To Date </label>
+                                                    <input class="form-control" type="date" [(ngModel)]="todate">
+                                                </div>
+                                            </div>&nbsp;
+                                            <div>
+                                                <button class="btn btn-sm  btn-save" (click)="getList()">Submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="table.length">
+
+                                            <table id="patergraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <th>Topic</th>
+                                                        <th>Date & Time</th>
+                                                        <!-- <th>Recurring End Date</th> -->
+                                                        <th>Recording View</th>
+                                                        <!-- <th>Links</th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table; let i=index">
+                                                        <td>{{i+1}}</td>
+                                                        <td>{{item.name}}</td>
+                                                        <td>
+                                                            <div style="white-space: nowrap;">
+                                                                {{item.meetingStartTime|date:'dd-MM-yyyy'}}</div>
+                                                            <div style="white-space: nowrap;">
+                                                                {{item.meetingStartTime|date:'HH:MM'}} -
+                                                                {{item.meetingendTime|date:'HH:MM'}}</div>
+                                                        </td>
+                                                        <!-- <td><span *ngIf="item.repeat"
+                                                    style="white-space: nowrap;">{{item.repeatTilldate|
+                                                    date:'dd-MMM-yyyy'}} </span><br />
+                                                <span
+                                                    *ngIf="item.repeat && item.repeatMode">({{item.repeatMode}})</span>
+                                                <span *ngIf="!item.repeat">N.A.</span>
+                                            </td> -->
+                                                        <td><span *ngIf="item.hostLink ==''">{{item.seesion}}</span>
+                                                            <a *ngIf="item.hostLink !=''" href="javascript: void(0)"
+                                                                data-toggle="modal" data-target="#recordingModal"
+                                                                (click)="getRecordingList(item.seesion)">{{item.seesion}}
+                                                            </a>
+                                                        </td>
+                                                        <!-- <td style="white-space: nowrap;"><a href="javascript: void(0)"
+                                                    (click)="connectLink(item.hostLink)">Start a meeting</a><br>
+                                                <a href="javascript: void(0)"
+                                                    (click)="item.hostLink ==''?joinPartispant(item.participantLink):copyParticipantLink(item.participantLink)">{{item.hostLink==''?'Join
+                                                    as Participant':'Copy participant link'}}</a><br>
+                                                <a href="javascript: void(0)"
+                                                    (click)="copyParticipantLink(item.listenOnlyLink)">Copy webinar
+                                                    link</a>
+                                            </td> -->
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="!table.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="recordingModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header py-2">
+                <h6 class="modal-title w-100">Recording Details</h6>
+                <button type="button" class="close closeMultiRecordingViewModal" data-bs-dismiss="modal"
+                    aria-label="Close">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div *ngIf="recordingList.length">
+                    <table id="patergraph" datatable class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                        style="width:100%">
+                        <thead class="top" style="background-color: #0d9bc4; color:#ffffff;">
+                            <tr class="text-center">
+                                <th>S.No</th>
+                                <th>Recording ID</th>
+                                <th>Start Date and Time</th>
+                                <th>End Date and Time</th>
+                                <th>Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of recordingList; let i=index" class="text-center">
+                                <td>{{i+1}}</td>
+                                <td>
+                                    <a href="javascript: void(0)" (click)="showRecordingView(item)" data-toggle="modal"
+                                        data-target="#videoPopupModal">
+                                        {{item.recordID?.split("-")[1]}}</a>
+                                </td>
+                                <td>{{item.startTime| date:'dd-MM-yyyy
+                                    HH:mm:ss'}}</td>
+                                <td>{{item.endTime| date:'dd-MM-yyyy
+                                    HH:mm:ss'}}</td>
+                                <td>
+                                    <span *ngIf="item.status === 'File is ready to download'">
+                                        <a href="javascript: void(0)" (click)="downloadRecording(item)">Download</a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center" *ngIf="!recordingList.length">
+                    No Records to display
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="videoPopupModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered" id="playVideo">
+        <div class="modal-content">
+
+            <div class="border-bottom-0">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" (click)="closeVideo()">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="recorVideoPlay" width="100%">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

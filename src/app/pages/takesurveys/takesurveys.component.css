@@ -1,0 +1,15 @@
+h5{
+    text-align: left !important;
+}
+.card_poll{
+    width: 80%;
+    margin: 5px auto;
+   
+}
+h3{
+    text-align: center;
+}
+.form-check .form-check-label input {opacity: 1;}
+.mt-2 span{
+    color: red;
+}

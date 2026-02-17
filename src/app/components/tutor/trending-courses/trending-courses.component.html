@@ -1,0 +1,80 @@
+<section class="pt-4">
+    <div class="container p-0">
+        <!-- <div class="d-flex justify-content-between m-xl-4 m-0 mb-4">
+            <div class="discover-txt float-start d-xl-inline d-md-inline d-block mb-2">Trending Topics To<span
+                    class="ln-txt ms-2">Learn Now</span></div>
+            <div class="float-xl-end float-md-end float-none mb-2"><button (click)="ShowAll()"
+                    class="btn btn-sm btn-seeall">Show All</button></div>
+        </div> -->
+        <div class="clearfix"></div>
+        <div class="post mt-0">
+            <div class="row ">
+                <div class="col-xl-12 px-0 mb-0">
+                    <!-- <div class="owl-carousel owl-carousel1 owl-theme"> -->
+                    <div class="owl-carousel my-custom-carousel owl-theme">
+
+                        <div class="item" *ngFor="let trend of trending_courseList">
+                            <!-- <div class="card shadow-sm">
+                                <img [src]="trend.IMAGE_URL" class="card-img-top" alt="..." width="354" height="185">
+                                <span href="#" class="badge rounded-pill text-bg-light user-pill px-3 py-2">
+
+                                </span>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{trend.COURSE_NAME}}</h5>
+                                    <p class="card-text">
+                                        {{trend.COURSE_DESCRIPTION.substr(0,150)}}
+                                        <a *ngIf="trend.COURSE_DESCRIPTION.length>75" (click)="gotoCourseDetail(trend)"
+                                            href="javascript:return(0);">View More</a>
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <div><span class="price me-2"> {{trend.COURSESHD_AMOUNT |currency:'INR'}}</span>
+                                        </div>
+                                        <div><span><button class="btn btn-sm btn-seeall-1"
+                                                    (click)="gotoCourseDetail(trend)">View Course</button></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="card profile-card-3 h-100">
+                                <div class="background-block">
+                                    <img [src]="trend.IMAGE_URL" alt="profile-sample1" class="background" />
+                                </div>
+
+                                <div class="card-content p-4">
+                                    <div class="text-end mb-3" style="position:absolute; right:10px; top:-30px;">
+                                        <h2 class="">{{trend.COURSE_NAME}}</h2>
+                                        <!-- <h5 class="">Justin Mccoy<small>Designer</small></h5> -->
+                                    </div>
+
+                                    <div class="text-start mt-4">
+                                        <!-- <span class="small">1 - 28 July 2022</span> -->
+                                        <!-- <div class="fs-3 mt-2">Angular</div> -->
+
+                                        <p class="text-white">
+                                            {{trend.COURSE_DESCRIPTION.substr(0,150)}}
+                                            <a *ngIf="trend.COURSE_DESCRIPTION.length>75"
+                                                (click)="gotoCourseDetail(trend)" href="javascript:return(0);">View
+                                                More</a>
+                                        </p>
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <span class="text-white me-2 fw-bold">{{trend.COURSESHD_AMOUNT
+                                                    |currency:'INR'}}</span>
+                                                <!-- <spn class=" text-bg-danger">$ 500</spn> -->
+                                            </div>
+                                            <div><span><button class="btn btn-sm btn-outline-light"
+                                                        (click)="gotoCourseDetail(trend)">View Course</button></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

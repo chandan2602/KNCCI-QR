@@ -1,0 +1,139 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <h3>{{Description.SurveyTitle}}</h3>
+                                    <div *ngIf="!start">
+                                        <div class="card card_poll">
+                                            <div class="card-header" *ngIf="!isComplete">
+                                                Description
+                                            </div>
+                                            <div class="card-header" *ngIf="isComplete">
+                                                Survey is Completed
+                                            </div>
+                                            <div class="card-body">
+                                                <h5 class="card-title text-center" [innerHTML]='Description.FinalWords'>
+                                                </h5>
+                                            </div>
+                                            <div class="text-xl-right mr-3 mb-2 pointer" *ngIf="!isComplete">
+                                                <a (click)="back()" class="btn btn-sm btn-save"><i class="bi bi-arrow-left-circle fa-2x"></i></a> &nbsp;
+                                                <a (click)="begin()" class="btn btn-sm btn-save">Begin Survey</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="start">
+                                        <div class="card  card_poll p-3">
+                                            <!-- /////yes or no -->
+                                            <div *ngIf="questions['fbd5afa6'].isEnable">
+                                                <div class="pl-3">
+
+
+                                                    <div class="radio mt-2"
+                                                        *ngFor='let item of getKeys(questions["fbd5afa6"].questions)'>
+                                                        <h6> <span
+                                                                *ngIf='questions["fbd5afa6"].questions[item].data.IsMandatory'>*</span>
+                                                            {{questions["fbd5afa6"].questions[item].data.SurveyQuestion}}
+                                                        </h6>
+                                                        <div class="radio"
+                                                            *ngFor='let question of getQuestionsData(item,"fbd5afa6")'>
+                                                            <label><input type="radio" [value]='question.OptionId'
+                                                                    [(ngModel)]="questions['fbd5afa6'].questions[item].answer"
+                                                                    name={{question.QuestionId}}>
+                                                                {{question.OptionText}}</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- radio group -->
+                                            <div *ngIf="questions['dd57541d'].isEnable">
+                                                <div class="pl-3">
+
+
+                                                    <div class="radio mt-2"
+                                                        *ngFor='let item of getKeys(questions["dd57541d"].questions)'>
+                                                        <h6><span
+                                                                *ngIf='questions["dd57541d"].questions[item].data.IsMandatory'>*</span>
+                                                            {{questions["dd57541d"].questions[item].data.SurveyQuestion}}
+                                                        </h6>
+                                                        <div class="radio"
+                                                            *ngFor='let question of getQuestionsData(item,"dd57541d")'>
+                                                            <label><input type="radio" [value]='question.OptionId'
+                                                                    [(ngModel)]="questions['dd57541d'].questions[item].answer"
+                                                                    name={{question.QuestionId}}>
+                                                                {{question.OptionText}}</label>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- check box group -->
+                                            <div *ngIf="questions['39080bf1'].isEnable">
+                                                <div class="pl-3">
+
+
+                                                    <div class="mt-2"
+                                                        *ngFor='let item of getKeys(questions["39080bf1"].questions)'>
+                                                        <h6> <span
+                                                                *ngIf='questions["39080bf1"].questions[item].data.IsMandatory'>*</span>
+                                                            {{questions["39080bf1"].questions[item].data.SurveyQuestion}}
+                                                        </h6>
+                                                        <div class="form-check"
+                                                            *ngFor='let question of getQuestionsData(item,"39080bf1"); let i = index'>
+                                                            <label class="form-check-label">
+                                                                <input type="checkbox" class="form-check-input"
+                                                                    [value]='question.OptionId'
+                                                                    [(ngModel)]="questions['39080bf1'].questions[item].answer[i]">
+                                                                {{question.OptionText}}</label>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- text? -->
+                                            <div *ngIf="questions['797537f0'].isEnable">
+                                                <div class="pl-3">
+
+
+                                                    <div class="mt-2"
+                                                        *ngFor='let item of getKeys(questions["797537f0"].questions)'>
+                                                        <h6> <span
+                                                                *ngIf='questions["797537f0"].questions[item].data.IsMandatory'>*</span>
+                                                            {{questions["797537f0"].questions[item].data.SurveyQuestion}}
+                                                        </h6>
+
+                                                        <textarea name=""
+                                                            [(ngModel)]="questions['797537f0'].questions[item].answer"
+                                                            id="" cols="30" rows="5"></textarea>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center">
+                                                <button class="btn btn-sm btn-save" (click)="save()"> save</button>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

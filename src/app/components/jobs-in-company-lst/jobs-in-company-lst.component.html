@@ -1,0 +1,208 @@
+<div class="pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid pt-2 pb-2">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid pt-2 pb-2">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                     <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0" style="font-family: MavenPro-Regular;font-size: 1.25rem; font-weight: 500;
+                                            line-height: 1.2;"> Job Application <button class="btn btn-sm"
+                                            [appTooltip]="tooltipContent">
+                                            <i class="bi bi-info-circle-fill"></i>
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div class="bg-light pt-0">
+                                        <div class="container pt-2 pb-1">
+                                            <div class="row ">
+                                                <div class="col-xl-3">
+                                                    <div class="card shadow-sm rounded bg-white">
+                                                       
+                                                        <div class="card-body">
+                                                            <form>
+                                                                <div class="row g-3"
+                                                                    style="font-size:13px; font-weight: 500;">
+                                                                    <!-- Company Dropdown -->
+                                                                    <div class="col-12 pt-3 pb-2">
+                                                                        <label for="companySelect"
+                                                                            class="form-label fw-semibold mb-0">Search
+                                                                            Company</label>
+                                                                        <select id="companySelect"
+                                                                            class="form-select form-select-sm shadow-sm rounded"
+                                                                            [(ngModel)]="company_id" name="company_id"
+                                                                            (change)="LoadGrid('Iner')">
+                                                                            <option value="0" selected>Choose Company
+                                                                            </option>
+                                                                            <option *ngFor="let item of companyList"
+                                                                                [value]="item.COMPANY_ID">{{
+                                                                                item.COMPANY_NAME }}</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <!-- Categories -->
+                                                                    <div class="col-12 pb-2">
+                                                                        <label for="categorySelect"
+                                                                            class="form-label fw-semibold mb-0">Categories</label>
+                                                                        <select id="categorySelect"
+                                                                            class="form-select form-select-sm shadow-sm rounded"
+                                                                            [(ngModel)]="job_category_id"
+                                                                            name="job_category_id"
+                                                                            (change)="LoadGrid('Iner')">
+                                                                            <option value="0" selected>Choose Job
+                                                                                Category</option>
+                                                                            <option
+                                                                                *ngFor="let item of allDropDwns?.job_category"
+                                                                                [value]="item.id">{{
+                                                                                item.name }}</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <!-- Location -->
+                                                                    <div class="col-12 pb-2">
+                                                                        <label for="locationSelect"
+                                                                            class="form-label fw-semibold mb-0">Location</label>
+                                                                        <select id="locationSelect"
+                                                                            class="form-select form-select-sm shadow-sm rounded"
+                                                                            [(ngModel)]="county_id" name="county_id"
+                                                                            (change)="LoadGrid('Iner')">
+                                                                            <option value="0" selected>Choose City
+                                                                            </option>
+                                                                            <option
+                                                                                *ngFor="let item of allDropDwns?.counties"
+                                                                                [value]="item.counties_id">{{
+                                                                                item.counties_name }}</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <!-- Job Types -->
+                                                                    <div class="col-12  pb-2">
+                                                                        <label class="form-label fw-semibold mb-0">Job
+                                                                            Types</label>
+                                                                        <div class="d-flex flex-wrap gap-2 mt-2">
+                                                                            <div *ngFor="let d of jobTypeLst"
+                                                                                class="form-check form-check-inline">
+                                                                                <input class="form-check-input"
+                                                                                    type="checkbox" id="jobType{{d.id}}"
+                                                                                    [(ngModel)]="d.isSts"
+                                                                                    [ngModelOptions]="{ standalone: true }">
+                                                                                <label class="form-check-label"
+                                                                                    for="jobType{{d.id}}">{{ d.name
+                                                                                    }}</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- Salary -->
+                                                                    <div class="col-12 pb-2">
+                                                                        <label
+                                                                            class="form-label fw-semibold mb-0">Salary</label>
+                                                                        <div class="mt-2">
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input"
+                                                                                    type="radio" id="salary1"
+                                                                                    name="salaryRadio"
+                                                                                    (click)="isSalary='1';job_salary_from=10000;job_salary_to=15000"
+                                                                                    [checked]="isSalary=='1'">
+                                                                                <label class="form-check-label"
+                                                                                    for="salary1">10k - 15k</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input"
+                                                                                    type="radio" id="salary2"
+                                                                                    name="salaryRadio"
+                                                                                    (click)="isSalary='2';job_salary_from=15000;job_salary_to=25000"
+                                                                                    [checked]="isSalary=='2'">
+                                                                                <label class="form-check-label"
+                                                                                    for="salary2">15k - 25k</label>
+                                                                            </div>
+                                                                            <div class="form-check">
+                                                                                <input class="form-check-input"
+                                                                                    type="radio" id="salary3"
+                                                                                    name="salaryRadio"
+                                                                                    (click)="isSalary='3';job_salary_from=25000;job_salary_to=10000000"
+                                                                                    [checked]="isSalary=='3'">
+                                                                                <label class="form-check-label"
+                                                                                    for="salary3">More than 25k</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- Submit Button -->
+                                                                    <div class="col-12">
+                                                                        <button type="button"
+                                                                            class="btn btn-success w-100"
+                                                                            (click)="LoadGrid('Iner')">Apply
+                                                                            Filter</button>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-9">
+                                                    <div class="row">
+                                                        <div class="col-xl-6 mb-2 pntr" *ngFor="let item of listGrid"
+                                                            (click)="ApplyJob(item)">
+                                                            <div class="card mb-2 shadow-sm bg-white h-100"
+                                                                style="border-radius: 10px;">
+                                                                <div class="card-body ">
+
+                                                                    <div class="d-flex justify-content-between">
+
+                                                                        <div>
+                                                                            <h5 class="mb-1 fw-bold">{{item.job_title}}
+                                                                            </h5>
+                                                                            <h6 class="fw-bold mb-1"
+                                                                                style="color: rgb(7, 145, 169) !important;">
+                                                                                {{item.company_name}}</h6>
+                                                                        </div>
+                                                                        <div></div>
+                                                                    </div>
+                                                                    <small><strong></strong></small>
+                                                                    <div class="">
+                                                                        <div class="text-muted">
+                                                                            <span><i
+                                                                                    class="bi bi-calendar-check-fill"></i>
+                                                                                {{item?.experience_level}}</span> &nbsp;
+                                                                            <br>
+                                                                            <span> <i class="bi bi-cash-coin"></i>
+                                                                                Salary:
+                                                                                {{item?.job_salary_from}} -
+                                                                                {{item?.job_salary_to}}</span>
+                                                                            <br>
+                                                                            <span> <i class="bi bi-geo-alt-fill"></i>
+                                                                                {{item?.counties_name}} -
+                                                                                {{item?.sub_counties_name}}</span>
+                                                                            &nbsp;
+                                                                            <span> <i
+                                                                                    class="bi bi-calendar-check-fill"></i>
+                                                                                {{item?.job_expiry_date |
+                                                                                date:'dd-MM-yyyy'}}</span>
+
+                                                                            <br>
+                                                                            <span>
+                                                                                <i
+                                                                                    class="bi bi-bookmark-check-fill"></i>
+                                                                                {{item?.job_category}}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

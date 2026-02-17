@@ -1,0 +1,89 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+.default_class {
+    margin-top: 100px;
+    margin-bottom: 80px;
+
+}
+
+.a_click {
+    cursor: pointer;
+    color: #007bff !important;
+}
+
+.take_poll {
+    cursor: pointer;
+    color: #007bff !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.rem_1 {
+    font-size: 1rem !important;
+}
+
+.rem_2 {
+    font-size: 1.6rem !important;
+}
+
+.line_2 {
+    line-height: 2 !important;
+}
+
+.edit_icon {
+    height: 20px;
+    width: 12px;
+    cursor: pointer;
+    margin: auto;
+}
+
+@media only screen and (max-width: 900px) {
+    .custom_container {
+        width: 95% !important;
+    }
+}
+
+.toast-container {
+    text-transform: capitalize !important;
+}
+
+.card-body {
+    padding-bottom: 5.5rem !important;
+}
+
+a {
+    cursor: pointer;
+}
+
+
+.table-striped>tbody>tr:nth-child(odd) {
+    background-color: #4d4de9 !important;
+}
+
+.pntr {
+    cursor: pointer !important;
+}
+
+.page-content .container-fluid {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+
+.btn-primary {
+    background-color: #2e7a91 !important;
+}
+
+
+.btn-theme ,a ,button
+{
+    cursor:  pointer !important;
+}
+
+.container-fluid, .container
+{
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}

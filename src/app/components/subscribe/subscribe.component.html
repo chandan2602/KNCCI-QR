@@ -1,0 +1,102 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0"> Subscribe <button class="btn btn-sm"
+                        [appTooltip]="tooltipContent">
+                        <i class="bi bi-info-circle-fill"></i>
+                    </button>
+					</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="py-5">
+                                            <div class="row g-4 justify-content-center">
+                                                <div class="col-md-4" *ngFor="let item of listData">
+                                                    <div class="card plan-card text-center p-4" [ngStyle]="{'background-color': item.bg_colour}">
+                                                        <h4>{{item.name}}</h4>
+                                                        <div class="price mb-3">KES {{item.amount}} / Month</div>
+                                                        <ul class="list-unstyled">
+                                                            <li>✔ Access to {{item.jobs_count}} Jobs</li>
+                                                            <li>✔ {{item.internships_count}} Internships</li>
+                                                            <li *ngIf="roleId == '3'">✔ {{item.startups_count}} Start-up</li>
+                                                        </ul>
+                                                        <a class="btn btn-dark btn-plan mt-3" data-bs-toggle="modal" data-bs-target="#signupModal" 
+                                                            (click)="rowData=item;GotoHome(item)">Subscription</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="signupModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2">
+                <h6 class="modal-title w-100"> Payment </h6>
+
+                <button type="button" (click)="close()" class="close" id="cls" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body text-center">
+                <form class="well form-horizontal">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xl-12 ">
+                                <div class="form">
+                                    <label class="form-label line_2 rem_1 col-xl-12" style="font-size: 20px;"> Subscription Type :
+                                        <strong>{{rowData?.name }}</strong> </label>
+                                        <ul class="list-unstyled">
+                                            <li>✔ Access to {{rowData.jobs_count}} Jobs</li>
+                                            <li>✔ {{rowData.internships_count}} Internships</li>
+                                            <li *ngIf="roleId == '3'">✔ {{rowData.startups_count}} Start-up</li>
+                                        </ul>
+                                        <!-- <ul class="list-unstyled" *ngIf="cardType == 'Gold'">
+                                            <li>✔ Access to {{goldJobs}} Jobs</li>
+                                            <li>✔ {{goldStartUps}} Start-up</li>
+                                        </ul>
+                                        <ul class="list-unstyled" *ngIf="cardType == 'Platinum'">
+                                            <li>✔ Access to {{platiuJobs}} Jobs</li>
+                                            <li>✔ {{platiumStartUps}} Start-up</li>
+                                        </ul> -->
+                                    <label class="form-label line_2 rem_1 col-xl-12" style="font-size: 20px;">Fees (KES):
+                                        <strong>{{rowData.amount}}</strong> 
+                                        <!-- <strong *ngIf="goldAmt !=0">{{goldAmt}}</strong> 
+                                        <strong *ngIf="platiumAmt !=0">{{platiumAmt}}</strong>  -->
+                                    </label>
+                                    <label class="form-label line_2 rem_1 col-xl-12" style="font-size: 20px;">Valid :
+                                        <strong>{{fromDate | date: 'dd-MM-yyyy'}} - {{toDate | date: 'dd-MM-yyyy'}}</strong> </label>
+
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="modal-footer">
+                        <button type="button" (click)="Save()" class="btn btn-sm btn-save">Payment</button>
+                        <button type="button" class="btn btn-sm btn-danger " id='md_close' (click)="close()"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

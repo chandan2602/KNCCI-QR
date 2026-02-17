@@ -1,0 +1,114 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Investor Dashboard</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row dashboardcards">
+
+
+
+                                            <!-- Approved -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="card shadow bg_approved text-white">
+                                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                                        <div class="progress-label">Approved</div>
+                                                        <div class="progress-circle approved">
+                                                            <span class="progress-value">{{listGrid?.accepted}}</span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Rejected -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="card shadow bg_rejected">
+                                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                                        <div class="progress-label">Rejected</div>
+                                                        <div class="progress-circle rejected">
+                                                            <span class="progress-value">{{listGrid?.rejected}}</span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Waiting Confirmation -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="card shadow bg_waiting">
+                                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                                        <div class="progress-label">Pending for Review</div>
+                                                        <div class="progress-circle waiting">
+                                                            <span
+                                                                class="progress-value">{{listGrid?.in_progress}}</span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- In Progress -->
+                                            <div class="col-md-3 col-sm-6">
+                                                <div class="card shadow bg_in-progress">
+                                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                                        <div class="progress-label">Total</div>
+                                                        <div class="progress-circle in-progress">
+                                                            <span class="progress-value">{{listGrid?.total}}</span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-xl-12 mt-2">
+                                                <div class="card mb-2">
+                                                    <div class="card-body">
+                                                        <h5 style="color: #ff7f50; font-weight: bold;">Welcome,
+                                                            Investor!</h5>
+                                                        <p> This dashboard gives you access to a
+                                                            curated list of approved startup ideas ready for funding.
+                                                            Each startup you receive has already been reviewed and
+                                                            endorsed by trusted incubators, ensuring quality and
+                                                            relevance to your sector preferences. Explore detailed
+                                                            profiles, business models, supporting documents, and media
+                                                            files submitted by founders. You can track the number of
+                                                            startups you’ve received, approved, or rejected, and
+                                                            evaluate opportunities based on your investment goals. Use
+                                                            this space to discover high-potential ventures, make
+                                                            informed decisions, and support the next generation of
+                                                            entrepreneurs.</p>
+                                                        <a href="" class="text-danger d-none"><i
+                                                                class="bi bi-camera-video-fill"></i> Video</a>
+                                                        &nbsp;
+                                                        <a href="" class="text-danger d-none"><i
+                                                                class="bi bi-file-earmark-pdf-fill"></i>
+                                                            PDF</a> &nbsp;
+
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,202 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="main_section" *ngIf="editData !=''">
+                            <!-- Top Header Section -->
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <img src="../../assets/img/logo1-new.png" alt="Logo" class="logo me-3" />
+                                <h4 class="text-center mb-0" style="color:#307a91;">Investor Profile</h4>
+                            </div>
+                            <hr>
+                            <!-- Card 1: Personal Details -->
+                            <div class="card mb-3 " style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Basic Information</div>
+                                    <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="data-label">Investor Name</td>
+                                            <td class="data-value">{{editData?.name}}</td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Investor Type</td>
+                                            <td class="data-value">{{ editData?.investor_type_name }}</td>
+                                            <!-- <td class="data-value">{{ allDropDwns.legal_entitytype.find(e => e.id == editData?.legal_entity_type_id).name }}</td> -->
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Website or LinkedIn Profile</td>
+                                            <td class="data-value">{{editData?.website}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Email</td>
+                                            <td class="data-value">{{editData?.email_id}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Phone Number</td>
+                                            <td class="data-value">{{editData?.mobile_no}}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                        
+                                            <td class="data-label">Logo Upload</td>
+                                            <td class="data-value">{{editData?.year_of_establishment}}</td>
+                                        </tr> -->
+                                        <tr>
+                                            <td class="data-label"> Date of Birth</td>
+                                            <td colspan="3" class="data-value">{{dateOfBirth | date: 'dd-MM-YYYY'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Office Address</td>
+                                            <td class="data-value">{{editData?.official_address}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                </div>
+                            </div>
+                            <!-- Card 2: Address Information -->
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Investment Preferences</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="data-label">Are You an Accredited Investor? : </td>
+                                            <td class="data-value">{{editData?.accredited_investor}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Average Investment Size</td>
+                                            <td class="data-value">{{editData?.averege_investment_name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Preferred Investment Stages</td>
+                                            <td class="data-value">{{editData?.investment_stages_names}}</td>
+                                            </tr>
+                                        <tr>
+                                            <td class="data-label">Sectors of Interest</td>
+                                            <td colspan="3" class="data-value">{{editData?.sectors_of_interest_names}}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td class="data-label">Prototype / Demo Link</td>
+                                            <td class="data-value" colspan="3">
+                                            <a href="http://localhost:4200/HOME/startsUp">http://localhost:4200/HOME/startsUp</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Video Pitch Link</td>
+                                            <td class="data-value" colspan="3">
+                                            <a href="http://localhost:4200/HOME/startsUp">http://localhost:4200/HOME/startsUp</a>
+                                            </td>
+                                        </tr> -->
+
+
+                                    </tbody>
+                                </table>
+
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Education Details -->
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Track Record</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="data-label">Key Decision Makers</td>
+                                            <td class="data-value"> {{editData?.decision_makers}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Portfolio Highlights</td>
+                                            <td class="data-value"> 
+                                                <a class="edit_icon btn btn-primary btn-sm"
+                                                    [href]="portfolioPath" target="_blank" rel="noopener noreferrer"> View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Upload Investor Profile/Deck</td>
+                                            <td class="data-value">
+                                                <a class="edit_icon btn btn-primary btn-sm"
+                                                    [href]="invstrPath" target="_blank" rel="noopener noreferrer"> View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Verification & Documents</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="data-label">Upload KYC Document</td>
+                                            <td class="data-value">
+                                                <a class="edit_icon btn btn-primary btn-sm"
+                                                    [href]="kyc_documentPath" target="_blank" rel="noopener noreferrer">View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Upload Proof of Accreditation</td>
+                                            <td class="data-value">
+                                                <a class="edit_icon btn btn-primary btn-sm"
+                                                    [href]="proof_accreditationPath" target="_blank" rel="noopener noreferrer">View
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Communication Preferences</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                    <tr>
+                                        <td class="data-label">Preferred Method of Contact</td>
+                                        <td class="data-value"> {{editData?.preferred_method_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">Subscribe to Startup Dealflow Updates?</td>
+                                        <td class="data-value"> {{editData?.startup_dealflow}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Declaration</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                    <tr>
+                                        <td class="data-label">I confirm the above information is accurate and true.</td>
+                                        <td class="data-value"> {{editData?.is_confirm}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">I agree to the platform’s Terms of Use and Privacy Policy.</td>
+                                        <td class="data-value"> {{editData?.is_agreed}}</td>
+                                    </tr>
+                                    
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-dark mt-2 float-right" *ngIf="isInvestor" [routerLink]="['/HOME/approval-signup']"><i class="bi bi-arrow-left-circle fa-2x"></i> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

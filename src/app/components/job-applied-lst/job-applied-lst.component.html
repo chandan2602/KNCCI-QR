@@ -1,0 +1,116 @@
+<div class="pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Job Applied Members List 
+                                            <button class="btn btn-sm"
+                                                [appTooltip]="tooltipContent">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div *ngIf="!isAddEdt">
+                                            <div *ngIf="listGrid.length">
+                                                <div class="table-responsive">
+                                                    <table id="patreggraph" datatable
+                                                        class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                        style="width:100%">
+                                                        <thead class="top"
+                                                            style="background-color: #2e7a91; color:#ffffff;">
+                                                            <tr>
+                                                                <th>S. No</th>
+                                                                <th>Job Title</th>
+                                                                <th>Member Name</th>
+                                                                <th>Experience</th>
+                                                                <th>Skills</th>
+                                                                <th>Mobile No.</th>
+                                                                <th>Email</th>
+                                                                <th>Application Date</th>
+                                                                <th>Status</th>
+                                                                <th>Resume</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of listGrid; let i= index">
+                                                                <td>{{i+1}}</td>
+                                                                <td>{{item.job_title}}</td>
+                                                                <td>{{item.firstname}} {{item.lastname}}</td>
+                                                                <td>{{item.experience_level}}</td>
+                                                                <td>{{item.skills}}</td>
+                                                                <td>{{item.phone_number}}</td>
+                                                                <td>{{item.student_email}}</td>
+                                                                <td>{{item.application_date | date: 'dd-MM-yyyy'}}</td>
+                                                                <td>{{item.job_application_status_name}}</td>
+                                                                <td style="display: flex;">
+                                                                    <a class="edit_icon btn btn-primary btn-sm"
+                                                                        *ngIf="item.resume != '' && item.resume != null "
+                                                                        [href]="'https://oukinternship.dhanushinfotech.com' + item.resume"
+                                                                        target="_blank" rel="noopener noreferrer">
+                                                                        View
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="edit_icon btn btn-primary btn-sm"
+                                                                        (click)="isAddEdt=!isAddEdt;tableId=item"
+                                                                        *ngIf="item.job_application_status ==0 || item.job_application_status == null">
+                                                                        Update</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="text-center" *ngIf="!listGrid.length">
+                                                No Records to display
+                                            </div>
+                                        </div>
+                                        <div class="row" *ngIf="isAddEdt">
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="control-label mt-2"> Status :</label>
+                                                        <select class="form-select"
+                                                            [(ngModel)]="Job_Application_Status">
+                                                            <option value="0">Pending</option>
+                                                            <option value="1">ShortListed</option>
+                                                            <option value="2">Rejected</option>
+                                                            <option value="3">Call for Interview</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="control-label mt-2"> Comments :</label>
+                                                        <textarea class="form-control" rows="3"
+                                                            [(ngModel)]="Job_Application_Comments" placeholder=""
+                                                            maxlength="1000"></textarea>
+                                                    </div>
+                                                    <div class="col-md-12 float-right">
+                                                        <div class="float-right">
+                                                            <button type="button" (click)='Save()'
+                                                                class="btn btn-sm  btn-save me-1">Save</button>
+                                                            <button type="button" (click)="Back()"
+                                                                class="btn btn-sm btn-danger"><i
+                                                                    class="bi bi-arrow-left-circle fa-2x"></i>Back</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

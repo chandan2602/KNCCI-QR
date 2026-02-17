@@ -1,0 +1,93 @@
+<div class="limiter">
+    <div class="container-login100 justify-content-center"
+        style="background-image: url('../../../assets/images/dhanush/bg-login.png');">
+        <div class="wrap-login100">
+            <div class="text-center"> <img id="homepageimage_path" src="../../../assets/img/logo1-new.png"
+                    [routerLink]="['']" style="cursor:pointer;width: 150px;" class="img-fluid" /></div>
+            <br>
+            <form class="login100-form validate-form" [formGroup]="loginForm" autocompleteOff>
+                <span class="login100-form-title p-b-24"> <span style="font-size:22px;">Welcome to OUK</span> <br>
+                    <!-- <span style="font-size:15px;">Learning Management System</span>   Welcome to Shiksion-->
+                </span>
+                <div class="wrap-input100 validate-input mt-4" data-validate="Valid email is: a@b.c">
+                    <input class="input100" id="userName" type="text" autocompleteOff name="userName"
+                        formControlName="userName" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }">
+                    <span class="focus-input1001" data-placeholder="Email"></span>
+                    <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                        <div *ngIf="f.userName.errors.required">Email Id is
+                            required</div>
+                    </div>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Enter password"> <span class="btn-show-pass">
+                        <!-- <i class="zmdi zmdi-eye"></i> --><i class="fa" id="viewPassword"
+                            [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"
+                            (click)="toggleFieldTextType()"></i></span>
+                    <input class="input100" id="password" type="password" autocompleteOff name="pass"
+                        formControlName="password" [type]="fieldTextType ?'text':'password'"
+                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                    <span class="focus-input1001" data-placeholder="Password"></span>
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <div *ngIf="f.password.errors.required">Password is
+                            required</div>
+                    </div>
+                </div>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button type="submit" class="login100-form-btn" value="login" (click)="registerUser(loginForm)">
+                            Login </button>
+                    </div>
+                </div>
+                <!-- <div class="text-center p-t-23"> <span class="txt1"> Don’t have an account? </span> <a class="txt2" href="#"> Sign Up </a> </div> -->
+            </form>
+            <div class="container-login100-form-btn">
+                <span>Forgot password? <a style="cursor:pointer"
+                        (click)="onForgotPasswordClick()"><u>ForgotPassword</u></a></span>
+                <span>Don't have an account?
+                    <a class="btn-registration w-auto ps-3 pe-3" data-bs-toggle="modal"
+                        data-bs-target="#signupModal"><u>Signup</u></a></span>
+                <!-- <a style="cursor:pointer" (click)="gotoSignUp()"><u>SignUp</u></a></span> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center mt-5 pt-5" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog m-auto">
+        <div class="modal-content">
+            <div class="modal-header p-3">
+                <h5 class="modal-title" id="signupModalLabel">Signup <button class="btn btn-sm"
+                        [appTooltip]="tooltipContent">
+                        <i class="bi bi-info-circle-fill"></i>
+                    </button></h5>
+                <button type="button" class="" data-bs-dismiss="modal" id="cls" aria-label="Close"><i
+                        class="bi bi-x-square"></i></button>
+            </div>
+
+            <div class="modal-body text-start p-2">
+                <!-- Signup form or content -->
+                <label for="floatingSelectDisabled">I am a</label>
+                <div class="">
+                    <select class="form-select p-2" (change)="signUPLogin($any($event.target).value)">
+                        <option>Select</option>
+                        <option value="1">Company</option>
+                        <option value="2">Job Seeker</option>
+                        <option value="3">Founder</option>
+                        <option value="4">Incubator</option>
+                        <option value="5">Investor</option>
+                    </select>
+
+                </div>
+
+
+            </div>
+
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit</button>
+            </div> -->
+
+        </div>
+    </div>
+</div>

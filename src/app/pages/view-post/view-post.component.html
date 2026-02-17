@@ -1,0 +1,80 @@
+<br>
+<div class="page-wrapper">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card rounded shadow-lg">
+                            <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                <h5 class="mb-0">Blog Post</h5>
+                            </div>
+                            <div class="card-body" *ngIf="isData">
+                                <div class="blog-view row">
+                                    <div class="col-md-1">
+                                        <i class="fa fa-user" style="font-size: 50px;"></i>
+                                    </div>
+                                    <div class="col-md-2"><span>{{blogData.BlogTitle}}</span></div>
+                                    <div class="col-md-8 text-right">{{blogData.CreatedOn}}</div>
+                                </div>
+                                <div class="blog_comemts mt-2" *ngIf="blogData.IsReaderComments">
+                                    <div class="main_comment">
+                                        <div class="ml-5">
+                                            <textarea [(ngModel)]="comment" id="" cols="30" rows="3"></textarea>
+                                            &nbsp; <button class="btn btn-success" [disabled]='!comment'
+                                                (click)='addComment()'> submit</button>
+                                        </div>
+                                    </div>
+                                    <div class="comment_container">
+                                        <div *ngFor="let item of adminComments">
+                                            <app-comments [data]='item' [comments]='comments' [viewParent]='this'>
+                                            </app-comments>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Replay</h4>
+                <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="well form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-md-4 control-label line_2 rem_1">
+                            Replay <span class="text-danger">*</span></label>
+                        <div class="col-md-8 inputGroupContainer">
+                            <div class="input-group">
+                                <input [(ngModel)]='replayComment'
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" [disabled]='!replayComment'
+                    (click)="onSubmit()">Save</button>
+
+                <button type="button" class="btn btn-danger" id="md_close" (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 " *ngIf="flag=='false'">Edit Fees</h5>
+                                        <h5 class="mb-0 " *ngIf="flag=='true'">View Fees</h5>
+                                    </div>
+                                    <div class="card-body" *ngIf="table.length">
+                                        <div class="form control">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th> Fee Type </th>
+                                                        <th> Amount</th>
+                                                        <th> Remarks</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.feetype_name}}</td>
+                                                        <td>
+                                                            <label>
+                                                                <input type="number" placeholder="" maxlength="10"
+                                                                    [disabled]="flag=='true'"
+                                                                    [(ngModel)]="item.feedescription_amount"
+                                                                    #amount="ngModel" class="form-control">
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <label>
+                                                                <input type="text" placeholder="" maxlength="10"
+                                                                    [disabled]="flag=='true'"
+                                                                    [(ngModel)]="item.feedescription_remark"
+                                                                    #remark="ngModel" class="form-control">
+                                                            </label>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div *ngIf="!table.length" class="text-center">
+                                            No Records to display
+                                        </div>
+
+                                    </div>
+
+                                    <!-- <button type="button"  class="btn btn-success button" (click)="Update()">Update</button>
+
+                        <button type="button"  class="btn btn-danger cancle" (click)="cancle()">Cancle</button> -->
+
+                                    <!-- <div>
+                            <button type="button" class="btn btn-success button" (click)="Update()">Update</button>                            
+                        </div>
+                       <div>
+                        <button type="cancle" class="btn btn-danger button" (click="Cancle()">Cancle</button>
+                       </div> -->
+
+
+                                    <div class="row">
+                                        <div class="col-sm-12 text-right">
+                                            <button id="cancel" class="btn btn-sm btn-danger" (click)="cancel()"><i
+                                                    class="bi bi-arrow-left-circle fa-2x"></i></button>
+                                            &nbsp;
+                                            <button id="update" *ngIf="flag=='false'" class="btn btn-sm  btn-save"
+                                                (click)="Update()">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,232 @@
+<div class="pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Notification Alert
+                                            <button class="btn btn-sm"
+                        [appTooltip]="tooltipContent">
+                        <i class="bi bi-info-circle-fill"></i>
+                    </button>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl-8 mx-auto">
+
+                                                <form class="well form-horizontal" [formGroup]="myForm"
+                                                    (ngSubmit)="onSubmit(myForm)">
+                                                    <fieldset>
+                                                        <div class="form-group row pt-4">
+                                                            <label class="col-md-4 control-label ">NotificationType
+                                                                <span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <input type="text" placeholder=""
+                                                                        class="form-control form-control-sm"
+                                                                        formControlName="notification_type"
+                                                                        oninput="this.value = this.value.replace(/[^A-Za-z0-9-,.;'&/.() ]|^ /g,'')"
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.notification_type.errors }">
+                                                                    <div *ngIf="submitted && f.notification_type.errors"
+                                                                        class="invalid-feedback">
+                                                                        <div
+                                                                            *ngIf="f.notification_type.errors.required">
+                                                                            NotificationType is
+                                                                            required</div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row pt-4">
+                                                            <label class="col-md-4 control-label ">Subject<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <input type="text" placeholder=""
+                                                                        class="form-control form-control-sm"
+                                                                        formControlName="notification_subject"
+                                                                        oninput="this.value = this.value.replace(/[^A-Za-z0-9-,.;'&/.() ]|^ /g,'')"
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.notification_subject.errors }">
+                                                                    <div *ngIf="submitted && f.notification_subject.errors"
+                                                                        class="invalid-feedback">
+                                                                        <div
+                                                                            *ngIf="f.notification_subject.errors.required">
+                                                                            Subject is required</div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row pt-4">
+                                                            <label class="col-md-4 control-label ">StartDate<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <input type="date" min="{{minDate}}"
+                                                                        (change)="changeStartdate()"
+                                                                        [(ngModel)]="startDate" placeholder=""
+                                                                        class="form-control form-control-sm"
+                                                                        formControlName="start_date"
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.start_date.errors }">
+                                                                    <div *ngIf="submitted && f.start_date.errors"
+                                                                        class="invalid-feedback">
+                                                                        <div *ngIf="f.start_date.errors.required">
+                                                                            StartDate is
+                                                                            required</div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row pt-4">
+                                                            <label class="col-md-4 control-label ">EndDate<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <input type="date" [min]="startDate" placeholder=""
+                                                                        class="form-control form-control-sm"
+                                                                        formControlName="end_date"
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.end_date.errors }">
+                                                                    <div *ngIf="submitted && f.end_date.errors"
+                                                                        class="invalid-feedback">
+                                                                        <div *ngIf="f.end_date.errors.required">EndDate
+                                                                            is
+                                                                            required</div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row pt-4">
+                                                            <label class="col-md-4 control-label ">Message<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+
+                                                                <div class="input-group editor d-flex">
+
+                                                                    <angular-editor class="angular_editor"
+                                                                        [(ngModel)]="htmlContent" (input)="showHtml()"
+                                                                        [ngModelOptions]="{standalone: true}"
+                                                                        [config]="config"
+                                                                        [placeholder]="'Enter text here...'">
+                                                                    </angular-editor>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="form-group row pt-4">
+                                                    <label class="col-md-4 control-label">Priority <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="col-md-8 inputGroupContainer">
+                                                        <div class="input-group"> 
+                                                            <select
+                                                                class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                formControlName="notification_priority">
+                                                                <option value="" selected>Select</option>
+                                                                <option value="1">Low </option>
+                                                                <option value="2">Medium </option>
+                                                                <option value="3">High </option>
+
+                                                            </select>
+                                                        </div>
+                                                        <div *ngIf="myForm.get('notification_priority')?.touched">
+                                                            <span class="text-danger"
+                                                                *ngIf="myForm.get('notification_priority')?.hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                                                        <div class="form-group row pt-4">
+                                                            <label class="col-md-4 control-label">Designation
+                                                                <span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <select
+                                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                        formControlName="designation_id"
+                                                                        (change)="designationChange($event.target.value)"
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.designation_id.errors }">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor="let item of roles"
+                                                                            [value]='item.ROLE_ID'>
+                                                                            {{item.ROLE_NAME == 'Admin'?
+                                                                            'Admin/Trainer':'Trainee'}}</option>
+
+                                                                    </select>
+                                                                    <div *ngIf="submitted && f.designation_id.errors"
+                                                                        class="invalid-feedback">
+                                                                        <div *ngIf="f.designation_id.errors.required">
+                                                                            Designation is
+                                                                            required</div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row pt-4">
+                                                            <label class="col-md-4 control-label">User <span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group">
+                                                                    <ng-multiselect-dropdown style="width:100%"
+                                                                        formControlName="staff" [placeholder]="'select'"
+                                                                        [settings]="dropdownSettings"
+                                                                        [data]="dropdownListCategory"
+                                                                        (onSelect)="onItemSelect($event)"
+                                                                        (onSelectAll)="onSelectAll($event)"
+                                                                        [(ngModel)]='selectedCategory'
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.staff.errors }">
+                                                                    </ng-multiselect-dropdown>
+                                                                    <div *ngIf="submitted && f.staff.errors"
+                                                                        class="invalid-feedback">
+                                                                        <div *ngIf="f.staff.errors.required">Users is
+                                                                            required</div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="form-group row pt-4">
+                                                    <label class="col-md-4 control-label ">FileUpload
+                                                        <span class="text-danger"></span></label>
+                                                    <div class="col-md-8 inputGroupContainer">
+                                                        <div class="input-group"> 
+                                                            <input (change)='changeFile($event)' type="file"
+                                                                #materialFile id="materialFile1" placeholder=""
+                                                                class="form-control">
+                                                        </div>
+                                                        <p>{{getName('circularupload',fileName)}}</p>
+                                                        
+                                                    </div>
+                                                </div> -->
+                                                    </fieldset>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="text-center mt-2 pb-4 ">
+                                        <button type="button" (click)="onSubmit(myForm)"
+                                            class="btn btn-sm  btn-save">Submit</button> &nbsp;
+                                        <!-- <button type="button" (click)="cancle()"
+                                            class="btn btn-danger btn-sm"><i class="bi bi-arrow-left-circle fa-2x"></i></button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

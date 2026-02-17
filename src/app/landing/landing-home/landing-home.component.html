@@ -1,0 +1,291 @@
+<section class="home-slider-area" id="home">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide" *ngIf="!isShw">
+        <div class="carousel-indicators" style="z-index: -9;">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="1000">
+                <img src="../../../../assets/images/new-images/slider-bg.png" class="d-block w-100 cst_slider_img" alt="...">
+                <div class="carousel-caption  d-sm-block">
+                    <h5 class="text-white d-none d-md-block">From Learner to Leader <br> Your Journey Starts Here.</h5>
+                        <div class="page-header-area sec-overlay sec-overlay-black" *ngIf="isShw"
+                        style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;">
+                        <div class="container pt--0 pb--0">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="page-header-content">
+                                        <h2 class="title">Job Details</h2>
+                                        <nav class="breadcrumb-area">
+                                            <ul class="breadcrumb justify-content-center">
+                                                <li><a href="">Home</a></li> &nbsp;<span>/ </span>&nbsp; <li><a
+                                                        routerLink="/menu/jobs">Job Details</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-12 text-center main_search" >
+                        <input type="checkbox" id="searchToggle" hidden>
+                        <label for="searchToggle" class="search-toggle-label">
+                            <span class="toggle-option job-label" (click)="jobSearchType='job'">Job Search</span>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-option internship-label" (click)="jobSearchType='internship'">Internship Search</span>
+                        </label>
+                        <div class="search-form-toggle mt-1 mt-xl-3" *ngIf="!isShw">
+                            <div class="job-form">
+                                <div class="job-search-wrap w-100">
+                                    <div class="job-search-form">
+                                        <div action="#">
+                                            <div class="row row-gutter-10">
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <div class="form-group">
+                                                            <input class="form-control" placeholder="Job title or keywords"
+                                                                [(ngModel)]='job_title' type="text" maxlength="500">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <select class="form-control form-control-sm shadow-sm rounded-lg" [(ngModel)]="county_id">
+                                                            <option value="0">Choose County</option>
+                                                            <option [value]='item.counties_id' *ngFor='let item of allDropDwns?.counties'>{{item.counties_name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <select class="form-control form-control-sm shadow-sm rounded-lg" [(ngModel)]="job_type_ids">
+                                                            <option value="">Choose Job Type</option>
+                                                            <option [value]='item.id' *ngFor='let item of allDropDwns?.jobtype'>{{item.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn-form-search" (click)="SrchType()">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                                fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="internship-form">
+                                <div class="job-search-wrap">
+                                    <div class="job-search-form">
+                                        <div action="#">
+                                            <div class="row row-gutter-10">
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <select id="companySelect" class="form-control form-control-sm shadow-sm rounded-lg"
+                                                            [(ngModel)]="intrmcompany_id" name="company_id">
+                                                            <option value="0">Choose Company</option>
+                                                            <option *ngFor="let item of companyList" [value]="item.COMPANY_ID">{{ item.COMPANY_NAME }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn-form-search" (click)="SrchType()">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                                fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-light pt-0" *ngIf="isShw">
+                            <div class="container pt-1 pb-1">
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                        <div class="card shadow-sm rounded bg-white sticky-top">
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="row g-3" style="font-size:13px; font-weight: 500;">
+                                                        <!-- Company Dropdown -->
+                                                        <div class="col-12 pt-3 pb-2">
+                                                            <label for="companySelect" class="form-label fw-semibold mb-0">Search
+                                                                Company</label>
+                                                            <select id="companySelect" class="form-select form-select-sm shadow-sm rounded"
+                                                                [(ngModel)]="company_id" name="company_id" (change)="LoadGrid('Iner')">
+                                                                <option value="0" selected>Choose Company</option>
+                                                                <option *ngFor="let item of companyList" [value]="item.COMPANY_ID">{{
+                                                                    item.COMPANY_NAME }}</option>
+                                                            </select>
+                                                        </div>
+                
+                                                        <!-- Categories -->
+                                                        <div class="col-12 pb-2">
+                                                            <label for="categorySelect"
+                                                                class="form-label fw-semibold mb-0">Categories</label>
+                                                            <select id="categorySelect" class="form-select form-select-sm shadow-sm rounded"
+                                                                [(ngModel)]="job_category_id" name="job_category_id"
+                                                                (change)="LoadGrid('Iner')">
+                                                                <option value="0" selected>Choose Job Category</option>
+                                                                <option *ngFor="let item of allDropDwns?.job_category" [value]="item.id">{{
+                                                                    item.name }}</option>
+                                                            </select>
+                                                        </div>
+                
+                                                        <!-- Location -->
+                                                        <div class="col-12 pb-2">
+                                                            <label for="locationSelect" class="form-label fw-semibold mb-0">Location</label>
+                                                            <select id="locationSelect" class="form-select form-select-sm shadow-sm rounded"
+                                                                [(ngModel)]="county_id" name="county_id" (change)="LoadGrid('Iner')">
+                                                                <option value="0" selected>Choose City</option>
+                                                                <option *ngFor="let item of allDropDwns?.counties"
+                                                                    [value]="item.counties_id">{{
+                                                                    item.counties_name }}</option>
+                                                            </select>
+                                                        </div>
+                
+                                                        <!-- Job Types -->
+                                                        <div class="col-12  pb-2">
+                                                            <label class="form-label fw-semibold mb-0">Job Types</label>
+                                                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                                                <div *ngFor="let d of jobTypeLst" class="form-check form-check-inline">
+                                                                    <input class="form-check-input" type="checkbox" id="jobType{{d.id}}"
+                                                                        [(ngModel)]="d.isSts" [ngModelOptions]="{ standalone: true }">
+                                                                    <label class="form-check-label" for="jobType{{d.id}}">{{ d.name
+                                                                        }}</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                
+                                                        <!-- Salary -->
+                                                        <div class="col-12 pb-2">
+                                                            <label class="form-label fw-semibold mb-0">Salary</label>
+                                                            <div class="mt-2">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" id="salary1"
+                                                                        name="salaryRadio"
+                                                                        (click)="isSalary='1';job_salary_from=10000;job_salary_to=15000"
+                                                                        [checked]="isSalary=='1'">
+                                                                    <label class="form-check-label" for="salary1">10k - 15k</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" id="salary2"
+                                                                        name="salaryRadio"
+                                                                        (click)="isSalary='2';job_salary_from=15000;job_salary_to=25000"
+                                                                        [checked]="isSalary=='2'">
+                                                                    <label class="form-check-label" for="salary2">15k - 25k</label>
+                                                                </div>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio" id="salary3"
+                                                                        name="salaryRadio"
+                                                                        (click)="isSalary='3';job_salary_from=25000;job_salary_to=10000000"
+                                                                        [checked]="isSalary=='3'">
+                                                                    <label class="form-check-label" for="salary3">More than 25k</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Submit Button -->
+                                                        <div class="col-12">
+                                                            <button type="button" class="btn btn-success w-100"
+                                                                (click)="LoadGrid('Iner')">Apply Filter 1</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9">
+                                        <div class="row">
+                                            <div class="col-xl-6 mb-2 pntr" *ngFor="let item of listGrid" (click)="jobDetails(item)">
+                                                <div class="card mb-2 shadow-sm bg-white h-100" style="border-radius: 10px;">
+                                                    <div class="card-body ">
+                
+                                                        <div class="d-flex justify-content-between">
+                
+                                                            <div>
+                                                                <h5 class="mb-1 fw-bold">{{item.job_title}}</h5>
+                                                                <h6 class="fw-bold mb-1" style="color: rgb(7, 145, 169) !important;">
+                                                                    {{item.company_name}}</h6>
+                                                            </div>
+                                                            <div></div>
+                                                        </div>
+                                                        <small><strong></strong></small>
+                                                        <div class="">
+                                                            <div class="text-muted">
+                                                                <span><i class="bi bi-calendar-check-fill"></i>
+                                                                    {{item?.experience_level}}</span><br />
+                                                                <span> <i class="bi bi-cash-coin"></i> Salary:
+                                                                    {{item?.job_salary_from}} - {{item?.job_salary_to}}</span><br />
+                                                                <span> <i class="bi bi-geo-alt-fill"></i>
+                                                                    {{item?.counties_name}} - {{item?.sub_counties_name}}</span>
+                                                                <span> <i class="bi bi-calendar-check-fill"></i>
+                                                                    {{item?.job_expiry_date | date:'dd-MM-yyyy'}}</span><br />
+                                                                <span>
+                                                                    <i class="bi bi-bookmark-check-fill"></i>
+                                                                    {{item?.job_category}}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="../../../../assets/images/new-images/sl2.png" class="d-block w-100 cst_slider_img" alt="...">
+                <div class="carousel-caption d-md-block">
+                    <h5 class="text-white">Fuel the Future <br> Join as an Incubator Today </h5>
+                    <div class="header-action-area text-center">
+                        <a [routerLink]="['/incubatorReg']" class="btn-registration w-auto ps-3 pe-3">
+                            Register Here
+                        </a>
+                    </div>
+ 
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="../../../../assets/images/new-images/sl3.png" class="d-block w-100 cst_slider_img" alt="...">
+                <div class="carousel-caption d-md-block">
+                    <h5 class="text-white">Empowering Ideas, Enabling Returns <br> Be a Strategic Investor</h5>
+                    <div class="header-action-area text-center">
+                        <a [routerLink]="['/investorReg']" class="btn-registration  ps-3 pe-3">
+                            Register Here
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="custom-prev-icon">&#10094;</span> <!-- Left arrow -->
+            <span class="visually-hidden">Previous</span>
+        </button>
+ 
+        <!-- Custom Next Button -->
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="custom-next-icon">&#10095;</span> <!-- Right arrow -->
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+  
+</section>

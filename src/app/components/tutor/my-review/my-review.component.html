@@ -1,0 +1,48 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">My Reviews</h5>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <table id="patreggraph" datatable [dtOptions]="dtOptions"
+                                            [dtTrigger]="dtTrigger"
+                                            class="table table-striped table-bordered mt-2 pt-2 table-sm small display"
+                                            style="width:100%">
+                                            <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                <tr>
+
+                                                    <th> Reviewed By </th>
+                                                    <th> Course Name </th>
+                                                    <th> Ratings </th>
+                                                    <th> Desctiption</th>
+                                                    <th> Review Date </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let review of my_review">
+                                                    <td>{{review.student_name}}</td>
+                                                    <td>{{review.course_name}}</td>
+                                                    <td>{{review.rating}}</td>
+                                                    <td>{{review.description}}</td>
+                                                    <td>{{review.review_date | date:'dd-MM-yyyy'}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

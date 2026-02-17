@@ -1,0 +1,89 @@
+    <div class="wrapper" style="height: auto; overflow: hidden">
+        <!--sidebar wrapper -->
+        <div class="sidebar-wrapper" data-simplebar="true">
+      
+          <div class="sidebar-menu-wrapper">
+            <div class="sidebar-header">
+              <div>
+                <img src="../../../assets/img/logo2-new.png" class="img-fluid" alt="logo icon">
+              </div>
+            </div>
+            <div class="wrapper" style="margin-top: 9.6vh">
+              <ul class="style-1 shadow nav-active1 " style="display:block;">
+      
+                <!-- <li class="parent"><a [routerLink]="['/HOME/userRegistration']" class=""><span class="icon"><i
+                        class="fas fa-user"></i></span>&nbsp;&nbsp;<span class="text">My Profile</span></a>
+                </li> -->
+      
+                <li class="parent" *ngIf="roleId==6"><a [routerLink]="['/HOME/founderProfile']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Profile</span></a>
+                </li>
+                <li class="parent" *ngIf="roleId==7"><a [routerLink]="['/HOME/incubtrProfile']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Profile</span></a>
+                </li>
+                <li class="parent" *ngIf="roleId==8"><a [routerLink]="['/HOME/investrProfile']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Profile</span></a>
+                </li>
+                <li class="parent" *ngIf="roleId==6"><a [routerLink]="['/HOME/founder-dshbrd']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Dashboard</span></a>
+                </li>
+                <li class="parent" *ngIf="roleId==7"><a [routerLink]="['/HOME/incubator-dshbrd']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Dashboard</span></a>
+                </li>
+                <li class="parent" *ngIf="roleId==8"><a [routerLink]="['/HOME/investor-dshbrd']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Dashboard</span></a>
+                </li>
+                <li class="parent" *ngIf="roleId==6"><a [routerLink]="['/HOME/startsupList']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Start-up Registration</span></a>
+                </li>
+                <li class="parent" *ngIf="roleId==7"><a [routerLink]="['/HOME/incubatrList']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Start-ups List</span></a>
+                </li>
+                <li class="parent" *ngIf="roleId==8"><a [routerLink]="['/HOME/invstrList']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Start-ups List</span></a>
+                </li>
+                <!-- <li class="parent" *ngIf="roleId==6"><a [routerLink]="['/HOME/startsupList']" class=""><span class="icon"><i
+                        class="fas fa-book"></i></span>&nbsp;&nbsp;<span class="text">Start-up Status</span></a>
+                </li> -->
+                <!-- <li class="parent"><a [routerLink]="['/HOME/appliedInternships']" class=""><span class="icon"><i
+                        class="fas fa-file"></i></span>&nbsp;&nbsp;<span class="text">Applied Internships</span></a>
+                        <li class="parent"><a [routerLink]="['/HOME/my-courses']" class=""><span class="icon"><i
+                                class="fas fa-file-signature"></i></span>&nbsp;&nbsp;<span class="text">My Internships</span></a>
+                        </li>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/my-tutors']" class=""><span class="icon"><i
+                        class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text">My Tutors</span></a>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/my-payments']" class=""><span class="icon"><i
+                        class="fas fa-file-invoice-dollar"></i></span>&nbsp;&nbsp;<span class="text">My Payments</span></a>
+                </li>
+      
+                <li class="parent"><a [routerLink]="['/HOME/myresults']" class=""><span class="icon"><i
+                        class="fas fa-briefcase"></i></span>&nbsp;&nbsp;<span class="text">My Results</span></a>
+                </li>
+      
+                <li class="parent"><a [routerLink]="['/HOME/submitassignment']" class=""><span class="icon"><i
+                        class="fas fa-pen"></i></span>&nbsp;&nbsp;<span class="text">Submit Assignment</span></a>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/learning-resources']" class=""><span class="icon"><i
+                        class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text"> Learning Resources
+                    </span></a>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/myJobs']" class=""><span class="icon"><i
+                        class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text"> My Jobs
+                    </span></a>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/cmpnyLst']" class=""><span class="icon"><i
+                        class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text"> Job Application
+                    </span></a>
+                </li>
+                <li class="parent"><a [routerLink]="['/HOME/startsUp']" class=""><span class="icon"><i
+                  class="fas fa-chalkboard-teacher"></i></span>&nbsp;&nbsp;<span class="text"> Starts UP Idea
+                  </span></a>
+                </li> -->
+              </ul>
+            </div>
+      
+          </div>
+        </div>
+      </div>

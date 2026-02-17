@@ -1,0 +1,136 @@
+<div class="container mt-1">
+    <div class="row">
+        <div *ngIf='posts.length' class="col-xl-12">
+            <div class="mb-2" style="display: flex;justify-content: space-between;">  
+            <div class="header_action" style="display: flex;">
+                <input class=" text-left ml-2 mt-3" (change)="allChecked()" [(ngModel)]='checked' type="checkbox">&nbsp;
+                <button class="btn btn-sm  btn-save" (click)="deletePost(false)">Delete</button>
+            </div>
+                                    
+    
+                <div class="float-right" style="display: flex;">
+                    <input  [(ngModel)]='searchText' type="text" (change)="onChange()" placeholder="search by post title  or label" class="form-control">&nbsp;<i class="fa fa-search icon_search text-primary pointer" (click)='search()' aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class=''>
+
+
+                <div class="card  ml-2 mt-2 shadow-lg border" *ngFor="let post of posts">
+                    <div class="card-header">
+                        <input class="" [(ngModel)]='post.checked' type="checkbox"> &nbsp; {{post.BlogTitle}}
+                    </div>
+                    &nbsp;
+                    <div class="card-body">
+                        <p>{{post.NAME}} <span class="text-muted">{{post.CreatedOn|date:'dd-MM-yyyy'}}</span> </p>
+                        <p>{{post.BlogMessage}}</p>
+                    </div>
+                    &nbsp;
+                    <div class="card-footer text-right "><i class="fa fa-eye text-warning mr-2 pointer"
+                            (click)="view(post)" aria-hidden="true"></i>
+                        <i class="fa fa-edit text-success mr-2 pointer" data-bs-toggle="modal" data-bs-target="#myModal"
+                            (click)="edit(post)"></i> <i class="fa fa-times text-danger pointer"
+                            (click)="deletePost(true,post)" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p  *ngIf='!posts.length'  class="text-center">No Records To Display</p>
+    </div>
+</div>
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title"> Compose Post</h4>
+                <button type="button" (click)="close()" class="btn-close" data-bs-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Title <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input class="form-control form-control-sm shadow-sm rounded-lg"
+                                        formControlName="BlogTitle">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                lable <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input type="text" placeholder="" class="form-control" formControlName='Labels'>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Reader Comments <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <div class="radio">
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input value='1' type="radio" formControlName='IsCommentsShow'
+                                                    class="form-check-input" name="IsCommentsShow">Allow
+                                            </label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <label class="form-check-label">
+                                                <input value='0' type="radio" formControlName='IsCommentsShow'
+                                                    class="form-check-input" name="IsCommentsShow">Don't Allow
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">Message <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <textarea formControlName='BlogMessage'
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Upload Image </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input type="file" (change)="changeFile($event)" placeholder=""
+                                        class="form-control">
+                                </div>
+                                <p>{{fileName}}</p>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="onSubmit(myForm,'save')"
+                    [disabled]="myForm.invalid">Save</button>
+                <button type="button" class="btn btn-success" (click)="onSubmit(myForm,'publish')"
+                    [disabled]="myForm.invalid">Publish</button>
+                <button type="button" class="btn btn-danger" id="md_close" (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

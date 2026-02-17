@@ -1,0 +1,208 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="main_section" *ngIf="editData !=''">
+                            <!-- Top Header Section -->
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <img src="../../assets/img/logo1-new.png" alt="Logo" class="logo me-3" />
+                                <h4 class="text-center mb-0" style="color:#307a91;">Incubator Profile</h4>
+                            </div>
+                            <hr>
+                            <!-- Card 1: Personal Details -->
+                            <div class="card mb-3 " style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Organization</div>
+                                
+                                    <table class="table table-borderless mb-0">
+                                    <tbody>
+                                    <tr>
+                                        <td class="data-label">Incubator Name</td>
+                                        <td class="data-value">{{editData?.incubator_name}}</td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">Legal Entity Type</td>
+                                        <td class="data-value">{{ editData?.legal_entity_type_name }}</td>
+                                        <!-- <td class="data-value">{{ allDropDwns.legal_entitytype.find(e => e.id == editData?.legal_entity_type_id).name }}</td> -->
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">Year of Establishment <small>(1850 - 2025)</small></td>
+                                        <td class="data-value">{{editData?.year_of_establishment}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">Registered Address</td>
+                                        <td class="data-value">{{editData?.registered_address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">Official Website</td>
+                                        <td class="data-value">{{editData?.official_website}}</td>
+                                    </tr>
+                                    <!-- <tr>
+                                    
+                                        <td class="data-label">Logo Upload</td>
+                                        <td class="data-value">{{editData?.year_of_establishment}}</td>
+                                    </tr> -->
+                                    <tr>
+                                        <td class="data-label"> Registration Number / DPIIT</td>
+                                        <td colspan="3" class="data-value">{{editData?.registration_number}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+
+                                </div>
+                            </div>
+                            <!-- Card 2: Address Information -->
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Contact</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="data-label">Full Name </td>
+                                            <td class="data-value">{{editData?.full_name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Designation</td>
+                                            <td class="data-value">{{editData?.designation}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Official Email</td>
+                                            <td class="data-value">{{editData?.email_id}}</td>
+                                            </tr>
+                                        
+                                        <tr>
+                                            <td class="data-label">Mobile Number</td>
+                                            <td colspan="3" class="data-value">{{editData?.mobile_no}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Date of birth</td>
+                                            <td class="data-value">{{editData?.userDetails?.DOB | date: 'DD-MM-YYYY'}}</td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td class="data-label">Prototype / Demo Link</td>
+                                            <td class="data-value" colspan="3">
+                                            <a href="http://localhost:4200/HOME/startsUp">http://localhost:4200/HOME/startsUp</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Video Pitch Link</td>
+                                            <td class="data-value" colspan="3">
+                                            <a href="http://localhost:4200/HOME/startsUp">http://localhost:4200/HOME/startsUp</a>
+                                            </td>
+                                        </tr> -->
+
+
+                                    </tbody>
+                                </table>
+
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Education Details -->
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Profile</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="data-label">Brief Description</td>
+                                            <td class="data-value"> {{editData?.description}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Services Offered</td>
+                                            <td class="data-value"> {{editData?.services_offered_names}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Target Sectors</td>
+                                            <td class="data-value"> {{editData?.target_sector_names}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Incubation Model</td>
+                                            <td class="data-value">{{editData?.incubation_model_name}}</td>
+                                            <!-- <td class="data-value">{{allDropDwns.incubation_model.find(e=>e.id == editData?.incubation_model_id).name}}</td> -->
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Startup Capacity Per Year</td>
+                                            <td class="data-value"> {{editData?.startup_capacity}}</td>
+                                        </tr>
+                                    
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Program</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="data-label">Do You Charge Startups Any Fees?</td>
+                                            <td class="data-value">{{editData?.charge_startups_any_fees}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="data-label">Specify Amount and Payment Terms</td>
+                                            <td class="data-value">{{editData?.specify_amount}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Fees</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                    <tr>
+                                        <td class="data-label">Selection Criteria for Startups</td>
+                                        <td class="data-value"> {{editData?.criteria_for_startups}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">Monitoring & Reporting Process</td>
+                                        <td class="data-value"> {{editData?.monitoring_reporting}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">Do You Provide Direct Funding?</td>
+                                        <td class="data-value"> {{editData?.monitoring_reporting}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">Average Ticket Size</td>
+                                        <td class="data-value">{{editData?.average_ticket_size_name}}</td>
+                                        <!-- <td class="data-value">{{ allDropDwns.average_ticket_size.find(e => e.id == editData?.average_ticket_size_id).name }}</td> -->
+                                    </tr>
+                                    
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title">Declaration</div>
+                                <table class="table table-borderless mb-0">
+                                    <tbody>
+                                    <tr>
+                                        <td class="data-label">I confirm the above information is accurate and true</td>
+                                        <td class="data-value"> {{editData?.is_confirm}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-label">I agree to the platform’s Terms of Use and Privacy Policy.</td>
+                                        <td class="data-value"> {{editData?.is_agreed}}</td>
+                                    </tr>
+                                    
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-dark mt-2 float-right" *ngIf="isIncubator" [routerLink]="['/HOME/approval-signup']"><i class="bi bi-arrow-left-circle fa-2x"></i> </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

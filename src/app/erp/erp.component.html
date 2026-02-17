@@ -1,0 +1,13 @@
+<div class="container-scroller">
+    <!-- [categoryList]="categoryList" (categoryEvent)="categoryChanged($event)" -->
+    <app-header-new [categoryList]="categoryList" (categoryEvent)="categoryChanged($event)"></app-header-new>
+    <!-- <div class="container-fluid page-body-wrapper" style="position:absolute;"> -->
+
+    <div class="page-body-wrapper">
+        <div class="main-panel">
+            <router-outlet></router-outlet>
+            <app-footer-new></app-footer-new>
+        </div>
+
+    </div>
+</div>

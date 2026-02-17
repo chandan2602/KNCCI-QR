@@ -1,0 +1,187 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Academic Year</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-right mb-1">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#myModal">Add</button>
+                                        </div>
+                                        <div *ngIf="table.length">
+                                            <table id="patergraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>
+                                                            Academic Name </th>
+
+                                                        <th>Start Date</th>
+                                                        <th>End Date</th>
+
+                                                        <th> Status</th>
+                                                        <th>Description</th>
+
+                                                        <th></th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.ACADEMIC_NAME}}</td>
+
+                                                        <td>{{item.ACADEMIC_STARTDATE}}</td>
+                                                        <td>{{item.ACADEMIC_ENDDATE}}</td>
+
+                                                        <td>{{item.STATUS}}</td>
+                                                        <td>{{item.ACADEMIC_DESCRIPTION}}</td>
+
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon"
+                                                                (click)="edit(item.ACADEMIC_ID)">
+                                                                <i class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="!table.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header py-2">
+                <h6 *ngIf="!isEdit" class=" modal-title w-100">Add Academic</h6>
+                <h6 *ngIf="isEdit" class=" modal-title w-100">Edit Academic</h6>
+                <button type="button" (click)="close()" class="close" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label ">Academic Year <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input type="text" placeholder="" class="form-control"
+                                        formControlName="ACADEMIC_NAME">
+                                </div>
+                                <div *ngIf="myForm.get('ACADEMIC_NAME').touched">
+                                    <span class="text-danger" *ngIf="myForm.get('ACADEMIC_NAME').hasError('required')">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">
+                                Start Date <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input class="form-control" [ngModel]="startDate| date:'yyyy-MM-dd'" type="date"
+                                        formControlName="ACADEMIC_STARTDATE">
+                                </div>
+                                <div *ngIf="myForm.get('ACADEMIC_STARTDATE').touched">
+                                    <span class="text-danger"
+                                        *ngIf="myForm.get('ACADEMIC_STARTDATE').hasError('required')">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">
+                                End Date <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input class="form-control" (change)="endDateChange($event.target.value)"
+                                        [ngModel]="endDate| date:'yyyy-MM-dd'" type="date"
+                                        formControlName="ACADEMIC_ENDDATE">
+                                </div>
+                                <div *ngIf="myForm.get('ACADEMIC_ENDDATE').touched">
+                                    <span class="text-danger"
+                                        *ngIf="myForm.get('ACADEMIC_ENDDATE').hasError('required')">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">Status <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                        formControlName="STATUS">
+                                        <option [ngValue]='1'>Active</option>
+                                        <option [ngValue]='0'>InActive </option>
+                                    </select>
+                                </div>
+                                <div *ngIf="myForm.get('STATUS').touched">
+                                    <span class="text-danger" *ngIf="myForm.get('STATUS').hasError('required')">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label ">
+                                Description</label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                    <input placeholder="" type='text' class="form-control"
+                                        formControlName="ACADEMIC_DESCRIPTION">
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Save</button>
+                <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Update</button>
+                <button type="button" class="btn btn-sm btn-danger" id='md_close' (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- [ngModel] ="data.ASSIGNMENT_END_DATE | date:'yyyy-MM-dd'" -->
+<!-- [ngModel] ="data.ASSIGNMENT_START_DATE | date:'yyyy-MM-dd'"  -->

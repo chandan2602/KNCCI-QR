@@ -1,0 +1,25 @@
+.Faq {
+
+    padding-right: 20px;
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+
+
+}
+
+#faqButton {
+    padding-right: 20px;
+
+}
+
+.line {
+
+    height: 0px;
+    left: 255px;
+    top: 706px;
+
+    border: 1px solid #2e7a91;
+}

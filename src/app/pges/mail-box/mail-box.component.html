@@ -1,0 +1,210 @@
+<br>
+<div class="page-wrapper">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded mb-4">
+                                    <div class="card-body p-4" style="padding-bottom: 1.5rem!important">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <h5 style="font-size: 1.15rem;">Mail Statistics</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <span class="float-left"><strong>Inbox</strong></span><br /><span
+                                                    class="mr-2">Read
+                                                    {{stats.INBOXREAD}}</span> <span class="mr-2">Unread
+                                                    {{stats.INBOXUNREAD}}</span>
+                                                <!-- <span class="badge badge-pill text-white font-medium badge-info mr-2">Read 60</span> <span class="badge badge-pill text-white font-medium badge-info mr-2">Unread 108</span> -->
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <span class="float-left"><strong>Sent Mail</strong></span><br /><span
+                                                    class="mr-2">{{stats.SENT}}</span>
+                                                <!-- <span class="badge badge-pill text-white font-medium badge-info mr-2">Read 60</span> <span class="badge badge-pill text-white font-medium badge-info mr-2">Unread 108</span> -->
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <span class="float-left"><strong>Trash</strong></span><br /><span
+                                                    class="mr-2">Read
+                                                    {{stats.TRASHREAD}}</span> <span class="mr-2">Unread
+                                                    {{stats.TRASHUNREAD}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div [ngClass]='{"none":!show}' class="card rounded shadow-lg">
+                                    <div class="card-header headerbg" style="border-bottom:0px">
+                                        <!-- <h5 class="mb-0 text-center">Mail Box</h5> -->
+                                        <div class="row  mt-1">
+                                            <div class="col col-lg-4 float-right">
+                                                <button type="button" class="btn btn-primary col-12"
+                                                    style="background: #2e7a91" (click)='composMail()'><span
+                                                        class="fa fa-pencil"></span>&nbsp;&nbsp;&nbsp;Compose
+                                                    Mail</button>
+                                            </div>
+                                            <div class="col col-lg-4 float-right"></div>
+                                            <div class="col col-lg-4 float-right" *ngIf='false'>
+                                                <div class="form-group search_box">
+                                                    <span class="fa fa-search form-control-feedback"></span>
+                                                    <input type="text" class="form-control" placeholder="Search">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                                    (click)='loadInbox("MailBox/InboxMails","Inbox")' role="tab"
+                                                    aria-controls="home" aria-selected="true"><span
+                                                        style="font-size: 18px; font-weight: 500">Inbox</span>&nbsp;&nbsp;&nbsp;<span
+                                                        class="badge badge-secondary">{{stats.INBOXREAD+stats.INBOXUNREAD}}</span></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="profile-tab" data-toggle="tab"
+                                                    (click)='loadInbox("MailBox/SentMails","Sent")' href="#home"
+                                                    role="tab" aria-controls="home" aria-selected="false"><span
+                                                        style="font-size: 18px; font-weight: 500">Sent
+                                                        Mail</span>&nbsp;&nbsp;&nbsp;<span
+                                                        class="badge badge-secondary">{{stats.SENT}}</span></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="contact-tab" data-toggle="tab"
+                                                    (click)='loadInbox("MailBox/TrashMails","Trash")' href="#home"
+                                                    role="tab" aria-controls="home" aria-selected="false"><span
+                                                        style="font-size: 18px; font-weight: 500">Trash</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-content" id="myTabContent">
+                                        <!-- Index tab content start -->
+                                        <div class="tab-pane fade show active p-4 pt-2" id="home" role="tabpanel"
+                                            aria-labelledby="home-tab">
+
+                                            <!-- Mail list start -->
+                                            <div *ngIf='table.length'>
+                                                <div class="mb-2">
+                                                    <div
+                                                        class="mail_button addButton btn btn-light btn-sm float-left mr-2 p-0 pl-2">
+
+                                                        <button class="btn btn-sm dropdown-toggle"
+                                                            id="dropdownMenuButton" data-toggle="dropdown"
+                                                            aria-expanded="false">Action</button>
+
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <a class="dropdown-item" (click)='checkAll()'
+                                                                href="javascript:void(0)">All</a>
+                                                            <a class="dropdown-item" (click)='checkRead()'
+                                                                href="javascript:void(0)">Read</a>
+                                                            <!-- <a class="dropdown-item" (click)='checkUnRead()'
+                                                    href="javascript:void(0)">Unread</a> -->
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="float-left mr-2">
+                                                        <button class="mail_button btn btn-light btn-sm dropdown-toggle"
+                                                            type="button" id="dropdownMenuButton1"
+                                                            data-toggle="dropdown" aria-expanded="false">
+                                                            More
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1"
+                                                            style="font-size: 0.9rem;">
+                                                            <a class="dropdown-item check1" href="javascript:void(0)"
+                                                                (click)='selectType(null)'>&nbsp;&nbsp;All Mails</a>
+                                                            <a class="dropdown-item check1" href="javascript:void(0)"
+                                                                (click)='selectType(true)'>&nbsp;&nbsp;Read Mails</a>
+                                                            <a class="dropdown-item check1" href="javascript:void(0)"
+                                                                (click)='selectType(false)'>&nbsp;&nbsp;UnRead Mails</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="button" (click)='refresh()'
+                                                        class="mail_button btn btn-sm btn-light mr-2"><i
+                                                            class="fas fa-sync-alt"></i></button>
+                                                    <button *ngIf='showGrid' (click)='readMail()' type="button"
+                                                        class="mail_button btn btn-sm btn-light mr-2"><i
+                                                            class="fas fa-pencil-alt"></i>&nbsp;&nbsp;Mark as
+                                                        Read</button>
+                                                    <button (click)='delete()' type="button"
+                                                        class="mail_button btn btn-sm btn-light"><i
+                                                            class="far fa-trash-alt"></i>&nbsp;&nbsp;Delete</button>
+                                                </div>
+
+                                                <!-- Mail list-->
+                                                <div class="table-responsive" *ngIf='isshow'>
+                                                    <table *ngIf='tableData.length' id='DataTables_Table_0' datatable
+                                                        [dtOptions]="dtOptions"
+                                                        class="table table-sm table-hover table_mail">
+                                                        <thead style="display: none;">
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>From</th>
+                                                                <th></th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- row ISREAD -->
+                                                            <tr [ngClass]='{"unread":!item.ISREAD}'
+                                                                *ngFor='let item of tableData'
+                                                                style="border-top: 1px solid #ccc">
+                                                                <!-- label -->
+                                                                <td class="pl-3">
+                                                                    <div class="custom-control custom-checkbox">
+                                                                        <input (click)='CheckBox($event)'
+                                                                            type="checkbox" id="cst14"
+                                                                            [(ngModel)]='item.checked' />
+                                                                        <!-- <label class="custom-control-label" for="cst14">&nbsp;</label> -->
+                                                                    </div>
+                                                                </td>
+                                                                <!-- star -->
+                                                                <!-- <td style="border-top: 0px"><i class="fa fa-star text-warning"></i></td> -->
+                                                                <td (click)='viewMail(item)'>
+                                                                    <span
+                                                                        class="mb-0 text-muted">{{item.USERNAME}}</span>
+                                                                </td>
+                                                                <!-- Message -->
+                                                                <td (click)='viewMail(item)'>
+                                                                    <span
+                                                                        class="text-dark text-muted">{{item.SUBJECT}}</span>
+                                                                </td>
+                                                                <!-- Attachment -->
+                                                                <!-- <td style="border-top: 0px"><i class="fa fa-paperclip text-muted"></i></td> -->
+                                                                <!-- Time -->
+                                                                <td (click)='viewMail(item)' class="text-muted">
+                                                                    {{item.RECEIVEDDATE|date:'dd-MM-yyyy'}}
+                                                                </td>
+                                                            </tr>
+                                                            <!-- row -->
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- Mail list End -->
+
+                                        </div>
+
+                                        <!-- Index tab content end -->
+
+                                    </div>
+                                </div>
+                                <div *ngIf='compose' class="card rounded shadow-lg">
+                                    <app-compose-mail [parent]='this'></app-compose-mail>
+                                </div>
+                                <div *ngIf='view' class="card rounded shadow-lg">
+                                    <app-viewmail [parent]='this'></app-viewmail>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

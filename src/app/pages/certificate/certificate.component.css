@@ -1,0 +1,68 @@
+
+* {
+  -webkit-print-color-adjust: exact !important;
+  color-adjust: exact !important;
+  margin: 0 auto;
+}
+html{height: 100%;}
+body{
+  margin: 0 auto;
+  padding: 0rem;
+  /* height: 100vh; */
+  height: 100%;
+  font-family: Roboto;
+  font-size: 20px;
+  
+}
+.container{
+  width: 100%;
+  margin: 0rem;
+  padding: 0rem;
+  font-weight: 700;
+}
+.bg_img{
+  background-image: url('../../../assets/img/img/Shiksion_Certificate_6.jpg');
+  background-repeat: no-repeat;
+  /* object-fit: cover; */
+  background-size: cover;
+  height: 100%;
+  background-size: 100% 100%;
+  
+}
+.container div.content-center{margin: 0 15%; padding: 0; position: relative; top:43%; }
+.container div p{text-align: center;  font-weight: 500;  line-height: 1.5;}
+.container h2{ padding: 15px 0px 8x 0px; font-size: 2.2rem; }
+.content-bottom{ bottom:0; top: auto; margin: 0 17%;}
+.left_text {
+  position: absolute;
+  left: 20%;
+  bottom: 5%;
+}
+.left_right {
+  position: absolute;
+  bottom: 5%;
+  right: 25%;
+}
+
+.content-bottom h3{line-height: 2.1;}
+.content-bottom h3{margin-top: 30px; font-size: 1.2rem;}
+
+@media print {
+.container div.content-center{top:43%;}  
+.content-bottom{bottom:4%;} 
+}
+
+div.qrbox{
+position: absolute;
+right: 5%;
+border: 1px white solid;
+width: 150px;
+height: 150px;
+bottom: 15%;
+}
+table{
+  border-collapse: collapse;
+}
+table, th, td {
+  border: 1px #d9d9d9 solid;
+}

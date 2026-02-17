@@ -1,0 +1,118 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Tasks in Roles</h5>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <div *ngIf='isSuperAdmin' class="col-md-3">
+                                                    <label for="sel1">Tenant Name : </label>
+                                                    <select [(ngModel)]='tId ' (change)="changeTname()"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
+                                                            {{item.TNT_NAME}}</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-md-3 ">
+                                                    <label for="sel1"> Role Name <span class="text-danger">*</span>:
+                                                    </label>
+                                                    <select [(ngModel)]='roleId'
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="roleChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let item of roles" [value]='item.ROLE_ID'>
+                                                            {{item.ROLE_NAME}}</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3 ">
+                                                    <label for="sel1"> Subscription Type<span
+                                                            class="text-danger">*</span>: </label>
+                                                    <input *ngIf='!subscription.SUBSCRIPTIONTYPENAME'
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1" value="Premium" disabled>
+
+                                                    <input *ngIf='subscription.SUBSCRIPTIONTYPENAME'
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1" [value]="subscription.SUBSCRIPTIONTYPENAME" disabled>
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div>
+                                            <div class="row p-2" style="align-items: center">
+                                                <div class="col-md-5">
+                                                    <div class="box_cnt">
+                                                        <div class="pointer" (click)="checkRight($event,item,table)"
+                                                            *ngFor="let item of table" [ngClass]='item.class'>
+                                                            {{item.TASKNAME}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+
+                                                    <div>
+                                                        <div> <button class="btn btn-outline-dark" (click)="shiftLeft()"
+                                                                [disabled]='enableLeft'><i
+                                                                    class="fas fa-arrow-left"></i></button></div>
+                                                        <div> <button class="btn btn-outline-dark"
+                                                                (click)="shiftRight()" [disabled]='enableRight'> <i
+                                                                    class="fas fa-arrow-right"></i></button></div>
+                                                        <div> <button class="btn btn-outline-dark"
+                                                                (click)="shiftAllLeft()" [disabled]='!table1.length'><i
+                                                                    class="fas fa-step-backward"></i></button></div>
+                                                        <div> <button class="btn btn-outline-dark"
+                                                                (click)="shiftAllRight()" [disabled]='!table.length'> <i
+                                                                    class="fas fa-step-forward"></i></button></div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="box_cnt">
+                                                        <div class="pointer" (click)="checkRight($event,item,table1)"
+                                                            *ngFor="let item of table1" [ngClass]='item.class'>
+                                                            {{item.TASKNAME}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="text-center mt-2 ">
+                                            <button type="button" (click)="submit()"
+                                                class="btn btn-sm  btn-save">Assign</button> &nbsp;
+                                            <button type="button" (click)="clearAll()"
+                                                class="btn btn-secondary btn-sm">Reset</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

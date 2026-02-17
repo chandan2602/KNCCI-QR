@@ -1,0 +1,123 @@
+<div class="page-wrapper " style="margin-top:6rem;">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card card-1 card-shadow">
+                        <div class="card-header border-0 pt-3 pb-3">
+                            <h5>Submit Assignment</h5>
+                        </div>
+                        <div class="card-body style-1">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label for="sel1">Course Name : </label>
+                                        <select [(ngModel)]='courceId ' id="sel1" (change)="courceChange()"
+                                            class="form-select form-select-sm shadow-sm rounded-lg">
+                                            <option value="" [selected]="true">select</option>
+                                            <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                {{course.COURSE_NAME}}
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="sel1">Batch Schedule :</label>
+                                        <select [(ngModel)]='schedulId ' id="sel1" (change)="schedulChange()"
+                                            class="form-select form-select-sm shadow-sm rounded-lg">
+                                            <option value="" [selected]="true">select</option>
+                                            <option *ngFor="let schedul of scheduls" [value]='schedul.COURSESHD_ID'>
+                                                {{schedul.COURSESHD_NAME}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="table.length" class="mt-3">
+                                <table id="patreggraph" datatable
+                                    class=" table-striped table-bordered mt-2 pt-2 table-sm small" style="width:100%">
+                                    <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                        <tr>
+                                            <th>
+                                                Batch Schedule </th>
+                                            <!-- <th> Chapter Name  </th> -->
+                                            <th>Assignment Name</th>
+
+                                            <th> Assignment End Date </th>
+                                            <th> Download Assignment </th>
+                                            <th> Evaluated Document </th>
+                                            <th> Status </th>
+                                            <th> Action </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of table">
+                                            <td>{{item.ASSIGNMENT_COURSE_SCHEDULE}}</td>
+                                            <!-- <td>{{item.CHAPTER_NAME}}</td> -->
+                                            <td>{{item.ASSIGNMENT_NAME}}</td>
+                                            <td>{{item.ASSIGNMENT_END_DATE | date:'dd-MM-yyyy'}}</td>
+                                            <td><a class="pointer"
+                                                    (click)="download(item.ASSIGNMENT_UPLOAD)">Download</a>
+                                            </td>
+                                            <td>
+                                                <a *ngIf="item.EV_ASSIGNMENT_UPLOAD" class="pointer"
+                                                    (click)="downloadEvaluateAssignment(item.EV_ASSIGNMENT_UPLOAD)">
+                                                    Download</a>
+
+                                            </td>
+                                            <td>{{item.AS_UPLOAD}}</td>
+                                            <td><img *ngIf="item.AS_UPLOAD=='Pending'" data-bs-toggle="modal"
+                                                    data-bs-target="#myModal"
+                                                    src="./../../../assets/images/sprites/edit.svg" class="edit_icon"
+                                                    (click)="edit(item)">
+                                                <!-- <a *ngIf="item.AS_UPLOAD=='Pending'" data-toggle="modal" data-target="#myModal" (click)="edit(item)">edit</a> -->
+                                                <!-- <button *ngIf="item.AS_UPLOAD=='Pending'" (click)='writeExam(item)'>Exam Pad</button> -->
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+
+
+            <!-- Button trigger modal -->
+            <!-- <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                Upload Assignment
+            </button> -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Upload Assignment</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="file" (change)="change($event)" accept=".doc,.docx,.pdf">
+                            <br>
+                            <span>
+                                Please upload pdf and doc file formats only.
+                            </span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="md_close" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="button" (click)="save()" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>

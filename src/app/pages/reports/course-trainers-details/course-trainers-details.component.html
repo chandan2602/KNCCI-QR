@@ -1,0 +1,45 @@
+<div class="default_class">
+    <div class="content-wrapper p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 class="mb-0 text-center">Course Trainers Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group ">
+                                <div class="row">
+                                    <div class="col-md-3" *ngIf='roleId=="4"'>
+                                        <label for="sel1">Tenant Name : </label>
+                                        <select [(ngModel)]='tId ' (change)="changeTname()"
+                                            class="form-control form-control-sm shadow-sm rounded-lg" id="sel1">
+                                            <option value="" [selected]="true">select</option>
+                                            <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
+                                                {{item.TNT_NAME}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label for="sel1">Course Name : </label>
+                                        <select [(ngModel)]='courseId' 
+                                            class="form-control form-control-sm shadow-sm rounded-lg" id="sel1">
+                                            <option value="" [selected]="true">select</option>
+                                            <option *ngFor="let course of courses" [value]='course.COURSE_ID'>
+                                                {{course.COURSE_NAME}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                  
+                                    <div class="col-md-2">
+                                        <label > </label>
+                                        <button class="btn btn-success" [disabled]='!courseId' (click)='submit()'>submit </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

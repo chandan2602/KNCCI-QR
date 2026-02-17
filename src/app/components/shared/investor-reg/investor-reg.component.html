@@ -1,0 +1,319 @@
+<!-- Stepper Navigation -->
+
+<div class="limiter" [formGroup]="invertorForm">
+    <div class="container-login100 justify-content-end"
+        style="background-image: url('../../../assets/images/dhanush/bg-login.png');">
+        <div class="wrap-login100 pe-4 ps-4 pt-2 pb-2">
+            <div class="d-flex  pt-2 justify-content-between align-items-center">
+                <div class="d-flex pt-2 justify-content-between">
+                <div class="text-center mt-2"> <img id="homepageimage_path" src="../../../assets/img/logo1-new.png"
+                        [routerLink]="['']" style="cursor:pointer;height:40px;" class="img-fluid" /></div>
+                <h6 class="text-center pt-4 fw-bold">Investor Registration</h6>
+                </div>
+                 <a [routerLink]="['/default']">  <i class="bi bi-arrow-left-circle fa-2x"></i> </a>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card mb-4 mt-2">
+                            <div class="card-body pt-0">
+                                <div class="stepper">
+                                    <div #stepHeaderRef class="step-header">Basic Information</div>
+                                    <div #stepHeaderRef class="step-header">Investment Preferences</div>
+                                    <div #stepHeaderRef class="step-header">Track Record</div>
+                                    <div #stepHeaderRef class="step-header">Verification & Documents</div>
+                                    <div #stepHeaderRef class="step-header ps-0 ps-xl-5 pe-0">Communication Preferences</div>
+                                    <div #stepHeaderRef class="step-header">Declaration</div>
+                                </div>
+
+                                <!-- Form -->
+                                <div>
+                                    <!-- Step 1 -->
+                                    <div #stepRef class="step active">
+                                        <div class="row g-3">
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Investor Name :<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" placeholder="Incubator Name"
+                                                     [attr.disabled]="screenType == 'view' ? true : null" formControlName='name'
+                                                    [ngClass]="{ 'is-invalid': isSubmt && fc['name'].errors }">
+                                                <div *ngIf="isSubmt && fc['name'].errors"
+                                                    class="invalid-feedback">
+                                                    <div *ngIf="fc['name'].errors['required']">Incubator Name
+                                                        is required</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2">Investor Type :<span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-select"  [attr.disabled]="screenType == 'view' ? true : null" formControlName="investor_type_id">
+                                                    <option value="0">Select</option>
+                                                    <option [value]='item.id'
+                                                        *ngFor='let item of allDropDwns.investor_type'>
+                                                        {{item.name}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Website or LinkedIn Profile :</label>
+                                                <input type="text" class="form-control" placeholder=""
+                                                     [attr.disabled]="screenType == 'view' ? true : null" formControlName="website">
+                                                <!-- [ngClass]="{ 'is-invalid': isSubmt && fc['full_name'].errors }">
+                                                <div *ngIf="isSubmt && fc['full_name'].errors" class="invalid-feedback">
+                                                    <div *ngIf="fc['full_name'].errors['required']">Full Name is required</div>
+                                                </div> -->
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2">Email :</label>
+                                                <input type="email" class="form-control" placeholder="Email"
+                                                     [attr.disabled]="screenType == 'view' ? true : null" formControlName="email_id"
+                                                    [ngClass]="{ 'is-invalid': isSubmt && fc['email_id'].errors }"
+                                                    [ngClass]="{ 'is-invalid': isSubmt && fc['email_id'].errors }">
+                                                <div *ngIf="isSubmt && fc['email_id'].errors" class="invalid-feedback">
+                                                    <div *ngIf="fc['email_id'].errors['required']">Email is required
+                                                    </div>
+                                                    <div *ngIf="fc['email_id'].errors['pattern']">Please enter valid
+                                                        email</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Phone Number :</label>
+                                                <input type="tel" class="form-control" placeholder="0000000000" [attr.disabled]="screenType == 'view' ? true : null" formControlName="mobile_no"
+                                                    onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'
+                                                    [ngClass]="{ 'is-invalid': isSubmt && fc['mobile_no'].errors }" maxlength="10">
+                                                <div *ngIf="isSubmt && fc['mobile_no'].errors" class="invalid-feedback">
+                                                    <div *ngIf="fc['mobile_no'].errors['required']">Mobile No. is
+                                                        required</div>
+                                                    <div *ngIf="fc['mobile_no'].errors['pattern']">Please enter valid
+                                                        mobile</div>
+                                                    <div *ngIf="fc['mobile_no'].errors['minlength']">Please enter 10
+                                                        digit number</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" control-label mt-2"> Date of Birth :<span
+                                                        class="text-danger">*</span></label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" [attr.disabled]="screenType == 'view' ? true : null"
+                                                        class="form-control group-input form-control-sm eBSDP"
+                                                        [ngModelOptions]="{standalone: true}" placeholder="DD-MM-YYYY"
+                                                        [bsConfig]="dtPkrCnfg" bsDatepicker #dpAD="bsDatepicker"
+                                                        onkeypress='return event.charCode == 8'
+                                                        [(ngModel)]="dateOfBirth" [maxDate]="dt2Day">
+                                                    <span class="input-group-text input-group-text1 eBSDP">
+                                                        <button class="btn btn-outline-bsdp btn-sm p-0 eBtnDP"
+                                                            type="button" (click)="dpAD.toggle()"
+                                                            [attr.aria-expanded]="dpAD.isOpen" title="Calendar">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="control-label mt-2"> Office Address :</label>
+                                                <textarea class="form-control" rows="3"
+                                                     [attr.disabled]="screenType == 'view' ? true : null" formControlName="official_address"
+                                                    placeholder="" maxlength="1000"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12 text-end">
+                                                <button type="button" class="btn btn-sm btn-primary mt-2 ms-auto"
+                                                    (click)="nextPrev(1)">Next</button>
+
+                                            </div>
+                                        </div>
+                                        <!-- your step 1 inputs -->
+
+                                    </div>
+
+                                    <!-- Step 2 -->
+                                    <div #stepRef class="step">
+                                        <div class="row g-3">
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2">Are You an Accredited Investor? :</label>
+                                                <select class="form-select" id="directFunding"
+                                                     [attr.disabled]="screenType == 'view' ? true : null" formControlName="accredited_investor">
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3" id="ticketSizeDiv">
+                                                <label class="control-label mt-2">Average Investment Size :</label>
+                                                <select class="form-select" [attr.disabled]="screenType == 'view' ? true : null" formControlName="average_investment_id">
+                                                    <option value="">Select</option>
+                                                    <option [value]='item.id'
+                                                        *ngFor='let item of allDropDwns.average_ticket_size'>
+                                                        {{item.name}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Preferred Investment Stages :</label>
+                                                <ng-multiselect-dropdown [settings]="stngsMSD(false, 'id', 'name')"
+                                                    (onSelect)="onMSD('s', 'So', $event)"
+                                                    (onDeSelect)="onMSD('d', 'so', $event)"
+                                                    (onSelectAll)="onMSD('a', 'So', $event)"
+                                                     [attr.disabled]="screenType == 'view' ? true : null" formControlName='investment_stages_ids'
+                                                    (onDeSelectAll)="onMSD('r', 'So', $event)"
+                                                    [data]="allDropDwns.services_offered" class="ngMsd droplist"
+                                                    [(ngModel)]="slctSrvcOfrd">
+                                                </ng-multiselect-dropdown>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Sectors of Interest :</label>
+                                                <ng-multiselect-dropdown [settings]="stngsMSD(false, 'id', 'name')"
+                                                    (onSelect)="onMSD('s', 'Ts', $event)"
+                                                    (onDeSelect)="onMSD('d', 'Ts', $event)"
+                                                    (onSelectAll)="onMSD('a', 'Ts', $event)"
+                                                     [attr.disabled]="screenType == 'view' ? true : null" formControlName='sectors_of_interest_ids'
+                                                    (onDeSelectAll)="onMSD('r', 'Ts', $event)"
+                                                    [data]="allDropDwns.target_sectors" class="ngMsd droplist"
+                                                    [(ngModel)]="slctTrgtSctrList">
+                                                </ng-multiselect-dropdown>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-12 text-end">
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(1)">Next</button>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- your step 2 inputs -->
+
+
+                                    </div>
+
+                                </div>
+                                <!-- Step 3 -->
+                                <div #stepRef class="step">
+                                    <div class="row g-3">
+                                        <div class="col-md-12">
+                                            <label class="control-label mt-2"> Key Decision Makers :</label>
+                                            <input type="text" class="form-control"  [attr.disabled]="screenType == 'view' ? true : null" formControlName="decision_makers"
+                                                maxlength="300" placeholder="">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label mt-2"> Portfolio Highlights :</label>
+                                            <input type="file" (change)="changeFile($event, 'portfolio')"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label mt-2"> Upload Investor Profile/Deck :</label>
+                                            <input type="file" (change)="changeFile($event, 'profile')"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <!-- your step 3 inputs -->
+                                    <div class="row">
+                                        <div class="col-xl-12 text-end">
+                                            <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                            <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                (click)="nextPrev(1)">Next</button>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Step 4 -->
+                                <div #stepRef class="step">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <label class="control-label mt-2"> Upload KYC Document :</label>
+                                            <input type="file" (change)="changeFile($event, 'kyc')"
+                                                class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label mt-2"> Upload Proof of Accreditation :</label>
+                                            <input type="file" (change)="changeFile($event, 'proof')"
+                                                class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12 text-end">
+                                            <!-- your step 4 inputs -->
+                                            <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                            <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                (click)="nextPrev(1)">Next</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Step 5 -->
+                                <div #stepRef class="step">
+                                    <div class="row g-3">
+                                        <div class="col-md-3">
+                                            <label class="control-label mt-2"> Preferred Method of Contact :</label>
+                                            <select class="form-select"  [attr.disabled]="screenType == 'view' ? true : null" formControlName="preferred_method_id">
+                                                <option value="0">Select</option>
+                                                <option [value]='item.id'
+                                                    *ngFor='let item of allDropDwns.preferred_method'>
+                                                    {{item.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label mt-2"> Subscribe to Startup Dealflow Updates? :</label>
+                                            <select class="form-select" id="directFunding"
+                                                 [attr.disabled]="screenType == 'view' ? true : null" formControlName="startup_dealflow">
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- your step 5 inputs -->
+                                    <div class="row">
+                                        <div class="col-xl-12 text-end">
+                                            <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                            <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                (click)="nextPrev(1)">Next</button>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- Step 6 -->
+                                <!-- Step 6 -->
+                                <div #stepRef class="step">
+                                    <div class="row g-3">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox"  [attr.disabled]="screenType == 'view' ? true : null" formControlName="is_confirm">
+                                            <label class="form-check-label">I confirm the above information is accurate and true.</label>
+                                        </div>
+                                        <div class="form-check mb-4">
+                                            <input class="form-check-input" type="checkbox"  [attr.disabled]="screenType == 'view' ? true : null" formControlName="is_agreed">
+                                            <label class="form-check-label">I agree to the platform’s Terms of Use and Privacy Policy.</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xl-12 text-end">
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                (click)="nextPrev(-1)">Previous</button>
+                                            &nbsp;
+                                            <button type="submit" class="btn btn-sm btn-success" (click)="isSubmt=true;Save()" *ngIf="screenType == 'add'">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- More steps... -->
+
+
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

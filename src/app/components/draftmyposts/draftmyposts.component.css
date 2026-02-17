@@ -1,0 +1,28 @@
+.card_container{
+    /* width: 400px; */
+    height: 200px;
+}
+.post_container{
+    /* border: 1px solid black; */
+    /* height: 50vh; */
+    width: 80vw;
+    /* overflow-y: auto; */
+}
+.card-body{
+   padding: 1rem;
+}
+.card-body p{
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  max-height: 40px;
+}
+.card-body p span{
+    font-size: 12px;
+}
+.card-header{
+    text-transform: capitalize;
+}
+.text-center input{
+    margin-top: 6px;
+}
+

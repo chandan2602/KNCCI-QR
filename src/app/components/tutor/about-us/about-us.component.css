@@ -1,0 +1,22 @@
+.popularjobs .card-title {
+    font-size: 14px !important;
+    font-weight: bold !important;
+}
+
+.popularjobs .card:hover {
+    background-color: rgba(7, 145, 169, 0.3) !important;
+
+}
+
+.popularjobs .card:hover .rounded-circle {
+    background-color: rgb(7, 145, 169) !important;
+
+}
+
+
+.popularjobs .rounded-circle {
+
+    border-radius: 10px !important;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+
+}

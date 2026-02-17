@@ -1,0 +1,21 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .main-content {
+    display: flex;
+  }
+  .main-content .sidebar {
+    width: 30%;
+  }
+  .main-content .sidebar > * {
+    margin-bottom: 20px;
+  }
+  .main-content .content {
+    width: 70%;
+  }
+  .main-content .content .background {
+    border-radius: 4px;
+    padding: 20px;
+  }
+  

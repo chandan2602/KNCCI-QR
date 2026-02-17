@@ -1,0 +1,1040 @@
+<div>
+    <div class="pt-4">
+        <div class="page-content pt-0 pe-0 ps-0">
+            <div class="container-fluid">
+                <div class="default_class">
+                    <div class="content-wrapper p-0">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card rounded shadow-lg">
+                                        <div class="card-header headerbg" style="border-bottom: 3px solid #d8eff8">
+                                            <h5 class="mb-0">Applied Internships <button class="btn btn-sm"
+                        [appTooltip]="tooltipContent">
+                        <i class="bi bi-info-circle-fill"></i>
+                    </button></h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div *ngIf="table.length" class="table-responsive mt-2">
+                                                <table id="patreggraph" datatable
+                                                    class="table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                    style="width: 100%; white-space: nowrap">
+                                                    <thead class="top"
+                                                        style="background-color: #2e7a91; color: #ffffff;">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Company Name</th>
+                                                            <th>Student Name</th>
+                                                            <th>Internship Name</th>
+                                                            <th>Creation Date</th>
+                                                            <th>Closing Date</th>
+                                                            <th>Comments</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of table">
+                                                            <td>
+                                                                <button *ngIf="roleId != '1' && item.isactive_internship && item.isCourseSte" class="btn btn-danger btn-sm"
+                                                                    data-bs-target="#cancel" data-bs-toggle="modal"
+                                                                        (click)="rowData=item"><i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td>{{ item.company_name }}</td>
+                                                            <td>{{ item.fullname }}</td>
+                                                            <td>{{ item.course_name }}</td>
+                                                            <td>
+                                                                {{ item.courseshd_startdate | date : "dd-MM-yyyy" }}
+                                                            </td>
+                                                            <td>
+                                                                {{
+                                                                item.courseshd_enddate | date : "dd-MM-yyyy"
+                                                                }}
+                                                            </td>
+                                                            <td>{{ item.status_name}}
+                                                            </td>
+                                                            <td>{{ item.isactive_internship ? 'Active' : 'In-Active'}}
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex">
+                                                                    <span> <button
+                                                                            class="edit_icon btn btn-primary btn-sm me-1 mb-1"
+                                                                            (click)="OnEditView(item)">Internship
+                                                                            Details</button> </span>
+
+                                                                    <!-- item.STATUS_NAME != 'APPROVER SENTBACK' -->
+                                                                    <span *ngIf="roleId == '1'"
+                                                                        style="display: flex;text-align: center;cursor: pointer;gap: 5px;">
+                                                                        <button class="btn btn-primary btn-sm"
+                                                                            data-bs-target="#viewDetails"
+                                                                            data-bs-toggle="modal"
+                                                                            (click)="viewStndtDetails(item?.inst_userid)">
+                                                                            <i class="fas fa-eye"></i>
+                                                                        </button>
+                                                                        <button
+                                                                            *ngIf="roleId == '1' && item.inst_approvalstatus_id == 2 && item.isactive_internship"
+                                                                            class="btn btn-save btn-sm"
+                                                                            data-bs-target="#reason"
+                                                                            data-bs-toggle="modal"
+                                                                            (click)="getData(item, 1)">
+                                                                            Approve
+                                                                        </button>
+                                                                        <button
+                                                                            *ngIf="roleId == '1' && item.inst_approvalstatus_id == 2 && item.isactive_internship"
+                                                                            class="btn btn-danger btn-sm"
+                                                                            data-bs-target="#reason"
+                                                                            data-bs-toggle="modal"
+                                                                            (click)="getData(item, 3)">
+                                                                            Reject
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <!-- <td *ngIf="roleId == '3'">
+                                                                <button  class="btn btn-primary btn-sm" (click)="viewInternship()">
+                                                                    View Internship
+                                                                </button>
+                                                            </td> -->
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="text-center" *ngIf="!table.length">
+                                                No Records to display
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" data-backdrop="static" data-keyboard="false" id="applicationForm">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Student Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="md_close" aria-label="Close"
+                    (click)="closePopup()"></button>
+            </div>
+            <div class="modal-body">
+                <div id="printtable" class="pt-5">
+                    <table width="980" cellspacing="0" cellpadding="0" style="margin: auto">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table width="980" border="0" cellspacing="10" cellpadding="0">
+                                        <tbody>
+                                            <tr>
+                                                <td height="" style="text-align: center" valign="middle">
+                                                    <img src="../../../assets/img/logo1-new.png" width="200" alt="" />
+                                                </td>
+                                                <td rowspan="4">
+                                                    <div class="pt-2 d-flex" style="width: 150px; height: 150px">
+                                                        <img [src]="serverPath + userDetails?.result?.upload_4"
+                                                            class="img-fluid m-auto"
+                                                            style="margin: auto; max-height: 100%" alt="" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center">
+                                                    <table width="100%">
+                                                        <tr>
+                                                            <td width="35%">
+                                                                <p style="
+                                  margin: 0px;
+                                  font-size: 12px !important;
+                                ">
+                                                                    <b>P.O. BOX</b> 2440-00606 NAIROBI, KENYA
+                                                                </p>
+                                                            </td>
+                                                            <td width="35%">
+                                                                <p style="
+                                  margin: 0px;
+                                  font-size: 12px !important;
+                                ">
+                                                                    <b>TELEPHONE:</b> 0202000211/0202000212
+                                                                </p>
+                                                            </td>
+                                                            <td width="30%">
+                                                                <p style="
+                                  margin: 0px;
+                                  font-size: 12px !important;
+                                ">
+                                                                    <b>EMAIL:</b> admissions&#64;ouk.ac.ke
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td style="text-align: center">
+                                                    <h4 style="
+                            margin-top: 0;
+                            margin-bottom: 10px;
+                            font-weight: 600;
+                          ">
+                                                        OUK Admissions Office
+                                                    </h4>
+                                                    <h5 style="color: #fe7f50; font-weight: 500">
+                                                        STUDENT APPLICATION ONLINE FORM
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" style="padding: 10px">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="6"
+                                        style="border-top: 2px dashed #333; font-size: 13px">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="6" style="
+                          border-bottom: 1px dashed #333;
+                          font-size: 13px;
+                        ">
+                                                    <h5><b>(A) PERSONAL DETAILS</b></h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="24%"><b>First Name</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.firstname }}
+                                                </td>
+                                                <td width="24%"><b>Middle Name</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.middlename }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="24%"><b>Last Name</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.lastname }}
+                                                </td>
+                                                <td><b>Country of Residence</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{ userDetails?.result?.country_of_residence }}
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td *ngIf="userDetails?.result?.counties_id != 0">
+                                                    <b>County</b>
+                                                </td>
+                                                <td *ngIf="userDetails?.result?.counties_id != 0" width="2%"
+                                                    style="text-align: center">
+                                                    :
+                                                </td>
+                                                <td *ngIf="userDetails?.result?.counties_id != 0">
+                                                    {{ userDetails?.result?.counties_name }}
+                                                </td>
+
+                                                <td><b>Postal Address</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.postal_address }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td *ngIf="userDetails?.result?.counties_id != 0">
+                                                    <b>Sub County</b>
+                                                </td>
+                                                <td *ngIf="userDetails?.result?.counties_id != 0" width="2%"
+                                                    style="text-align: center">
+                                                    :
+                                                </td>
+                                                <td *ngIf="userDetails?.result?.counties_id != 0">
+                                                    {{ userDetails?.result?.sub_counties_name }}
+                                                </td>
+
+                                                <td *ngIf="userDetails?.result?.counties_id != 0">
+                                                    <b>Constituency</b>
+                                                </td>
+                                                <td *ngIf="userDetails?.result?.counties_id != 0" width="2%"
+                                                    style="text-align: center">
+                                                    :
+                                                </td>
+                                                <td *ngIf="userDetails?.result?.counties_id != 0">
+                                                    {{ userDetails?.result?.con_counties_name }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Physical Address</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.physical_address }}</td>
+                                                <td><b>Postal Code</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.postal_code }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>Town/City</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.nearest_town }}</td>
+                                                <td><b>Mobile Number 1</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{ userDetails?.result?.mobileno_code_name }}
+                                                    {{ userDetails?.result?.mobileno }}
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>Mobile Number 2</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{ userDetails?.result?.mobileno2_code_name }}
+                                                    {{ userDetails?.result?.mobileno2 }}
+                                                </td>
+                                                <td width="24%"><b>Current Email</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.username }}
+                                                </td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td><b>English</b></td>
+                                                <td width="2%" style="text-align: center;">:</td>
+                                                <td>{{userDetails?.result?.english_proficiency_name}}</td>
+                                                <td><b>Computing Skills</b></td>
+                                                <td width="2%" style="text-align: center;">:</td>
+                                                <td>{{userDetails?.result?.computing_skills_proficiency_name}}</td>
+
+                                            </tr> -->
+                                            <tr>
+                                                <td colspan="6"
+                                                    style=" border-bottom: 1px dashed #333; font-size: 13px;">
+                                                    <h5><b>(B) Biographical Information</b></h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="24%"><b>Gender</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.gender_name }}
+                                                </td>
+                                                <td width="24%"><b>Date of Birth</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">{{ userDetails?.result?.dob }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="24%"><b>Marital Status</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.maritalstatus_name }}
+                                                </td>
+                                                <td width="24%"><b>Birth Country</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.birth_country }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="24%"><b>Orphan</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{
+                                                    userDetails?.result?.orphan == 1
+                                                    ? "YES"
+                                                    : userDetails?.result?.orphan == 2
+                                                    ? "NO"
+                                                    : "Do Not Wish To
+                                                    Disclose"
+                                                    }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="24%"><b>Disability</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.isdisability_name }}
+                                                </td>
+                                                <td width="24%" *ngIf="
+                          userDetails?.result?.isdisability_name == 'YES'
+                        ">
+                                                    <b>Type Of Disability</b>
+                                                </td>
+                                                <td width="2%" *ngIf="
+                          userDetails?.result?.isdisability_name == 'YES'
+                        " style="text-align: center">
+                                                    :
+                                                </td>
+                                                <td width="24%" *ngIf="
+                          userDetails?.result?.isdisability_name == 'YES'
+                        ">
+                                                    {{ userDetails?.result?.typeofdisability_name }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="24%" *ngIf="
+                          userDetails?.result?.isdisability_name == 'YES' &&
+                          userDetails?.result?.typeofdisability_name ==
+                            'OTHER'
+                        ">
+                                                    <b>Disability Description</b>
+                                                </td>
+                                                <td width="2%" *ngIf="
+                          userDetails?.result?.isdisability_name == 'YES' &&
+                          userDetails?.result?.typeofdisability_name ==
+                            'OTHER'
+                        " style="text-align: center">
+                                                    :
+                                                </td>
+                                                <td width="24%" *ngIf="
+                          userDetails?.result?.isdisability_name == 'YES' &&
+                          userDetails?.result?.typeofdisability_name ==
+                            'OTHER'
+                        ">
+                                                    {{ userDetails?.result?.disability_description }}
+                                                </td>
+                                                <td><b>Nationality</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.nan_code }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Identification Document Type</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{ userDetails?.result?.id_passport_type_name }}
+                                                </td>
+                                                <td>
+                                                    <b>{{
+                                                        userDetails?.result?.id_passport_type_name
+                                                        }}</b>
+                                                </td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td colspan="4">
+                                                    {{ userDetails?.result?.id_passport }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="6"
+                                        style="font-size: 13px">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="6" style="
+                          border-bottom: 1px dashed #333;
+                          font-size: 13px;
+                        ">
+                                                    <h5><b>(C) program selection</b></h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Programme</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.course_name }}</td>
+                                                <td><b>Application Type</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{ userDetails?.result?.course_type_name }}
+                                                </td>
+                                                <!-- <td><b>Is your placement
+                                                    to OUK by KUCCPS?</b></td>
+                                            <td width="2%" style="text-align: center;">:</td>
+                                            <td>{{userDetails?.get_cluster?.IS_KUCCPS == true ? 'Yes':'No'}}</td> -->
+                                            </tr>
+
+                                            <tr *ngIf="
+                        userDetails?.get_cluster?.APPLICATION_TYPE == 1
+                      "></tr>
+                                            <tr *ngIf="
+                        userDetails?.get_cluster?.APPLICATION_TYPE == 1
+                      ">
+                                                <td colspan="6">
+                                                    <table class="table-bdr" width="100%" border="1" cellspacing="0"
+                                                        cellpadding="6">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Programme Cluster</th>
+                                                                <th>Subject Name(eg MAT)</th>
+                                                                <th>Grade obtained</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>CLUSTER SUBJECT 1</td>
+                                                                <td>
+                                                                    {{
+                                                                    userDetails?.get_cluster
+                                                                    ?.CLUSTER_SUBJECT1_NAME
+                                                                    }}
+                                                                </td>
+                                                                <td>
+                                                                    {{
+                                                                    userDetails?.get_cluster
+                                                                    ?.CLUSTER_SUBJECT1_GRADE
+                                                                    }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>CLUSTER SUBJECT 2</td>
+                                                                <td>
+                                                                    {{
+                                                                    userDetails?.get_cluster
+                                                                    ?.CLUSTER_SUBJECT2_NAME
+                                                                    }}
+                                                                </td>
+                                                                <td>
+                                                                    {{
+                                                                    userDetails?.get_cluster
+                                                                    ?.CLUSTER_SUBJECT2_GRADE
+                                                                    }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>CLUSTER SUBJECT 3</td>
+                                                                <td>
+                                                                    {{
+                                                                    userDetails?.get_cluster
+                                                                    ?.CLUSTER_SUBJECT3_NAME
+                                                                    }}
+                                                                </td>
+                                                                <td>
+                                                                    {{
+                                                                    userDetails?.get_cluster
+                                                                    ?.CLUSTER_SUBJECT3_GRADE
+                                                                    }}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>CLUSTER SUBJECT 4</td>
+                                                                <td>
+                                                                    {{
+                                                                    userDetails?.get_cluster
+                                                                    ?.CLUSTER_SUBJECT4_NAME
+                                                                    }}
+                                                                </td>
+                                                                <td>
+                                                                    {{
+                                                                    userDetails?.get_cluster
+                                                                    ?.CLUSTER_SUBJECT4_GRADE
+                                                                    }}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>English</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{
+                                                    userDetails?.get_cluster?.ENGLISH_PROFICIENCY_NAME
+                                                    }}
+                                                </td>
+                                                <td><b>Computing Skills</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{
+                                                    userDetails?.get_cluster
+                                                    ?.COMPUTING_SKILLS_PROFICIENCY_NAME
+                                                    }}
+                                                </td>
+                                            </tr>
+
+                                            <!-- <tr>
+                                            <td *ngIf="userDetails?.get_cluster?.APPLICATION_TYPE == 1"><b>Basic
+                                                    Education System</b></td>
+                                            <td *ngIf="userDetails?.get_cluster?.APPLICATION_TYPE == 1" width="2%"
+                                                style="text-align: center;">:</td>
+                                            <td *ngIf="userDetails?.get_cluster?.APPLICATION_TYPE == 1">
+                                                {{userDetails?.get_cluster?.BASIC_EDUCATION_SYSTEM_NAME ||
+                                                userDetails?.get_cluster?.BASIC_EDUCATION_SYSTEM_OTHER}}</td>
+                                        </tr> -->
+                                        </tbody>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="6"
+                                        style="border-bottom: 1px dashed #333; font-size: 13px">
+                                        <tbody>
+                                            <tr></tr>
+                                            <tr style="
+                        border-bottom: 0px dashed #333;
+                        font-size: 13px;
+                      ">
+                                                <td colspan="6">
+                                                    <h5><b>(D) Previous Academic Details :</b></h5>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="6"
+                                        style="font-size: 13px">
+                                        <tbody>
+                                            <tr *ngIf="
+                        userDetails?.get_cluster?.APPLICATION_TYPE == 1
+                      ">
+                                                <td>
+                                                    <b>Are you applying for Recognition of Prior
+                                                        Learning (RPL)?</b>
+                                                </td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{
+                                                    userDetails?.lst[0]?.IS_RPL == true ? "Yes" : "No"
+                                                    }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div *ngFor="let item of userDetails?.lst">
+                                        <table width="100%" border="1" cellspacing="0" cellpadding="6">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="24%"><b>Institution Name</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.INSTITUTION_NAME }}</td>
+                                                    <td width="24%"><b>Country</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.EDUCATION_COUNTRY }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="24%"><b>Level of Study</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%" colspan="4">
+                                                        {{ item.LEVEL_OF_STUDY }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="24%"><b>Start Year</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">
+                                                        {{ item.FROM_PERIOD | date : "yyyy" }}
+                                                    </td>
+                                                    <td width="24%"><b>End Year</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">
+                                                        {{ item.TO_PERIOD | date : "yyyy" }}
+                                                    </td>
+                                                </tr>
+                                                <tr *ngIf="
+                          userDetails?.get_cluster?.APPLICATION_TYPE == 1
+                        ">
+                                                    <td width="24%">
+                                                        <b>Examination Number e.g. KCSE index number</b>
+                                                    </td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.EXAM_REG_NO }}</td>
+                                                    <td width="24%"><b>Mean Grade</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.GRADE }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="24%"><b>Qualifications Attained</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.QUALIFICATION }}</td>
+                                                </tr>
+                                                <!-- <tr>
+                                        <td><b>Address</b></td>
+                                        <td width="2%" style="text-align: center;">:</td>
+                                        <td > {{item.ADDRESS}}</td>
+                                        <td><b>Additional Information</b></td>
+                                        <td width="2%" style="text-align: center;">:</td>
+                                        <td>{{item.ADDITIONAL_INFORMATION}}</td>
+                                    </tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- <table width="100%" border="0" cellspacing="0" cellpadding="6">
+                                        <tbody>
+                                            <tr style="border-bottom:1px dashed #333; font-size:13px;">
+                                                <td colspan="6">
+                                                    <h5><b>(E) Working Experience</b></h5>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table> -->
+                                    <!-- <div *ngFor="let item of userDetails?.lstt">
+                                        <table width="100%" border="1" cellspacing="0" cellpadding="6">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td width="24%"><b>Company/Employer</b></td>
+                                                    <td width="2%" style="text-align: center;">:</td>
+                                                    <td width="24%">{{item.WORKEXP_DETAIL_EMPLOYER}}</td>
+                                                    <td width="24%"><b>Designation</b></td>
+                                                    <td width="2%" style="text-align: center;">:</td>
+                                                    <td width="24%">{{item.WORKEXP_DETAIL_DESIGNATION}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td width="24%"><b>Start Date</b></td>
+                                                    <td width="2%" style="text-align: center;">:</td>
+                                                    <td width="24%">{{item.WORKEXP_DETAIL_FROM_YEAR |
+                                                        date:'yyyy-MM-dd'}}</td>
+                                                    <td width="24%"><b>End Date</b></td>
+                                                    <td width="2%" style="text-align: center;">:</td>
+                                                    <td width="24%">{{item.WORKEXP_DETAIL_TO_YEAR |
+                                                        date:'yyyy-MM-dd'}}
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div> -->
+
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="6"
+                                        *ngIf="isRecommondations">
+                                        <tbody>
+                                            <tr style="
+                        border-bottom: 1px dashed #333;
+                        font-size: 13px;
+                      ">
+                                                <td colspan="6">
+                                                    <h5><b>(E) Recommendations :</b></h5>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div *ngFor="let item of userDetails?.lst_recommandations">
+                                        <table width="100%" border="1" cellspacing="0" cellpadding="6"
+                                            *ngIf="isRecommondations">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="24%"><b>Full Name</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.NAME }}</td>
+                                                    <td width="24%"><b>Organization</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.ORGANIZATION }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="24%"><b>Country</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.COUNTRY_NAME }}</td>
+                                                    <td width="24%"><b>Mobile Number</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">
+                                                        {{ item.COUNTRY_CONNECTING_CODE }}
+                                                        {{ item.MOBILE_NUMBER }}
+                                                    </td>
+
+                                                    <!-- <td width="24%"><b>Nationality</b></td>
+                                    <td width="2%" style="text-align: center;">:</td>
+                                    <td width="24%"> {{userDetails?.result?.sponsors_email}}</td> -->
+                                                </tr>
+                                                <tr>
+                                                    <td width="24%"><b>City/Town</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">{{ item.CITY_TOWN }}</td>
+                                                    <td width="24%"><b>Nationality</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">
+                                                        {{ item.RECOMMENDATION_NATIONALITY }}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="24%"><b>Email Address</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%" colspan="4">
+                                                        {{ item.EMAIL_ADDRESS }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="6"
+                                        style="font-size: 13px">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="6" style="
+                          border-bottom: 1px dashed #333;
+                          font-size: 13px;
+                        ">
+                                                    <h5>
+                                                        <b>({{ isRecommondations == false ? "E" : "F" }})
+                                                            Next of Kin/Emergency Contact :</b>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Full Name</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.name_of_emergency }}</td>
+                                                <td><b>Relationship</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{
+                                                    userDetails?.result
+                                                    ?.relationshipname_of_emergency_name
+                                                    }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Telephone</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{
+                                                    userDetails?.result?.emergency_mobileno_code_name
+                                                    }}
+                                                    {{ userDetails?.result?.mobile_no_emergency }}
+                                                </td>
+                                                <td><b>Email Address</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{ userDetails?.result?.emailid_of_emergency }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Postal Address</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{ userDetails?.result?.address_of_emergency }}
+                                                </td>
+                                                <td><b>Postal Code</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>
+                                                    {{ userDetails?.result?.postalcode_of_emergency }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>City/Town</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.nearest_town }}</td>
+                                                <td><b>Country</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td>{{ userDetails?.result?.emergency_country }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td *ngIf="
+                          userDetails?.result?.counties_id_of_emergency != 0
+                        ">
+                                                    <b>County</b>
+                                                </td>
+                                                <td *ngIf="
+                          userDetails?.result?.counties_id_of_emergency != 0
+                        " width="2%" style="text-align: center">
+                                                    :
+                                                </td>
+                                                <td *ngIf="
+                          userDetails?.result?.counties_id_of_emergency != 0
+                        ">
+                                                    {{
+                                                    userDetails?.result?.counties_name_of_emergency
+                                                    }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="6">
+                                        <tbody>
+                                            <tr style="
+                        border-bottom: 1px dashed #333;
+                        font-size: 13px;
+                      ">
+                                                <td colspan="6">
+                                                    <h5>
+                                                        <b>({{ isRecommondations == false ? "F" : "G" }})
+                                                            REFERRAL :</b>
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="24%"><b>Referred by</b></td>
+                                                <td width="2%" style="text-align: center">:</td>
+                                                <td width="24%">
+                                                    {{ userDetails?.result?.ref_name }}
+                                                </td>
+                                                <span *ngIf="
+                          userDetails?.result?.referral_platform_id == 8
+                        ">
+                                                    <td width="24%"><b>Description</b></td>
+                                                    <td width="2%" style="text-align: center">:</td>
+                                                    <td width="24%">
+                                                        {{ userDetails?.result?.referral_name }}
+                                                    </td>
+                                                </span>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="footer float-end pt-2">
+                        <button id="Closemodal" class="btn btn-danger" data-bs-dismiss="modal" (click)="closePopup()">
+                            Close</button>&nbsp;&nbsp;
+                        <!-- <button class="btn btn-save" (click)="downloadForm('application')">
+                            Download
+                        </button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="reason">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{ statusId == 1 ? "Approve Applied Internships" : "Reject Applied Internships" }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="Close1" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Comments</label><span
+                            class="text-danger">*</span>
+                        <textarea class="form-control" [(ngModel)]="comments" [ngModelOptions]="{ standalone: true }"
+                            id="exampleFormControlTextarea1" rows="5"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="close1()" id="Close1">
+                    Close
+                </button>
+                <button [disabled]="comments == ''" type="button" class="btn btn-save"
+                    (click)="approve(selectedObj, statusId)">
+                    {{ statusId == 1 ? "Approve" : "Reject" }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" data-keyboard="false" id="viewDetails" [formGroup]="viewDetailsForm">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="md_close" aria-label="Close"
+                    (click)="closePopup()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5"> Student Name</label>
+                        <input type="text" type="text" formControlName='fullname'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5 control-label line_2 rem_1"> Age
+                        </label>
+                        <input type="text" type="text" formControlName='age'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5 control-label line_2 rem_1"> Gender
+                        </label>
+                        <input type="text" type="text" formControlName='Gender'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5 control-label line_2 rem_1"> Occupation
+                        </label>
+
+                        <input type="text" type="text" formControlName='occupation'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5 control-label line_2 rem_1"> Country
+                        </label>
+                        <input type="text" type="text" formControlName='Country'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="control-label line_2 rem_1"> County/State
+                        </label>
+                        <input type="text" type="text" formControlName='County'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="control-label line_2 rem_1"> Sub County/District
+                        </label>
+                        <input type="text" type="text" formControlName='subCounty'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5 control-label line_2 rem_1"> Address
+                        </label>
+                        <textarea type="text" formControlName='address' cols="5"
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly></textarea>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5 control-label line_2 rem_1"> Education
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" type="text" formControlName='education'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class=" control-label line_2 rem_1">Any Other</label>
+                        <input type="text" type="text" formControlName='other'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5 control-label line_2 rem_1"> Pin code
+                        </label>
+                        <input type="text" type="text" formControlName='pincode'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-xl-4 mb-3">
+                        <label class="col-md-5 control-label line_2 rem_1"> Nationality
+                        </label>
+                        <input type="text" type="text" formControlName='nationality'
+                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class=" control-label line_2 rem_1"> Upload Institute ID </label>
+                        <img [src]="studentIDImage" alt="Preview" class="img-thumbnail mt-2" style="max-width: 100%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="cancel">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Comments</label><span
+                            class="text-danger">*</span>
+                        <textarea class="form-control" [(ngModel)]="cnclComments" [ngModelOptions]="{ standalone: true }"
+                            id="exampleFormControlTextarea1" rows="5" maxlength="1000"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="closeCncl()" id="Close1">
+                    Close
+                </button>
+                <button [disabled]="cnclComments == ''" type="button" class="btn btn-save"
+                    (click)="cancelRecord()">Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger2"  -->

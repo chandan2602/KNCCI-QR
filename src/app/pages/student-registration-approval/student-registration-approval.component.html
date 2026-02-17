@@ -1,0 +1,57 @@
+<div class="default_class">
+    <div class="content-wrapper p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 class="mb-0 text-center">Student Registration Approval</h5>
+                        </div>
+                        <div class="card-body">
+                           
+                            <div *ngIf="editData.length">
+                                <table id="patreggraph"  
+                                    class=" table-striped table-bordered mt-2 pt-2 table-sm small" style="width:100%">
+                                    <thead class="top" style="background-color: #0d9bc4; color:#ffffff;">
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Course Name </th>
+                                            <th>User Id</th>
+                                            <th>Created Date </th>
+                                            <th>Action</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of editData">
+                                            <td>{{item.FIRST_NAME}}</td>
+                                            <td>{{item.LAST_NAME}}</td>
+                                            <td>{{item.ADMISSION_INTO_CLASS}}</td>
+                                            <td>{{item.USER_ID}}</td>
+                                            <td>{{item.CREATE_DATE}}</td>
+                                            
+                                           
+                                      
+
+
+                                            <td style="display: flex;"> <input type="image"
+                                                    src="./../../../assets/images/sprites/right.png" class="edit_icon" (click)="Approval(item)">
+                                                    
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div class="text-center" *ngIf="!editData.length">
+                                No Records to display
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-2 ps-2">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Incubator</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div *ngIf="!isAddEdt">
+                                            <div class="table-responsive">
+                                                <div *ngIf="listGrid.length">
+                                                    <table id="patreggraph" datatable
+                                                        class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                        style="width:100%">
+                                                        <thead class="top"
+                                                            style="background-color: #2e7a91; color:#ffffff;">
+                                                            <tr>
+                                                                <th>S. No</th>
+                                                                <th> User Name </th>
+                                                                <th> Email Id </th>
+                                                                <th> Contact No. </th>
+                                                                <th> Project Name. </th>
+                                                                <th> Approval Status </th>
+                                                                <th> Approved / Reject Date </th>
+                                                                <!-- <th> Rejected date </th> -->
+                                                                <th> Action </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of listGrid; let i= index">
+                                                                <td>{{i+1}}</td>
+                                                                <td>{{item.name}}</td>
+                                                                <td>{{item.email_id}}</td>
+                                                                <td>{{item.mobile_no}}</td>
+                                                                <td>{{item.project_name}}</td>
+                                                                <td>{{item.application_status == '2' ? 'Approve':
+                                                                    (item.application_status == '3' ? 'Reject':
+                                                                    'Pending')}}</td>
+                                                                <td>{{item.created_at | date: 'dd-MM-yyyy'}}</td>
+                                                                <!-- <td>{{item.rejected_at | date: 'dd-MM-yyyy'}}</td> -->
+                                                                <td>
+                                                                    <button
+                                                                        class="edit_icon btn btn-primary btn-sm me-1"
+                                                                        (click)="isAddEdt=!isAddEdt;isAprveRejct=2;tableId=item;screnType='add';onCheck(item)"
+                                                                        *ngIf="item.application_status =='1'">
+                                                                        Approve</button>
+                                                                    <button class="edit_icon btn btn-danger btn-sm mb-1"
+                                                                        (click)="isAddEdt=!isAddEdt;isAprveRejct=3;tableId=item;screnType='add';onCheck(item)"
+                                                                        *ngIf="item.application_status =='1'">
+                                                                        Reject</button>
+                                                                    <button class="edit_icon btn btn-primary btn-sm"
+                                                                        (click)="isAddEdt=!isAddEdt;tableId=item;screnType='view';onCheck(item);"
+                                                                        *ngIf="item.application_status !='1'">
+                                                                        View</button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" *ngIf="isAddEdt">
+                                            <div class="col-xl-12">
+                                                <app-startup-profile [childData]="parentMessage"
+                                                    [parentUser]="parentUser"></app-startup-profile>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="control-label mt-2"> {{isAprveRejct==2 ? 'Approve'
+                                                            : 'Reject'}} Comments :</label>
+                                                        <textarea class="form-control" rows="3"
+                                                            [attr.disabled]="screnType == 'add' ? null : true"
+                                                            [(ngModel)]="approve_comments" placeholder=""
+                                                            maxlength="1000" [readonly]="screnType == 'view'"></textarea>
+                                                    </div>
+                                                    <div class="col-md-12 mb-2">
+                                                        <label class="control-label mt-2"> Rating :</label>
+                                                        <select class="form-select" [(ngModel)]="rating" [disabled]="screnType == 'view'"
+                                                            [attr.disabled]="screnType == 'add' ? null : true">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-12 float-right">
+                                                        <div class="float-right">
+                                                            <button type="button" *ngIf="screnType == 'add'"
+                                                                (click)='Save()'
+                                                                class="btn btn-sm  btn-save me-1">Save</button>
+                                                            <button type="button" (click)="Back()"
+                                                                class="btn btn-sm btn-primary"><i
+                                                                    class="bi bi-arrow-left-circle"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Course Report</h5>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Course Name : </label>
+                                                    <select [(ngModel)]='course_id '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="courseReportChange()">
+                                                        <option value="0" [selected]="true">Select All </option>
+                                                        <option *ngFor="let course of courcesList"
+                                                            [value]='course.COURSE_ID'>
+                                                            {{course.COURSE_NAME}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Student Level : </label>
+                                                    <select (change)="courseReportChange()"
+                                                        [(ngModel)]='studentLevel_id '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg">
+                                                        <option value="" selected>Select</option>
+                                                        <option *ngFor='let item of student_level_List'
+                                                            [value]='item.DICTIONARYID'>{{item.DICTIONARYNAME}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                            </div>&nbsp;
+
+
+                                            <div class="table-responsive">
+                                                <table id="courseReport" datatable [dtOptions]="dtOptions"
+                                                    [dtTrigger]="dtTrigger"
+                                                    class=" table-striped table-bordered mt-2 pt-2 table-sm small display"
+                                                    style="width:100%">
+                                                    <thead class="top"
+                                                        style="background-color: #2e7a91; color:#ffffff;">
+                                                        <tr style="white-space: nowrap;">
+                                                            <th> S.No </th>
+                                                            <th> Course Name </th>
+                                                            <th> Trainer Name </th>
+                                                            <th> Student Level </th>
+                                                            <th> Start Date </th>
+                                                            <th> End Date </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of courseReportList; let i=index">
+                                                            <td>{{i+1}}</td>
+                                                            <td>{{item.course_name}}</td>
+                                                            <td>{{item.name}}</td>
+                                                            <td>{{item.studentLevelName}}</td>
+                                                            <td>{{item.startdate | date:'dd-MM-yyyy'}}</td>
+                                                            <td>{{item.enddate | date:'dd-MM-yyyy'}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- <div class="text-center" *ngIf="!courseReportList.length">
+                                                No Records to display
+                                            </div> -->
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

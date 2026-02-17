@@ -1,0 +1,39 @@
+<div class="recommendation-container">
+  <div class="recommendation-grid">
+    <!-- Hero Banner -->
+    <!-- <div class="hero-banner">
+    <h1>Discover Your Perfect Internship</h1>
+    <p>AI-powered recommendations tailored to your skills</p>
+    <button>Refresh Recommendations</button>
+  </div> -->
+
+    <!-- Internship Cards -->
+    <div class="internship-card" *ngFor="let rec of filteredRecommendations">
+      <h4 class="company-name">{{ rec.company_name }}</h4>
+      <h3 class="internship-title">{{ rec.title }}</h3>
+
+      <div class="skills-section">
+        <h6>Skills Needed</h6>
+        <div class="skill-tags">
+          <span class="tag" *ngFor="let skill of extractSkills(rec.can_apply_skills)">
+            {{ skill }}
+          </span>
+        </div>
+      </div>
+
+      <p><strong>Start:</strong> {{ rec.registration_startdate | date:'mediumDate' }} 
+         
+      <p><strong>End:</strong> {{ rec.registration_enddate | date:'mediumDate' }} 
+        
+
+      <div class="stipend">
+        <i class="fas fa-coins"></i>
+        {{ rec.stipend | currency: 'INR':'symbol':'1.0-0' }}/month
+      </div>
+
+      <button class="apply-btn" (click)="ApplyForInternship(rec)">
+        <i class="fas fa-paper-plane"></i> Quick Apply
+      </button>
+    </div>
+  </div>
+</div>

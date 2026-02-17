@@ -1,0 +1,99 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">CGPA Report</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group" *ngIf='!isStudent'>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Course Name : </label>
+                                                    <select [(ngModel)]='courseId '
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="courseChangein()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let course of courses"
+                                                            [value]='course.COURSE_ID'>
+                                                            {{course.COURSE_NAME}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Course Schedule :</label>
+                                                    <select [(ngModel)]='scheduleId '
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="schedulChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let schedul of shedules"
+                                                            [value]='schedul.COURSESHD_ID'>
+                                                            {{schedul.COURSESHD_NAME}}</option>
+
+                                                    </select>
+
+
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="sel1">USERS :</label>
+                                                    <select [(ngModel)]='studentId '
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="studentChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let user of users" [value]='user.USERID'>
+                                                            {{user.FIRSTNAME}}</option>
+
+                                                    </select>
+
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div *ngIf="table.length">
+                                            <table id="patreggraph" datatable [dtOptions]="dtOptions"
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>S No</th>
+                                                        <th>
+                                                            Semester
+                                                        </th>
+                                                        <th>Year</th>
+                                                        <th>SGPA_Total</th>
+                                                        <th>Credits</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table;let i=index">
+                                                        <td>{{i+1}}</td>
+                                                        <td>{{item.SEMESTER_NAME}}</td>
+                                                        <td>{{item.SEMESTER_YEAR}}</td>
+                                                        <td>{{item.SGPA_TOTAL}}</td>
+                                                        <td>{{item.CREDITS}}</td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,523 @@
+<body *ngIf="isLogin==false">
+    <a href="javascript:" id="return-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <section class="mt-5 pt-1 pb-1 bg-all-course">
+
+        <div class="container pb-0 pt-0">
+            <div class="row">
+                <div class="col-xl-9">
+
+                    <div>
+                        <button class="btn btn-sm btn-primary mt-2 float-right" title="back"
+                            [routerLink]="['/HOME/intereShipList']"><i class="bi bi-arrow-left-circle"></i>Back </button>
+                    </div>
+                    <div class="card mb-3 border-0  bg-transparent">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img [src]="courseDetails.IMAGE_URL" class="img-fluid rounded" alt="...">
+                            </div>
+                            <div class="col-md-8 ps-4">
+                                <div class="card-body  bg-transparent pb-0">
+                                    <h5 class="card-title">{{courseDetails.COURSE_NAME}}</h5>
+                                    <h6 style="color:#808080">by Prof. {{courseDetails.FIRSTNAME}}
+                                        {{courseDetails.LASTNAME}}</h6>
+                                    <p class="card-text">{{courseDetails.COURSE_DESCRIPTION}} </p>
+                                    <ul>
+                                        <li *ngFor="let item of courseDetails.moreoptions">{{item}}</li>
+                                    </ul>
+                                    <!-- <div class="">
+                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                        <span><i class="fa-solid fa-star"></i></span>
+                                       
+                                    </div> -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 date">
+                    <p class="date_time" style="color:#5E5E5E; font-size: 13px">Course:
+                        <span class="me-2 ms-1 fw-bold">{{sessionDetails.COURSESHD_STARTDATE |
+                            date:'dd-MMM-yyyy'}} to {{sessionDetails.COURSESHD_ENDDATE | date:'dd-MMM-yyyy'}}</span>
+                    </p>
+
+                    <!-- <select class="form-select date_select" [(ngModel)]="sessionDetails.COURSESHD_ID"
+                        (change)="sessionChanged($event.target.value)" aria-label="Default select example">
+                        <option value="0">Select Timings</option>
+                        <option *ngFor="let session of sessionList" [value]="session.COURSESHD_ID">
+                            {{session.COURSESHD_STARTTIME | date:'hh:mm a'}} - {{session.COURSESHD_ENDTIME | date:'hh:mm
+                            a'}}</option>
+                    </select> -->
+
+                    <div class="d-block mt-3 mb-3">
+                        <span class=" float-start price-offer-1"><i class="fa-solid fa-indian-rupee-sign"></i>
+                            {{sessionDetails.COURSESHD_AMOUNT|currency:'INR'}}
+                            <!-- <span class="price-offer-2">10,000</span>-->
+                        </span>
+                        <!--<span class="float-end">dsfcds</span> -->
+                    </div>
+                    <br>
+
+
+
+                    <!-- <div class="form-check form-check-inline pt-3">
+                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                        <label class="form-check-label" for="inlineCheckbox1">I would like to enroll Lorem ipsum dolor
+                            sit amet, consectetur adipiscing elit. Sed eget magna enim fermentum </label>
+                    </div> -->
+
+                    <!-- <div class="d-grid mt-3">
+                        <input type="button" class="d-none" data-bs-target="#myModal" data-bs-toggle="modal"
+                            id="btnEnrolled">
+                        <button type="button" (click)="Enroll()" class="btn btn-enroll">Enroll Now
+                        </button>
+                    </div> -->
+                    <div class="d-grid mt-3">
+                        <!-- <input type="button" class="d-none" data-bs-target="#myModal" data-bs-toggle="modal"
+                            id="btnEnrolled"> -->
+                        <button type="button" (click)="EnrollSubscription()" class="btn btn-enroll">Enroll Now
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </section>
+
+    <section style="margin-top: -3rem;">
+        <div class="container pt-0 pb-0">
+            <div class="row">
+                <div class="col-xl-9">
+                    <div class="card shadow-lg">
+                        <div class="card-body p-5 about_course">
+                            <h5>About Course</h5>
+                            <p>{{courseDetails.COURSE_DESCRIPTION}}</p>
+
+                            <h5 class="mt-4">Who Can Apply</h5>
+                            <p>{{courseDetails.courseshd_canappy}}</p>
+
+                            <h5 class="mt-4">Terms Of Engagement</h5>
+                            <p>{{courseDetails.courseshd_terms}}</p>
+
+                            <!-- <h5 class="mt-4 mb-4">Chapters</h5>
+
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item" *ngFor="let chapter of chapterList;let ind = index">
+                                    <h2 class="accordion-header" [attr.id]="'heading_'+ind">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            [attr.data-bs-target]="'#collapse_'+ind"
+                                            [attr.aria-expanded]="(ind==0)?'true':'false'"
+                                            [attr.aria-controls]="'collapse_'+ind">
+                                            Chapter {{ind+1}} : {{chapter.CHAPTER_NAME}}
+                                        </button>
+                                    </h2>
+                                    <div [attr.id]="'collapse_'+ind" class="accordion-collapse collapse"
+                                        [ngClass]="(ind==0)?'show':null" [attr.aria-labelledby]="'heading_'+ind"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <ul>
+                                                <li [innerHTML]="chapter.CHAPTER_DESCRIPTION"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+
+<div *ngIf="isLogin==true" class="container-scroller">
+    <app-header></app-header>
+    <div class="container-fluid page-body-wrapper pt-5 mt-5" >
+        <app-sidebar></app-sidebar>
+        <div class="main-panel">
+            <div class="page-wrapper mt-0">
+                <div class="page-content pt-0 pe-0 ps-0">
+
+                    <section class="bg-all-course">
+
+                        <div class="container pb-1 pt-2">
+                            <div class="row">
+                                <div class="col-xl-12">
+
+                                    <div class="card mb-3 border-0  bg-transparent">
+                                        <div class="card-header">
+                                            <button class="btn btn-sm btn-primary mt-2 float-right" title="back"
+                                                [routerLink]="['/HOME/intereShipList']"><i class="bi bi-arrow-left-circle me-1"></i>Back </button>
+                                        </div>
+                                        <div class="row g-0">
+                                            <div class="col-md-4 align-items-center d-flex">
+                                                <img [src]="courseDetails.IMAGE_URL" class="img-fluid rounded"
+                                                    alt="...">
+                                            </div>
+                                            <div class="col-md-8 ps-4">
+                                                <div class="card-header d-flex justify-content-between bg-transparent align-items-center">
+                                                   <div><h5 class="card-title mb-0">{{courseDetails.COURSE_NAME}}</h5></div>
+                                                   <!-- <button *ngIf="sessionDetails.COURSESHD_ID > 0 && ( isCourseExpired && (!isAlreadyCourseTaken))"
+                                                        type="button" data-bs-target="#myModal" data-bs-toggle="modal" class="btn btn-enroll">Enroll Now</button> -->
+                                                    <button type="button" *ngIf="sessionDetails.COURSESHD_ID > 0 && ( !isCourseExpired && (!isAlreadyCourseTaken))" 
+                                                        (click)="EnrollSubscription()" class="btn btn-enroll">Enroll Now
+                                                    </button>
+                                                </div>
+                                                <div class="card-body pb-0  bg-transparent">
+                                                    <h6 style="color:#808080">by Prof. {{courseDetails.FIRSTNAME}}
+                                                        {{courseDetails.LASTNAME}}</h6>
+                                                         <p class="date_time mb-1" style="color:#5E5E5E; font-size: 13px">Course Date:
+                                                <span class="me-2 ms-1 fw-bold mb-0">
+                                                    {{sessionDetails.COURSESHD_STARTDATE |date:'dd-MMM-yyyy'}} -
+                                                    {{sessionDetails.COURSESHD_ENDDATE |date:'dd-MMM-yyyy'}}
+                                                </span>
+                                                </p>
+                                                    <p class="card-text mb-0">{{courseDetails.COURSE_DESCRIPTION}} </p>
+                                                    <ul>
+                                                        <li *ngFor="let item of courseDetails.moreoptions">{{item}}</li>
+                                                    </ul>
+                                                    <!-- <div class="">
+                                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                                        <span><i class="fa-solid fa-star"></i></span>
+                                                        
+                                                    </div> -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+
+                        </div>
+
+
+                    </section>
+
+                    <section style="margin-top: -3rem;">
+                        <div class="container pt-5 pb-0 mt-4">
+                            <div class="row">
+                                <div class="col-xl-12 ps-0 pe-0">
+                                    <div class="card shadow-lg">
+                                        <div class="card-body p-5 about_course">
+                                            <h5>About Course</h5>
+                                            <p>{{courseDetails.COURSE_DESCRIPTION}}</p>
+
+                                            <h5 class="mt-4">Who Can Apply</h5>
+                                            <p>{{courseDetails.courseshd_canappy}}</p>
+
+                                            <h5 class="mt-4">Terms Of Engagement</h5>
+                                            <p>{{courseDetails.courseshd_terms}}</p>
+
+                                            <!-- <h5 class="mt-4 mb-4">Chapters</h5>
+
+                                            <div class="accordion" id="accordionExample">
+                                                <div class="accordion-item"
+                                                    *ngFor="let chapter of chapterList;let ind = index">
+                                                    <h2 class="accordion-header" [attr.id]="'heading_'+ind">
+                                                        <button class="accordion-button" type="button"
+                                                            data-bs-toggle="collapse"
+                                                            [attr.data-bs-target]="'#collapse_'+ind"
+                                                            [attr.aria-expanded]="(ind==0)?'true':'false'"
+                                                            [attr.aria-controls]="'collapse_'+ind">
+                                                            Chapter {{ind+1}} : {{chapter.CHAPTER_NAME}}
+                                                        </button>
+                                                    </h2>
+                                                    <div [attr.id]="'collapse_'+ind" class="accordion-collapse collapse"
+                                                        [ngClass]="(ind==0)?'show':null"
+                                                        [attr.aria-labelledby]="'heading_'+ind"
+                                                        data-bs-parent="#accordionExample">
+                                                        <div class="accordion-body">
+                                                            <ul>
+                                                                <li [innerHTML]="chapter.CHAPTER_DESCRIPTION"></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                    <!-- <div class="card shadow-lg mt-5 mb-5">
+                                        <div class="card-body review p-5">
+                                            <div class="d-block mb-5">
+                                                <div class="float-start">
+                                                    <h5>Review</h5>
+                                                </div>
+                                                <div class="float-end"><select class="form-select form-select-sm"
+                                                        aria-label=".form-select-sm example">
+                                                        <option selected>All Rating</option>
+                                                        <option value="1">One</option>
+                                                        <option value="2">Two</option>
+                                                        <option value="3">Three</option>
+                                                    </select></div>
+                                            </div>
+                                            <div class="d-flex mt-5 mb-4">
+                                                <div>
+                                                    <p class="name-icon me-3 text-white">VA</p>
+                                                </div>
+                                                <div>
+                                                    <h6>Vinay Amalapuram</h6>
+                                                    <div class="mb-2">
+                                                        <span><i class="fa-solid fa-star checked fa-xs"></i></span>
+                                                        <span><i class="fa-solid fa-star checked fa-xs"></i></span>
+                                                        <span><i class="fa-solid fa-star checked fa-xs"></i></span>
+                                                        <span><i class="fa-solid fa-star checked fa-xs"></i></span>
+                                                        <span><i class="fa-solid fa-star fa-xs"></i></span>
+                                                        <span class="ms-2 comment_days">1 day ago</span>
+                                                    </div>
+                                                    <p class="review_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                                                        eget magna enim fermentum porttitor.Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing elit. Sed eget magna enim fermentum porttitor. Lorem ipsum dolor sit
+                                                        amet, consectetur adipiscing elit. Sed eget magna enim Lorem ipsum dolor sit
+                                                        amet, consectetur adipiscing elit. Sed eget magna enim fermentum porttitor.Lorem
+                                                        ipsum dolor sit amet, consectetur adipiscing elit. Sed eget magna enim fermentum
+                                                        porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget
+                                                        magna enimLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget
+                                                        magna enim fermentum porttitor.Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing elit. Sed eget magna enim fermentum porttitor. Lorem ipsum dolor sit
+                                                        amet, consectetur adipiscing elit. Sed eget magna enim</p>
+                                                    <span><a href="#"><img src="/assets/img/Like.png" class="img-fluid me-2"></a></span>
+                                                    <span><a href="#"><img src="/assets/img/DisLike.png"
+                                                                class="img-fluid me-2"></a></span>
+                                                    <span><a href="#">Report</a></span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex mt-4">
+                                                <div>
+                                                    <p class="name-icon me-3 text-white">VA</p>
+                                                </div>
+                                                <div>
+                                                    <h6>Vinay Amalapuram</h6>
+                                                    <div class="mb-2">
+                                                        <span><i class="fa-solid fa-star checked fa-xs"></i></span>
+                                                        <span><i class="fa-solid fa-star checked fa-xs"></i></span>
+                                                        <span><i class="fa-solid fa-star checked fa-xs"></i></span>
+                                                        <span><i class="fa-solid fa-star checked fa-xs"></i></span>
+                                                        <span><i class="fa-solid fa-star fa-xs"></i></span>
+                                                        <span class="ms-2 comment_days">1 day ago</span>
+                                                    </div>
+                                                    <p class="review_txt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                                                        eget magna enim fermentum porttitor.Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing elit. Sed eget magna enim fermentum porttitor. Lorem ipsum dolor sit
+                                                        amet, consectetur adipiscing elit. Sed eget magna enim Lorem ipsum dolor sit
+                                                        amet, consectetur adipiscing elit. Sed eget magna enim fermentum porttitor.Lorem
+                                                        ipsum dolor sit amet, consectetur adipiscing elit. Sed eget magna enim fermentum
+                                                        porttitor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget
+                                                        magna enimLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget
+                                                        magna enim fermentum porttitor.Lorem ipsum dolor sit amet, consectetur
+                                                        adipiscing elit. Sed eget magna enim fermentum porttitor. Lorem ipsum dolor sit
+                                                        amet, consectetur adipiscing elit. Sed eget magna enim</p>
+                                                    <span><a href="#"><img src="/assets/img/Like.png" class="img-fluid me-2"></a></span>
+                                                    <span><a href="#"><img src="/assets/img/DisLike.png"
+                                                                class="img-fluid me-2"></a></span>
+                                                    <span><a href="#">Report</a></span>
+                                                </div>
+                                            </div>
+                                            <div class="float-end mt-3">
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="#" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                
+                                    </div> -->
+
+                                </div>
+                                <!-- <div class="col-xl-3">
+                                    <div class="card shadow-lg shedule">
+                                        <div class="card-body p-4">
+                                            <ul>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
+                                                        class="bi bi-clock me-2" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                                        <path
+                                                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                                    </svg>14 hours 10 min</li>
+                                                <li><svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"
+                                                        xmlns="http://www.w3.org/2000/svg" class="ms-1">
+                                                        <path
+                                                            d="M12 20H0V14L4 10L0 6V0H12V6L8 10L12 14M2 5.5L6 9.5L10 5.5V2H2M6 10.5L2 14.5V18H10V14.5M8 16H4V15.2L6 13.2L8 15.2V16Z"
+                                                            fill="#6B6B6B" />
+                                                    </svg>
+                                                    3 Weeks</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                        class="bi bi-file-earmark-text me-2 " viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z" />
+                                                        <path
+                                                            d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                                                    </svg>6 Assignment</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                        class="bi bi-file-earmark-pdf me-2 " viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                        <path
+                                                            d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z" />
+                                                    </svg>12 Resources</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="card shadow-lg learn mt-4">
+                                        <div class="card-header">
+                                            <h5>What you’ll learn</h5>
+                                        </div>
+                                        <div class="card-body p-4 pt-0">
+                                            <ul>
+                                                <li>
+                                                    Management skills
+                                                </li>
+                                                <li>Production implementation
+                                                    in the corporate level</li>
+                                                <li>Management skills</li>
+                                                <li>Production implementation
+                                                    in the corporate level</li>
+                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+
+                        </div>
+                    </section>
+                    <app-footer></app-footer>
+                </div>
+            </div>
+            <!-- <router-outlet></router-outlet> -->
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2">
+                <h6 class="modal-title w-100"> Enroll </h6>
+
+                <button type="button" (click)="close()" class="close " data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body text-center">
+                <form class="well form-horizontal">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xl-12 ">
+                                <div class="form">
+                                    <label class="form-label line_2 rem_1 col-xl-12" style="font-size: 20px;"> Course
+                                        Name :
+                                        <strong>{{courseDetails.COURSE_NAME}}</strong> </label>
+                                    <label class="form-label line_2 rem_1 col-xl-12" style="font-size: 20px;"> Tutor
+                                        Name :
+                                        <strong>{{courseDetails.FIRSTNAME}}
+                                            {{courseDetails.LASTNAME}}</strong> </label>
+                                    <label class="form-label line_2 rem_1 col-xl-12" style="font-size: 20px;">Total
+                                        Course
+                                        Fees :
+
+                                        <strong>{{sessionDetails.COURSESHD_AMOUNT+GSTPercentages(sessionDetails.COURSESHD_AMOUNT)
+                                            | currency:'INR'}}</strong> </label>
+                                    <label *ngIf="isInstallment && sessionDetails.Total_Payable_Amount>0"
+                                        class="form-label line_2 rem_1 col-xl-12" style="font-size: 20px;">Total Payable
+                                        Amount :
+                                        <strong>{{sessionDetails.Total_Payable_Amount|currency:'INR'}}</strong> </label>
+
+                                    <label class="form-label line_2 rem_1 col-xl-12" style="font-size: 20px;">(Including
+                                        GST) </label>
+                                </div>
+                                <!-- Table -->
+
+                                <table class="table table-bordered" *ngIf="isInstallment">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th style="width: 35%;">Installment Name</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let term of InstallmentList;let ind=index">
+                                            <td>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" [checked]="term.status"
+                                                        (change)="installmentChanged($event.target,term)"
+                                                        type="checkbox" [value]="term.CSI_INSTALMENT_ID"
+                                                        [id]="'flexCheckDefault_'+ind">
+                                                    <label class="form-check-label" [for]="'flexCheckDefault_'+ind">
+                                                        {{term.CSI_INSTALLMENT_NAME}}
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>{{term.TERM_AMOUNT}}</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+
+
+                    </fieldset>
+                    <div class="modal-footer">
+                        <button type="button" (click)="onPaymentClicked()" class="btn btn-sm btn-save">Payment</button>
+                        <button type="button" class="btn btn-sm btn-danger " id='md_close' (click)="close()"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<br>
+<div class="page-wrapper">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Folders</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="tree_parent">
+
+                                                    <div *ngFor='let item of personalTree'>
+                                                        <app-treenode [data]='item'></app-treenode>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div *ngIf='fileCall'>
+                                                    <div *ngIf="files.length">
+                                                        <div *ngFor='let file of files' data-toggle="modal"
+                                                            data-target="#newsModal">
+                                                            <a href="javascript: void(0)" (click)="ViewFile(file)">
+                                                                {{file.ACTUALFILENAME}}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="!files.length">
+                                                        No Files Available
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="modal fade" id="newsModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog  modal-lg" style="width: 200%;height: 50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>&nbsp;
+          
+                <iframe class="iframe" *ngIf="fileUrl" [src]="fileUrl" ></iframe>
+
+            <div class="modal-footer">
+                &nbsp;
+                <button class="btn btn-danger" id='close' (click)="close()" data-dismiss="modal">
+                    Close</button>
+            </div>
+        </div>
+    </div>
+</div> -->

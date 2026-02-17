@@ -1,0 +1,84 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Fee Description</h5>
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <div class="form-group">
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <label for="year">Academic Year :</label>
+                                                    <select [(ngModel)]='yearId' [disabled]="isParam" id="year"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        (change)="yearChange($event)">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let year of table" [value]='year.ACADEMIC_ID'>
+                                                            {{year.ACADEMIC_NAME}}</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <br><br>
+                                        <div *ngIf="academicYear.length">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>Academic Year</th>
+                                                        <th> Start Date</th>
+                                                        <th> End Date</th>
+                                                        <th>Action</th>
+                                                        <th>View</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let year of academicYear">
+                                                        <td>{{year.ACADEMIC_NAME}}</td>
+                                                        <td>{{year.ACADEMIC_STARTDATE}}</td>
+                                                        <td>{{year.ACADEMIC_ENDDATE}}</td>
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon"
+                                                                (click)="onEdit(year.CURRICULUM_ID ,'false')">
+                                                                <i class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+
+                                                        <td (click)="onEdit(year.CURRICULUM_ID, 'true')">View</td>
+
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div *ngIf="!academicYear.length" class="text-center">
+                                                No Records to display
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

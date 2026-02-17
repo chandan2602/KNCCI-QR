@@ -1,0 +1,250 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 *ngIf="!isEdit" class="mb-0">Add Assessment Questionnaire</h5>
+                                        <h5 *ngIf="isEdit" class="mb-0">Edit Assessment Questionnaire</h5>
+                                    </div>
+                                    <div class="card-body">
+
+
+                                        <div class="custom_container">
+
+
+                                            <form class="well form-horizontal" [formGroup]="myForm"
+                                                (ngSubmit)="onSubmit(myForm)">
+                                                <fieldset>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 control-label line_2 rem_1"> Course Name
+                                                            <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select [(ngModel)]='courceId' (change)="courseChange()"
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    formControlName="QUESTION_COURSE">
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let course of courses"
+                                                                        [value]='course.COURSE_ID'>
+                                                                        {{course.COURSE_NAME}}
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1"> Course
+                                                            Objective <span class="text-danger">*</span> </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select formControlName='COURSE_OBJECTIVE'
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg">
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let course of courseObjectives"
+                                                                        [value]='course.COURSE_OBJECTIVE_ID'>
+                                                                        {{course.COURSE_OBJECTIVE}}
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4 pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1"> Course
+                                                            Schedule <span class="text-danger">*</span> </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+
+                                                                <select formControlName='QUESTION_CS_ID'
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    id="sel1">
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let shedule of shedules"
+                                                                        [value]='shedule.COURSESHD_ID'>
+                                                                        {{shedule.COURSESHD_NAME}}
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1"> Chapter Name
+                                                            <span class="text-danger">*</span> </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select formControlName=QUESTION_CHAPTER
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg">
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let chapter of chapters"
+                                                                        [value]='chapter.CHAPTER_ID'>
+                                                                        {{chapter.CHAPTER_NAME}}
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1"> Level of
+                                                            Difficulty <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select formControlName="LEVELID"
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg">
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let level of levels"
+                                                                        [value]='level.LEVELID'>{{level.NAME}}
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1"> Question
+                                                            Type <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select [(ngModel)]="qType"
+                                                                    formControlName='ASSESSMENT_QUESTIONTYPE'
+                                                                    (change)="changeType()"
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg">
+                                                                    <option value="0">Objective</option>
+                                                                    <option value="1">Subjective</option>
+
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Random Options </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="checkbox" formControlName='IsOptionRandom'
+                                                                    for>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">Status <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select formControlName='QuestionStatus'
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg">
+                                                                    <option value=1>Active</option>
+                                                                    <option value=0>InActive </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Question <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text" formControlName='QUESTION_QUESTION'
+                                                                    placeholder="" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4" *ngIf="qType==1">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Answer <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text" formControlName='QUESTION_ANSWER'
+                                                                    placeholder="" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="myForm.controls['formArray']&&qType!=1">
+                                                        <div formArrayName='formArray'>
+
+                                                            <div class="form-group row pt-4"
+                                                                *ngFor="let item of myForm.controls['formArray'].controls;let i=index"
+                                                                [formGroupName]="i">
+                                                                <label class="col-md-4 control-label">
+                                                                    option {{i+1}} <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="col-md-4 inputGroupContainer">
+                                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                        <input class="form-control"
+                                                                            formControlName="option">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-1 inputGroupContainer">
+                                                                    <div class="input-group">
+                                                                        <input type="radio" formControlName='correct'
+                                                                            [value]='i' placeholder="" name="correct"
+                                                                            class="radio-box">
+                                                                    </div>
+                                                                </div>
+                                                                <label class="col-md-3 control-label">
+                                                                    correct Answer</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Upload Image </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input (change)='changeFile($event)' type="file"
+                                                                    placeholder="" class="form-control">
+                                                                <p *ngIf="isEdit">{{fileName}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </fieldset>
+
+                                            </form>
+                                            <div *ngIf="qType!=1" class=" add_remove ">
+                                                <button class="btn text-success rem_2" *ngIf="isAdd()"
+                                                    (click)="add()">+</button> <button class="btn text-danger rem_2"
+                                                    *ngIf="isVisable()" (click)="delete()">-</button>
+                                            </div>
+                                            <div>
+                                                <div class="text-center pt-4">
+                                                    <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save"
+                                                        [disabled]="myForm.invalid" (click)="onSubmit(myForm)"
+                                                        type="submit">Update</button>
+
+                                                    <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save"
+                                                        [disabled]="myForm.invalid" (click)="onSubmit(myForm)"
+                                                        type="submit">Save</button>
+                                                    &nbsp; <button class="btn btn-danger btn-sm"
+                                                        (click)='back()'>Close</button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

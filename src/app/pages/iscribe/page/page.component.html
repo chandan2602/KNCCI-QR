@@ -1,0 +1,21 @@
+<div>
+    <div class="container main-content">
+        <app-paint [color]="penColor" [id]='index' [paintSvc]='paintSvc'></app-paint>
+      
+        <div class="sidebar">
+          <app-color-picker [color]="penColor"  [heading]="'Color'" (event)="setColor('penColor', $event)">
+          </app-color-picker>
+      
+      
+        </div>
+      
+      </div>
+      
+      <footer *ngIf='false' class="bg-dark text-center text-white">
+        <div>
+          <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button" (click)="downloadPDF()">
+            <span>Download PDF</span>
+          </a>
+        </div>
+      </footer>
+</div>

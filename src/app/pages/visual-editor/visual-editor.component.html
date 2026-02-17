@@ -1,0 +1,158 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Visual Editor</h5>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="text-right mb-1">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#myModal">Add</button>
+                                        </div>
+
+                                        <div *ngIf="editorData.length">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>Material Name </th>
+                                                        <th>Course Names</th>
+                                                        <th>Action</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of editorData">
+                                                        <td>{{item.MATERIALNAME}}</td>
+                                                        <td>{{item.COURSENAMES}}</td>
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon"
+                                                                (click)="onEdit(item.CONTENTID)">
+                                                                <i class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <div class="text-center" *ngIf="!editorData.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal " id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+            <div class="modal-header py-2">
+                <h6 class=" modal-title w-100">Visual Editor</h6>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>&nbsp;
+            <div class="modal-body">
+                <!-- <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)"> -->
+
+
+                <div class="form-group row">
+                    <label class="col-md-3 control-label">Course Name <span class="text-danger">*</span></label>
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <ng-multiselect-dropdown style="width:98%" *ngIf="isData" [placeholder]="'select cource'"
+                                [settings]="dropdownSettings" [data]="dropdownList" (onSelect)="onItemSelect($event)"
+                                [ngModelOptions]="{standalone: true}" (onSelectAll)="onSelectAll($event)"
+                                [(ngModel)]='selectedItems'>
+                            </ng-multiselect-dropdown>
+                        </div>
+
+                        <!-- <div *ngIf="myForm.get('ASSIGNMENT_COURSE').touched">
+                            <span class="text-danger" *ngIf="myForm.get('ASSIGNMENT_COURSE').hasError('required')">
+                                This field is required.
+                            </span>
+                        </div> -->
+                    </div>
+                </div>
+
+
+                <div class="form-group row pt-4">
+                    <label class="col-md-3 control-label line_2 rem_1">
+                        Material Name<span class="text-danger">*</span></label>
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <input placeholder="" class="form-control" [(ngModel)]='materialName'>
+                        </div>
+                        <!-- <div *ngIf="myForm.get('MATERIALNAME').touched">
+                            <span class="text-danger" *ngIf="myForm.get('materialName').hasError('required')">
+                                This field is required.
+                            </span>
+                        </div> -->
+                    </div>
+                </div>
+
+
+
+                <div class="editor pt-4">
+                    <angular-editor class="angular_editor" [(ngModel)]="htmlContent" (input)="showHtml()"
+                        [config]="config" [placeholder]="'Enter text here...'"></angular-editor>
+                </div>
+
+                <!-- <div class="html">
+                      {{htmlContent}}
+                  </div> -->
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#previewModel">Preview</button>
+                    &nbsp;
+                    <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save" type="submit"
+                        (click)="onSubmit(myForm)">Save</button>
+                    <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save" type="submit"
+                        (click)="onSubmit(myForm)">Update</button>
+                    &nbsp;
+                    <button class="btn btn-sm btn-danger" id='md_close' (click)="close()" data-bs-dismiss="modal">
+                        Close</button>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal " id="previewModel" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h6 class="modal-title w-100">Preview Content</h6>
+
+                <button type="button" id="close1" class="close1" (click)="close1()" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <div class="preview">
+                <Label class="col-md-4 control-label line_2 rem_1"></Label>
+                <div>
+                    <div id="htmldiv" class="html" [innerHTML]="htmlContent"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

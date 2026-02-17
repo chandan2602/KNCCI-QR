@@ -1,0 +1,103 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Books Allocation View Report</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="col-xl-12">
+                                            <div class="table">
+
+                                                <fieldset>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group row">
+                                                                <label class="col-md-4 control-label line_2 rem_1">
+                                                                    Book Title<span class="text-danger">*</span></label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                        <input type="text" disabled
+                                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                            value="{{titleName}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group row">
+                                                                <label class="col-md-4 control-label line_2 rem_1">
+                                                                    Book's ISBN<span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                        <input type="text" disabled
+                                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                            value="{{bookCode}}">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                </fieldset>
+                                                <br><br><br><br>
+                                                <div *ngIf="bookAllocation.length">
+                                                    <table id="patreggraph" datatable [dtOptions]="dtOptions"
+                                                        class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                        style="width:100%">
+                                                        <thead class="top"
+                                                            style="background-color: #2e7a91; color:#ffffff;">
+                                                            <tr>
+                                                                <th> Assigned To </th>
+                                                                <th> Issue Date</th>
+                                                                <th>Return Date</th>
+                                                                <!-- <th> Actual Return Date </th>  -->
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let title of bookAllocation">
+                                                                <td>{{title.STUDENT_NAME}}</td>
+                                                                <td>{{title.BOOK_STD_DATE_OF_ISSUE |date:'dd/MM/yyyy'}}
+                                                                </td>
+                                                                <td>{{title.BOOK_STD_RETURN_DATE |date:'dd/MM/yyyy'}}
+                                                                </td>
+                                                                <!-- <td>{{title.BOOK_STD_ACTUAL_RETURN_DATE}}</td> -->
+                                                            </tr>
+                                                        </tbody>
+
+                                                    </table>
+                                                </div>
+                                                <div class="text-center" *ngIf="!bookAllocation.length">
+                                                    No Records to display
+                                                </div>
+
+
+                                                <div class="text-center pt-2">
+                                                    <button type="button" (click)="ok()"
+                                                        class="btn btn-sm  btn-save">OK</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

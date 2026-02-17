@@ -1,0 +1,65 @@
+<div class="pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">
+                                            Internships
+                                            <button class="btn btn-sm"
+                                                [appTooltip]="tooltipContent">
+                                                <i class="bi bi-info-circle-fill"></i>
+                                            </button>
+                                        </h5>
+
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl-4 mb-3">
+                                                <select id="companySelect"
+                                                    class="form-select form-select-sm shadow-sm rounded"
+                                                    [(ngModel)]="intrenshipPL" name="company_id"
+                                                    (change)="getCourseList()">
+                                                    <option value="0" selected>Choose Company</option>
+                                                    <option *ngFor="let item of companyList" [value]="item.COMPANY_ID">
+                                                        {{
+                                                        item.COMPANY_NAME }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-4 col-md-6 mb-5" *ngFor="let course of courseList;"
+                                                (click)="intrenshipDetails(course)">
+                                                <div class="card profile-card-3 h-100">
+                                                    <div class="background-block">
+                                                        <img [src]="course.IMAGE_URL" alt="profile-sample1"
+                                                            class="background img-fluid" />
+                                                    </div>
+
+                                                    <div class="card-content p-2">
+                                                        <div class="text-start mb-0">
+                                                            <h5 class="mb-1 fw-bold">{{course.COURSE_NAME}}</h5>
+                                                            <h6 class="mb-1">{{course?.COURSESHD_STARTDATE | date: 'dd-MM-yyyy'}} - {{course?.COURSESHD_ENDDATE | date: 'dd-MM-yyyy'}}</h6>
+                                                            <p class="mb-0">{{course?.courseshd_classifiedtype_id == 1 ? "Full Time" : "Part Time"}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="courseList.length == 0">
+                                            <h3 class="text-center">No Interships available</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

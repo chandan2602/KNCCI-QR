@@ -1,0 +1,1248 @@
+<section class="home-slider-area" *ngIf="!isShowCourseSche">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div class="carousel-indicators" style="z-index: -9;">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="1000">
+                <img src="../../../../assets/images/new-images/slider-bg.png" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="text-white">Empowering Your
+                        Journey <br> from Learning to Earning. </h5>
+
+                    <div class="col-12 text-center" style="position: relative; z-index: 999999 !important;">
+                        <input type="checkbox" id="searchToggle" hidden>
+                        <label for="searchToggle" class="search-toggle-label" style="font-size:16px;">
+                            <span class="toggle-option job-label" (click)="jobSearchType='job'">Job
+                                Search</span>
+                            <span class="toggle-switch"></span>
+                            <span class="toggle-option internship-label" (click)="jobSearchType='Internship'">Internship
+                                Search</span>
+                        </label>
+                        <!-- Toggle Content -->
+                        <div class="search-form-toggle mt-3">
+                            <div class="job-form">
+                                <!-- Job Search Form Here -->
+                                <div class="job-search-wrap w-100">
+                                    <div class="job-search-form">
+                                        <div action="#">
+                                            <div class="row row-gutter-10">
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <div class="form-group">
+                                                            <input class="form-control"
+                                                                placeholder="Job title or keywords"
+                                                                [(ngModel)]='job_title' type="text" maxlength="500">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <select
+                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                            [(ngModel)]="county_id">
+                                                            <option value="0" [selected]="true">Choose County
+                                                            </option>
+                                                            <option [value]='item.counties_id'
+                                                                *ngFor='let item of allDropDwns?.counties'>
+                                                                {{item.counties_name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <select
+                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                            [(ngModel)]="job_type_ids">
+                                                            <option value="" [selected]="true">Choose Job Type
+                                                            </option>
+                                                            <option [value]='item.id'
+                                                                *ngFor='let item of allDropDwns?.jobtype'>
+                                                                {{item.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn-form-search"
+                                                            (click)="LoadGrid('header')">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="bi bi-search"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="internship-form">
+                                <!-- Internship Search Form Here -->
+                                <div class="job-search-wrap">
+                                    <div class="job-search-form">
+                                        <div action="#">
+                                            <div class="row row-gutter-10">
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <select id="companySelect"
+                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                            [(ngModel)]="intrmcompany_id" name="company_id">
+                                                            <option value="0" selected>Choose Company</option>
+                                                            <option *ngFor="let item of companyList"
+                                                                [value]="item.COMPANY_ID">{{
+                                                                item.COMPANY_NAME }}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
+                                                    <div class="form-group">
+                                                        <button type="button" class="btn-form-search"
+                                                            (click)="getAllCourseCategory()">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="bi bi-search"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000">
+                <img src="../../../../assets/images/new-images/sl2.png" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="text-white">Fuel the Future <br> Join as an Incubator Today </h5>
+                    <div class="header-action-area">
+                        <a [routerLink]="['/incubatorReg']" class="btn-registration w-auto ps-3 pe-3">
+                            Register Here
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="../../../../assets/images/new-images/sl3.png" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="text-white">Empowering Ideas, Enabling Returns <br> Be a Strategic Investor</h5>
+                    <div class="header-action-area">
+                        <a [routerLink]="['/investorReg']" class="btn-registration w-auto ps-3 pe-3">
+                            Register Here
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <button class="carousel-control-prev" type="button" style="z-index: -1;" data-bs-target="#carouselExampleDark"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" style="z-index: -1;" data-bs-target="#carouselExampleDark"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button> -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="custom-prev-icon">&#10094;</span> <!-- Left arrow -->
+            <span class="visually-hidden">Previous</span>
+        </button>
+
+        <!-- Custom Next Button -->
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="custom-next-icon">&#10095;</span> <!-- Right arrow -->
+            <span class="visually-hidden">Next</span>
+        </button>
+
+    </div>
+</section>
+
+
+<!-- <section class="home-slider-area" *ngIf="!isShowCourseSche">
+    <div class="home-slider-container default-slider-container">
+        <div class="home-slider-wrapper slider-default">
+            <div class="slider-content-area"
+                style="background-image: url('../../../../assets/images/new-images/slider-bg.png');">
+                <div class="container-fluid pt--0 pb--0">
+                    <div class="slider-container">
+                        <div class="row justify-content-center align-items-center" style="padding-bottom: 6rem;">
+                            <div class="col-12 col-lg-12">
+                                <div class="slider-content mt-0 mb-0">
+                                    <h4 class="title text-white mb-0"><span class="counter text-white"
+                                            data-counterup-delay="80">Empowering Your
+                                            Journey <br> from Learning to Earning. </span>
+                                    </h4>
+                                    <p class="desc mb-3">
+                                        Explore Jobs, Internships & Ignite Your Startup Dreams Here.
+
+                                    </p>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container pt--0 pb--0">
+        <div class="row">
+            <div class="col-12">
+                <div class="play-video-btn" data-bs-toggle="modal" data-bs-target="#videoModal"
+                    style="cursor: pointer;">
+                    <div class="video-popup">
+                        <i class="bi bi-play-fill text-white fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="home-slider-shape">
+        <img class="shape1" data-aos="fade-down" data-aos-duration="1500"
+            src="../../../../assets/images/new-images/vector1.png" width="270" height="234" alt="Image-HasTech">
+        <img class="shape2" data-aos="fade-left" data-aos-duration="2000"
+            src="../../../../assets/images/new-images/vector2.png" width="201" height="346" alt="Image-HasTech">
+        <img class="shape3" data-aos="fade-right" data-aos-duration="2000"
+            src="../../../../assets/images/new-images/vector3.png" width="276" height="432" alt="Image-HasTech">
+        <img class="shape4" data-aos="flip-left" data-aos-duration="1500"
+            src="../../../../assets/images/new-images/vector4.png" width="127" height="121" alt="Image-HasTech">
+    </div>
+</section> -->
+
+
+<section class="position-relative py-5 py-md-6" *ngIf="!isShowCourseSche" id="about">
+    <div class="container pb-0 pt-0">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-5 col-md-6">
+                <img src="../../../../assets/images/new-images/about-photo.png" class=" img-fluid" />
+            </div>
+
+            <div class="col-lg-7 col-md-6 mt-5 mt-md-0">
+                <div class="ms-lg-5">
+                    <h3 class="mb-4 display-6 fw-semibold">Welcome to OUK Job & Internship Portal
+                    </h3>
+                    <p class="text-muted mb-4">
+
+                        <strong>Empowering
+                            Students & Alumni with Career Opportunities</strong>
+                        The OUK Job and Internship Portal is a dedicated platform designed to connect Open University of
+                        Kenya students and graduates with employers, industry partners, and meaningful career
+                        development opportunities. Whether you're seeking your first internship, a full-time job, or
+                        freelance projects, this portal is your gateway to professional growth.
+
+                    </p>
+
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2 d-flex align-items-center">
+
+                            <i class="bi bi-check-circle text-emerald-600 fs-5 me-2"></i>
+                            Verified Job & Internship Listings
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-check-circle text-emerald-600 fs-5 me-2"></i>
+                            Easy Application Process
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-check-circle text-emerald-600 fs-5 me-2"></i>
+                            Advanced Search Filters
+                        </li>
+                        <li class="mb-2 d-flex align-items-center">
+                            <i class="bi bi-check-circle text-emerald-600 fs-5 me-2"></i>
+                            Student Startup Funding
+                        </li>
+                    </ul>
+                    <!-- 
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-outline-primary px-5 py-2">
+                            <i class="mdi mdi-email-outline me-2"></i> Known More
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section>
+
+
+
+    <div class="vh-section-outer d-table w-100 bg-secondary text-white">
+        <div class="section-inner d-table-cell align-middle">
+            <div class="">
+                <div class="tabSection bg-white text-dark p-4 pb-0 rounded">
+                    <!-- Nav Pills -->
+                    <ul class="nav nav-pills justify-content-center flex-wrap mb-3" id="productTabs" role="tablist">
+                        <li class="nav-item category-link" role="presentation">
+                            <button class="nav-link active" id="product1-tab" data-bs-toggle="pill"
+                                data-bs-target="#product1" type="button" role="tab">Popular Jobs</button>
+                        </li>
+                        <li class="nav-item category-link" role="presentation">
+                            <button class="nav-link" id="product2-tab" data-bs-toggle="pill" data-bs-target="#product2"
+                                type="button" role="tab">Popular Categories</button>
+                        </li>
+                        <li class="nav-item category-link" role="presentation">
+                            <button class="nav-link" id="product3-tab" data-bs-toggle="pill" data-bs-target="#product3"
+                                type="button" role="tab">Companies</button>
+                        </li>
+                        <li class="nav-item category-link" role="presentation">
+                            <button class="nav-link" id="product4-tab" data-bs-toggle="pill" data-bs-target="#product4"
+                                type="button" role="tab">Start-ups</button>
+                        </li>
+                        <li class="nav-item category-link" role="presentation">
+                            <button class="nav-link" id="product5-tab" data-bs-toggle="pill" data-bs-target="#product5"
+                                type="button" role="tab">Internships</button>
+                        </li>
+
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content pt-4" id="productTabsContent">
+                        <div class="tab-pane fade show active" id="product1" role="tabpanel">
+                            <section class="recent-job-area bg-color-gray" *ngIf="!isShowCourseSche">
+                                <div class="container aos-init aos-animate mt-2 mb-0 pt-4 pb-4" data-aos="fade-down">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="section-title text-center mb-4">
+                                                <h3 class="title">Popular Jobs</h3>
+                                                <div class="desc">
+                                                    <p>Browse the most popular jobs chosen by thousands. <br>
+                                                        Your next big opportunity could be just a click away.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-4" *ngFor="let item of listGrid"
+                                            (click)="jobDetails(item)">
+                                            <!--== Start Recent Job Item ==-->
+                                            <div class="recent-job-item p-3">
+                                                <div class="company-info card-body">
+                                                    <!-- <div class="logo">
+                                                        <a><img src="../../../../assets/images/new-images/OUK_Logo 1.png"
+                                                                width="75" height="75" alt="Image-HasTech"></a>
+                                                    </div> -->
+                                                    <!-- <div class="content"> -->
+                                                    <!-- <h4 class="name"><a>{{item.company_name}}</a></h4> -->
+                                                    <!-- <p class="address">{{item?.sub_counties_name}},
+                                                            {{item?.counties_name}}</p> -->
+
+                                                    <!-- </div> -->
+                                                    <div class="main-content">
+                                                        <h3 class="title"><a>{{item.job_title}}</a></h3>
+                                                        <h5 class="work-type">{{item?.job_type}}</h5>
+                                                        <p>{{item?.job_skills}}</p><br>
+                                                        <span> <i class="bi bi-geo-alt-fill"></i>
+                                                            {{item?.counties_name}} - {{item?.sub_counties_name}}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="recent-job-info">
+                                                    <!-- <div class="salary">
+                                                        <h4>{{item?.job_salary_from}} - {{item?.job_salary_to}}</h4>
+                                                        <p>/Year</p>
+                                                    </div> -->
+                                                    <a class="btn-theme btn-sm" (click)="jobDetails(item)">Apply Now</a>
+                                                </div>
+                                            </div>
+                                            <!--== End Recent Job Item ==-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-pane fade" id="product2" role="tabpanel">
+
+                            <section *ngIf="!isShowCourseSche">
+                                <div class="container pt-3 pb-0 mb-2">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <h3 class="fw-bold">Popular Categories </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container py-4 popularjobs">
+                                    <div class="row g-4">
+                                        <!-- Business Development -->
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2"
+                                            (click)="LoadGrid('header')">
+                                            <div class="card text-center h-100">
+                                                <div
+                                                    class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 1024 1024" height="2em" width="2em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M913.9 552.2L805 181.4v-.1c-7.6-22.9-25.7-36.5-48.3-36.5-23.4 0-42.5 13.5-49.7 35.2l-71.4 213H388.8l-71.4-213c-7.2-21.7-26.3-35.2-49.7-35.2-23.1 0-42.5 14.8-48.4 36.6L110.5 552.2c-4.4 14.7 1.2 31.4 13.5 40.7l368.5 276.4c2.6 3.6 6.2 6.3 10.4 7.8l8.6 6.4 8.5-6.4c4.9-1.7 9-4.7 11.9-8.9l368.4-275.4c12.4-9.2 18-25.9 13.6-40.6zM751.7 193.4c1-1.8 2.9-1.9 3.5-1.9 1.1 0 2.5.3 3.4 3L818 394.3H684.5l67.2-200.9zm-487.4 1c.9-2.6 2.3-2.9 3.4-2.9 2.7 0 2.9.1 3.4 1.7l67.3 201.2H206.5l57.8-200zM158.8 558.7l28.2-97.3 202.4 270.2-230.6-172.9zm73.9-116.4h122.1l90.8 284.3-212.9-284.3zM512.9 776L405.7 442.3H620L512.9 776zm157.9-333.7h119.5L580 723.1l90.8-280.8zm-40.7 293.9l207.3-276.7 29.5 99.2-236.8 177.5z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="card-title">
+                                                        <a href="/job-categories"
+                                                            class="text-decoration-none text-dark">Business
+                                                            Development</a>
+                                                    </h5>
+                                                    <p class="text-muted mb-0">74 Jobs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Marketing & Communication -->
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2"
+                                            (click)="LoadGrid('header')">
+                                            <div class="card text-center h-100">
+                                                <div
+                                                    class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 16 16" height="2em" width="2em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M14.5 2H9l-.35.15-.65.64-.65-.64L7 2H1.5l-.5.5v10l.5.5h5.29l.86.85h.7l.86-.85h5.29l.5-.5v-10l-.5-.5zm-7 10.32l-.18-.17L7 12H2V3h4.79l.74.74-.03 8.58zM14 12H9l-.35.15-.14.13V3.7l.7-.7H14v9zM6 5H3v1h3V5zm0 4H3v1h3V9zM3 7h3v1H3V7zm10-2h-3v1h3V5zm-3 2h3v1h-3V7zm0 2h3v1h-3V9z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="card-title">
+                                                        <a href="/job-categories"
+                                                            class="text-decoration-none text-dark">Marketing &amp;
+                                                            Communication</a>
+                                                    </h5>
+                                                    <p class="text-muted mb-0">20 Jobs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Project Management -->
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2"
+                                            (click)="LoadGrid('header')">
+                                            <div class="card text-center h-100">
+                                                <div
+                                                    class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 1024 1024" height="2em" width="2em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M864 518H506V160c0-4.4-3.6-8-8-8h-26a398.46 398.46 0 0 0-282.8 117.1 398.19 398.19 0 0 0-85.7 127.1A397.61 397.61 0 0 0 72 552a398.46 398.46 0 0 0 117.1 282.8c36.7 36.7 79.5 65.6 127.1 85.7A397.61 397.61 0 0 0 472 952a398.46 398.46 0 0 0 282.8-117.1c36.7-36.7 65.6-79.5 85.7-127.1A397.61 397.61 0 0 0 872 552v-26c0-4.4-3.6-8-8-8zM705.7 787.8A331.59 331.59 0 0 1 470.4 884c-88.1-.4-170.9-34.9-233.2-97.2C174.5 724.1 140 640.7 140 552c0-88.7 34.5-172.1 97.2-234.8 54.6-54.6 124.9-87.9 200.8-95.5V586h364.3c-7.7 76.3-41.3 147-96.6 201.8zM952 462.4l-2.6-28.2c-8.5-92.1-49.4-179-115.2-244.6A399.4 399.4 0 0 0 589 74.6L560.7 72c-4.7-.4-8.7 3.2-8.7 7.9V464c0 4.4 3.6 8 8 8l384-1c4.7 0 8.4-4 8-8.6zm-332.2-58.2V147.6a332.24 332.24 0 0 1 166.4 89.8c45.7 45.6 77 103.6 90 166.1l-256.4.7z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="card-title">
+                                                        <a href="/job-categories"
+                                                            class="text-decoration-none text-dark">Project
+                                                            Management</a>
+                                                    </h5>
+                                                    <p class="text-muted mb-0">35 Jobs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Customer Service -->
+
+
+                                        <!-- Software Engineering -->
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2"
+                                            (click)="LoadGrid('header')">
+                                            <div class="card text-center h-100">
+                                                <div
+                                                    class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 24 24" height="2em" width="2em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M8 4C8 5.10457 7.10457 6 6 6 4.89543 6 4 5.10457 4 4 4 2.89543 4.89543 2 6 2 7.10457 2 8 2.89543 8 4ZM5 16V22H3V10C3 8.34315 4.34315 7 6 7 6.82059 7 7.56423 7.32946 8.10585 7.86333L10.4803 10.1057 12.7931 7.79289 14.2073 9.20711 10.5201 12.8943 9 11.4587V22H7V16H5ZM10 5H19V14H10V16H14.3654L17.1889 22H19.3993L16.5758 16H20C20.5523 16 21 15.5523 21 15V4C21 3.44772 20.5523 3 20 3H10V5Z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="card-title">
+                                                        <a href="/job-categories"
+                                                            class="text-decoration-none text-dark">Software
+                                                            Engineering</a>
+                                                    </h5>
+                                                    <p class="text-muted mb-0">60 Jobs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Human Resource HR -->
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2">
+                                            <div class="card text-center h-100">
+                                                <div
+                                                    class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 1024 1024" height="2em" width="2em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M913.9 552.2L805 181.4v-.1c-7.6-22.9-25.7-36.5-48.3-36.5-23.4 0-42.5 13.5-49.7 35.2l-71.4 213H388.8l-71.4-213c-7.2-21.7-26.3-35.2-49.7-35.2-23.1 0-42.5 14.8-48.4 36.6L110.5 552.2c-4.4 14.7 1.2 31.4 13.5 40.7l368.5 276.4c2.6 3.6 6.2 6.3 10.4 7.8l8.6 6.4 8.5-6.4c4.9-1.7 9-4.7 11.9-8.9l368.4-275.4c12.4-9.2 18-25.9 13.6-40.6zM751.7 193.4c1-1.8 2.9-1.9 3.5-1.9 1.1 0 2.5.3 3.4 3L818 394.3H684.5l67.2-200.9zm-487.4 1c.9-2.6 2.3-2.9 3.4-2.9 2.7 0 2.9.1 3.4 1.7l67.3 201.2H206.5l57.8-200zM158.8 558.7l28.2-97.3 202.4 270.2-230.6-172.9zm73.9-116.4h122.1l90.8 284.3-212.9-284.3zM512.9 776L405.7 442.3H620L512.9 776zm157.9-333.7h119.5L580 723.1l90.8-280.8zm-40.7 293.9l207.3-276.7 29.5 99.2-236.8 177.5z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="card-title">
+                                                        <a href="/job-categories"
+                                                            class="text-decoration-none text-dark">Human Resource HR</a>
+                                                    </h5>
+                                                    <p class="text-muted mb-0">74 Jobs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- IT & Networking -->
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2">
+                                            <div class="card text-center h-100">
+                                                <div
+                                                    class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 16 16" height="2em" width="2em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M14.5 2H9l-.35.15-.65.64-.65-.64L7 2H1.5l-.5.5v10l.5.5h5.29l.86.85h.7l.86-.85h5.29l.5-.5v-10l-.5-.5zm-7 10.32l-.18-.17L7 12H2V3h4.79l.74.74-.03 8.58zM14 12H9l-.35.15-.14.13V3.7l.7-.7H14v9zM6 5H3v1h3V5zm0 4H3v1h3V9zM3 7h3v1H3V7zm10-2h-3v1h3V5zm-3 2h3v1h-3V7zm0 2h3v1h-3V9z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="card-title">
+                                                        <a href="/job-categories"
+                                                            class="text-decoration-none text-dark">It &amp;
+                                                            Networking</a>
+                                                    </h5>
+                                                    <p class="text-muted mb-0">35 Jobs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Sales & Marketing -->
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2">
+                                            <div class="card text-center h-100">
+                                                <div
+                                                    class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 1024 1024" height="2em" width="2em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M864 518H506V160c0-4.4-3.6-8-8-8h-26a398.46 398.46 0 0 0-282.8 117.1 398.19 398.19 0 0 0-85.7 127.1A397.61 397.61 0 0 0 72 552a398.46 398.46 0 0 0 117.1 282.8c36.7 36.7 79.5 65.6 127.1 85.7A397.61 397.61 0 0 0 472 952a398.46 398.46 0 0 0 282.8-117.1c36.7-36.7 65.6-79.5 85.7-127.1A397.61 397.61 0 0 0 872 552v-26c0-4.4-3.6-8-8-8zM705.7 787.8A331.59 331.59 0 0 1 470.4 884c-88.1-.4-170.9-34.9-233.2-97.2C174.5 724.1 140 640.7 140 552c0-88.7 34.5-172.1 97.2-234.8 54.6-54.6 124.9-87.9 200.8-95.5V586h364.3c-7.7 76.3-41.3 147-96.6 201.8zM952 462.4l-2.6-28.2c-8.5-92.1-49.4-179-115.2-244.6A399.4 399.4 0 0 0 589 74.6L560.7 72c-4.7-.4-8.7 3.2-8.7 7.9V464c0 4.4 3.6 8 8 8l384-1c4.7 0 8.4-4 8-8.6zm-332.2-58.2V147.6a332.24 332.24 0 0 1 166.4 89.8c45.7 45.6 77 103.6 90 166.1l-256.4.7z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="card-title">
+                                                        <a href="/job-categories"
+                                                            class="text-decoration-none text-dark">Sales &amp;
+                                                            Marketing</a>
+                                                    </h5>
+                                                    <p class="text-muted mb-0">35 Jobs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Data Science -->
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-2">
+                                            <div class="card text-center h-100">
+                                                <div
+                                                    class="card-body d-flex flex-column align-items-center justify-content-center">
+                                                    <div class="bg-success bg-opacity-10 rounded-circle p-3 mb-3">
+                                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                                            viewBox="0 0 24 24" height="2em" width="2em"
+                                                            xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M8 4C8 5.10457 7.10457 6 6 6 4.89543 6 4 5.10457 4 4 4 2.89543 4.89543 2 6 2 7.10457 2 8 2.89543 8 4ZM5 16V22H3V10C3 8.34315 4.34315 7 6 7 6.82059 7 7.56423 7.32946 8.10585 7.86333L10.4803 10.1057 12.7931 7.79289 14.2073 9.20711 10.5201 12.8943 9 11.4587V22H7V16H5ZM10 5H19V14H10V16H14.3654L17.1889 22H19.3993L16.5758 16H20C20.5523 16 21 15.5523 21 15V4C21 3.44772 20.5523 3 20 3H10V5Z">
+                                                            </path>
+                                                        </svg>
+                                                    </div>
+                                                    <h5 class="card-title">
+                                                        <a href="/job-categories"
+                                                            class="text-decoration-none text-dark">Data Science</a>
+                                                    </h5>
+                                                    <p class="text-muted mb-0">60 Jobs</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-pane fade" id="product3" role="tabpanel">
+
+                            <section [ngClass]="{'pt-1':!isShowAll}" [ngStyle]="{'padding-top':isShowAll?'7rem':null}"
+                                *ngIf="jobSearchType != 'job'">
+                                <div class="page-header-area sec-overlay sec-overlay-black"
+                                    *ngIf="isShowCourseSche || isShowCourseSch"
+                                    style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;">
+                                    <div class="container pt--0 pb--0">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="page-header-content">
+                                                    <h2 class="title">Internship Details</h2>
+                                                    <nav class="breadcrumb-area">
+                                                        <ul class="breadcrumb justify-content-center">
+                                                            <li><a href="">Home</a></li> &nbsp;<span>/ </span>&nbsp;
+                                                            <li><a routerLink="/menu/internships">Internship Details</a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post pt-1 container pb-2 pt-2" *ngIf="false">
+                                    <div class="row DCB-card">
+                                        <div class="col-xl-4 col-md-6 mb-5" *ngFor="let course of courseList;">
+                                            <div class="card profile-card-3 h-100">
+                                                <div class="background-block">
+                                                    <img [src]="course.IMAGE_URL" alt="profile-sample1"
+                                                        class="background" />
+                                                </div>
+
+                                                <div class="card-content p-4">
+                                                    <div class="text-start mb-3">
+                                                        <h2 class="">{{course.COURSE_NAME}}</h2>
+                                                        <!-- <h5 class="">Justin Mccoy<small>Designer</small></h5> -->
+
+                                                        <h5 class="mt-1">Who Can Apply</h5>
+                                                        <p>{{course?.courseshd_canappy}}</p>
+
+                                                        <h5 class="mt-1">Terms Of Engagement</h5>
+                                                        <p>{{course?.courseshd_terms}}</p>
+
+                                                        <h5 class="mt-1">Classified Type</h5>
+                                                        <p>{{course?.courseshd_classifiedtype_id == 1 ? "Full Time" :
+                                                            "Part Time"}}</p>
+
+                                                    </div>
+
+
+                                                    <div class="text-start mt-4">
+                                                        <!-- <span class="small">1 - 28 July 2022</span> -->
+                                                        <!-- <div class="fs-3 mt-2">Angular</div> -->
+
+                                                        <p class="text-white mb-2">
+                                                            {{course.COURSE_DESCRIPTION.substr(0,150)}}
+                                                            <a *ngIf="course.COURSE_DESCRIPTION.length>75"
+                                                                (click)="gotoCourseDetail(course)"
+                                                                href="javascript:return(0);">View More</a>
+                                                        </p>
+                                                        <div class="d-flex justify-content-between">
+                                                            <div>
+                                                                <span
+                                                                    class="text-white me-2 fw-bold">{{course.COURSESHD_AMOUNT
+                                                                    |currency:'INR'}}</span>
+                                                                <!-- <spn class=" text-bg-danger">$ 500</spn> -->
+                                                            </div>
+                                                            <div><span><button class="btn btn-sm btn-outline-light"
+                                                                        (click)="gotoCourseDetail(course)">View
+                                                                        Course</button></span>
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-xl-12 text-end">
+                                            <button class="btn btn-sm btn-seeall"
+                                                (click)="backToCompanies()">Back</button>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="text-center mb-3">
+            <button type="button" class="btn btn-blue btn-sm">Small button</button>
+        </div> -->
+                                </div>
+                                <div *ngIf="!isShowCourseSche">
+                                    <div class="container pt-2 pb-2">
+                                        <div class="row">
+
+
+                                            <div class="col-sm-6 col-lg-4 col-xl-3 mb-2 "
+                                                *ngFor="let category of categoryList;">
+                                                <!--== Start Team Item ==-->
+                                                <div class="team-item h-100">
+                                                    <div class="thumb">
+                                                        <a (click)="onCategoryChanged(category.id)">
+                                                            <img *ngIf="category.cmp_logo"
+                                                                [src]="fileUrl + category.cmp_logo"
+                                                                class="img-thumbnail img-fluid" width="120" height="120"
+                                                                alt="Image-HasTech">
+                                                        </a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h6 class="name">{{category.name}}</h6>
+
+
+
+                                                        <a class="btn-theme btn-white btn-sm"
+                                                            (click)="onCategoryChanged(category.id)">View
+                                                            Profile</a>
+                                                    </div>
+                                                    <!-- <div class="bookmark-icon"><img src="assets/img/icons/bookmark1.png" alt="Image-HasTech"></div>
+                        <div class="bookmark-icon-hover"><img src="assets/img/icons/bookmark2.png" alt="Image-HasTech"> 
+                    </div>-->
+                                                </div>
+                                                <!--== End Team Item ==-->
+                                            </div>
+
+                                            <!-- 
+                <div class="col-md-6 col-lg-3 mb-3" *ngFor="let category of categoryList;">
+
+
+                    <div class="card shadow-sm mb-4 h-100 recent-job-item">
+                        <div class="card-body p-2 company-info">
+                            <div class="logo">
+                                <a (click)="onCategoryChanged(category.id)"><img *ngIf="category.cmp_logo"
+                                        [src]="fileUrl + category.cmp_logo" class="img-thumbnail img-fluid"
+                                        style="width: 100px;" alt="Image-HasTech"></a>
+                            </div>
+                            <div class="content">
+                                <h4 class="name">{{category.name}}</h4>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div> -->
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container pt-1 pb-1" *ngIf="isShowCourseSche || isShowCourseSch">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <div class="bg-white">
+                                                <form>
+                                                    <div class="row g-3 mt-5 align-items-center">
+                                                        <div class="col-6">
+                                                            <!-- <label for="searchname" class="form-label fw-semibold">Search Company</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-transparent position-absolute z-index-1 border-0"
+                                        style="top: 10px; left: 10px;">
+                                        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
+                                            stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <path d="m21 21-4.3-4.3"></path>
+                                        </svg>
+                                    </span>
+                                    <input id="searchname" class="form-control border ps-5" placeholder="Search"
+                                        type="text" name="search">
+                                </div> -->
+                                                            <label for="companySelect"
+                                                                class="form-label fw-semibold mb-0">Search
+                                                                Company</label>
+                                                            <select id="searchname"
+                                                                class="form-select form-select-sm shadow-sm rounded mt-1 mb-1"
+                                                                [(ngModel)]="intrmcompany_id" name="company_id"
+                                                                (change)="getAllCourseCategory('Iner')">
+                                                                <option value="0" selected>Choose Company</option>
+                                                                <option *ngFor="let item of companyList"
+                                                                    [value]="item.COMPANY_ID">{{
+                                                                    item.COMPANY_NAME }}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-6 text-end">
+                                                            <h3 class="fw-bold">
+                                                                <button
+                                                                    class="btn btn-sm btn-info mb-0 bg-transparent border-0"
+                                                                    (click)="backToCompanies()">
+                                                                    <i
+                                                                        class="bi bi-arrow-left-circle-fill"></i></button>
+                                                            </h3>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-12" *ngFor="let course of courseList;">
+                                            <div class="card mb-2 bg-light shadow-sm">
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div> <img [src]="course.COURSE_IMAGE || course.IMAGE_URL"
+                                                                width="130" height="130" alt="profile-sample1"
+                                                                class=" img-fluid img_crs_1" /></div>
+                                                        <div>
+                                                            <h6 class="title mb-0 fw-bold">{{course.COURSE_NAME}}</h6>
+                                                        </div>
+
+                                                        <div>
+                                                            <i class="bi bi-play-circle-fill  me-2"></i>
+                                                            <br>Start
+                                                            date: {{course?.COURSESHD_STARTDATE | date:'dd-MM-yyyy'}}
+
+                                                        </div>
+
+                                                        <div>
+
+                                                            <i class="bi bi-cash-coin  me-3"></i> <br> Stipend: ₹
+                                                            {{course?.COURSESHD_AMOUNT}} /month
+                                                        </div>
+
+                                                        <div>
+                                                            <button class="btn-theme p-1"
+                                                                (click)="gotoCourseDetail(course)"><i
+                                                                    class="bi bi-eye-fill"></i></button>
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row mb-2 mt-2">
+            <div class="col-xl-12 d-flex">
+                <button class="btn-theme" (click)="backToCompanies()">Back To Companies</button>
+            </div>
+        </div> -->
+
+                                </div>
+                            </section>
+                        </div>
+                        <div class="tab-pane fade" id="product4" role="tabpanel">
+
+                            Start-ups
+
+                        </div>
+                        <div class="tab-pane fade" id="product5" role="tabpanel">
+
+                            Internships
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+<section [ngClass]="{'pt-1':!isShowAll}" [ngStyle]="{'padding-top':isShowAll?'7rem':null}"
+    *ngIf="jobSearchType == 'job'">
+    <div class="page-header-area sec-overlay sec-overlay-black" *ngIf="isShowCourseSche || isShowCourseSch"
+        style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;">
+        <div class="container pt--0 pb--0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-header-content">
+                        <h2 class="title">Job Details</h2>
+                        <nav class="breadcrumb-area">
+                            <ul class="breadcrumb justify-content-center">
+                                <li><a href="">Home</a></li> &nbsp;<span>/ </span>&nbsp; <li><a
+                                        routerLink="/menu/jobs">Job Details</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-light">
+        <div class="container pt-0 pb-0" *ngIf="isShowCourseSche || isShowCourseSch">
+            <div class="row align-items-center">
+                <div class="col-xl-6 pt-0">
+                    <!-- <h3 class="fw-bold">Corporates </h3> -->
+                    <p>100 - 200 Company jobs</p>
+                </div>
+                <div class="col-xl-6 pt-1 text-end">
+                    <h3 class="fw-bold"> <button class="btn btn-sm btn-info mb-0 bg-transparent border-0"
+                            (click)="backToCompanies()"><i class="bi bi-arrow-left-circle-fill"></i></button> </h3>
+                </div>
+            </div>
+            <!-- <hr class="mt-0 mb-0"> -->
+        </div>
+        <div class="post pt-1 container pb-2 pt-2" *ngIf="false">
+            <div class="row DCB-card">
+                <div class="col-xl-4 col-md-6 mb-5" *ngFor="let course of courseList;">
+
+                    <!-- <div class="card shadow-sm h-100">
+                    <div style="position:relative;">
+                        <img [src]="course.IMAGE_URL" class="card-img-top" alt="..." width="354" height="185">
+                        <span href="#" class="badge rounded-pill bg-light text-dark user-pill px-3 py-2">
+                           
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mt-2">{{course.COURSE_NAME}}</h5>
+                        <p class="card-text">{{course.COURSE_DESCRIPTION.substr(0,150)}}
+                            <a *ngIf="course.COURSE_DESCRIPTION.length>75" (click)="gotoCourseDetail(course)" href="javascript:return(0);">View More</a>
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <div><span class="price me-2"> {{course.COURSESHD_AMOUNT |currency:'INR'}}</span>
+                            </div>
+                            <div><span><button class="btn btn-sm btn-seeall-1" (click)="gotoCourseDetail(course)"   >View Course</button></span> </div>
+                        </div>
+                    </div>
+                </div> -->
+                    <div class="card profile-card-3 h-100">
+                        <div class="background-block">
+                            <img [src]="course.IMAGE_URL" alt="profile-sample1" class="background" />
+                        </div>
+
+                        <div class="card-content p-4">
+                            <div class="text-start mb-3">
+                                <h2 class="">{{course.COURSE_NAME}}</h2>
+                                <!-- <h5 class="">Justin Mccoy<small>Designer</small></h5> -->
+
+                                <h5 class="mt-1">Who Can Apply</h5>
+                                <p>{{course?.courseshd_canappy}}</p>
+
+                                <h5 class="mt-1">Terms Of Engagement</h5>
+                                <p>{{course?.courseshd_terms}}</p>
+
+                                <h5 class="mt-1">Classified Type</h5>
+                                <p>{{course?.courseshd_classifiedtype_id == 1 ? "Full Time" : "Part Time"}}</p>
+                            </div>
+                            <div class="text-start mt-4">
+                                <!-- <span class="small">1 - 28 July 2022</span> -->
+                                <!-- <div class="fs-3 mt-2">Angular</div> -->
+
+                                <p class="text-white mb-2">
+                                    {{course.COURSE_DESCRIPTION.substr(0,150)}}
+                                    <a *ngIf="course.COURSE_DESCRIPTION.length>75" (click)="gotoCourseDetail(course)"
+                                        href="javascript:return(0);">View More</a>
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <span class="text-white me-2 fw-bold">{{course.COURSESHD_AMOUNT
+                                            |currency:'INR'}}</span>
+                                        <!-- <spn class=" text-bg-danger">$ 500</spn> -->
+                                    </div>
+                                    <div><span><button class="btn btn-sm btn-outline-light"
+                                                (click)="gotoCourseDetail(course)">View Course</button></span>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-xl-12 text-end">
+                    <button class="btn btn-sm btn-seeall" (click)="backToCompanies()">Back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!isShowCourseSche">
+        <div class="container pt-2 pb-2">
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 col-xl-3 mb-2 " *ngFor="let category of categoryList;">
+                    <!--== Start Team Item ==-->
+                    <div class="team-item h-100">
+                        <div class="thumb">
+                            <a (click)="onCategoryChanged(category.id)">
+                                <img *ngIf="category.cmp_logo" [src]="fileUrl + category.cmp_logo"
+                                    class="img-thumbnail img-fluid" width="120" height="120" alt="Image-HasTech">
+                            </a>
+                        </div>
+                        <div class="content">
+                            <h6 class="name">{{category.name}}</h6>
+                            <a class="btn-theme btn-white btn-sm" (click)="onCategoryChanged(category.id)">View
+                                Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-light pt-0">
+        <div class="container pt-1 pb-1" *ngIf="isShowCourseSche || isShowCourseSch">
+            <div class="row">
+                <div class="col-xl-3">
+                    <div class="card shadow-sm rounded bg-white sticky-top">
+                        <div class="card-body">
+                            <form>
+                                <div class="row g-3" style="font-size:13px; font-weight: 500;">
+                                    <!-- Company Dropdown -->
+                                    <div class="col-12 pt-3 pb-2">
+                                        <label for="companySelect" class="form-label fw-semibold mb-0">Search
+                                            Company</label>
+                                        <select id="companySelect" class="form-select form-select-sm shadow-sm rounded"
+                                            [(ngModel)]="company_id" name="company_id" (change)="LoadGrid('Iner')">
+                                            <option value="0" selected>Choose Company</option>
+                                            <option *ngFor="let item of companyList" [value]="item.COMPANY_ID">{{
+                                                item.COMPANY_NAME }}</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Categories -->
+                                    <div class="col-12 pb-2">
+                                        <label for="categorySelect"
+                                            class="form-label fw-semibold mb-0">Categories</label>
+                                        <select id="categorySelect" class="form-select form-select-sm shadow-sm rounded"
+                                            [(ngModel)]="job_category_id" name="job_category_id"
+                                            (change)="LoadGrid('Iner')">
+                                            <option value="0" selected>Choose Job Category</option>
+                                            <option *ngFor="let item of allDropDwns?.job_category" [value]="item.id">{{
+                                                item.name }}</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Location -->
+                                    <div class="col-12 pb-2">
+                                        <label for="locationSelect" class="form-label fw-semibold mb-0">Location</label>
+                                        <select id="locationSelect" class="form-select form-select-sm shadow-sm rounded"
+                                            [(ngModel)]="county_id" name="county_id" (change)="LoadGrid('Iner')">
+                                            <option value="0" selected>Choose County</option>
+                                            <option *ngFor="let item of allDropDwns?.counties"
+                                                [value]="item.counties_id">{{
+                                                item.counties_name }}</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Job Types -->
+                                    <div class="col-12  pb-2">
+                                        <label class="form-label fw-semibold mb-0">Job Types</label>
+                                        <div class="d-flex flex-wrap gap-2 mt-2">
+                                            <div *ngFor="let d of jobTypeLst" class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="jobType{{d.id}}"
+                                                    [(ngModel)]="d.isSts" [ngModelOptions]="{ standalone: true }">
+                                                <label class="form-check-label" for="jobType{{d.id}}">{{ d.name
+                                                    }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Salary -->
+                                    <div class="col-12 pb-2">
+                                        <label class="form-label fw-semibold mb-0">Salary</label>
+                                        <div class="mt-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="salary1"
+                                                    name="salaryRadio"
+                                                    (click)="isSalary='1';job_salary_from=10000;job_salary_to=15000"
+                                                    [checked]="isSalary=='1'">
+                                                <label class="form-check-label" for="salary1">10k - 15k</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="salary2"
+                                                    name="salaryRadio"
+                                                    (click)="isSalary='2';job_salary_from=15000;job_salary_to=25000"
+                                                    [checked]="isSalary=='2'">
+                                                <label class="form-check-label" for="salary2">15k - 25k</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="salary3"
+                                                    name="salaryRadio"
+                                                    (click)="isSalary='3';job_salary_from=25000;job_salary_to=10000000"
+                                                    [checked]="isSalary=='3'">
+                                                <label class="form-check-label" for="salary3">More than 25k</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Submit Button -->
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-success w-100"
+                                            (click)="LoadGrid('Iner')">Apply Filter</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9">
+                    <div class="row">
+                        <div class="col-xl-6 mb-2 pntr" *ngFor="let item of listGrid" (click)="jobDetails(item)">
+                            <div class="card mb-2 shadow-sm bg-white h-100" style="border-radius: 10px;">
+                                <div class="card-body ">
+
+                                    <div class="d-flex justify-content-between">
+
+                                        <div>
+                                            <h5 class="mb-1 fw-bold">{{item.job_title}}</h5>
+                                            <!-- <h6 class="fw-bold mb-1" style="color: rgb(7, 145, 169) !important;">
+                                                {{item.company_name}}</h6> -->
+                                        </div>
+                                        <div></div>
+                                    </div>
+                                    <small><strong></strong></small>
+                                    <div class="">
+                                        <div class="text-muted">
+                                            <span><i class="bi bi-calendar-check-fill"></i>
+                                                {{item?.experience_level}}</span> &nbsp;
+                                            <br>
+                                            <!-- <span> <i class="bi bi-cash-coin"></i> Salary:
+                                                {{item?.job_salary_from}} - {{item?.job_salary_to}}</span> -->
+                                            <br>
+                                            <span> <i class="bi bi-geo-alt-fill"></i>
+                                                {{item?.counties_name}} - {{item?.sub_counties_name}}</span> &nbsp;
+                                            <!-- <span> <i class="bi bi-calendar-check-fill"></i>
+                                                {{item?.job_expiry_date | date:'dd-MM-yyyy'}}</span> -->
+
+                                            <!-- <br> -->
+                                            <!-- <span>
+                                                <i class="bi bi-bookmark-check-fill"></i>
+                                                {{item?.job_category}}
+                                            </span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="sec-overlay sec-overlay-theme bg-img" *ngIf="!isShowCourseSche"
+    style="background-image: url('../../../assets/images/new-images/dashboard.png');">
+    <div class="container pt--0 pb--0">
+        <div class="row justify-content-center divider-style1 pb-1 pt-5">
+            <div class="col-lg-10 col-xl-7">
+                <div class="divider-content text-center">
+                    <h4 class="sub-title aos-init aos-animate mb-0" data-aos="fade-down">Celebrating the impactful <br>
+                        achievements we've accomplished together.
+                    </h4>
+                    <!-- <h2 class="title aos-init aos-animate" data-aos="fade-down">achivements to show
+                    </h2> -->
+                    <ul class="d-flex justify-content-evenly border-0 bg-transparent text-center ps-0 mt-3">
+                        <li class="list-group-item border-0 bg-transparent">
+                            <!-- <span class="border-box"></span> -->
+                            <h2 class="text-white">{{getCount('STUDENTS')}}+</h2>
+                            <img src="assets/img/icons/student.png" width="30px" width="30px" class="img-fluid" alt="">
+                            <h6 class=" mt-3 text-white">Students</h6>
+
+                        </li>
+                        <li class="list-group-item border-0 bg-transparent">
+                            <!-- <span class="border-box"></span> -->
+                            <h2 class="text-white">{{getCount('COURSES')}}+</h2>
+                            <img src="assets/img/icons/courses.png" width="30px" width="30px" class="img-fluid" alt="">
+                            <h6 class=" mt-3 text-white">Courses</h6>
+
+                        </li>
+                        <li class="list-group-item border-0 bg-transparent">
+                            <!-- <span class="border-box"></span> -->
+                            <h2 class="text-white">{{getCount('TUTORS')}}+</h2>
+                            <img src="assets/img/icons/Trainer.png" width="30px" width="30px" class="img-fluid" alt="">
+                            <h6 class="mt-3 text-white">Trainers</h6>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-layer-style1"></div>
+    <div class="bg-layer-style2"></div>
+</section>
+<section class="testimonial-area bg-color-gray" *ngIf="!isShowCourseSche">
+    <div class="container" data-aos="fade-down">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title text-center">
+                    <h3 class="title">Our Happy Clients</h3>
+                    <div class="desc">
+                        <p>We take pride in the impact we've made. <br> Hear from our clients and partners who have
+                            experienced real results through our solutions.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="testimonial-area">
+                    <div class="">
+                        <div class="testimonials123 owl-carousel owl-theme">
+                            <div class="item" *ngFor="let monials of testMonialsList">
+                                <div class="testimonial-item">
+                                    <div class="testi-inner-content">
+                                        <div class="testi-author">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="testi-thumb">
+                                                    <img [src]="monials.image" class="img-fluid" width="75" height="75"
+                                                        alt="{{monials.name}}">
+                                                </div>
+                                                <div class="testi-info">
+                                                    <h4 class="name">{{ monials.name }}</h4>
+                                                    <span class="designation">{{ monials.designation }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="testi-content">
+                                            <p class="desc">{{ monials.description }}</p>
+                                            <div class="rating-box">
+                                                <i class="icofont-star" *ngFor="let star of [1,2,3,4,5]"></i>
+                                            </div>
+                                            <div class="testi-quote">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-quote" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 12a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1h-1.388q0-.527.062-1.054.093-.558.31-.992t.559-.683q.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 9 7.558V11a1 1 0 0 0 1 1zm-6 0a1 1 0 0 0 1-1V8.558a1 1 0 0 0-1-1H4.612q0-.527.062-1.054.094-.558.31-.992.217-.434.559-.683.34-.279.868-.279V3q-.868 0-1.52.372a3.3 3.3 0 0 0-1.085.992 4.9 4.9 0 0 0-.62 1.458A7.7 7.7 0 0 0 3 7.558V11a1 1 0 0 0 1 1z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark">
+            <div class="modal-body p-0 position-relative">
+                <!-- Close Button -->
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+
+                <!-- Embedded YouTube Video -->
+                <div class="ratio ratio-16x9">
+                    <iframe width="853" height="480" src="https://www.youtube.com/embed/QMPPZnAmTzk"
+                        title="animation video for online job search" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

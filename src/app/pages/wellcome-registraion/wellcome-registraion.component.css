@@ -1,0 +1,21 @@
+.page-header-area {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top right;
+    position: relative;
+    overflow: hidden;
+    padding: 50px 0 50px;
+    z-index: 1;
+}
+
+.sec-overlay-black:before {
+    background-color: #272a33;
+    content: "";
+    left: 0;
+    height: 100%;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}

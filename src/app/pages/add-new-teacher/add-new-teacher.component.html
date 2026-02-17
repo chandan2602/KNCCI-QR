@@ -1,0 +1,1215 @@
+<div class="pad">
+
+</div>
+
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card rounded shadow-lg">
+                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+
+                        <h5 *ngIf="!isEdit" class="mb-0 text-center"> Teacher Registration For UDISE</h5>
+                        <h5 *ngIf="isEdit" class="mb-0 text-center">Edit Teacher Registration For UDISE</h5>
+
+                    </div>
+                    <div id="accordion" class="accordion">
+                        <div class="card mb-0 active">
+                            <div class="card-header collapsed accordion1" data-toggle="collapse" href="#collapseOne">
+                                <a class="card-title">
+                                    Teacher Registration For UDISE
+                                </a>
+                            </div>
+                            <div id="collapseOne" class="card-body collapse show" data-parent="#accordion">
+
+                                <div class="col-xl-12">
+                                    <div class="table">
+                                        <form class="well form-horizontal" [formGroup]="myForm"
+                                            (ngSubmit)="onSubmit(myForm)">
+                                            <fieldset>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                District Name<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='DISTRICT_NAME'
+                                                                        [(ngModel)]='districtName'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select</option>
+                                                                        <option *ngFor='let item of districtArray' value="{{item.id}}">{{item.name}}</option>
+                                                                       
+                                                                        
+
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_name}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('DISTRICT_NAME').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('DISTRICT_NAME').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                    
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Mandal Name<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='MANDAL_NAME'
+                                                                        [(ngModel)]='mandalName'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of mandalArray' value="{{item.id}}">{{item.name}}</option>
+                                                                       
+
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_name}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('MANDAL_NAME').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('MANDAL_NAME').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Village Name <span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='VILLAGE_NAME'
+                                                                        [(ngModel)]='villageName' id="VILLAGE_NAME"
+                                                                        Name="VILLAGE_NAME"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('VILLAGE_NAME').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('VILLAGE_NAME').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                School Name <span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='SCHOOL_NAME'
+                                                                        [(ngModel)]='schoolName' id="SCHOOL_NAME"
+                                                                        Name="SCHOOL_NAME"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('SCHOOL_NAME').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('SCHOOL_NAME').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Teacher Code<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='TEACHER_CODE'
+                                                                        [(ngModel)]='teacherCode' id="TEACHER_CODE"
+                                                                        Name="TEACHER_CODE"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('TEACHER_CODE').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('TEACHER_CODE').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Aadhaar No.<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='AADHAAR_NO'
+                                                                        [(ngModel)]='aadhaarNo' id="AADHAAR_NO"
+                                                                        Name="AADHAAR_NO"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('AADHAAR_NO').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('AADHAAR_NO').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Teacher Name<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='TEACHER_NAME'
+                                                                        [(ngModel)]='teacherName' id="TEACHER_NAME"
+                                                                        Name="TEACHER_NAME"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('TEACHER_NAME').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('TEACHER_NAME').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label mt-2">
+                                                                Gender<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                        formControlName='Gender' [(ngModel)]='gender'>
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+
+                                                                        <option [value]='item.DICTIONARYID'
+                                                                            *ngFor='let item of genders'>
+                                                                            {{item.DICTIONARYNAME}}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('Gender').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('Gender').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                DOB<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                     <input formControlName='DOB'  
+                                                                        id="DOB" name="DOB" [(ngModel)]='dob'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="date">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('DOB').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('DOB').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Social Category<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='SOCIAL_CATEGORY'
+                                                                        [(ngModel)]='socialCategory'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of socialArray' value="{{item.id}}">{{item.name}}</option>
+                                                                       
+
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('SOCIAL_CATEGORY').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('SOCIAL_CATEGORY').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Nature of Appointment<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='NATURE_OF_APPOINTMENT'
+                                                                        [(ngModel)]='natureOfAppointment'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of natureArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('NATURE_OF_APPOINTMENT').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('NATURE_OF_APPOINTMENT').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Type of Teacher<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='TYPE_OF_TEACHER'
+                                                                        [(ngModel)]='typeOfTeacher'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of teacherArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('TYPE_OF_TEACHER').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('TYPE_OF_TEACHER').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Date Of First Appointment<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <input formControlName='DOF_APPOINTMENT'
+                                                                        [(ngModel)]='dofAppointment'
+                                                                        id="DOF_APPOINTMENT" Name="DOF_APPOINTMENT"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="date">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('DOF_APPOINTMENT').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('DOF_APPOINTMENT').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Date Of Joining In Present Cadre<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <input formControlName='DOJ_PRESENT_CADRE'
+                                                                        [(ngModel)]='dojPresentCadre'
+                                                                        id="DOJ_PRESENT_CADRE" Name="DOJ_PRESENT_CADRE"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="date">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('DOJ_PRESENT_CADRE').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('DOJ_PRESENT_CADRE').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-12">
+                                                        <h5>Highest Qualification</h5>
+                                                        <hr>
+                                                    </div>
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Academic<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='ACADEMIC'
+                                                                        [(ngModel)]='academic'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of academicArray' value="{{item.id}}">{{item.name}}</option>
+
+                                                                       
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                    {{course.COURSE_NAME}}
+                                                </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('ACADEMIC').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('ACADEMIC').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Professional<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='PROFESSIONAL'
+                                                                        [(ngModel)]='professional'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of professionalArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                    {{course.COURSE_NAME}}
+                                                </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('PROFESSIONAL').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('PROFESSIONAL').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Class Taught<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='CLASS_TAUGHT'
+                                                                        [(ngModel)]='classTaught'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of classtaughtArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option value=1 id="class_I" name="class_I">
+                                                                            class_I </option>
+                                                                        <option value=2 id="class_II" name="class_II">
+                                                                            class_II</option>
+                                                                        <option value=3 id="class_III" name="class_III">
+                                                                            class_III</option>
+                                                                        <option value=4 id="class_IV" name="class_IV">
+                                                                            class_IV</option>
+                                                                        <option value=5 id="class_V" name="class_V">
+                                                                            class_V </option>
+                                                                        <option value=6 id="class_VI" name="class_VI">
+                                                                            class_VI</option>
+                                                                        <option value=7 id="class_VII" name="class_VII">
+                                                                            class_VII</option>
+                                                                        <option value=8 id="class_VIII"
+                                                                            name="class_VIII">class_VIII</option>
+                                                                        <option value=9 id="class_IX" name="class_IX">
+                                                                            class_IX</option>
+                                                                        <option value=10 id="class_X" name="class_X">
+                                                                            class_X</option> -->
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                    {{course.COURSE_NAME}}
+                                                </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('CLASS_TAUGHT').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('CLASS_TAUGHT').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Appointed For subjects<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='APPOINTED_SUBJECT'
+                                                                        [(ngModel)]='appointedSubject'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of appointedSubjectArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                    {{course.COURSE_NAME}}
+                                                </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('APPOINTED_SUBJECT').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('APPOINTED_SUBJECT').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    
+
+                                                    <div class="col-md-12">
+                                                        <h5>Main Subjects Taught</h5>
+                                                        <hr>
+                                                    </div>
+
+
+                                                    <!-- <h5 class="Taught">Main Subjects Taught</h5> -->
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                subjects I<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='SUBJECT_I'
+                                                                        [(ngModel)]='subjectI'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of subject1Array' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                    {{course.COURSE_NAME}}
+                                                </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('SUBJECT_I').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('SUBJECT_I').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                subects II<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='SUBJECT_II'
+                                                                        [(ngModel)]='subjectII'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of subject2Array' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                    {{course.COURSE_NAME}}
+                                                </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('SUBJECT_II').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('SUBJECT_II').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="card-header collapsed accordion1 mt-1" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapseTwo">
+                                <a class="card-title">
+                                    Teachers Teaching in Elementary Sections
+                                </a>
+                            </div>
+                            <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+
+                                <div class="col-xl-12">
+                                    <div class="table">
+                                        <form class="well form-horizontal" [formGroup]="myForm"
+                                            (ngSubmit)="onSubmit(myForm)">
+                                            <fieldset>
+                                                <div class="row">
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                BRC<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='BRC' [(ngModel)]='brc'
+                                                                        id="BRC" Name="BRC"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('BRC').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('BRC').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                CRC<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='CRC' [(ngModel)]='crc'
+                                                                        id="CRC" Name="CRC"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('CRC').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('CRC').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                DIET<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='DIET' [(ngModel)]='diet'
+                                                                        id="DIET" Name="DIET"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('DIET').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('DIET').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Others<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='OTHERS' [(ngModel)]='others'
+                                                                        id="OTHERS" Name="OTHERS"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('OTHERS').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('OTHERS').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Training Need<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='TRAINING_NEED'
+                                                                        [(ngModel)]='trainingNeed'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of trainingneedArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option value=1 id="yes" name="">yes</option>
+                                                                        <option value=2 id="No" name="">No</option> -->
+
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('TRAINING_NEED').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('TRAINING_NEED').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Training Received<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='TRAINING_RECEIVED'
+                                                                        [(ngModel)]='trainingRecived'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of trainingrecivedArray' value="{{item.id}}">{{item.name}}</option>
+                                                                       
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                  <div *ngIf="myForm.get('TRAINING_RECEIVED').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('TRAINING_RECEIVED').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-8 control-label line_2 rem_1">
+                                                                No. of working days spent on non-teaching
+                                                                assignments<span class="text-danger">*</span></label>
+                                                            <div class="col-md-4 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='NON_TEACHING_ASSIGNMENTS'
+                                                                        [(ngModel)]='nonTeachingAssignment'
+                                                                        id="NON_TEACHING_ASSIGNMENTS"
+                                                                        Name="NON_TEACHING_ASSIGNMENTS"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('NON_TEACHING_ASSIGNMENTS').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('NON_TEACHING_ASSIGNMENTS').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Maths Studied Upto
+                                                                <span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='MATHS_STUDIED'
+                                                                        [(ngModel)]='mathsStudiedUpto'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <!-- <option value=1 id=1 name="10th">10th</option>
+                                                                        <option value=2 id=2 name="Inter">Inter</option>
+                                                                        <option value=3 id=3 name="Degree">Degree
+                                                                        </option>
+                                                                        <option value=4 id=4 name="PG">PG</option> -->
+                                                                        <option *ngFor='let item of mathsArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('MATHS_STUDIED').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('MATHS_STUDIED').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Social Studied Upto<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='SOCIAL_STUDIED'
+                                                                        [(ngModel)]='socialStudiedUpto'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of socialuptoArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('SOCIAL_STUDIED').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('SOCIAL_STUDIED').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                English(as per schedule VIII) Studied Upto<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='ENGILSH_STUDIED'
+                                                                        [(ngModel)]='englidhStudiedUpto'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of englishArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('ENGILSH_STUDIED').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('ENGILSH_STUDIED').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Language Subject Studied Upto<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='LANGUAGE_SUBJECT'
+                                                                        [(ngModel)]='languageStudiedUpto'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of languageArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('LANGUAGE_SUBJECT').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('LANGUAGE_SUBJECT').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Science Studied Upto<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='SCIENCE_STUDIED'
+                                                                        [(ngModel)]='scienceStudiedUpto'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of scienceArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('SCIENCE_STUDIED').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('SCIENCE_STUDIED').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-6 control-label line_2 rem_1">
+                                                                Working In Present School Since(Year)<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-6 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                    <input formControlName='WORKING_PRESENT_SCHOOL'
+                                                                        [(ngModel)]='workingPresentSchool'
+                                                                        id="WORKING_PRESENT_SCHOOL"
+                                                                        Name="WORKING_PRESENT_SCHOOL"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                                </div>
+                                                                <div *ngIf="myForm.get('WORKING_PRESENT_SCHOOL').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('WORKING_PRESENT_SCHOOL').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Type Of Disability(if any)<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='DISABILITY'
+                                                                        [(ngModel)]='disability'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of disabilityArray' value="{{item.id}}">{{item.name}}</option>
+                                                                       
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_name}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('DISABILITY').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('DISABILITY').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Trained for Teaching CWSN<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='TRAINED_IN_CWSN'
+                                                                        [(ngModel)]='trainedInCWSN'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of cwsnArray' value="{{item.id}}">{{item.name}}</option>
+                                                                      
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('TRAINED_IN_CWSN').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('TRAINED_IN_CWSN').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-12">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-8 control-label line_2 rem_1">
+                                                                Trained in use of Computer and teaching through
+                                                                Computer<span class="text-danger">*</span></label>
+                                                            <div class="col-md-4 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='TRAINED_IN_COMPUTER'
+                                                                        [(ngModel)]='trainedInComputer'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of comArray' value="{{item.id}}">{{item.name}}</option>
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('TRAINED_IN_COMPUTER').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('TRAINED_IN_COMPUTER').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+<!-- 
+                                                    <div class="col-md-6">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Mobile Number<span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input type="number"  [(ngModel)]='mobilNumber' formControlName='MOBILE_NUMBER' onkeypress='return (event.charCode >= 48 && event.charCode <= 57)' placeholder=""  class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                            </div>
+                                                            <div *ngIf="myForm.get('MOBILE_NUMBER').touched">
+                                                                <span class="text-danger" *ngIf="myForm.get('MOBILE_NUMBER').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+                                                                <span class="text-danger" *ngIf="myForm.get('MOBILE_NUMBER').hasError('minlength')||myForm.get('MOBILE_NUMBER').hasError('maxlength')">
+                                                                    This field is required 10 characters
+                                                                </span>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                       
+                                                    </div> -->
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Mobile Number<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <input formControlName='MOBILE_NUMBER'
+                                                                        [(ngModel)]='mobilNumber' id="MOBILE_NUMBER"
+                                                                        Name="MOBILE_NUMBER"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="number" >
+                                                                </div>
+                                                                <div *ngIf="myForm.get('MOBILE_NUMBER').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('MOBILE_NUMBER').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                    
+                                                                   
+                                                                </div>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Email<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <input formControlName='EMAIL' id="EMAIL"
+                                                                        [(ngModel)]='email' Name="EMAIL"
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg "
+                                                                        type="email">
+                                                                </div>
+                                                                <div *ngIf="myForm.get('EMAIL').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('EMAIL').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Is TET Qualified<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='TET_QUALIFIED'
+                                                                        [(ngModel)]='tetQualified'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of tetArray' value="{{item.id}}">{{item.name}}</option>
+
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('TET_QUALIFIED').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('TET_QUALIFIED').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Acting As Headmaster<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='ACTING_HEADMASTER'
+                                                                        [(ngModel)]='actingHeadmaster'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of headmasterArray' value="{{item.id}}">{{item.name}}</option>  
+                                                                        
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('ACTING_HEADMASTER').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('ACTING_HEADMASTER').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Medium under which teacher appointed<span
+                                                                    class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong>
+                                                                    <select formControlName='MEDIUM_APPOINTED'
+                                                                        [(ngModel)]='mediumAppointed'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+                                                                        <option *ngFor='let item of mediumArray' value="{{item.id}}">{{item.name}}</option>  
+                                                                        
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('MEDIUM_APPOINTED').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('MEDIUM_APPOINTED').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group row">
+                                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                                Religion<span class="text-danger">*</span></label>
+                                                            <div class="col-md-8 inputGroupContainer">
+                                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                    <select formControlName='RELIGION'
+                                                                        [(ngModel)]='religion'
+                                                                        class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                        <option value="" [selected]="true">select
+                                                                        </option>
+
+                                                                        <option *ngFor='let item of religionArray' value="{{item.id}}">{{item.name}}</option>  
+                                                                        <!-- <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option> -->
+                                                                    </select>
+                                                                </div>
+                                                                <div *ngIf="myForm.get('RELIGION').touched">
+                                                                    <span class="text-danger" *ngIf="myForm.get('RELIGION').hasError('required')">
+                                                                        This field is required.
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="text-center">
+                                <button type="button" [disabled]="myForm.invalid" *ngIf="!isEdit"
+                                    (click)="onSubmit(myForm)" class="btn btn-success">Save</button>
+                                &nbsp;&nbsp;
+                                <button type="button" [disabled]="myForm.invalid" *ngIf="isEdit"
+                                    (click)="onSubmit(myForm)" class="btn btn-success">Update</button>
+                                &nbsp;&nbsp;
+                                <button type="button" class="btn btn-danger" (click)="close()"
+                                    id="md_close"><i class="bi bi-arrow-left-circle fa-2x"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pad"></div>
+</div>

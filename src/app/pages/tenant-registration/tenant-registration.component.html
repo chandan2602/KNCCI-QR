@@ -1,0 +1,61 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Tenant</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-primary mb-1" (click)="add()">Add
+                                            </button>
+                                        </div>
+                                        <div *ngIf="table.length" class="pt-4">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small">
+                                                <thead class="top " style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th> Tenant Code</th>
+                                                        <th> Tenant Name</th>
+                                                        <th>Belongs To</th>
+                                                        <th>Status</th>
+                                                        <th>Description</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.TNT_CODE}}</td>
+                                                        <td>{{item.TNT_NAME}}</td>
+                                                        <td>{{item.TENANT_PARENT}}</td>
+                                                        <td>{{item.TNT_STATUS}}</td>
+                                                        <td>{{item.TNT_DESCRIPTION}}</td>
+                                                        <td style="display: flex;">
+                                                            <span src="" class="edit_icon" (click)="edit(item)"> <i
+                                                                    class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="!table.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

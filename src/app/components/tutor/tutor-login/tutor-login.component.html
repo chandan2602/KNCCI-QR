@@ -1,0 +1,44 @@
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('../../../assets/images/dhanush/2149156430.jpg');">
+        <div class="wrap-login100">
+            <div class="text-center"> <img src="../../../assets/images/dhanush/logo-sam.png" [routerLink]="['']"
+                    style="cursor:pointer;" class="img-fluid" /></div>
+            <br>
+            <form class="login100-form validate-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <span class="login100-form-title p-b-24"> <span style="font-size:22px;">Sign In</span> <br>
+                    <!-- <span style="font-size:15px;">Learning Management System</span> -->
+                </span>
+                <div class="wrap-input100 validate-input mt-4" data-validate="Valid email is: a@b.c"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    <input class="input100" type="text" formControlName="email" name="email">
+                    <span class="focus-input100" data-placeholder="Email"></span>
+                </div>
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.pattern">Please enter valid email</div>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Enter password"
+                    [ngClass]="{ 'is-invalid': submitted && f.password.errors }"> <span class="btn-show-pass">
+                        <i class="zmdi zmdi-eye"></i> </span>
+                    <input class="input100" type="password" formControlName="password" name="pass">
+                    <span class="focus-input100" data-placeholder="Password"></span>
+                </div>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required </div>
+                    <div *ngIf="f.password.errors.minlength">Please enter minimum 5 characters</div>
+                </div>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <button type="submit" class="login100-form-btn"> Login </button>
+                    </div>
+                </div>
+                <!-- <div class="text-center p-t-23"> <span class="txt1"> Don’t have an account? </span> <a class="txt2" href="#"> Sign Up </a> </div> -->
+            </form>
+            <div class="container-login100-form-btn">
+                <span><a><u>Forgot password? </u></a></span>
+                <span>Don't have an account? <a [routerLink]="['/signup']"><u>SignUp</u></a></span>
+            </div>
+        </div>
+    </div>
+</div>

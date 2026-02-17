@@ -1,0 +1,113 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5>Evaluate Assignments</h5>
+                                    </div>
+                                    <div class="card-body style-1">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Course Name : </label>
+                                                    <select [(ngModel)]='courceId '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="courceChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let course of cources"
+                                                            [value]='course.COURSE_ID'>
+                                                            {{course.COURSE_NAME}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Batch Schedule :</label>
+                                                    <select [(ngModel)]='schedulId '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="schedulChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let schedul of scheduls"
+                                                            [value]='schedul.COURSESHD_ID'>
+                                                            {{schedul.COURSESHD_NAME}}</option>
+
+                                                    </select>
+
+
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Assignment: </label>
+                                                    <select [(ngModel)]='assignmentId '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="assignmentChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let item of assignments"
+                                                            [value]='item.ASSIGNMENT_ID'>
+                                                            {{item.ASSIGNMENT_NAME}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <div *ngIf="table.length">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>
+                                                            Student Name
+                                                        </th>
+                                                        <th>Assignment Name</th>
+
+                                                        <th> Download Assignment</th>
+
+                                                        <th> Marks</th>
+                                                        <th>Max Marks</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.USERNAME}}</td>
+                                                        <td>{{item.ASSIGNMENT_NAME}}</td>
+                                                        <td><a (click)='download(item.AS_UPLOAD)'
+                                                                class="pointer">Download</a></td>
+                                                        <td style="max-width: 70px;"><input style="max-width:70px"
+                                                                type="number" [(ngModel)]="item.EV_STUDENT_MARKS"></td>
+                                                        <td>{{item.ASSIGNMENT_MAX_MARKS}}</td>
+                                                        <td><input accept=".doc,.docx,.pdf"
+                                                                (change)='change($event,item)' style="display: none;"
+                                                                id="file_upload" type="file"> <i
+                                                                (click)='selectFile(item)' *ngIf='item.EV_ASSIGNMENT_ID'
+                                                                class="fa fa-upload cursor" aria-hidden="true"></i>
+                                                            <span
+                                                                style='font-size:25px;color: green;font-weight: 600;cursor: pointer;'
+                                                                (click)="evaluate(item)">&#8594;</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

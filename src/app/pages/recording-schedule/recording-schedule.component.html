@@ -1,0 +1,44 @@
+<input type="button" id="btnOpenModel" class="d-none" data-bs-toggle="modal" data-bs-target="#myModal">
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2 " style="border-radius: 0pxs;">
+                <h4 class="modal-title w-100">Recordings</h4>
+                <button type="button" id="btnClose" class="close" (click)="close()" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">           
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th> Sl No. </th>
+                        <th> Recording Id </th>
+                        <th> Start Date</th>
+                        <th> End Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let recording of RecordingList; let i=index">
+                            <td>{{i+1}}</td>
+                            <td><a href="{{recording.playbackurl}}" target="_blank">{{recording.meetingid}}</a></td>
+                            <td>{{recording.starttime}}</td>
+                            <td>{{recording.endtime}}</td>
+                        </tr>
+                    </tbody>
+                  </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCloseModel" (click)="close()" class="btn btn-danger btn-sm ps-4 pe-4"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>

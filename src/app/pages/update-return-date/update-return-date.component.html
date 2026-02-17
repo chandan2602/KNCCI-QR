@@ -1,0 +1,113 @@
+<div class="default_class">
+    <div class="content-wrapper p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 class="mb-0 text-center">Update Return Date</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group ">
+                                <form class="well form-horizontal" [formGroup]="myForm">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <label>
+                                                    Course Name<span class="text-danger">*</span><strong>:</strong></label>
+                                                <select name="courseName" id="courseName"
+                                                    (change)="courseChange($event)" formControlName="courseName"
+                                                    class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                    <option value="" [selected]="true">Select</option>
+                                                    <option *ngFor="let course of courseNameOption"
+                                                        [value]="course.COURSE_ID">
+                                                        {{course.COURSE_NAME}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label>
+                                                    Course Schedule<span class="text-danger">*</span><strong>:</strong></label>
+                                                <select name="courseSchedule" id="courseSchedule"
+                                                    (change)="sheduleChange($event)" formControlName="courseSchedule"
+                                                    class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                    <option value="" [selected]="true">Select</option>
+                                                    <option *ngFor="let courseSchedule of courseScheduleOption"
+                                                        [value]="courseSchedule.COURSESHD_ID">
+                                                        {{courseSchedule.COURSESHD_NAME}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <label>
+                                                    Student<span class="text-danger">*</span><strong>:</strong></label>
+                                                <select name="student" id="student" formControlName="student"
+                                                    (change)=" loadUpdateDate($event.target.value)"
+                                                    class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                    <option value="" [selected]="true">Select</option>
+                                                    <option *ngFor="let student of studentOption"
+                                                        [value]="student.USERID">{{student.FIRSTNAME}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                                <br><br>
+
+
+
+                                <div class="col-xl-12" *ngIf="isSelected">
+                                    <div class="table">
+                                        <div *ngIf="updateDate.length">
+                                            <table id="patreggraph" datatable [dtOptions]="dtOptions"
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #0d9bc4; color:#ffffff;">
+                                                    <tr>
+                                                        <th> Book Tittle </th>
+                                                        <th> BookId/ISBN </th>
+                                                        <th> Department </th>
+                                                        <th> Issue Date </th>
+                                                        <th> Return Date </th>
+                                                        <th> Actual Return Date</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of updateDate">
+                                                        <td>{{item.BOOK_NAME}}</td>
+                                                        <td>{{item.BOOK_CODE}}</td>
+                                                        <td>{{item.DEPARTMENT_NAME}}</td>
+                                                        <td>{{item.BOOK_STD_DATE_OF_ISSUE | date :'dd/MM/yyyy'}}</td>
+                                                        <td>{{item.BOOK_STD_RETURN_DATE | date:'dd/MM/yyyy'}}</td>
+                                                        <td>
+                                                            <div class="col-md-10 ">
+                                                                <input  class="form-control" type="date"
+                                                                    [(ngModel)]="item.BOOK_STD_ACTUAL_RETURN_DATE"
+                                                                    (change)="handleDate(item.BOOK_STD_ID,$event)">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="text-center" *ngIf="!updateDate.length">
+                                            No Records to display
+                                        </div>
+
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="button"    (click)="Update()" class="btn btn-success">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

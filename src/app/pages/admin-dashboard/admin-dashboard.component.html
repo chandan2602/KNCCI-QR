@@ -1,0 +1,410 @@
+<div class="page-wrapper">
+    <div class="page-content pt-4 pe-3 ps-3">
+        <div class="container-fluid mt-3">
+            <div class="row">
+                <div class="col-xl-12 mb-4">
+                    <div class="card card-1 card-shadow ps-3">
+                        <div class="card-body table-style  pb-0">
+                            <div class="row">
+                                <div class="col-xl-8">
+                                    <p style="color:#5F78BA;margin-bottom: 5px; margin-top: 5px;">Hi</p>
+                                    <h2 style="color: #5F78BA;"><b>{{FullName}} </b></h2>
+                                    <p class="text"><img src="../../../assets/img/Group 53.png"
+                                            class="img-fluid me-3">You have 1 new
+                                        event</p>
+                                    <!-- <button type="button" class="btn btn-outline-primary btn-sm py-1 px-3">View</button> -->
+                                </div>
+                                <div class="col-xl-4">
+                                    <div id="carouselExampleDark" class="carousel carousel-dark slide"
+                                        data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            <button type="button" data-bs-target="#carouselExampleDark"
+                                                data-bs-slide-to="0" class="active" aria-current="true"
+                                                aria-label="Slide 1"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark"
+                                                data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                            <button type="button" data-bs-target="#carouselExampleDark"
+                                                data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                        </div>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item active" data-bs-interval="10000">
+                                                <img src="../../../assets/img/slider-1.png" class="d-block w-100"
+                                                    alt="...">
+
+                                            </div>
+                                            <div class="carousel-item" data-bs-interval="2000">
+                                                <img src="../../../assets/img/slider-1.png" class="d-block w-100"
+                                                    alt="...">
+
+                                            </div>
+                                            <div class="carousel-item">
+                                                <img src="../../../assets/img/slider-1.png" class="d-block w-100"
+                                                    alt="...">
+
+                                            </div>
+                                        </div>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 mb-3">
+                    <div class="card  shadow-sm h-100 card1 text-dark" style="border-radius:0.900rem;">
+                        <div class="card-body p-0">
+                            <div class="shape1">
+                            </div>
+                            <h6 class="text-dark mt-3 ms-3 fw-bold">Number of Jobs</h6>
+                            <div class="container-fluid mb-2">
+                                <div class="row align-items-center">
+                                    <div class="col-xl-9 col-9 ps-5">
+                                        <table class="table table-borderless mb-0">
+                                            <tr>
+                                                <td style="width: 60%; font-size:14px !important;"
+                                                    class="text-dark text-start ">Active</td>
+                                                <td style="width:2%; font-size:12px !important;" class="text-dark ">:
+                                                </td>
+                                                <td style="font-size:14px !important;" class="text-dark text-start">
+                                                    {{listGrid?.Admin_Dashboard_Jobs?.active}}
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start">Inactive</td>
+                                                <td style="width: 2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{listGrid?.Admin_Dashboard_Jobs?.in_active}}</td>
+                                            </tr>
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start ">Total </td>
+                                                <td style="width:2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{listGrid?.Admin_Dashboard_Jobs?.total}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-xl-3 col-3 text-center justify-content-between"> <img
+                                            src="../../../assets/img/Group 1000001047.png" class="img-fluid "></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 mb-3">
+                    <div class="card  shadow-sm h-100 card5 text-dark" style="border-radius:0.900rem;">
+                        <div class="card-body p-0">
+                            <div class="shape5">
+                            </div>
+                            <h6 class="text-dark mt-3 ms-3 fw-bold">Number of Internships</h6>
+                            <div class="container-fluid mb-2">
+                                <div class="row align-items-center">
+                                    <div class="col-xl-9 col-9 ps-5">
+                                        <table class="table table-borderless mb-0">
+
+                                            <tr>
+
+                                                <td style="width: 60%; font-size:14px !important;"
+                                                    class="text-dark text-start ">Active</td>
+                                                <td style="width:2%; font-size:12px !important;" class="text-dark ">:
+                                                </td>
+                                                <td style="font-size:14px !important;" class="text-dark text-start">
+                                                    {{listGrid?.Admin_Dashboard_Internships?.active}}
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start">Inactive</td>
+                                                <td style="width: 2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{listGrid?.Admin_Dashboard_Internships?.in_active}}</td>
+                                            </tr>
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start "> Total Courses
+                                                </td>
+                                                <td style="width:2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{listGrid?.Admin_Dashboard_Internships?.total}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-xl-3 col-3 text-center justify-content-between"> <img
+                                            src="../../../assets/img/img-dashboard/icon-2.png" class="img-fluid "></div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-xl-4 mb-3">
+                    <div class="card  shadow-sm h-100 card1 text-dark" style="border-radius:0.900rem;">
+                        <div class="card-body p-0">
+                            <div class="shape1">
+                            </div>
+                            <h6 class="text-dark mt-3 ms-3 fw-bold">Number of Trainers</h6>
+                            <div class="container-fluid mb-2">
+                                <div class="row align-items-center">
+                                    <div class="col-xl-9 col-9 ps-5">
+                                        <table class="table table-borderless mb-0">
+                                            <tr>
+                                                <td style="width: 60%; font-size:14px !important;"
+                                                    class="text-dark text-start ">Active</td>
+                                                <td style="width:2%; font-size:12px !important;" class="text-dark ">:
+                                                </td>
+                                                <td style="font-size:14px !important;" class="text-dark text-start">
+                                                    {{dashboard.TRAINERS_ACTIVE}}
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start">Inactive</td>
+                                                <td style="width: 2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.TRAINERS_INACTIVE}}</td>
+                                            </tr>
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start ">Total </td>
+                                                <td style="width:2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.TRAINERS_ACTIVE +
+                                                    dashboard.TRAINERS_INACTIVE}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-xl-3 col-3 text-center justify-content-between"> <img
+                                            src="../../../assets/img/Group 1000001047.png" class="img-fluid "></div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 mb-3">
+                    <div class="card  shadow-sm h-100 card5 text-dark" style="border-radius:0.900rem;">
+                        <div class="card-body p-0">
+                            <div class="shape5">
+
+                            </div>
+                            <h6 class="text-dark mt-3 ms-3 fw-bold">Number of Internships</h6>
+
+
+                            <div class="container-fluid mb-2">
+                                <div class="row align-items-center">
+                                    <div class="col-xl-9 col-9 ps-5">
+                                        <table class="table table-borderless mb-0">
+
+                                            <tr>
+
+                                                <td style="width: 60%; font-size:14px !important;"
+                                                    class="text-dark text-start ">Active</td>
+                                                <td style="width:2%; font-size:12px !important;" class="text-dark ">:
+                                                </td>
+                                                <td style="font-size:14px !important;" class="text-dark text-start">
+                                                    {{dashboard.COURSE_ACTIVE}}
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start">Inactive</td>
+                                                <td style="width: 2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.COURSE_INACTIVE}}</td>
+                                            </tr>
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start "> Total Courses
+                                                </td>
+                                                <td style="width:2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.COURSE_ACTIVE +
+                                                    dashboard.COURSE_INACTIVE}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-xl-3 col-3 text-center justify-content-between"> <img
+                                            src="../../../assets/img/img-dashboard/icon-2.png" class="img-fluid "></div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 mb-3">
+                    <div class="card  shadow-sm h-100 card2 text-dark" style="border-radius:0.900rem;">
+                        <div class="card-body p-0">
+                            <div class="shape2">
+
+                            </div>
+                            <h6 class="text-dark mt-3 ms-3 fw-bold">Number of Batches</h6>
+
+
+                            <div class="container-fluid mb-2">
+                                <div class="row align-items-center">
+                                    <div class="col-xl-9 col-9 ps-5">
+                                        <table class="table table-borderless mb-0">
+
+                                            <tr>
+
+                                                <td style="width: 60%; font-size:14px !important;"
+                                                    class="text-dark text-start ">Inprogress</td>
+                                                <td style="width:2%; font-size:12px !important;" class="text-dark ">:
+                                                </td>
+                                                <td style="font-size:14px !important;" class="text-dark text-start">
+                                                    {{dashboard.BATCH_INPROGRESS}}
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start">Completed</td>
+                                                <td style="width: 2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.BATCH_COMPLETED}}</td>
+                                            </tr>
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start ">Total Batches</td>
+                                                <td style="width:2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.BATCH_COMPLETED +
+                                                    dashboard.BATCH_INPROGRESS}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-xl-3 col-3 text-center justify-content-between"> <img
+                                            src="../../../assets/img/img-dashboard/icon-4.png" class="img-fluid "></div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 mb-3">
+                    <div class="card  shadow-sm h-100 card3 text-dark" style="border-radius:0.900rem;">
+                        <div class="card-body p-0">
+                            <div class="shape3">
+
+                            </div>
+                            <h6 class="text-dark mt-3 ms-3 fw-bold">Number of Trainees</h6>
+
+
+                            <div class="container-fluid mb-2">
+                                <div class="row align-items-center">
+                                    <div class="col-xl-9 col-9 ps-5">
+                                        <table class="table table-borderless mb-0">
+
+                                            <tr>
+
+                                                <td style="width: 60%; font-size:14px !important;"
+                                                    class="text-dark text-start ">Active</td>
+                                                <td style="width:2%; font-size:12px !important;" class="text-dark ">:
+                                                </td>
+                                                <td style="font-size:14px !important;" class="text-dark text-start">
+                                                    {{dashboard.TRAINEE_ACTIVE}}
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start">Inactive</td>
+                                                <td style="width: 2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.TRAINEE_INACTIVE}}</td>
+                                            </tr>
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start ">Total </td>
+                                                <td style="width:2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.TRAINEE_ACTIVE +
+                                                    dashboard.TRAINEE_INACTIVE}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-xl-3 col-3 text-center justify-content-between"> <img
+                                            src="../../../assets/img/img-dashboard/icon-3.png" class="img-fluid "></div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 mb-3">
+                    <div class="card  shadow-sm h-100 card4 text-dark" style="border-radius:0.900rem;">
+                        <div class="card-body p-0">
+                            <div class="shape4">
+
+                            </div>
+                            <h6 class="text-dark mt-3 ms-3 fw-bold">Billings</h6>
+
+
+                            <div class="container-fluid mb-2">
+                                <div class="row align-items-center">
+                                    <div class="col-xl-9 col-9 ps-5">
+                                        <table class="table table-borderless mb-0">
+
+                                            <tr>
+
+                                                <td style="width: 60%; font-size:14px !important;"
+                                                    class="text-dark text-start ">Paid</td>
+                                                <td style="width:2%; font-size:12px !important;" class="text-dark ">:
+                                                </td>
+                                                <td style="font-size:14px !important;" class="text-dark text-start">
+                                                    {{dashboard.PAID_AMOUNT |currency: 'INR'}}
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start">Due</td>
+                                                <td style="width: 2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{dashboard.BALANCE_AMOUNT |currency:
+                                                    'INR'}}</td>
+                                            </tr>
+                                            <tr style="padding-bottom: 10px;">
+                                                <td style="width: 60%;" class="text-dark text-start "> Total </td>
+                                                <td style="width:2%;" class="text-dark ">:</td>
+                                                <td class="text-dark text-start">{{(dashboard.PAID_AMOUNT +
+                                                    dashboard.BALANCE_AMOUNT) |currency: 'INR'}}</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-xl-3 col-3 text-center justify-content-between"> <img
+                                            src="../../../assets/img/img-dashboard/icon-5.png" class="img-fluid "></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="overlay toggle-icon"></div>
+
+    <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+    <!--End Back To Top Button-->
+</div>

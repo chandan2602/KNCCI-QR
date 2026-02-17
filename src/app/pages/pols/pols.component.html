@@ -1,0 +1,72 @@
+<div class="page-wrapper pt-4">
+  <div class="page-content pt-0 pe-0 ps-0">
+    <div class="container-fluid">
+      <div class="default_class">
+        <div class="content-wrapper p-0">
+
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="card rounded shadow-lg">
+
+
+
+                  <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                    <h5 class="mb-0">Poll</h5>
+                  </div>
+                  <div>
+                    <div class="card-body" *ngIf="polls.length">
+                      <div class="row" *ngFor="let item of polls">
+                        <div class="col-xl-8">{{item.PollTitle}}</div>
+                        <div class="col-xl-4 text-xl-right"> <a class="take_poll" href="javascipt:;"
+                            (click)="takePoll(item)">Take Poll</a>
+                        </div>
+
+                      </div>
+                    </div>
+
+                    <div *ngIf="!polls.length">
+
+                      <p class="text-danger text-center">No Polls available</p>
+
+                    </div>
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="myModal" role="dialog"  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+             <input type="file" accept=".doc,.docx,.pdf">
+             <br>
+             <span>
+              Please upload pdf and doc file formats only.          
+              </span>
+           
+          </div>
+          <div class="modal-footer">
+              <button type="button" (click)="save()" class="btn btn-default" >Save</button>
+              <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+
+  </div>
+</div> -->

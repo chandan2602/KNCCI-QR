@@ -1,0 +1,69 @@
+<div class="page-wrapper">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 text-center">Discussion</h5>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row col-12">
+                                            <div class="col-8">
+                                                <div class="card-body">
+                                                    <div *ngFor='let item of events'>
+                                                        <h4 data-toggle="modal" data-target="#discussionModal"
+                                                            (click)="getDiscussion(item.ForumId )" id="title"
+                                                            class="title">
+                                                            {{item.TOPIC}}</h4>
+                                                        <P>{{item.DESCRIPTION}}</P>
+                                                        <hr>
+                                                    </div>
+                                                    <div class="text-center" *ngIf="!events.length">
+                                                        No Records to display
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal show" id="discussionModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog  modal-lg" style="width: 200%;height: 50%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Discussion</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="onCloseModal()">&times;</button>
+            </div>&nbsp;
+            <div *ngIf='isDiscussion'>
+                <div class="container">
+                    <div class="row col-12">
+                        <div class="col-12">
+                            <h3>{{discussion.TOPIC}}</h3>
+                            <h5 class="description">{{discussion.DESCRIPTION}}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                &nbsp;
+                <button class="btn btn-danger" id='close' (click)="close()" data-bs-dismiss="modal"
+                    (click)="onCloseModal()">
+                    Close</button>
+            </div>
+        </div>
+    </div>
+</div>

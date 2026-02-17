@@ -1,0 +1,197 @@
+<div class="modal fade" id="modelCertificate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header py-2 text-center">
+                <h6 class="modal-title w-100" id="exampleModalLabel">Certificate</h6>
+                <button type="button" class="btn-close" id="btnCloseModel" (click)="closeModel()"
+                    data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"  >
+                <div class="certificate-container">
+                    <div class="container">
+
+                        <div id="cerficateimage_path" style="width:1056px; position: relative; height: 800px; padding:20px; text-align:center;"
+                            class="bg_img">
+                    
+                    
+                            <div style="padding:20px; text-align:center; height: 500px;">
+                                <div style="text-align: left"><img src="../../../assets/img/logo2-new.png" alt=""></div><br />
+                                <div style="padding: 0 4rem;">
+                                    <span
+                                        style="font-size:50px; font-weight: bolder; text-transform: uppercase; font-family: 'Montserrat'; letter-spacing: 10px; color: #077681;">Certificate</span>
+                                    <br>
+                                    <div style="text-align: center; margin: 10px 0;">
+                                        <img src="../../../assets/img/img/banner.jpg" alt="" width="250px">
+                                    </div>
+                                    <span style="font-size:25px; color: #077681; font-family: 'Montserrat';">This is to certify
+                                        that</span>
+                                    <br><br>
+                                    <span style="font-size:30px; text-align: center; color: #282847;"><b>{{certificateInfo.FullName}}</b></span>
+                                    <div style="height: 1.5px; background-color: #A8A8A8; margin-top: 6px;"></div>
+                                    <p style="color: #838483; padding-top: 20px;">Has successfully completed <b><span> {{certificateInfo.COURSE_NAME}} </span></b> certification, in the course duration of <span>{{certificateInfo.DURATION}}</span> Hours
+                                        starting on <span>{{certificateInfo.COURSESHD_STARTDATE}}</span> and ending on <span>{{certificateInfo.COURSESHD_ENDDATE}}</span>. </p>
+                    
+                                </div>
+                            </div>
+                            <div class="content-bottom" style="display: none;">
+                    
+                                <div class="left_text">
+                    
+                                    <p style="color: #808080;padding-bottom: 5px;"><small>dd/mm/yyyy</small></p>
+                                    <div style="height: 1.5px; width: 200px; background-color: #282847;"></div>
+                                    <p style="color: #282847;"><small>DATE</small></p>
+                    
+                                </div>
+                                <div class="left_right">
+                    
+                                    <div style="text-align: center;"><img src="../../../assets/img/img/Shiksion Certificate-SIG.png"
+                                            style="max-width: 150px; "></div>
+                    
+                                    <div style="height: 1.5px; width: 200px; background-color: #282847;"></div>
+                                    <p style="color: #282847;"><small>SIGNATURE</small></p>
+                                </div>
+                    
+                    
+                    
+                                <div class="qrbox"><img src="../../../assets/img/img/qr.png" alt="" style="width: 100%; height: auto;"></div>
+                    
+                            </div>
+                    
+                    
+                    
+                            <div style="margin-top: 50px;">
+                                <table style="border: 0;" >
+                                    <tr style="border: 0;">
+                                        <td style="border: 0; width: 15%; padding: 0 1rem; vertical-align: bottom;">&nbsp;</td>
+                                        <td style="border: 0; width: 20%; padding: 0 1rem; vertical-align: bottom;">
+                                            <div style="text-align: center;"><img src="../../../assets/img/img/Shiksion Certificate-SIG.png"
+                                                    style="max-width: 150px; "></div>
+                    
+                                            <div style="height: 2px; width: 100px; background-color: #282847;"></div>
+                                            <p style="color: #282847;"><small>SIGNATURE</small></p>
+                                        </td>
+                                        <td style="border: 0; width: 15%; vertical-align: bottom; padding: 0 1rem;">
+                                            <p style="color: #808080; padding-bottom: 5px;"><small>dd/mm/yyyy</small></p>
+                                    <div style="height: 2px; width: 100px; background-color: #282847;"></div>
+                                    <p style="color: #282847;"><small>DATE</small></p>
+                                        </td>
+                                        <td style="border: 0; width: 15%; vertical-align: bottom;"><img src="../../../assets/img/img/banner-icon.png" width="80%" alt=""></td>
+                                        <td style="border: 0; width: 15%; padding: 0 1rem; vertical-align: bottom;">
+                                            <div style="text-align: center;"><img src="../../../assets/img/img/Shiksion Certificate-SIG.png" style="max-width: 150px; "></div>
+                                   
+                                    <div style="height: 2px; width: 100px; background-color: #282847;"></div>
+                                    <p style="color: #282847;"><small >SIGNATURE</small></p>
+                                        </td>
+                                        <td style="border: 0; width: 20%; padding: 0 1rem;  vertical-align: bottom;">
+                                            <div><img src="../../../assets/img/logo2-new.png" alt="" style="width: 100%; height: auto;"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div class="qrbox"><img src="../../../assets/img/img/qr.png" alt="" style="width: 100%; height: auto;"></div>
+                            </div>
+                    
+                    
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-danger btn-sm" (click)="closeModel()"
+                    data-bs-dismiss="modal">Close</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-save btn-sm" (click)="convetToPDF()">Download</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="container bg_img">
+
+    <div class="content-center ">
+
+        <h2 style="text-align: center; color: #282847;">{{studentName}}</h2>
+        <div style="height: 1.5px; background-color: #A8A8A8;"></div>
+        <p style="color: #838483; padding-top: 20px;">Has successfully completed <b>{{courseName}}</b> Certification, In
+            the
+            course duration of {{duration}}(months) period starting on <span>{{startDate}}</span> and ending
+            <span>Ending on {{endDate}}</span>.
+        </p>
+
+    </div>
+
+    <div class="content-bottom">
+
+        <div class="left_text">
+
+            <p style="color: #808080;padding-bottom: 5px;"><small>dd/mm/yyyy</small></p>
+            <div style="height: 1.5px; width: 200px; background-color: #282847;"></div>
+            <p style="color: #282847;"><small>DATE</small></p>
+        </div>
+
+        <div class="left_right">
+
+            <div style="text-align: center;"><img src="../../../assets/img/Shiksion Certificate-SIG.png"
+                    style="max-width: 150px; "></div>
+
+            <div style="height: 1.5px; width: 200px; background-color: #282847;"></div>
+            <p style="color: #282847;"><small>SIGNATURE</small></p>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="qrbox"><img src="../../../assets/img/qr.png" alt="" style="width: 100%; height: auto;"></div>
+    <div style="text-align: center; bottom: 10%; position: relative;">
+    </div>
+</div> -->
+
+
+
+
+<!-- 
+<div class="container">
+
+    <div class="content-center ">
+
+        <h2 style="text-align: center; color: #282847;">{{certificateInfo.FullName}}</h2>
+        <div style="height: 1.5px; background-color: #A8A8A8;"></div>
+        <p style="color: #838483; padding-top: 20px;">Has successfully completed
+            <b>{{certificateInfo.COURSE_NAME}}</b> Certification, In
+            the
+            course duration of {{certificateInfo.DURATION}}(months) period starting on <span>{{certificateInfo.COURSESHD_STARTDATE}}</span>
+            and ending
+            <span>Ending on {{certificateInfo.COURSESHD_ENDDATE}}</span>.
+        </p>
+
+    </div>
+
+    <div class="content-bottom">
+
+        <div class="left_text">
+
+            <p style="color: #808080;padding-bottom: 5px;  font-weight: 600 !important;"><small>dd/mm/yyyy</small></p>
+            <div style="height: 1.5px; width: 200px; background-color: #282847;"></div>
+            <p style="color: #282847;  font-weight: 600 !important;"><small>DATE</small></p>
+        </div>
+
+        <div class="left_right">
+
+            <div style="text-align: center;"><img
+                    [src]="SIGNATURE"
+                    style="max-width: 150px; "></div>
+
+            <div style="height: 1.5px; width: 200px; background-color: #282847;"></div>
+            <p style="color: #282847; font-weight: 600 !important;"><small>SIGNATURE</small></p>
+        </div>
+
+
+
+
+
+    </div>
+    <div class="qrbox">
+        <app-qr-code [width]="100" [FullName]="certificateInfo.FullName" [COURSESHD_ID]="certificateInfo.COURSESHD_ID" [studentId]="certificateInfo.userId" style="width: 100%; height: auto;"></app-qr-code>
+    </div>
+    <div style="text-align: center; bottom: 10%; position: relative;">
+    </div>
+</div> -->

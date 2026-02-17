@@ -1,0 +1,25 @@
+<section class="pt-5  pb-3">
+        <div class="container pt-1 pb-1">
+
+                <div class="discover-txt float-start d-xl-inline d-md-inline d-block mb-2">{{categoryName}}</div>
+                <!-- <div class="float-xl-end float-md-end float-none mb-2"><button (click)="ShowAll()"
+                                class="btn btn-sm btn-seeall">Show All</button></div> -->
+                <div class="clearfix"></div>
+
+                <!-- <div class="d-flex justify-content-between  mt-5 mb-4">
+                        <span class="discover-txt">Discover Course & Bootcamp</span>
+                        <span><button class="btn btn-sm btn-seeall"  (click)="ShowAll()">Show All</button></span>
+                </div> -->
+                <div class="owl-carousel owl-carousel3 owl-theme mt-4 mb-3 d-none">
+                        <div class="item text-center">
+                                <a *ngFor="let category of categoryList;let ind = index">
+                                        <span [ngClass]="{'active': activeIndex===ind}"
+                                                (click)="activeIndex=ind;onCategoryChanged(category.id)"
+                                                class="badge rounded-pill bg-course py-3 px-4 me-2 mb-xl-3 mb-1">
+                                                {{category.name}}
+                                        </span>
+                                </a>
+                        </div>
+                </div>
+        </div>
+</section>

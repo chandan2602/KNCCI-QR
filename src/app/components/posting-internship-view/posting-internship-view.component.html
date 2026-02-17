@@ -1,0 +1,84 @@
+  <div>
+                        <div class="main_section" *ngIf="editData !=''">
+                            <!-- Top Header Section -->
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <img src="../../assets/img/logo1-new.png" alt="Logo" class="logo me-3" />
+                                <h4 class="text-center mb-0" style="color:#307a91;">Internship Summary</h4>
+                            </div>
+                            <hr>                            
+                            <!-- Card 2: Address Information -->
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title"></div>
+                                    <table class="table table-borderless mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="data-label bold">Company Name </td>
+                                                <td class="data-value">{{editData.COMPANY_NAME}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Company Email</td>
+                                                <td class="data-value">{{editData.COMPANY_EMAIL}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Company Contact No.</td>
+                                                <td class="data-value">{{editData.COMPANY_CONTACT_NO}}</td>
+                                                </tr>
+                                            
+                                            <!-- <tr>
+                                                <td class="data-label bold">Job Title</td>
+                                                <td colspan="3" class="data-value">{{editData.job_title}}</td>
+                                            </tr> -->
+                                            <tr>
+                                                <td class="data-label bold">Internship Name</td>
+                                                <td colspan="3" class="data-value">{{editData.COURSE_NAME}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Category</td>
+                                                <td class="data-value">{{editData.COURSE_CATEGORY_NAME}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Internship Id</td>
+                                                <td data-text-color="#03a84e">{{editData.AUTO_GENARATED_INTERNSHIP_ID}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Internship Type</td>
+                                                <td class="data-value">{{editData.ISCERTIFIED == 'true' ? 'Certified' : 'Uncertified'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Certificate</td>
+                                                <td class="data-value">
+                                                    <a [href]="crtfcteURL" target="_blank" rel="noopener" *ngIf="crtfcteURL">
+                                                        View Certificate
+                                                    </a>
+                                                    <label *ngIf="crtfcteURL == null || crtfcteURL == ''">No Certificate</label>
+                                                </td>
+                                                <!-- <td>
+                                                    <iframe *ngIf="crtfcteURL.endsWith('.pdf')" [src]="crtfcteURL" width="100%" height="600px"></iframe>
+                                                </td> -->
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Internship Image</td>
+                                                <td class="data-value">
+                                                    <img [src]="imageURL" class="img-fluid" style="width: 150px;height:150px;" *ngIf="imageURL">
+                                                    <label *ngIf="imageURL == null || imageURL == ''">No Internship Image </label>
+                                                    <!-- {{imageURL}} -->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Internship Status</td>
+                                                <td class="data-value">{{editData.COURSE_STATUS ? 'Active' : 'In-active'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Description</td>
+                                                <td class="data-value">{{editData.COURSE_DESCRIPTION}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- <div>
+                                        <button class="btn btn-sm btn-success" *ngIf="isFounder" [routerLink]="['/HOME/approval-signup']"><i class="bi bi-arrow-left-circle fa-2x"></i> </button>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>

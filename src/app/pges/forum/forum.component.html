@@ -1,0 +1,163 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Forums </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-right mb-1">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#myModal">Add Topic</button>
+                                        </div>
+                                        <div class="form-group pt-2">
+                                            <div class="row">
+                                                <div *ngIf='isSuperAdmin' class="col-md-3">
+                                                    <label for="sel1">Tenant Name : </label>
+                                                    <select [(ngModel)]='tId ' (change)="changeTname()"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
+                                                            {{item.TNT_NAME}}</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <table datatable id="DataTables_Table_0" [dtOptions]="dtOptions"
+                                                [dtTrigger]="dtTrigger"
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>
+                                                            Forum </th>
+                                                        <th> Topic(s)</th>
+                                                        <th>Post(s)</th>
+
+                                                        <th>Last Post</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.COURSE_NAME}}</td>
+                                                        <td>{{item.TOPIC_COUNT}}</td>
+                                                        <td>{{item.POSTS}}</td>
+                                                        <td>{{item.LASTPOST}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="false">
+                                            No Records to display
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header py-2">
+                            <h6 class="modal-title" id="exampleModalLabel">Add Topic</h6>
+                            <button type="button" (click)="close()" class="close" data-bs-dismiss="modal"
+                                aria-label="Close"><i class="fas fa-times"></i></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                                <fieldset>
+                                    <div class="form-group row">
+                                        <label class="col-md-4 control-label line_2 rem_1">
+                                            Your Name <span class="text-danger">*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                <input readonly placeholder="" class="form-control"
+                                                    formControlName="MNAME">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row pt-4">
+                                        <label class="col-md-4 control-label line_2 rem_1">
+                                            Course Name <span class="text-danger">*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+
+                                                <select [(ngModel)]='courceId '
+                                                    class="form-control form-control-sm shadow-sm rounded-lg" id="sel1"
+                                                    formControlName='CourseId'>
+                                                    <option value="" [selected]="true">select</option>
+                                                    <option *ngFor="let course of cources" [value]='course.COURSE_ID'>
+                                                        {{course.COURSE_NAME}}
+                                                    </option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row pt-4">
+                                        <label class="col-md-4 control-label line_2 rem_1">
+                                            Topic Name <span class="text-danger">*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                <input placeholder="" formControlName='Topic' class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row pt-4">
+                                        <label class="col-md-4 control-label line_2 rem_1">
+                                            Body <span class="text-danger">*</span> </label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                <textarea placeholder="" class="form-control"
+                                                    formControlName="Description"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row pt-4">
+                                        <label class="col-md-4 control-label"> Attachments</label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group">
+                                                <input (change)="changeFile($event)" class="form-control" type="file">
+                                                <p> Select files to upload
+                                                    (.jpeg,.jpg,.png,.gif,.doc,.docx,.xls,.xlsx,.pdf,.zip)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" *ngIf="!isEdit" (click)="onSubmit(myForm)"
+                                class="btn btn-sm  btn-save" [disabled]="myForm.invalid">Save</button>
+                            <button type="button" *ngIf="isEdit" (click)="onSubmit(myForm)" class="btn btn-sm  btn-save"
+                                [disabled]="myForm.invalid">Update</button>
+                            <button type="button" class="btn btn-danger btn-sm" id='md_close' (click)="close()"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

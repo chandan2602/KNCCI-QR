@@ -1,0 +1,255 @@
+<input type="button" id="btnOpenModel" class="d-none" data-bs-toggle="modal" data-bs-target="#myModal">
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2 " style="border-radius: 0pxs;">
+                <h4 class="modal-title w-100"> Address Details</h4>
+                <button type="button" id="btnClose" class="close" (click)="close()" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="addressForm">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Age
+                                    <!-- <span class="text-danger">*</span> -->
+                                </label>
+                                <!-- [ngClass]="{ 'is-invalid': submitted && f.age.errors }" -->
+                                <input type="text" type="text" formControlName='age'
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+                                <!-- <div *ngIf="submitted && f.age.errors" class="invalid-feedback">
+                                    <div *ngIf="f.age.errors.required"> age is required.</div>
+                                </div> -->
+
+                            </div>
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Gender<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <select formControlName='gender' class="form-select form-select-sm shadow-sm rounded-lg"
+                                    [ngClass]="{ 'is-invalid': submitted && f.gender.errors }">
+                                    <option value="" selected>Select Gender</option>
+                                    <option *ngFor="let item of genderList" [value]="item">
+                                        {{item}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                                    <div *ngIf="f.gender.errors.required"> gender is required.</div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Occupation
+                                    <!-- <span class="text-danger">*</span> -->
+                                </label>
+                                <!-- [ngClass]="{ 'is-invalid': submitted && f.occupation.errors }" -->
+                                <input type="text" type="text" formControlName='occupation'
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+                                <!-- <div *ngIf="submitted && f.occupation.errors" class="invalid-feedback">
+                                    <div *ngIf="f.occupation.errors.required"> occupation is required.</div>
+                                </div> -->
+
+                            </div>
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Country
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" aria-label="Default select example"
+                                    formControlName="Country_id"
+                                    [ngClass]="{ 'is-invalid': submitted && f.Country_id.errors }"
+                                    (change)="countyDropdowns($event.target.value)">
+                                    <option value=""> select </option>
+                                    <option *ngFor="let item of CountryList" [value]="item.country_id">
+                                        {{ item.country_name }}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && f.Country_id.errors" class="invalid-feedback">
+                                    <div *ngIf="f.Country_id.errors.required"> County is required.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 mb-3">
+                                <label class="control-label line_2 rem_1"> County/State
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" aria-label="Default select example"
+                                    formControlName="COUNTIES_ID"
+                                    [ngClass]="{ 'is-invalid': submitted && f.COUNTIES_ID.errors }"
+                                    (change)="contyChange($event.target.value)">
+                                    <option value=""> select </option>
+                                    <option *ngFor="let item of countyList" [value]="item.COUNTIES_CODE">
+                                        {{ item.COUNTIES_NAME }}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && f.COUNTIES_ID.errors" class="invalid-feedback">
+                                    <div *ngIf="f.COUNTIES_ID.errors.required"> County is required.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 mb-3">
+                                <label class="control-label line_2 rem_1"> Sub County/District
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" aria-label="Default select example"
+                                    formControlName="SUB_COUNTIES_ID"
+                                    [ngClass]="{ 'is-invalid': submitted && f.SUB_COUNTIES_ID.errors }">
+                                    <option value=""> select </option>
+                                    <option *ngFor="let item of subCountyList" [value]="item.sub_counties_id">
+                                        {{ item.sub_counties_name }}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && f.SUB_COUNTIES_ID.errors" class="invalid-feedback">
+                                    <div *ngIf="f.SUB_COUNTIES_ID.errors.required"> Sub County is required.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Address
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <textarea type="text" formControlName='area_name' cols="5"
+                                    [ngClass]="{ 'is-invalid': submitted && f.area_name.errors }"
+                                    class="form-control form-control-sm shadow-sm rounded-lg"></textarea>
+
+                                <div *ngIf="submitted && f.area_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.area_name.errors.required"> Address is required.</div>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Area
+                                    <span class="text-danger">*</span>
+                                </label>
+                                [ngClass]="{ 'is-invalid': submitted && f.area_name.errors }"
+                                <input type="text" type="text" formControlName='area_name'
+                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                    (keypress)="keyPressAlphaNumericwithSlash($event)">
+                                <div *ngIf="submitted && f.area_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.area_name.errors.required"> Area is required.</div>
+                                </div>
+
+                            </div>
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> City
+                                    <span class="text-danger">*</span>
+                                </label>
+
+                                <input type="text" type="text" formControlName='city_name'
+                                    [ngClass]="{ 'is-invalid': submitted && f.city_name.errors }"
+                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                    (keypress)="keyPressAlphaNumericwithSlash($event)">
+                                <div *ngIf="submitted && f.city_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.city_name.errors.required"> City is required.</div>
+                                </div>
+
+                            </div>
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> District
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" type="text" formControlName='district_name'
+                                    [ngClass]="{ 'is-invalid': submitted && f.district_name.errors }"
+                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                    (keypress)="keyPressAlphaNumericwithSlash($event)">
+
+                                <div *ngIf="submitted && f.district_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.district_name.errors.required"> District is required.</div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> State
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" type="text" formControlName='state_name'
+                                    [ngClass]="{ 'is-invalid': submitted && f.state_name.errors }"
+                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                    (keypress)="keyPressAlphaNumericwithSlash($event)">
+
+                                <div *ngIf="submitted && f.state_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.state_name.errors.required"> State is required.</div>
+                                </div>
+                            </div> -->
+
+
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Education
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <select formControlName='education_name' #Address_Type
+                                    (change)="OtherTxt.value=''; others($event)"
+                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                    [ngClass]="{ 'is-invalid': submitted && f.education_name.errors }">
+                                    <option value="" selected>Select Education Type</option>
+                                    <option *ngFor="let eduction of educationTypes" [value]="eduction.name">
+                                        {{eduction.name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && f.education_name.errors" class="invalid-feedback">
+                                    <div *ngIf="f.education_name.errors.required"> Education is required.</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class=" control-label line_2 rem_1">Any Other</label>
+                                <input type="text" type="text" formControlName='other' #OtherTxt
+                                    [attr.disabled]="(Address_Type.value=='Other')? null:true"
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+
+                            </div>
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Pin code
+                                    <!-- <span class="text-danger">*</span> -->
+                                </label>
+                                <!-- [ngClass]="{ 'is-invalid': submitted && f.pincode.errors }" -->
+                                <input type="text" type="text" formControlName='pincode'
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                <!-- <div *ngIf="submitted && f.pincode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.pincode.errors.required"> pincode is required.</div>
+                                </div> -->
+                            </div>
+                            <div class="col-xl-4 mb-3">
+                                <label class="col-md-5 control-label line_2 rem_1"> Nationality
+                                    <!-- <span class="text-danger">*</span> -->
+                                </label>
+                                <!-- [ngClass]="{ 'is-invalid': submitted && f.nationality.errors }" -->
+                                <input type="text" type="text" formControlName='nationality'
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                <!-- <div *ngIf="submitted && f.nationality.errors" class="invalid-feedback">
+                                    <div *ngIf="f.nationality.errors.required"> nationality is required.</div>
+                                </div> -->
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class=" control-label line_2 rem_1"> Upload Institute ID </label>
+                                <input #takeInput (change)='changeFile($event)' type="file" #materialFile
+                                    id="materialFile1" style="min-height: 30px;" placeholder=""
+                                    formControlName='upload_institute'
+                                    accept="'png', 'jpg', 'PNG', 'jpeg', 'JPEG','pdf','PDF'"
+                                    class="form-control form-control-sm shadow-sm rounded-lg">
+                            </div>
+                            <p>{{getName('Institute',fileName)}}</p>
+
+                        </div>
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" (click)="onSubmit(addressForm)"
+                    class="btn btn-sm   btn-save ps-4 pe-4">Save</button>
+                <button type="button" id="btnCloseModel" (click)="close()" class="btn btn-danger btn-sm ps-4 pe-4"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

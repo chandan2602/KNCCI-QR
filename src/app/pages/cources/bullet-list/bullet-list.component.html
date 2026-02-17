@@ -1,0 +1,55 @@
+<button type="button" class="d-none" id="btnShowBulletListModel" data-bs-toggle="modal"
+    data-bs-target="#myModal2"></button>
+
+<div class="modal" id="myModal2" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">More Options</h4>
+                <button type="button" class="btn-close" (click)="closeBulet()" data-bs-dismiss="modal"
+                    aria-hidden="true"></button>
+            </div>
+            <div class="container"></div>
+            <div class="modal-body">
+
+                <div class="col-xl-12 mb-4">
+                    <div class="form">
+                        <label class=" form-label line_2 rem_1">
+                            Bullet Points </label>
+                        <textarea placeholder="" class="form-control form-control-sm"
+                            [(ngModel)]="bulletpoint"></textarea>
+                    </div>
+                </div>
+                <div class="mb-4 text-right">
+                    <button (click)="addPoints()" class="btn btn-primary btn-sm">{{btnTitle}}</button>
+                </div>
+                <table class="table table-striped pt-4 ">
+                    <thead>
+                        <tr>
+                            <th> Sl No. </th>
+                            <th> Bullet Points </th>
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let options of OptionsList; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{options}}</td>
+                            <td style="display: flex;">
+                                <span class="edit_icon" style="cursor: pointer;" (click)="editBullet(i)">
+                                    <i class="fas fa-pen pt-1 mt-1"></i></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="modal-footer">
+                <a data-bs-dismiss="modal" class="btn btn-outline-dark btn-sm" (click)="closeBulet()">Close</a>
+                <a (click)="updatePoints()" class="btn btn-primary btn-sm">Update</a>
+                <a data-bs-dismiss="modal" id="btn_close" class="d-none">Close</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,187 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <h5 class="text-left"><b>Apply Job</b></h5>
+                        <div class="custom_container">
+                            <div class="well form-horizontal" [formGroup]="jobApplyForm">
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> First Name :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='firstname' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500"
+                                            [ngClass]="{ 'is-invalid': isSubmt && fc['firstname'].errors }">
+                                        <div *ngIf="isSubmt && fc['firstname'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['firstname'].errors['required']">First name is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Last Name :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='lastname' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500"
+                                            [ngClass]="{ 'is-invalid': isSubmt && fc['lastname'].errors }">
+                                        <div *ngIf="isSubmt && fc['lastname'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['lastname'].errors['required']">Last name is required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Email :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='email' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500"
+                                            [ngClass]="{ 'is-invalid': isSubmt && fc['email'].errors }">
+                                        <div *ngIf="isSubmt && fc['email'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['email'].errors['required']">Email is required</div>
+                                            <div *ngIf="fc['email'].errors['pattern']">Please enter valid email</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Mobile Number :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='phone_number' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="10"
+                                            onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'
+                                            [ngClass]="{ 'is-invalid': isSubmt && fc['phone_number'].errors }">
+                                        <div *ngIf="isSubmt && fc['phone_number'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['phone_number'].errors['required']">Mobile No. is required
+                                            </div>
+                                            <div *ngIf="fc['phone_number'].errors['pattern']">Please enter valid mobile
+                                            </div>
+                                            <div *ngIf="fc['phone_number'].errors['minlength']">Please enter 10 digit
+                                                number</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Date of Birth :<span
+                                                class="text-danger">*</span></label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control group-input form-control-sm eBSDP"
+                                                placeholder="DD-MM-YYYY" [bsConfig]="dtPkrCnfg" bsDatepicker
+                                                #dpAD="bsDatepicker" onkeypress='return event.charCode == 8'
+                                                formControlName="date_birth" [maxDate]="dt2Day"
+                                                [ngClass]="{ 'is-invalid': isSubmt && fc['phone_number'].errors }">
+                                            <span class="input-group-text input-group-text1 eBSDP"
+                                                [attr.disabled]="screenType == 'view' ? true : null">
+                                                <button class="btn btn-outline-bsdp btn-sm p-2 eBtnDP" type="button"
+                                                    (click)="dpAD.toggle()" [attr.aria-expanded]="dpAD.isOpen"
+                                                    title="Calendar"
+                                                    [attr.disabled]="screenType == 'view' ? true : null">
+                                                    <i class="fa fa-calendar"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div *ngIf="isSubmt && fc['date_birth'].errors" class="invalid-feedback">
+                                            <div *ngIf="fc['date_birth'].errors['required']">Date of Birth is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Current Location / City :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='location' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500">
+                                    </div>
+                                    <!-- <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> County :<span class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg" [attr.disabled]="screenType == 'view' ? true : null"
+                                            formControlName='county_id' (change)="subCounty='';contyChange($event.target.value)">
+                                            <option value="" [selected]="true">Select</option>
+                                            <option [value]='item.counties_id' *ngFor='let item of allDropDwns?.counties'>
+                                                {{item.counties_name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Sub County :<span class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg" [attr.disabled]="screenType == 'view' ? true : null"
+                                            formControlName='sub_county_id' [(ngModel)]="subCounty">
+                                            <option value="" [selected]="true">Select</option>
+                                            <option [value]='item.sub_counties_id' *ngFor='let item of subCountyList'>
+                                                {{item.sub_counties_name}}</option>
+                                        </select>
+                                    </div> -->
+                                    <div class="col-xl-3">
+                                        <label class="control-label mt-2">Highest Qualifications :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='education_level_id'
+                                            [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="" [selected]="true">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns.education_level'>
+                                                {{item.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2">Total Work Experience :<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg"
+                                            formControlName='experience_level_id'
+                                            [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="" [selected]="true">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns.experience_level'>
+                                                {{item.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Skills / Technologies :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" formControlName='skills' type="text"
+                                            [attr.disabled]="screenType == 'view' ? true : null" maxlength="500">
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Job Position :<span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" [(ngModel)]='job_title'
+                                            [ngModelOptions]="{standalone: true}" readonly maxlength="500">
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Resume :<span
+                                                class="text-danger">*</span></label>
+                                        <div class="inputGroupContainer">
+                                            <div class="input-group">
+                                                <input type="file" (change)="changeFile($event)" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-xl-3">
+                                        <label class="control-label mt-2"> Job Category :<span class="text-danger">*</span></label>
+                                        <select class="form-control form-control-sm shadow-sm rounded-lg" [(ngModel)]="jobCatgry"
+                                            formControlName='job_category_id' [attr.disabled]="screenType == 'view' ? true : null">
+                                            <option value="" [selected]="true">Select</option>
+                                            <option [value]='item.id' *ngFor='let item of allDropDwns?.job_category'>
+                                                {{item.name}}</option>
+                                        </select>
+                                    </div> -->
+
+                                    <!-- <div class="col-xl-3">
+                                        <label class=" control-label mt-2"> Language :<span class="text-danger">*</span></label>
+                                        <ng-multiselect-dropdown
+                                            [settings]="stngsMSD(false, 'id', 'name')"
+                                            (onSelect)="onMSD('s', 'Ln', $event)" (onDeSelect)="onMSD('d', 'Ln', $event)"
+                                            (onSelectAll)="onMSD('a', 'Ln', $event)" formControlName='language_ids'
+                                            (onDeSelectAll)="onMSD('r', 'Ln', $event)" [data]="allDropDwns.languages"
+                                            class="ngMsd droplist" [(ngModel)]="slctLngList">
+                                        </ng-multiselect-dropdown>
+                                    </div> -->
+                                    <div class="col-xl-3 mt-4 float-right">
+                                        <div class="float-right">
+                                            <button type="button" (click)='isSubmt=true;Save()'
+                                                class="btn btn-sm  btn-save me-1"
+                                                *ngIf="screenType != 'view'">{{screenType == 'add'? 'Save':
+                                                'Update'}}</button>
+                                            <button type="button" (click)="Back()"
+                                                class="btn btn-sm btn-danger">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

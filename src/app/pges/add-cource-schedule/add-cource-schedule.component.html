@@ -1,0 +1,693 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="default_class">
+            <div class="content-wrapper p-0">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card rounded shadow-lg">
+                                <div class="card-header  headerbg" style="border-bottom: 3px solid #d8eff8;">
+                                    <h5 *ngIf="!isEdit" class="mb-0">Add Batch Schedule</h5>
+                                    <h5 *ngIf="isEdit" class="mb-0">Edit Batch Schedule</h5>
+                                </div>
+                                <div>
+                                    <button type="button"  class="text-right btn btn-sm btn-danger" (click)="close()"
+                                        id="md_close"><i class="bi bi-arrow-left-circle fa-2x"></i></button>
+                                </div>
+                                <div class="card-body">
+
+                                    <form class="well form-horizontal" [formGroup]="myForm"
+                                        (ngSubmit)="onSubmit(myForm)">
+                                        <fieldset>
+                                            <div class="row">
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="isdaily"
+                                                            formControlName="isdaily" id="daily" [value]="true"
+                                                            (change)="meeting('daily')">
+                                                        <label class="form-check-label" for="daily">Daily
+                                                            Meeting</label>
+                                                    </div>
+
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio" name="isdaily"
+                                                            formControlName="isdaily" id="daily" [value]="false"
+                                                            (change)="meeting('weekly')">
+                                                        <label class="form-check-label">Weekly Meeting</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-3 mb-4" *ngIf="isMeeting">
+                                                    <label class="form-label">Select Days</label>
+                                                    <ng-multiselect-dropdown style="width:100%" [placeholder]="'Select'"
+                                                        [settings]="dropdownSettings" [data]="WeeklyDays"
+                                                        [(ngModel)]='selectedItems'
+                                                        [ngModelOptions]="{standalone: true}">
+                                                    </ng-multiselect-dropdown>
+
+
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Internship Category <span class="text-danger">*</span></label>
+                                                        <select class="form-select form-select-sm shadow-sm rounded-lg"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSE_CATEGORY_ID.errors }"
+                                                            (change)="getCourseByCategoryId($event.target.value)"
+                                                            formControlName="COURSE_CATEGORY_ID">
+                                                            <option value="" [selected]="true">select</option>
+                                                            <option *ngFor="let item of catagory"
+                                                                [value]="item.COURSE_CATEGORY_ID">
+                                                                {{item.COURSE_CATEGORY_NAME}}
+                                                            </option>
+                                                        </select>
+                                                        <!-- <div *ngIf="myForm.get('COURSE_CATEGORY_ID').touched">
+                                                            <span class="text-danger form-text"
+                                                                *ngIf="myForm.get('COURSE_CATEGORY_ID').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <div *ngIf="submitted && f.COURSE_CATEGORY_ID.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSE_CATEGORY_ID.errors.required">Course
+                                                                Category is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Internship Name <span class="text-danger">*</span></label>
+                                                        <select [(ngModel)]='courceId '
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_COURSE_ID.errors }"
+                                                            formControlName='COURSESHD_COURSE_ID'
+                                                            class="form-select form-select-sm shadow-sm rounded-lg">
+                                                            <option value="" [selected]="true">select</option>
+                                                            <option *ngFor="let course of cources"
+                                                                [value]='course.COURSE_ID'>
+                                                                {{course.COURSE_NAME}}
+                                                            </option>
+                                                        </select>
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_COURSE_ID').touched">
+                                                            <span class="text-danger form-text"
+                                                                *ngIf="myForm.get('COURSESHD_COURSE_ID').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <div *ngIf="submitted && f.COURSESHD_COURSE_ID.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_COURSE_ID.errors.required">Course
+                                                                Name is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Student Level <span class="text-danger">*</span></label>
+                                                        <!-- <div class="input-group"> -->
+                                                        <select (change)="batchChanged()"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_STUDENT_LEVEL.errors }"
+                                                            formControlName='COURSESHD_STUDENT_LEVEL'
+                                                            class="form-select form-select-sm shadow-sm rounded-lg">
+                                                            <option value="" selected>Select</option>
+                                                            <option *ngFor='let item of levels'
+                                                                [value]='item.DICTIONARYID'>{{item.DICTIONARYNAME}}
+                                                            </option>
+                                                        </select>
+
+                                                        <!-- </div> -->
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_STUDENT_LEVEL').touched">
+                                                            <span class="text-danger form-text"
+                                                                *ngIf="myForm.get('COURSESHD_STUDENT_LEVEL').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <div *ngIf="submitted && f.COURSESHD_STUDENT_LEVEL.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_STUDENT_LEVEL.errors.required">
+                                                                Student Level is
+                                                                required </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Batch Name </label>
+                                                        <input placeholder="" class="form-control form-control-sm"
+                                                            formControlName="COURSESHD_NAME">
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_NAME').touched">
+                                                            <span class="text-danger form-text"
+                                                                *ngIf="myForm.get('COURSESHD_NAME').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <!-- <div *ngIf="submitted && f.COURSESHD_NAME.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_NAME.errors.required"> Batch Name is
+                                                                required</div>
+                                                        </div> -->
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- <div class="col-xl-4 mb-4">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Academic Year<span class="text-danger">*</span></label>
+
+                                                        <div class="input-group">
+                                                            <select formControlName='COURSESHD_ACADAMICYEAR'
+                                                            class="form-select form-select-sm shadow-sm rounded-lg">
+                                                                <option value="" selected>Select </option>
+                                                                <option *ngFor='let item of acadamicYears'
+                                                                    [value]='item.DICTIONARYID'>{{item.DICTIONARYNAME}}
+                                                                </option>
+                                                            </select>
+
+                                                        </div>
+
+                                                        <div *ngIf="myForm.get('COURSESHD_ACADAMICYEAR').touched">
+                                                            <span class="text-danger"
+                                                                *ngIf="myForm.get('COURSESHD_ACADAMICYEAR').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
+                                                </div> -->
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Internship Classification <span
+                                                                class="text-danger">*</span></label>
+                                                        <select (change)="batchChanged()"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.courseshd_classifiedtype_id.errors }"
+                                                            formControlName='courseshd_classifiedtype_id'
+                                                            class="form-select form-select-sm shadow-sm rounded-lg">
+                                                            <option value="" selected>Select</option>
+                                                            <option value="1">Part Time</option>
+                                                            <option value="2">Full Time</option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.courseshd_classifiedtype_id.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.courseshd_classifiedtype_id.errors.required">
+                                                                Course Classification is
+                                                                required </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Application Fees <span class="text-danger">*</span></label>
+                                                        <input placeholder="" type="text" pattern="^[0-9][0-9]*$"
+                                                            required
+                                                            oninput="if(!this.value.match('^[0-9][0-9]*$'))this.value='';"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_AMOUNT.errors }"
+                                                            class="form-control form-control-sm"
+                                                            formControlName="COURSESHD_AMOUNT" maxlength="7">
+
+                                                        <!-- (blur)="validate($event)" -->
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_AMOUNT').touched">
+                                                            <span class="text-danger form-text"
+                                                                *ngIf="myForm.get('COURSESHD_AMOUNT').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <!-- <div *ngIf="submitted && f.COURSESHD_AMOUNT.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_AMOUNT.errors.required"> Batch Fee
+                                                                is
+                                                                required</div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Stipend/per month <span class="text-danger">*</span></label>
+                                                        <input placeholder="" type="text" pattern="^[0-9][0-9]*$"
+                                                            required
+                                                            oninput="if(!this.value.match('^[0-9][0-9]*$'))this.value='';"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.courseshd_Stipend.errors }"
+                                                            class="form-control form-control-sm"
+                                                            formControlName="courseshd_Stipend" maxlength="7">
+
+                                                        <!-- (blur)="validate($event)" -->
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_AMOUNT').touched">
+                                                            <span class="text-danger form-text"
+                                                                *ngIf="myForm.get('COURSESHD_AMOUNT').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <!-- <div *ngIf="submitted && f.COURSESHD_AMOUNT.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_AMOUNT.errors.required"> Batch Fee
+                                                                is
+                                                                required</div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Batch Start Date <span class="text-danger">*</span></label>
+                                                        <input
+                                                            (change)="myForm.get('COURSESHD_ENDDATE').setValue(null);myForm.get('COURSESHD_NOOFDAYS').setValue(0);"
+                                                            (blur)="validateDate($event.target)" [readonly]='isDisable'
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_STARTDATE.errors }"
+                                                            class="form-control form-control-sm" type="date"
+                                                            min="{{minDate}}"
+                                                            [ngModel]="data.COURSESHD_STARTDATE | date:'yyyy-MM-dd'"
+                                                            formControlName="COURSESHD_STARTDATE">
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_STARTDATE').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myForm.get('COURSESHD_STARTDATE').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+                                                            </div> -->
+                                                        <div *ngIf="submitted && f.COURSESHD_STARTDATE.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_STARTDATE.errors.required"> Batch
+                                                                Start Date is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Batch End Date<span class="text-danger">*</span></label>
+
+                                                        <input [ngModel]="data.COURSESHD_ENDDATE | date:'yyyy-MM-dd'"
+                                                            (blur)="endDateChange($event.target.value)"
+                                                            class="form-control form-control-sm" type="date"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_ENDDATE.errors }"
+                                                            formControlName="COURSESHD_ENDDATE">
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_ENDDATE').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myForm.get('COURSESHD_ENDDATE').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+                                                            </div> -->
+                                                        <div *ngIf="submitted && f.COURSESHD_ENDDATE.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_ENDDATE.errors.required"> Batch End
+                                                                Date is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Batch Start Time <span class="text-danger">*</span></label>
+                                                        <input type="time" formControlName='COURSESHD_STARTTIME'
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_STARTTIME.errors }"
+                                                            class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_STARTTIME').touched">
+                                                            <span class="text-danger"
+                                                                *ngIf="myForm.get('COURSESHD_STARTTIME').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <div *ngIf="submitted && f.COURSESHD_STARTTIME.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_STARTTIME.errors.required">Batch
+                                                                Start Time is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Batch End Time <span class="text-danger">*</span></label>
+
+                                                        <input (change)="timeChange($event.target.value)" type="time"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_ENDTIME.errors }"
+                                                            formControlName='COURSESHD_ENDTIME'
+                                                            class="form-control form-control-sm shadow-sm rounded-lg ">
+
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_ENDTIME').touched">
+                                                            <span class="text-danger"
+                                                                *ngIf="myForm.get('COURSESHD_ENDTIME').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <div *ngIf="submitted && f.COURSESHD_ENDTIME.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_ENDTIME.errors.required"> Batch End
+                                                                Time is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Registration Start Date <span
+                                                                class="text-danger">*</span></label>
+
+                                                        <input type="date" min="{{minDate}}"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.REGISTRATION_STARTDATE.errors }"
+                                                            formControlName='REGISTRATION_STARTDATE'
+                                                            class="form-control form-control-sm shadow-sm rounded-lg ">
+
+
+                                                        <div *ngIf="submitted && f.REGISTRATION_STARTDATE.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.REGISTRATION_STARTDATE.errors.required">
+                                                                Registration Start Date is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Registration End Date <span
+                                                                class="text-danger">*</span></label>
+
+                                                        <input type="date" readonly
+                                                            [ngClass]="{ 'is-invalid': submitted && f.REGISTRATION_ENDDATE.errors }"
+                                                            formControlName='REGISTRATION_ENDDATE'
+                                                            class="form-control form-control-sm shadow-sm rounded-lg ">
+
+
+                                                        <div *ngIf="submitted && f.REGISTRATION_ENDDATE.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.REGISTRATION_ENDDATE.errors.required">
+                                                                Registration End Date is
+                                                                required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Batch Duration(days)
+                                                            <!-- <span class="text-danger">*</span> -->
+                                                        </label>
+                                                        <input placeholder="" type="number" readonly
+                                                            class="form-control form-control-sm"
+                                                            formControlName="COURSESHD_NOOFDAYS">
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_NOOFDAYS').touched">
+                                                            <span class="text-danger form-text"
+                                                                *ngIf="myForm.get('COURSESHD_NOOFDAYS').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <!-- <div *ngIf="submitted && f.COURSESHD_NOOFDAYS.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_NOOFDAYS.errors.required"> Batch Duration(days) is
+                                                                required</div>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Number of students<span class="text-danger">*</span></label>
+                                                        <input type="number" min="1" placeholder=""
+                                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                                            class="form-control form-control-sm"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_STUDENTS_REGISTERED.errors }"
+                                                            formControlName="COURSESHD_STUDENTS_REGISTERED">
+                                                        <!-- <div
+                                                            *ngIf="myForm.get('COURSESHD_STUDENTS_REGISTERED').touched">
+                                                            <span class="text-danger"
+                                                                *ngIf="myForm.get('COURSESHD_STUDENTS_REGISTERED').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <div *ngIf="submitted && f.COURSESHD_STUDENTS_REGISTERED.errors"
+                                                            class="invalid-feedback">
+                                                            <div
+                                                                *ngIf="f.COURSESHD_STUDENTS_REGISTERED.errors.required">
+                                                                Number of students is
+                                                                required</div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div class="col-xl-4 mb-4">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            No Of Sessions<span class="text-danger">*</span></label>
+                                                        <input type="number" formControlName='COURSESHD_NOOFSESSIONS'
+                                                            class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                        <div *ngIf="myForm.get('COURSESHD_NOOFSESSIONS').touched">
+                                                            <span class="text-danger form-text"
+                                                                *ngIf="myForm.get('COURSESHD_NOOFSESSIONS').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+
+                                                <!-- <div class="col-xl-4 mb-4">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Language Of Instuction<span
+                                                                class="text-danger">*</span></label>
+
+                                                        <div class="input-group">
+                                                            <select formControlName='COURSESHD_LANGUAGE_ID'
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_LANGUAGE_ID.errors }"
+                                                            class="form-select form-select-sm shadow-sm rounded-lg">
+                                                                <option value="" selected>Select </option>
+                                                                <option *ngFor='let item of languages'
+                                                                    [value]='item.DICTIONARYID'>{{item.DICTIONARYNAME}}
+                                                                </option>
+                                                            </select>
+
+                                                        </div> -->
+
+                                                <!-- <div *ngIf="myForm.get('COURSESHD_LANGUAGE_ID').touched">
+                                                            <span class="text-danger"
+                                                                *ngIf="myForm.get('COURSESHD_LANGUAGE_ID').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                <!-- <div *ngIf="submitted && f.COURSESHD_LANGUAGE_ID.errors" class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_LANGUAGE_ID.errors.required"> Language Of Instuction is
+                                                                required</div>
+                                                        </div>
+
+                                                    </div>
+                                                </div> -->
+
+
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">
+                                                            Payment Method<span class="text-danger">*</span></label>
+                                                        <select formControlName='COURSESHD_PAYMENT_METHOD'
+                                                            [ngClass]="{ 'is-invalid': submitted && f.COURSESHD_PAYMENT_METHOD.errors }"
+                                                            #paymentMethod (change)="isChange($event.target.value)"
+                                                            class="form-select form-select-sm shadow-sm rounded-lg">
+                                                            <option value="0" [selected]="true">select
+                                                            </option>
+                                                            <option *ngFor="let payment of paymentMethodList"
+                                                                [value]='payment.id'>
+                                                                {{payment.name}}
+                                                            </option>
+                                                        </select>
+
+
+                                                        <!-- <div *ngIf="myForm.get('COURSESHD_PAYMENT_METHOD').touched">
+                                                            <span class="text-danger"
+                                                                *ngIf="myForm.get('COURSESHD_PAYMENT_METHOD').hasError('required')">
+                                                                This field is required.
+                                                            </span>
+                                                        </div> -->
+                                                        <div *ngIf="submitted && f.COURSESHD_PAYMENT_METHOD.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.COURSESHD_PAYMENT_METHOD.errors.required">
+                                                                Payment Method is
+                                                                required</div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class="form-label line_2 rem_1">Upload
+                                                            Demo Video
+                                                            <!-- <span class="text-danger">*</span>  -->
+                                                        </label>
+                                                        <!--  -->
+                                                        <input class="d-none"
+                                                            formControlName="COURSESHD_UPLOAD_DEMO_VIDEO" type="text"
+                                                            name="COURSESHD_UPLOAD_DEMO_VIDEO"
+                                                            id="COURSESHD_UPLOAD_DEMO_VIDEO">
+                                                        <input (change)='changeFile($event)' type="file" #materialFile
+                                                            id="materialFile1" style="min-height: 30px;" placeholder=""
+                                                            accept="video/mp4,video/x-m4v,video/"
+                                                            class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                                    </div>
+
+                                                    <p>{{fileName}}</p>
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            External Link</label>
+                                                        <input placeholder="" class="form-control form-control-sm"
+                                                            formControlName="COURSESHD_ONLINE_URL">
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Terms Of Engagement</label>
+                                                        <textarea placeholder="" class="form-control form-control-sm"
+                                                            formControlName="courseshd_terms" rows="5"></textarea>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-xl-4 mb-3">
+                                                    <div class="form">
+                                                        <label class=" form-label line_2 rem_1">
+                                                            Who Can Apply</label>
+                                                        <textarea placeholder="" class="form-control form-control-sm"
+                                                            formControlName="courseshd_canappy" rows="5"></textarea>
+
+                                                    </div>
+
+                                                </div>
+
+
+
+
+
+                                                <div formArrayName='Installments' class="row" *ngIf="isAdd()&& plus">
+                                                    <div class="col-xl-2 mb-4" *ngIf="paymentChange">
+                                                        <div *ngIf="myForm.controls['Installments']">
+                                                            <!-- <div formArrayName='Installments'> -->
+
+                                                            <div class="form"
+                                                                *ngFor="let item of myForm.controls['Installments'].controls;let i=index"
+                                                                [formGroupName]="i">
+                                                                <label class="form-label line_2 rem_1 mb-0 mt-2">
+                                                                    Installment {{i+1}} <span
+                                                                        class="text-danger">*</span></label>
+                                                                &nbsp;
+                                                                <input [attr.disabled]="isEdit?true:null"
+                                                                    class="form-control form-control-sm"
+                                                                    formControlName="CSI_AMOUNT"
+                                                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                                            </div>
+
+
+
+                                                            <!-- </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 mb-4" *ngIf="paymentChange">
+                                                        <div *ngIf="myForm.controls['Installments']">
+                                                            <!-- <div formArrayName='Installments'> -->
+
+                                                            <div class="form"
+                                                                *ngFor="let item of myForm.controls['Installments'].controls;let i=index"
+                                                                [formGroupName]="i">
+                                                                <label class="form-label line_2 rem_1 mb-0 mt-2">
+                                                                    Installment Name{{i+1}} <span
+                                                                        class="text-danger">*</span></label>
+                                                                &nbsp;
+                                                                <input [attr.disabled]="isEdit?true:null"
+                                                                    class="form-control form-control-sm"
+                                                                    formControlName="CSI_INSTALLMENT_NAME"
+                                                                    placeholder="Installment 1,Installment 2,Installment 3....">
+                                                            </div>
+
+
+
+                                                            <!-- </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 mb-4" *ngIf="paymentChange">
+                                                        <div *ngIf="myForm.controls['Installments']">
+                                                            <!-- <div formArrayName='Installments'> -->
+
+                                                            <div class="form"
+                                                                *ngFor="let item of myForm.controls['Installments'].controls;let i=index"
+                                                                [formGroupName]="i">
+                                                                <label class="form-label line_2 rem_1  mb-0 mt-2">
+                                                                    Start Due Date {{i+1}} <span
+                                                                        class="text-danger">*</span></label>
+                                                                &nbsp;
+                                                                <input [attr.disabled]="isEdit?true:null"
+                                                                    class="form-control form-control-sm"
+                                                                    formControlName="CSI_TODATE" type="date">
+                                                            </div>
+                                                            <!-- </div> -->
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-xl-3 mt-4 pt-2"
+                                                        *ngIf="+paymentMethod.value==2 && !isEdit==true">
+                                                        <div class="form">
+                                                            <div class="btn-group btn-group-sm me-2" role="group"
+                                                                aria-label="Second group">
+                                                                <button type="button" class="btn btn-danger"
+                                                                    *ngIf="isAdd()&& plus"
+                                                                    (click)="add()">+</button>&nbsp;&nbsp;
+                                                                <button type="button" class="btn btn-danger"
+                                                                    *ngIf="isVisable()" (click)="delete()">-</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+                                            <div class="text-center pt-1">
+                                                <button type="button" *ngIf="!isEdit" (click)="onSubmit(myForm)"
+                                                    class="btn btn-sm  btn-save">Save</button>
+                                                <button type="button" *ngIf="isEdit" (click)="onSubmit(myForm)"
+                                                    class="btn btn-sm  btn-save">Update</button>
+                                                &nbsp;&nbsp;
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

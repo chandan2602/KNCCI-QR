@@ -1,0 +1,23 @@
+<body>
+  <!-- <div class="site-mobile-menu site-navbar-target style-1 ">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close mt-3">
+        <span class="icon-close2 js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+  </div> -->
+   <!-- .site-mobile-menu -->
+
+  <app-header-new [categoryList]="categoryList" (categoryEvent)="categoryChanged($event)"></app-header-new>
+  <!-- <app-main-slider></app-main-slider> -->
+  <!-- <app-about-us [isVisible]="showDetails"></app-about-us> -->
+  <!-- <app-all-categories [allCourseList]="allCourseList" [categoryName]="categoryName" [categoryList]="categoryList"
+    (categoryEvent)="categoryChanged($event)" (toggleEvent)="onToggleChanged($event)"></app-all-categories> -->
+  <app-all-courses [courseList]="courseList" [categoryList]="categoryList"
+    (categoryEvent)="categoryChanged($event)" [achivementsList]="achivementsList"></app-all-courses>
+  <!-- <app-view-all-details [achivementsList]="achivementsList"></app-view-all-details> -->
+  <app-trending-courses [trending_courseList]="trending_courseList"></app-trending-courses>
+  <!-- <app-test-monials></app-test-monials> -->
+  <app-footer-new></app-footer-new>
+</body>

@@ -1,0 +1,238 @@
+<div class="limiter">
+
+
+
+
+    <div class="container-login100"
+        style="background-image: url('../../../assets/images/dhanush/bg-image-intern.png');">
+
+
+
+        <div class="wrap-login100" style="padding: 22px 35px 24px 35px;">
+
+
+            <div class="text-center d-flex justify-content-between">
+                <div>
+                <div class="d-flex"> <img id="homepageimage_path" src="../../../../assets/img/logo1-new.png" [routerLink]="['']"
+                        style="cursor:pointer;" class="img-fluid" style="height:40px !important;" />
+                <div class="pt-2"> <span class="login100-form-title p-b-24"> <span style="font-size:22px;">Sign
+                            Up</span>
+                    </span></div>
+                    </div>
+                    </div>
+                    <div>
+                      <a [routerLink]="['/default']">  <i class="bi bi-arrow-left-circle fa-2x"></i> </a>
+                    </div>
+
+            </div>
+            <br>
+
+
+            <div class="container">
+
+                <div class="row  mb-4">
+                    <!-- 
+                    <div class="col-xl-12 mb-4">
+                       
+                    </div> -->
+
+
+                    <div class="col-auto me-auto" (click)="onChangerole('student')" *ngIf="!isLgnTyp">
+                          <h5 class="mt-1 text-start" > Job Seeker </h5>
+
+                        <!-- <a href="javascript:void(0)">
+                            <div class="card shadow-sm h-100 me-2" [class.active-card]="isStudent">
+                                <div class="card-body p-2 text-center"> -->
+                                    <!-- <img src="../../../../assets/images/new-images/internship.png"
+                                        class="img-fluid w-25" /> -->
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                        class="bi bi-mortarboard-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917z" />
+                                        <path
+                                            d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466z" />
+                                    </svg> -->
+                                  
+
+                                <!-- </div>
+                            </div>
+                        </a> -->
+
+                    </div>
+
+                    <div class="col-auto me-auto" (click)="onChangerole('trainer')" *ngIf="isLgnTyp">
+                          <h5 class="fw-bold mt-1" style="font-size: 12px;"> Company
+                          </h5>
+                        <!-- <a href="javascript:void(0)">
+                            <div class="card shadow-sm me-2 h-100" [class.active-card]="!isStudent">
+                                <div class="card-body p-2 text-center"> -->
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                                        class="bi bi-building-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M3 0a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h3v-3.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V16h3a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1zm1 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5M4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM7.5 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zM4.5 8h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5m2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm3.5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5" />
+                                    </svg> -->
+                                    <!-- <img src="../../../../assets/images/new-images/startup.png"
+                                        class="img-fluid w-25" />
+                                  
+
+                                </div>
+                            </div>
+                        </a> -->
+
+
+                    </div>
+                    <!-- <div class="col-auto m-auto" (click)="onChangerole('incubator')">
+                        <a [routerLink]="['/incubatorReg']">
+                            <div class="card shadow-sm me-2 h-100" [class.active-card]="!isStudent">
+                                <div class="card-body p-2 text-center">
+                                    <img src="../../../../assets/images/new-images/agile.png" class="img-fluid w-25" />
+                                    <p class="fw-bold mt-1" style="font-size: 12px;"> Incubator
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+
+
+                    </div>
+                    <div class="col-auto m-auto" (click)="onChangerole('investor')">
+                        <a [routerLink]="['/investorReg']">
+                            <div class="card shadow-sm me-2 h-100" [class.active-card]="!isStudent">
+                                <div class="card-body p-2 text-center">
+                                    <img src="../../../../assets/images/new-images/investor.png"
+                                        class="img-fluid w-25" />
+
+                                    <p class="fw-bold mt-1" style="font-size: 12px;"> Investor
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-auto m-auto" (click)="onChangerole('startsUp')">
+                        <a [routerLink]="['/startsUpReg']">
+                            <div class="card shadow-sm me-2 h-100" [class.active-card]="!isStudent">
+                                <div class="card-body p-2 text-center">
+                                    <img src="../../../../assets/images/new-images/founder.png"
+                                        class="img-fluid w-25" />
+                                    <p class="fw-bold mt-1" style="font-size: 12px;"> Founder
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+
+
+                    </div> -->
+
+
+                </div>
+            </div>
+
+
+            <form class="login100-form validate-form " [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+                <!-- <span style="font-size:15px;">Learning Management System</span> -->
+                <div class="wrap-input100 validate-input mt-2" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                    <input class="input100" formControlName="name" type="text" name="name" maxlength="100"
+                        (input)="nameValidate($event)">
+                    <span class="focus-input100" data-placeholder="Full Name"></span>
+                </div>
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Full name is required</div>
+                </div>
+                <div class="wrap-input100 validate-input mt-4"
+                    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }">
+                    <input class="input100" formControlName="mobile" type="text" name="mobile" maxlength="10"
+                        (input)="numberValidate($event)">
+                    <span class="focus-input100" data-placeholder="Mobile"></span>
+                </div>
+                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                    <div *ngIf="f.mobile.errors.required">Mobile is required</div>
+                    <div *ngIf="f.mobile.errors.pattern">Please enter valid mobile</div>
+                    <div *ngIf="f.mobile.errors.minlength">Please enter 10 digit number</div>
+                </div>
+                <div class="wrap-input100 validate-input mt-4" data-validate="Valid email is: a@b.c"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    <input class="input100" formControlName="email" type="text" name="email" maxlength="100">
+                    <span class="focus-input100" data-placeholder="Email"></span>
+                </div>
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.pattern">Please enter valid email</div>
+                </div>
+                <!-- <div class="mt-4">
+                    <div>
+                        <label class="input-group-append me-3">
+                            <strong>Role :</strong>
+                        </label>
+                        <input id="student" type="radio" name="role" formControlName="role" [value]="true"
+                            (change)="onChangerole('student')" /><label for="student" class="ms-1">
+                            Student</label>
+                        &nbsp;&nbsp;
+                        <input id="trainer" type="radio" name="role" formControlName="role" [value]="false"
+                            (change)="onChangerole('trainer')" /><label for="trainer" class="ms-1">
+                            Trainer/Admin</label>
+                    </div>
+                </div> -->
+                <div class="mt-3">
+                    <label for="exampleInputEmail1" class="form-label" style="color: #908c93;">Registration Type</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="regType"
+                        #RegistrationType style="padding: 0.375rem 2.25rem 0.375rem 0.75rem;"
+                        [attr.disabled]="!isStudent?true:null">
+                        <option value="0"> select </option>
+                        <option value="1">Individual</option>
+                        <option value="2">Company</option>
+                    </select>
+                </div>
+
+                <div class="mt-3" *ngIf="RegistrationType.value=='2' && isStudent">
+                    <label for="exampleInputEmail1" class="form-label" style="color: #908c93;">Select Company
+                        Name</label>
+                    <select class="form-select" aria-label="Default select example" formControlName="Company_id"
+                        style="padding: 0.375rem 2.25rem 0.375rem 0.75rem;">
+                        <option value="0"> select </option>
+                        <option *ngFor="let item of companyList" [value]='item.COMPANY_ID'>{{item.COMPANY_NAME}}
+                        </option>
+                        <!-- <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option> -->
+                    </select>
+                </div>
+
+                <!-- <div class="mt-3 d-none">
+                    <label for="exampleInputEmail1" class="form-label" style="color: #908c93;">Company Name</label>
+                    <select class="form-select" aria-label="Default select example"
+                        style="padding: 0.375rem 2.25rem 0.375rem 0.75rem;">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div> -->
+
+
+                <div class="wrap-input100 validate-input mt-4" *ngIf="RegistrationType.value=='2' && !isStudent">
+                    <input class="input100" formControlName="Company_Name" type="text" id="Company_Name"
+                        name="Company_Name" maxlength="100" placeholder="Company Name">
+                    <!-- <span class="focus-input100" data-placeholder="Company Name"></span> -->
+                </div>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+                        <!-- <button class="login100-form-btn" (click)="cancel()"> Cancel </button> -->
+                        <button type="submit" class="login100-form-btn"> Submit </button>
+                    </div>
+                </div>
+                <!-- <div class="text-center p-t-23"> <span class="txt1"> Don’t have an account? </span> <a class="txt2" href="#"> Sign Up </a> </div> -->
+            </form>
+            <div class="container-login100-form-btn">
+                <span>Already have an account? <a [routerLink]="['/login']"><u>Login</u></a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-student-address *ngIf="isLoginDetailsSubmitted" (addressEvent)="getAddressDetails($event)"></app-student-address>
+<app-company-registration *ngIf="isCompanyDetailsSubmitted" [Data]="pay_Load"
+    (CompanyRegistrationEvent)="CompanyRegistrationEvent($event)" [isRead]="isRead"></app-company-registration>

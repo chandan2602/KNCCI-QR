@@ -1,0 +1,81 @@
+<section>
+    <div class="container pt-5 pb-5">
+        <div class="row pt-5 mb-3">
+            <div class="col-xl-12  mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body p-5">
+                        <app-user-profile [userDetails]="userDetails"></app-user-profile>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <app-profile-view-counts [profileCounts]="profileCounts"></app-profile-view-counts>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="row ">
+            <div class="col-xl-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active fw-bold" id="nav-home-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                                    aria-selected="true">About</button>
+                                <button class="nav-link fw-bold" id="nav-profile-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                                    aria-selected="false">Certification</button>
+                                <button class="nav-link fw-bold" id="nav-contact-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact"
+                                    aria-selected="false">Courses</button>
+                                <button class="nav-link fw-bold" id="nav-4-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-4" type="button" role="tab" aria-controls="nav-4"
+                                    aria-selected="false">Skills</button>
+                            </div>
+                        </nav>
+
+
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active p-3" id="nav-home" role="tabpanel"
+                                aria-labelledby="nav-home-tab">
+                                <h5>Education</h5>
+                                <ul class="list-group-custom">
+                                    <app-data-table [TableHeadings]="EducationHeadings" [TableColumns]="EducationColumns" [TableData]="EducationData"></app-data-table>
+                                    
+                                </ul>
+
+
+                                <h5>Work Experience</h5>
+                                <ul class="list-group-custom">
+                                    <app-data-table [TableHeadings]="TableHeadings" [TableColumns]="TableColumns" [TableData]="TableData"></app-data-table>
+                                </ul>
+
+
+                                <h5>About</h5>
+                                <ul class="list-group-custom">
+                                    <li class="mt-15 text-gray">{{aboutMe.PROFILESUMMARY}}</li>
+
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade  p-3" id="nav-profile" role="tabpanel"
+                                aria-labelledby="nav-profile-tab">
+                                <app-data-table [TableHeadings]="certifiHeadings" [TableColumns]="certifiColumns" [TableData]="certifiData"></app-data-table>
+                            </div>
+                            <div class="tab-pane fade  p-3" id="nav-contact" role="tabpanel"
+                                aria-labelledby="nav-contact-tab">
+                                <app-all-courses [courseList]="courseList"></app-all-courses>
+                            </div>
+                            <div class="tab-pane fade  p-3" id="nav-4" role="tabpanel" aria-labelledby="nav-4-tab">
+                                <h5>Skills</h5>
+                                <app-data-table [TableHeadings]="skillHeadings" [TableColumns]="skillColumns" [TableData]="skillData"></app-data-table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

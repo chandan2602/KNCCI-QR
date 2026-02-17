@@ -1,0 +1,37 @@
+.testimonial-item {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.testi-thumb img {
+    border-radius: 50%;
+    max-width: 75px !important;
+    max-height: 75px !important;
+}
+
+.testi-info .name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.testi-content .desc {
+    color: #555;
+    margin-top: 15px;
+}
+
+.rating-box i {
+    color: #FFD700;
+    margin-right: 3px;
+}
+
+.testi-quote img {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 30px;
+}
+
+

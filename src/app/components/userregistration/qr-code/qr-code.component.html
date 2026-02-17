@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-xl-4 offset-xl-4">
+        <div class="card">
+            <!-- <img src="..." class="card-img-top" alt="..."> -->
+            <div class="card-body text-center">
+                <qrcode [qrdata]='id' [width]="width" [errorCorrectionLevel]="'M'"></qrcode>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center pt-4" *ngIf="RoleId=='3'">
+    <button type="button" class="btn btn-sm  btn-success" (click)='save()'>Submit</button> &nbsp;
+    <button type="button" class="btn btn-sm btn-danger" *ngIf="RoleId!='3'" (click)="close()">Close</button>
+</div>

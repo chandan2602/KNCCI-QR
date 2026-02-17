@@ -1,0 +1,129 @@
+<div class="page-wrapper pt-4">
+  <div class="page-content pt-0 pe-0 ps-0">
+    <div class="container-fluid">
+      <div class="default_class">
+        <div class="content-wrapper p-0" id="ui">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="card rounded shadow-lg">
+                  <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                    <h5 class="mb-0 text-center">Data Dictionary</h5>
+                  </div>
+
+                  <div class="card-body">
+                    <div class="text-right">
+                      <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal"
+                        data-bs-target="#myModal" (click)="add()">Add</button>
+                    </div>
+
+                    <div *ngIf="table.length">
+                      <table id="patreggraph" class=" table-striped table-bordered mt-2 pt-2  center "
+                        style="width:100%; text-align: center;" datatable [dtOptions]="dtOptions">
+                        <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                          <tr>
+                            <th> Name</th>
+                            <th>Belongs TO</th>
+                            <th>Status </th>
+                            <td>Action</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of table ">
+                            <td>{{item.DICTIONARYNAME}}</td>
+                            <td>{{item.PARENT}}</td>
+                            <td>{{item.STATUS}}</td>
+                            <td style="display: flex;">
+                              <span data-bs-toggle="modal" data-bs-target="#myModal" src="" class="edit_icon"
+                                (click)="edit(item)"> <i class="fas fa-pen pt-1 mt-1"></i></span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="text-center" *ngIf="false">
+                      No Records to display
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header py-2">
+        <h6 class="modal-title w-100">Data Dictionary </h6>
+      </div>
+
+      <div class="modal-body">
+        <form class="well form-horizontal" [formGroup]="myForm" novalidate>
+          <div class="col-sm-12">
+            <div class="form-group clearfix">
+              <label>Dictionary Name</label>
+              <input type="text" class="custom-select form-control" name="name" formControlName="DictionaryName"
+                required>
+            </div>
+          </div>
+          <div class="col-sm-12 pt-4">
+            <div class="form-group clearfix">
+              <label>Description</label>
+              <textarea rows="4" class="custom-select form-control" cols="50" name="description"
+                formControlName="Description">
+                              Enter text here... </textarea>
+            </div>
+          </div>
+
+          <div class="col-sm-12 pt-4">
+            <div class="form-group clearfix">
+              <label>Belongs To </label>
+              <select class="custom-select form-control" formControlName="ParentDictionaryId">
+                <option value="" [selected]="true">Select</option>
+                <option *ngFor="let c of parents" [value]="c.DICTIONARYID">
+                  {{ c.DICTIONARYNAME }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-12 pt-4">
+            <div class="form-group clearfix">
+              <label> Group</label>
+              <select class="custom-select form-control" formControlName="GroupId">
+                <option value="" [selected]="true">Select</option>
+                <option *ngFor="let c of group" [value]="c.DICTIONARYID">
+                  {{ c.DICTIONARYNAME }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-sm-12 pt-4">
+            <div class="form-group clearfix">
+              <label> Status</label>
+              <select class="custom-select form-control" name="status" formControlName="Status" required>
+                <option [selected]="true" [ngValue]=true>Active</option>
+                <option [ngValue]=false>InActive </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer  pt-4">
+        <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+          [disabled]="myForm.invalid">Add</button>
+        <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+          [disabled]="myForm.invalid">Update</button>
+        <button type="button" class="btn btn-sm btn-danger" id='md_close' (click)="close()"
+          data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="main_section" *ngIf="editData !=''">
+                            <!-- Top Header Section -->
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <img src="../../assets/img/logo1-new.png" alt="Logo" class="logo me-3" />
+                                <h4 class="text-center mb-0" style="color:#307a91;">Job Summary</h4>
+                            </div>
+                            <hr>                            
+                            <!-- Card 2: Address Information -->
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title"></div>
+                                    <table class="table table-borderless mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="data-label bold">Company Name </td>
+                                                <td class="data-value">{{params.company_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Company Email</td>
+                                                <td class="data-value">{{params.emailid}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Company Contact No.</td>
+                                                <td class="data-value">{{params.contact_details}}</td>
+                                                </tr>
+                                            
+                                            <tr>
+                                                <td class="data-label bold">Job Title</td>
+                                                <td colspan="3" class="data-value">{{params.job_title}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Job Id</td>
+                                                <td data-text-color="#03a84e">{{params.auto_genarated_job_id}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Job Type</td>
+                                                <td colspan="3" class="data-value">{{params.job_type}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Skills</td>
+                                                <td class="data-value">{{params.job_skills}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Category</td>
+                                                <td class="data-value">{{params.job_category}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Posted</td>
+                                                <td class="data-value">{{params.job_posted_date | date: 'dd-MM-yyyy'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Salary</td>
+                                                <td class="data-value">{{params.job_salary_from}} - ${{params.job_salary_to}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Experience</td>
+                                                <td class="data-value">{{params.experience_level}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Qualification</td>
+                                                <td class="data-value">{{params.education_level}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Applied</td>
+                                                <td class="data-value">{{params.created_at | date: 'dd-MM-yyyy'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Application End</td>
+                                                <td class="data-value">{{params.job_expiry_date | date: 'dd-MM-yyyy'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Description</td>
+                                                <td class="data-value">{{params.job_description}}</td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td class="data-label bold">Prototype / Demo Link</td>
+                                                <td class="data-value" colspan="3">
+                                                <a href="http://localhost:4200/HOME/startsUp">http://localhost:4200/HOME/startsUp</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label bold">Video Pitch Link</td>
+                                                <td class="data-value" colspan="3">
+                                                <a href="http://localhost:4200/HOME/startsUp">http://localhost:4200/HOME/startsUp</a>
+                                                </td>
+                                            </tr> -->
+
+
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <button class="btn btn-sm btn-success" *ngIf="isFounder" [routerLink]="['/HOME/approval-signup']"><i class="bi bi-arrow-left-circle fa-2x"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

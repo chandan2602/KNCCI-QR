@@ -1,0 +1,202 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <h5 class="text-center"> {{registrationTitle}}</h5>
+                        <div class="row">
+                            <div class="col-xl-7 mx-auto">
+
+
+                                <div class="">
+                                    <form class="well form-horizontal" [formGroup]="myform">
+                                        <fieldset>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label mt-2">
+                                                    Title <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                        <select
+                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                            formControlName='Title'>
+                                                            <option value="" [selected]="true">select</option>
+                                                            <option [value]='item.DICTIONARYID'
+                                                                *ngFor='let item of titles'>
+                                                                {{item.DICTIONARYNAME}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div *ngIf="myform.get('Title').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('Title').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label">
+                                                    First Name <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                        <input class="form-control form-control-sm"
+                                                            formControlName='FirstName' type="text">
+                                                    </div>
+                                                    <div *ngIf="myform.get('FirstName').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('FirstName').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label">
+                                                    Last Name <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                        <input class="form-control form-control-sm"
+                                                            formControlName='LastName' type="text">
+                                                    </div>
+                                                    <div *ngIf="myform.get('LastName').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('LastName').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label">
+                                                    Mobile No <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                        <input class="form-control form-control-sm"
+                                                            formControlName='Mobileno' type="text"
+                                                            onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                            maxlength="12">
+                                                    </div>
+                                                    <div *ngIf="myform.get('Mobileno').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('Mobileno').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('Mobileno').hasError('minlength')">
+                                                            mobile number minimum 10 characters.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label">
+                                                    User Name(Email ID)<span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                        <input class="form-control form-control-sm"
+                                                            formControlName='UserName' type="email">
+                                                    </div>
+                                                    <div *ngIf="myform.get('UserName').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('UserName').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('UserName').hasError('email')">
+                                                            please enter valid email.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="form-group row mb-3">
+                                        <label class="col-md-4 control-label">
+                                            Password <span class="text-danger">*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                <input class="form-control" formControlName='password' type="password">
+                                            </div>
+                                            <div *ngIf="myform.get('password').touched">
+                                                <span class="text-danger"
+                                                    *ngIf="myform.get('password').hasError('required')">
+                                                    This field is required.
+                                                </span>
+                                                <span class="text-danger"
+                                                    *ngIf="myform.get('password').hasError('minlength')">
+                                                    password minimum 6 characters.
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                            <!-- <div class="form-group row mb-3">
+                                        <label class="col-md-4 control-label">
+                                            Confirm Password <span class="text-danger">*</span></label>
+                                        <div class="col-md-8 inputGroupContainer">
+                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                <input class="form-control" (change)="passwordCheck()"
+                                                    formControlName='confirmPassword' type="password">
+
+                                            </div>
+                                            <div *ngIf="myform.get('confirmPassword').touched">
+                                                <span class="text-danger"
+                                                    *ngIf="myform.get('confirmPassword').hasError('required')">
+                                                    This field is required.
+                                                </span>
+                                                <span class="text-danger"
+                                                    *ngIf="myform.get('confirmPassword').hasError('minlength')">
+                                                    password minimum 6 characters.
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label">
+                                                    Date Of Birth<span class="text-danger">*</span> </label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                        <input class="form-control form-control-sm" max={{maxDate}}
+                                                            formControlName='dob' type="date">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label mt-2">
+                                                    Gender <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                        <select
+                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                            formControlName='Gender'>
+                                                            <option value="" [selected]="true">select</option>
+                                                            <option [value]='item.DICTIONARYID'
+                                                                *ngFor='let item of genders'>
+                                                                {{item.DICTIONARYNAME}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div *ngIf="myform.get('Gender').touched">
+                                                        <span class="text-danger"
+                                                            *ngIf="myform.get('Gender').hasError('required')">
+                                                            This field is required.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                    <div class="text-center pt-4">
+                                        <button type="button" [disabled]="myform.invalid" (click)='save()'
+                                            class="btn btn-sm  btn-save me-1">Save</button>
+                                        <button type="button" (click)="back()"
+                                            class="btn btn-sm btn-danger"><i class="bi bi-arrow-left-circle fa-2x"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

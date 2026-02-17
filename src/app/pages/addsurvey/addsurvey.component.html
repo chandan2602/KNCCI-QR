@@ -1,0 +1,120 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <h5 *ngIf="!isEdit" class="text-center"> Add Survey</h5>
+                        <h5 *ngIf="isEdit" class="text-center"> Edit Survey</h5>
+                        <div>
+                            <div class="custom_container">
+                                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                                    <fieldset>
+                                        <div class="form-group row pt-4">
+                                            <label class="col-md-4 control-label line_2 rem_1">
+                                                Survey Title <span class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                    <input placeholder="Survey  Title" class="form-control"
+                                                        formControlName="SurveyTitle" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pt-4">
+                                            <label class="col-md-4 control-label">Course <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                    <ng-multiselect-dropdown style="width:96%" *ngIf="isData"
+                                                        formControlName="ASSIGNMENT_COURSE"
+                                                        [placeholder]="'select cource'" [settings]="dropdownSettings"
+                                                        [data]="dropdownList" (onSelect)="onItemSelect($event)"
+                                                        (onSelectAll)="onSelectAll($event)" [(ngModel)]="selectedItems">
+                                                    </ng-multiselect-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pt-4">
+                                            <label class="col-md-4 control-label">
+                                                Start Date <span class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                    <input class="form-control" [ngModel]="startDate| date:'yyyy-MM-dd'"
+                                                        type="date" formControlName="StartDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pt-4">
+                                            <label class="col-md-4 control-label">
+                                                End Date <span class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                    <input class="form-control" [ngModel]="endDate| date:'yyyy-MM-dd'"
+                                                        type="date" formControlName="EndDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pt-4">
+                                            <label class="col-md-4 control-label">
+                                                Questions Per page <span class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="radio"> <strong>:</strong> &nbsp;
+                                                    <div class="form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input value='false' formControlName="QuestionPerPage"
+                                                                type="radio" class="form-check-input"
+                                                                name="QuestionPerPage">One
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check-inline">
+                                                        <label class="form-check-label">
+                                                            <input value='true' type="radio"
+                                                                formControlName="QuestionPerPage"
+                                                                class="form-check-input" name="QuestionPerPage">All
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pt-4">
+                                            <label class="col-md-4 control-label">
+                                                Description <span class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group"> <strong>:</strong> &nbsp;
+                                                    <textarea rows="1" class="form-control"
+                                                        formControlName="Description"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row pt-4">
+                                            <label class="col-md-4 control-label">
+                                                Final Words <span class="text-danger">*</span></label>
+                                            <div class="col-md-8 inputGroupContainer">
+                                                <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                    <textarea rows="1" class="form-control"
+                                                        formControlName="FinalWords"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </fieldset>
+
+                                </form>
+                                <div class="text-center pt-4">
+                                    <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save"
+                                        [disabled]="myForm.invalid" (click)='onSubmit(myForm)'
+                                        type="submit">Submit</button>
+                                    <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save"
+                                        [disabled]="myForm.invalid" (click)='onSubmit(myForm)'
+                                        type="submit">Update</button>
+                                    &nbsp; <button class="btn btn-danger btn-sm" (click)='back()'> Close</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>

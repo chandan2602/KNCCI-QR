@@ -1,0 +1,59 @@
+<div class="default_class">
+    <div class="content-wrapper p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 class="mb-0 text-center">Content</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-right mb-1">
+                                <button type="button" class="btn btn-primary" (click)='add()'>Add</button>
+                            </div>
+                            <div *ngIf="table.length">
+                                <table id="patreggraph" datatable
+                                    class=" table-striped table-bordered mt-2 pt-2 table-sm small" style="width:100%">
+                                    <thead class="top" style="background-color: #0d9bc4; color:#ffffff;">
+                                        <tr>
+                                            <th>
+                                                 Name </th>
+                                            <th>
+                                                Class
+                                            </th>
+                                            <th>Subject</th>
+                                            <th>Chapter </th>
+                                            <th>Board</th>
+                                            <th> Medium</th>
+
+                                            <th></th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of table">
+                                            <td>{{item.CNTREPO_NAME}}</td>
+                                            <td>{{item.CNT_CLASS_NAME}}</td>
+                                            <td>{{item.CNT_SUB_NAME}}</td>
+                                            <td>{{item.CNT_CHAPTER_NAME}}</td>
+                                            <td>{{item.BOARD_NAME}}</td>
+                                            <td>{{item.MEDIUM_NAME}}</td>
+                                            <td style="display: flex;"> <input type="image"
+                                                    src="./../../../assets/images/sprites/edit.svg" class="edit_icon"
+                                                    (click)="edit(item)">
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center" *ngIf="!table.length">
+                                No Records to display
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

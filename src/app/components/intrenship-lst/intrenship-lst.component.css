@@ -1,0 +1,5 @@
+::ng-deep .tooltip .tooltip-inner {
+    text-align: left !important;
+    white-space: normal !important;
+    max-width: 300px !important;
+}

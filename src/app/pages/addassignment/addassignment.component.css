@@ -1,0 +1,16 @@
+.custom_container{
+    width: 50%;
+    margin: 0 auto;
+}
+.span{
+    border: 1px solid;
+    vertical-align: text-bottom;
+    padding: 5px 5px;
+    padding-bottom: 0;
+    color: green;
+    cursor: pointer;
+}
+.progress{
+    height: 5px;
+    background-color: green;
+}

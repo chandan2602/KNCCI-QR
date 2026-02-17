@@ -1,0 +1,170 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Attainment Level</h5>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal"
+                                                data-bs-target="#myModal" (click)="add()">Add</button>
+                                        </div>
+                                        <div *ngIf="table.length">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th> Grade </th>
+                                                        <th>
+                                                            Minimum (%)
+                                                        </th>
+                                                        <th>Maximum (%)</th>
+                                                        <th>GradePoints</th>
+                                                        <th>Description</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.GRADE}}</td>
+                                                        <td>{{item.ANT_MIN}}</td>
+                                                        <td>{{item.ANT_MAX}}</td>
+                                                        <td>{{item.GRADE_POINT}}</td>
+                                                        <td>{{item.DESCRIPTION}}</td>
+
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon" (click)="edit(item)"> <i
+                                                                    class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="!table.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2">
+                <h6 *ngIf="!isEdit" class=" modal-title w-100"> Add Attainment</h6>
+                <h6 *ngIf="isEdit" class=" modal-title w-100"> Edit Attainment</h6>
+                <button type="button" (click)="close()" class="close" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Grade <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp;<input type="text" placeholder="" class="form-control"
+                                        formControlName="GRADE">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Minimum <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp;<input type="text" placeholder="" class="form-control"
+                                        formControlName="ANT_MIN">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Maximum <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp; <input type="text" placeholder="" class="form-control"
+                                        formControlName="ANT_MAX">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                GradePoints <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp; <input type="number" min="1" max="10" placeholder=""
+                                        class="form-control" formControlName="GRADE_POINT">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Description <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp;
+                                    <textarea placeholder="" class="form-control"
+                                        formControlName="DESCRIPTION"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">Status <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp; <select
+                                        class="form-control form-control-sm shadow-sm rounded-lg" id="sel1"
+                                        formControlName="ANT_STATUS">
+                                        <option [ngValue]='1'>Active</option>
+                                        <option [ngValue]='0'>Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Save</button>
+                <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Update</button>
+                <button type="button" class="btn btn-sm btn-danger" id="md_close" (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

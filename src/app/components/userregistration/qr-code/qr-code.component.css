@@ -1,0 +1,18 @@
+qrcode .qrcode canvas{
+    height: 200px !important; 
+    width: 200px !important;
+}
+
+
+@media (min-width: 1200px){
+.offset-xl-4 {
+    margin-left: 33.33333333%;
+    margin: auto;
+}
+}
+@media (min-width: 1200px){
+.col-xl-4 {
+    flex: 0 0 auto;
+    width: auto;
+}
+}

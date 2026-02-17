@@ -1,0 +1,147 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+
+        <div class="container-fluid">
+            <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                <fieldset>
+                    <div class="row">
+                        <div class="col-6">
+
+                            <div class="card shadow-sm mb-4">
+                                <div class="card-body">
+
+
+                                    <label for="formFile" class="form-label">Fevicon Icon <span
+                                            class="text-danger">*</span> </label>
+                                    <input (change)='changeFile($event)' type="file" id="materialFile"
+                                        [ngClass]="{ 'is-invalid': submitted && f.favicon_path.errors }"
+                                        style="min-height: 30px;" placeholder="" formControlName='favicon_path'
+                                        accept="'png', 'jpg', 'PNG', 'jpeg', 'JPEG','pdf','PDF'"
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                    <div *ngIf="submitted && f.favicon_path.errors" class="invalid-feedback">
+                                        <div *ngIf="f.favicon_path.errors.required">Fevicon Icon is
+                                            required</div>
+                                    </div>
+                                </div>
+
+                                <p>{{getName('Fevicon',fileName)}}</p>
+
+                                <div class="card-body" width="30px" height="30px" style="border: none;">
+
+                                    <img [src]="imageURL" class="img-fluid" />
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-6">
+
+                            <div class="card shadow-sm mb-4">
+                                <div class="card-body">
+
+
+                                    <label for="formFile" class="form-label">Home Page <span
+                                            class="text-danger">*</span> </label>
+                                    <input (change)='changeFile1($event)' type="file" id="materialFile"
+                                        [ngClass]="{ 'is-invalid': submitted && f.homePageImage_path.errors }"
+                                        style="min-height: 30px;" placeholder="" formControlName='homePageImage_path'
+                                        accept="'png', 'jpg', 'PNG', 'jpeg', 'JPEG','pdf','PDF'"
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                    <div *ngIf="submitted && f.homePageImage_path.errors" class="invalid-feedback">
+                                        <div *ngIf="f.homePageImage_path.errors.required">Fevicon Icon is
+                                            required</div>
+                                    </div>
+                                </div>
+
+                                <p>{{getName('HomePageImage',fileName1)}}</p>
+
+                                <div class="card-body" width="30px" height="30px" style="border: none;">
+
+                                    <img [src]="imageURL1" class="img-fluid" />
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-6">
+
+                            <div class="card shadow-sm mb-4">
+                                <div class="card-body">
+
+
+                                    <label for="formFile" class="form-label">Landing Page <span
+                                            class="text-danger">*</span> </label>
+                                    <input (change)='changeFile2($event)' type="file" id="materialFile"
+                                        [ngClass]="{ 'is-invalid': submitted && f.landingPageImage_path.errors }"
+                                        style="min-height: 30px;" placeholder="" formControlName='landingPageImage_path'
+                                        accept="'png', 'jpg', 'PNG', 'jpeg', 'JPEG','pdf','PDF'"
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                    <div *ngIf="submitted && f.landingPageImage_path.errors" class="invalid-feedback">
+                                        <div *ngIf="f.landingPageImage_path.errors.required">Fevicon Icon is
+                                            required</div>
+                                    </div>
+                                </div>
+
+                                <p>{{getName('LandingPageImage',fileName2)}}</p>
+
+                                <div class="card-body" width="30px" height="30px" style="border: none;">
+
+                                    <img [src]="imageURL2" class="img-fluid" />
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-6">
+
+                            <div class="card shadow-sm mb-4">
+                                <div class="card-body">
+
+
+                                    <label for="formFile" class="form-label">Certificate <span
+                                            class="text-danger">*</span></label>
+                                    <input (change)='changeFile3($event)' type="file" id="materialFile"
+                                        [ngClass]="{ 'is-invalid': submitted && f.cerficateImage_path.errors }"
+                                        style="min-height: 30px;" placeholder="" formControlName='cerficateImage_path'
+                                        accept="'png', 'jpg', 'PNG', 'jpeg', 'JPEG','pdf','PDF'"
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                    <div *ngIf="submitted && f.cerficateImage_path.errors" class="invalid-feedback">
+                                        <div *ngIf="f.cerficateImage_path.errors.required">Fevicon Icon is
+                                            required</div>
+                                    </div>
+                                </div>
+
+                                <p>{{getName('CerficateImage',fileName3)}}</p>
+
+                                <div class="card-body" width="30px" height="30px" style="border: none;">
+
+                                    <img [src]="imageURL3" class="img-fluid" />
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div class="text-center pt-1">
+                <button type="button" (click)="onSubmit(myForm)" class="btn btn-sm  btn-save">Save</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>

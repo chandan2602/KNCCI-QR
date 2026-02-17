@@ -1,0 +1,305 @@
+<div class="wrapper">
+    <div class="page-wrapper pt-4">
+        <div class="page-content pt-0 pe-0 ps-0">
+            <div class="container-fluid">
+                <div class="default_class">
+                    <div class="content-wrapper p-0">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card rounded shadow-lg">
+                                        <div class="card-header headerbg" style="border-bottom: 3px solid #d8eff8">
+                                            <h5 class="mb-0">Advertisements
+                                                <button class="btn btn-sm"
+                                                    [appTooltip]="tooltipContent">
+                                                    <i class="bi bi-info-circle-fill"></i>
+                                                </button>
+                                            </h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="text-right" *ngIf="RoleId!=4">
+                                                <button type="button" class="btn btn-primary btn-sm mb-1"
+                                                    data-bs-toggle="modal" data-bs-target="#myModal" (click)="add()">
+                                                    Add
+                                                </button>
+                                            </div>
+                                            <div class="row" *ngIf="RoleId==4">
+                                                <div class="col-md-4">
+                                                    <label for="formFile" class="form-label">Select Company<span
+                                                            class="text-danger">*</span> </label>
+                                                    <select [(ngModel)]='company_id '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="getList()">
+                                                        <option value="0" [selected]="true">
+                                                            Select
+                                                        </option>
+                                                        <option *ngFor="let course of companyList"
+                                                            [value]='course.COMPANY_ID'>
+                                                            {{course.COMPANY_NAME}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="table.length" class="table-responsive mt-2">
+                                                <table id="patreggraph" datatable
+                                                    class="table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                    style="width: 100%; white-space: nowrap">
+                                                    <thead class="top"
+                                                        style="background-color: #2e7a91; color: #ffffff;">
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Description</th>
+                                                            <th>Creation Date</th>
+                                                            <th>Closing Date</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let item of table">
+                                                            <td>{{ item.adv_name }}</td>
+                                                            <td style="width:200px; white-space: normal;">{{
+                                                                item.adv_description }}</td>
+                                                            <td>
+                                                                {{ item.adv_fromdate | date : "dd-MM-yyyy" }}
+                                                            </td>
+                                                            <td>
+                                                                {{
+                                                                item.adv_enddate | date : "dd-MM-yyyy"
+                                                                }}
+                                                            </td>
+                                                            <td>{{ item.adv_approval_status == 1 ? "Approved" :
+                                                                item.adv_approval_status == 3 ? "Rejected" : "Pending"}}
+                                                            </td>
+                                                            <td>
+                                                                <!-- item.STATUS_NAME != 'APPROVER SENTBACK' -->
+                                                                <span style="
+                                                                          display: flex;
+                                                                          text-align: center;
+                                                                          cursor: pointer;
+                                                                          gap: 5px;
+                                                                        ">
+                                                                    <button class="btn btn-primary btn-sm"
+                                                                        (click)="edit(item)" data-bs-toggle="modal"
+                                                                        data-bs-target="#myModal">
+                                                                        {{item.adv_approval_status != 2 ? "View" :
+                                                                        "Edit"}}
+                                                                    </button>
+                                                                    <button
+                                                                        *ngIf="roleId == '4' && item.adv_approval_status == 2"
+                                                                        class="btn btn-save btn-sm"
+                                                                        data-bs-target="#reason" data-bs-toggle="modal"
+                                                                        (click)="getData(item, 1)">
+                                                                        Approve
+                                                                    </button>
+                                                                    <button
+                                                                        *ngIf="roleId == '4' && item.adv_approval_status == 2"
+                                                                        class="btn btn-danger btn-sm"
+                                                                        data-bs-target="#reason" data-bs-toggle="modal"
+                                                                        (click)="getData(item, 3)">
+                                                                        Reject
+                                                                    </button>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="text-center" *ngIf="!table.length">
+                                                No Records to display
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 *ngIf="!isEdit" class="modal-title w-100">Add Advertisements</h5>
+                <h5 *ngIf="isEdit" class="modal-title w-100">Edit Advertisements</h5>
+                <button type="button" (click)="close()" class="close" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row pt-4">
+                                    <label class="col-md-4 control-label line_2 rem_1">
+                                        Name <span class="text-danger">*</span></label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <strong>:</strong> &nbsp;
+                                            <input type="text" class="form-control" formControlName="adv_name"
+                                                [attr.disabled]="isApproved?true:null"
+                                                [ngClass]="{ 'is-invalid': submitted && f.adv_name.errors }" />
+                                            <div *ngIf="submitted && f.adv_name.errors" class="invalid-feedback">
+                                                <div *ngIf="f.adv_name.errors.required">Name is
+                                                    required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row pt-4">
+                                    <label class="col-md-4 control-label line_2 rem_1">
+                                        From Date<span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <strong>:</strong> &nbsp;
+                                            <input type="date" class="form-control" formControlName="adv_fromdate"
+                                                (change)="updateToDateMin()" [attr.disabled]="isApproved?true:null"
+                                                [ngClass]="{ 'is-invalid': submitted && f.adv_fromdate.errors }" />
+                                            <div *ngIf="submitted && f.adv_fromdate.errors" class="invalid-feedback">
+                                                <div *ngIf="f.adv_fromdate.errors.required">From Date is
+                                                    required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group row pt-4">
+                                    <label class="col-md-4 control-label line_2 rem_1">
+                                        To Date<span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <strong>:</strong> &nbsp;
+                                            <input type="date" class="form-control" formControlName="adv_enddate"
+                                                [min]="minToDate" [attr.disabled]="isApproved?true:null"
+                                                [ngClass]="{ 'is-invalid': submitted && f.adv_enddate.errors }" />
+                                            <div *ngIf="submitted && f.adv_enddate.errors" class="invalid-feedback">
+                                                <div *ngIf="f.adv_enddate.errors.required">To Date is
+                                                    required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row pt-4">
+                                    <label class="col-md-4 control-label line_2 rem_1">
+                                        Description</label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <strong>:</strong> &nbsp;
+                                            <textarea type="text" class="form-control" formControlName="adv_description"
+                                                cols="4" [attr.disabled]="isApproved?true:null"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-primary mb-1" (click)="addImages()"
+                                    [attr.disabled]="isApproved?true:null">
+                                    Add Images
+                                </button>
+                            </div>
+                            <div class="col-md-6" *ngFor="let item of AdvertisementsDetails; let i = index">
+                                <div class="card shadow-sm mb-4">
+                                    <div class="card-body">
+                                        <label for="formFile" class="form-label">Ad Image <span
+                                                class="text-danger">*</span> </label>
+                                        <input (change)='changeFile1($event,item)' type="file" id="materialFile"
+                                            style="min-height: 30px;" placeholder="" [(ngModel)]="item.add_logo"
+                                            [ngModelOptions]="{standalone: true}"
+                                            accept="'png', 'jpg', 'PNG', 'jpeg', 'JPEG'"
+                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                            [attr.disabled]="isApproved?true:null">
+                                        <label for="formFile" class="form-label">Web Url<span
+                                                class="text-danger">*</span> </label>
+                                        <input type="text" class="form-control" [(ngModel)]="item.add_website"
+                                            [ngModelOptions]="{standalone: true}"
+                                            [attr.disabled]="isApproved?true:null" />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p *ngIf="isEdit">{{item.add_fileName}}</p>
+                                            <p *ngIf="!isEdit">{{getName('HomePageImage',item.add_logo)}}</p>
+                                        </div>
+                                        <div class="col-md-6 text-center">
+                                            <button type="button" class="btn btn-danger btn-sm position-absolute mt-2"
+                                                (click)="deleteImage(i,item)" [attr.disabled]="isApproved?true:null">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body" style="border: none;width: 200px;height: 200px;">
+                                        <img [src]="item.add_fullurl" class="img-fluid" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" class="btn btn-success" (click)="onSubmit(myForm)"
+                    [disabled]="isApproved">
+                    Save
+                </button>
+                <button type="button" *ngIf="isEdit" class="btn btn-success" (click)="onSubmit(myForm)"
+                    [disabled]="isApproved">
+                    Update
+                </button>
+                <button type="button" class="btn btn-danger" id="md_close" (click)="close()" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left-circle fa-2x"></i>Back
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="reason">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    {{ statusId == 1 ? "Approve Advertisement" : "Reject Advertisement" }}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="Close1" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Comments</label><span
+                            class="text-danger">*</span>
+                        <textarea class="form-control" [(ngModel)]="comments" [ngModelOptions]="{ standalone: true }"
+                            id="exampleFormControlTextarea1" rows="5"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="close1()" id="Close1">
+                    Close
+                </button>
+                <button [disabled]="comments == ''" type="button" class="btn btn-save"
+                    (click)="approve(selectedObj, statusId)">
+                    {{ statusId == 1 ? "Approve" : "Reject" }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

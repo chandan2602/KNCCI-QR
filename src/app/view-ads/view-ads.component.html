@@ -1,0 +1,40 @@
+<div class="container">
+    <h3 class="text-center mb-4">Advertisements</h3>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button *ngFor="let ad of advertisements; let i = index" type="button"
+                data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [class.active]="i === 0"
+                [attr.aria-current]="i === 0 ? 'true' : null" [attr.aria-label]="'Slide ' + (i + 1)">
+            </button>
+        </div>
+
+        <!-- Carousel Items -->
+        <div class="carousel-inner text-center">
+            <div *ngFor="let ad of advertisements; let i = index" class="carousel-item" [class.active]="i === 0"
+                (click)="onClickImg(ad)">
+                <img [src]="ad.fullImgUrl" class="img-fluid" style="width: 400px; height: 400px;cursor: pointer;"
+                    alt="Advertisement Image">
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-control-prev custom-carousel-control" type="button"
+            data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon custom-carousel-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next custom-carousel-control" type="button"
+            data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon custom-carousel-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+
+    <!-- No Ads Available -->
+    <ng-template #noAds>
+        <p class="text-center">No advertisements available.</p>
+    </ng-template>
+</div>

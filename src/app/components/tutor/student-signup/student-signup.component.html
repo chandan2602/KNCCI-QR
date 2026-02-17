@@ -1,0 +1,55 @@
+<div class="limiter">
+    <div class="container-login100"
+        style="background-image: url('../../../assets/images/dhanush/bg-image-intern.png');">
+        <div class="wrap-login100" style="padding: 22px 55px 24px 55px;">
+            <div class="text-center"> <img id="homepageimage_path" src="../../../../assets/img/logo1-new.png"
+                    [routerLink]="['']" style="cursor:pointer;" class="img-fluid" style="max-width: 40%;" />
+            </div>
+            <br>
+            <form class="login100-form validate-form" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+                <span class="login100-form-title p-b-24"> <span style="font-size:22px;">Sign Up</span> </span> <br>
+
+                <div class="wrap-input100 validate-input mt-2" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                    <input class="input100" formControlName="name" type="text" name="name" maxlength="100"
+                        (input)="nameValidate($event)">
+                    <span class="focus-input100" data-placeholder="Full Name"></span>
+                </div>
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Full name is required</div>
+                </div>
+                <div class="wrap-input100 validate-input mt-4"
+                    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }">
+                    <input class="input100" formControlName="mobile" type="text" name="mobile" maxlength="10"
+                        (input)="numberValidate($event)">
+                    <span class="focus-input100" data-placeholder="Mobile"></span>
+                </div>
+                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                    <div *ngIf="f.mobile.errors.required">Mobile is required</div>
+                    <div *ngIf="f.mobile.errors.pattern">Please enter valid mobile</div>
+                    <div *ngIf="f.mobile.errors.minlength">Please enter 10 digit number</div>
+                </div>
+                <div class="wrap-input100 validate-input mt-4" data-validate="Valid email is: a@b.c"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                    <input class="input100" formControlName="email" type="text" name="email" maxlength="100">
+                    <span class="focus-input100" data-placeholder="Email"></span>
+                </div>
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.pattern">Please enter valid email</div>
+                </div>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-login100-form-btn">
+                        <div class="login100-form-bgbtn"></div>
+
+                        <button type="submit" class="login100-form-btn"> Submit </button>
+                    </div>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <span>Already have an account? <a [routerLink]="['/login']"><u>Login</u></a></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-student-address *ngIf="isLoginDetailsSubmitted" (addressEvent)="getAddressDetails($event)"></app-student-address>

@@ -1,0 +1,11 @@
+<div class="comments_section ml-2">
+    <span style="font-size: 12px;" class="text-muted" [innerHtml]='data.Postedby'></span>
+    <p>{{data.ReplyText}}</p>
+   <p style="font-size: 12px;" class="text-muted" href="javascript:;">  <span class="pointer" (click)='replay()' href="javascript:;"  data-bs-toggle="modal" data-bs-target="#myModal">Reply</span>&nbsp; <span href="javascript:;" class="pointer" (click)='delete()'>Delete</span></p>
+    <div *ngIf='currentComments.length'>
+        <div *ngFor="let item of currentComments">
+            <app-comments [data]='item' [comments]='comments' [viewParent]='viewParent' ></app-comments>
+          </div>   
+
+    </div>
+</div>

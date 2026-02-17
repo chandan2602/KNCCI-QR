@@ -1,0 +1,73 @@
+<div class="card pd-0">
+    <div class="card-header">{{Type}} <button class="float-right" (click)="close()"> Discard</button></div>
+    <div class="card-body">
+        <fieldset>
+            <form class="well form-horizontal p-1" [formGroup]="myForm">
+                <div class="form-group row">
+                    <label class="col-md-1 control-label line_2 rem_1">
+                        To <span class="text-danger">*</span></label>
+                    <div class="col-md-11 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <ng-multiselect-dropdown style="width:96%" *ngIf="dropdownList.length"
+                                formControlName="ToUserIds" [placeholder]="'To '"
+                                [settings]="dropdownSettings" [data]="dropdownList"
+                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" [(ngModel)]='selectedUsers'>
+                            </ng-multiselect-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-1 control-label line_2 rem_1">
+                        cc </label>
+                    <div class="col-md-11 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <ng-multiselect-dropdown style="width:96%" *ngIf="dropdownList.length"
+                            formControlName="CcUserIds" [placeholder]="'CC'"
+                            [settings]="dropdownSettings" [data]="dropdownList"
+                            (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" [(ngModel)]='selectedCCUsers'>
+                        </ng-multiselect-dropdown>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-1 control-label line_2 rem_1">
+                        Subject</label>
+                    <div class="col-md-11 inputGroupContainer">
+                        <div class="input-group"> <strong>:</strong> &nbsp;
+                            <input class="form-control" formControlName="Subject" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12 inputGroupContainer">
+                        <div class="input-group"> &nbsp;
+                            <div class="editor">
+                                <angular-editor class="angular_editor" formControlName='Message' [config]="config">
+                                </angular-editor>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 control-label line_2 rem_1">
+                        Attachments <span class="text-danger">*</span></label>
+                    <div class="col-md-10 inputGroupContainer">
+                        <div class="input-group"> &nbsp;
+                            <input type="file" style="display: none;" multiple="multiple" (change)='changeFile($event)'
+                                id="mailfileId1" #mailfileId>
+                            <button (click)='mailfileId.click()'>Select</button> <span
+                                *ngIf="fileNames">{{fileNames}}</span>
+                            <button *ngIf="fileNames" (click)=removeFile()>X</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+
+        <div class="text-center">
+            <button class="btn btn-sm  btn-save" (click)="Send()">Send</button> &nbsp; <button
+                class="btn btn-danger btn-sm" (click)="close()">Discard</button>
+            <div>.</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="custom_container">
+    <form class="well form-horizontal" [formGroup]="myform">
+        <fieldset>
+
+            <div class="form-group row pt-4 ">
+                <div class="col-xl-6 mb-4">
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="mb-3">
+                            <label class="form-label">Enter Aadhar Number <span class="text-danger">*</span></label>
+                            <input class="form-control form-control-sm" formControlName='AADHAR_NUMBER' type="tel"
+                                maxlength="12" minlength="12" [(ngModel)]="aadhar" id="aadhar"
+                                (blur)="aadharChange($event)">
+                        </div>
+                        <div *ngIf="myform.get('AADHAR_NUMBER').touched">
+                            <span class="text-danger" *ngIf="myform.get('AADHAR_NUMBER').hasError('required')">
+                                12 digit Aadhar Number is required.
+                            </span>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-xl-6 mb-4">
+                    <div class="form">
+                        <label class="form-label line_2 rem_1"> Upload Aadhar Card
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input class="d-none" formControlName="UPLOAD_AADHAR_NUMBER" type="text"
+                            name="UPLOAD_AADHAR_NUMBER" id="UPLOAD_AADHAR_NUMBER">
+                        <input (change)='changeFile($event)' type="file" #materialFile id="materialFile1"
+                            style="min-height: 30px;" placeholder="" accept="'png', 'jpg', 'PNG', 'jpeg', 'JPEG'"
+                            class="form-control form-control-sm shadow-sm rounded-lg">
+
+                    </div>
+
+                    <p>{{getName('AADHAR_NUMBER',fileName)}}</p>
+
+
+                </div>
+
+                <div class="col-xl-6 mb-4">
+                    <div class="col-md-8 inputGroupContainer">
+                        <div class="mb-3">
+                            <label class="form-label">Enter Pan Number <span class="text-danger">*</span></label>
+                            <input class="form-control form-control-sm" formControlName='PAN_NUMBER' type="Text"
+                                maxlength="10" minlength="10" [(ngModel)]="pannumber" id="pan"
+                                (blur)="panChange($event)">
+                        </div>
+                        <div *ngIf="myform.get('PAN_NUMBER').touched">
+                            <span class="text-danger" *ngIf="myform.get('PAN_NUMBER').hasError('required')">
+                                10 digit alpha numeric Pan Number is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 mb-4">
+                    <div class="form">
+                        <label class="form-label line_2 rem_1"> Upload Pan Card
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input class="d-none" formControlName="UPLOAD_PAN_NUMBER" type="text" name="UPLOAD_PAN_NUMBER"
+                            id="UPLOAD_PAN_NUMBER">
+                        <input type="file" (change)='changeFile1($event)' #materialFile id="materialFile2"
+                            style="min-height: 30px;" placeholder="" accept="'png', 'jpg', 'PNG', 'jpeg', 'JPEG'"
+                            class="form-control form-control-sm shadow-sm rounded-lg">
+                    </div>
+
+                    <p>{{getName('PAN_NUMBER',fileName1)}}</p>
+                    <!-- <div *ngIf="myform.get('UPLOAD_PAN_NUMBER').touched">
+                        <span class="text-danger" *ngIf="myform.get('UPLOAD_PAN_NUMBER').hasError('required')">
+                            Upload Pan Card required.
+                        </span>
+
+                    </div> -->
+                </div>
+
+            </div>
+
+
+        </fieldset>
+    </form>
+
+</div>
+<div class="text-center pt-4" *ngIf="RoleId!='3'">
+    <button type="button" class="btn btn-sm  btn-success" (click)='save()'>Submit</button> &nbsp;
+    <button type="button" class="btn btn-sm btn-danger" *ngIf="RoleId!='2'" (click)="close()"><i class="bi bi-arrow-left-circle fa-2x"></i></button>
+</div>

@@ -1,0 +1,23 @@
+ .fa-user-plus:hover .span{
+    visibility: visible;
+}
+.fa-user:hover .span{
+  visibility: visible;
+
+}
+.span{
+    visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 4px ;
+  border-radius: 6px;
+  font-size: 12px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+.zmdi-edit{
+  cursor: pointer;
+}

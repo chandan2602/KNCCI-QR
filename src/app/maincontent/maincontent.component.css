@@ -1,0 +1,29 @@
+.list,.tab-pane ul{
+    list-style-type: none;
+  
+}
+ .active{
+     color: white !important;
+ }
+ .list, .content span{
+     color: black !important;
+ }
+ .date{
+     color: black !important;
+ }
+ span{
+     color: black !important;
+ }
+ a{    color: blue;}
+
+ ul.title1 li div{
+     list-style-type: none;
+     padding-bottom: 5px;
+     
+ }
+ .desc
+ {
+  font-size: 14px !important;
+     font-weight: 500 !important;
+     color: #5A5A5A !important;
+ }

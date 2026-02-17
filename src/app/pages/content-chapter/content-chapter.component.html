@@ -1,0 +1,163 @@
+<div class="default_class">
+    <div class="content-wrapper p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 class="mb-0 text-center">Content Chapter</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="text-right">
+                                <button type="button" class="btn btn-primary mb-1" data-toggle="modal"
+                                    data-target="#myModal" (click)="add()">Add</button>
+                            </div>
+                            <div *ngIf="table.length">
+                                <table id="patreggraph" datatable
+                                    class=" table-striped table-bordered mt-2 pt-2 table-sm small" style="width:100%">
+                                    <thead class="top" style="background-color: #0d9bc4; color:#ffffff;">
+                                        <tr>
+                                            <th>Class Name </th>
+                                            <th>Subject Name </th>
+                                            <th>Chapter Name </th>
+                                            <th>Description </th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor='let item of table'>
+                                            <td>{{item.cnt_class_name}}</td>
+                                            <td>{{item.cnt_sub_name}}</td>
+                                            <td>{{item.cnt_chapter_name}}</td>
+                                            <td>{{item.cnt_chapter_description}}</td>
+                                            <!-- <td>{{item.stus}}</td> -->
+                                            <td>{{item.cnt_status ? 'Active':'InActive'}} </td>
+                                            <td class=" text-center"><input type="image" data-toggle="modal"
+                                                    data-target="#myModal"
+                                                    src="./../../../assets/images/sprites/edit.svg"
+                                                    class="edit_icon text-center" (click)="edit(item.cnt_chapter_id)"> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center" *ngIf="!table.length">
+                                No Records to display
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+           
+            <div class="modal-header">
+                <h4 *ngIf="!isEdit" class="modal-title"> Add Chapter</h4>
+                <h4 *ngIf="isEdit" class="modal-title"> Edit Chapter</h4>
+                <button type="button" (click)="close()" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                    <fieldset>
+
+                       
+                         <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1"> Class Name <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp;
+                                    <select formControlName="cnt_class_name" (change)='handleClass($event)'
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+                                        <option value="" [selected]="true">select</option>
+                                        <option *ngFor="let item of ClsDropdown" [value]='item.item_id' >
+                                            {{item.item_text}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1"> Subject Name <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp;
+                                    <select formControlName="cnt_sub_name"
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+                                        <option value="" [selected]="true">select</option>
+                                        <option *ngFor="let item of subDropdown" [value]='item.item_id'>
+                                            {{item.item_text}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Chapter Name <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp;
+                                    <input placeholder="" class="form-control" formControlName="cnt_chapter_name">
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Description </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp;
+                                    <textarea placeholder="" class="form-control"
+                                        formControlName="cnt_chapter_description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label">Status <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <strong>:</strong> &nbsp;
+                                    <select class="form-control form-control-sm shadow-sm rounded-lg" id="sel1"
+                                        formControlName="cnt_status">
+                                        <option [selected]='true' [ngValue]=1>Active</option>
+                                        <option [ngValue]=0>InActive </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+           
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" *ngIf="!isEdit" class="btn btn-success" (click)="onSubmit(myForm)" [disabled]="myForm.invalid">Save</button>
+                    
+                <button type="button" *ngIf="isEdit" class="btn btn-success" (click)="onSubmit(myForm)" [disabled]="myForm.invalid">Update</button>
+                 
+                <button type="button" class="btn btn-danger" id="md_close" (click)="close()" data-dismiss="modal">Close</button>
+                    
+            </div>
+        </div>
+    </div>
+</div>

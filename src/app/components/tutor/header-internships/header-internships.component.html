@@ -1,0 +1,114 @@
+<section>
+    <div class="page-header-area sec-overlay sec-overlay-black"
+        style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;">
+        <div class="container pt--0 pb--0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-header-content">
+                        <h2 class="title">Internship</h2>
+                        <nav class="breadcrumb-area">
+                            <ul class="breadcrumb justify-content-center">
+                                <li><a href="index.html">Home</a></li>
+                                <li class="breadcrumb-sep">//</li>
+                                <li>Internship</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="recent-job-area bg-color-gray">
+    <div class="bg-light">
+        <div class="container pt-0 pb-0">
+            <div class="row align-items-center">
+                <div class="col-xl-6 pt-0">
+                    <h3 class="fw-bold">Corporates </h3>
+                    <!-- <p>100 - 200 Company jobs</p> -->
+                </div>
+                <!-- <div class="col-xl-6 pt-1 text-end">
+                    <h3 class="fw-bold"> <button class="btn btn-sm btn-info mb-0 bg-transparent border-0"
+                            (click)="backToCompanies()"><i class="bi bi-arrow-left-circle-fill"></i></button> </h3>
+                </div> -->
+            </div>
+            <!-- <hr class="mt-0 mb-0"> -->
+        </div>
+        <div class="post pt-1 container pb-2 pt-2" *ngIf="false">
+            <div class="row DCB-card">
+                <div class="col-xl-4 col-md-6 mb-5" *ngFor="let course of courseList;">
+
+                    <!-- <div class="card shadow-sm h-100">
+                    <div style="position:relative;">
+                        <img [src]="course.IMAGE_URL" class="card-img-top" alt="..." width="354" height="185">
+                        <span href="#" class="badge rounded-pill bg-light text-dark user-pill px-3 py-2">
+                           
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title mt-2">{{course.COURSE_NAME}}</h5>
+                        <p class="card-text">{{course.COURSE_DESCRIPTION.substr(0,150)}}
+                            <a *ngIf="course.COURSE_DESCRIPTION.length>75" (click)="gotoCourseDetail(course)" href="javascript:return(0);">View More</a>
+                        </p>
+                        <div class="d-flex justify-content-between">
+                            <div><span class="price me-2"> {{course.COURSESHD_AMOUNT |currency:'INR'}}</span>
+                            </div>
+                            <div><span><button class="btn btn-sm btn-seeall-1" (click)="gotoCourseDetail(course)"   >View Course</button></span> </div>
+                        </div>
+                    </div>
+                </div> -->
+                    <div class="card profile-card-3 h-100">
+                        <div class="background-block">
+                            <img [src]="course.IMAGE_URL" alt="profile-sample1" class="background" />
+                        </div>
+
+                        <div class="card-content p-4">
+                            <div class="text-start mb-3">
+                                <h2 class="">{{course.COURSE_NAME}}</h2>
+                                <!-- <h5 class="">Justin Mccoy<small>Designer</small></h5> -->
+
+                                <h5 class="mt-1">Who Can Apply</h5>
+                                <p>{{course?.courseshd_canappy}}</p>
+
+                                <h5 class="mt-1">Terms Of Engagement</h5>
+                                <p>{{course?.courseshd_terms}}</p>
+
+                                <h5 class="mt-1">Classified Type</h5>
+                                <p>{{course?.courseshd_classifiedtype_id == 1 ? "Full Time" : "Part Time"}}</p>
+                            </div>
+                            <div class="text-start mt-4">
+                                <!-- <span class="small">1 - 28 July 2022</span> -->
+                                <!-- <div class="fs-3 mt-2">Angular</div> -->
+
+                                <p class="text-white mb-2">
+                                    {{course.COURSE_DESCRIPTION.substr(0,150)}}
+                                    <a *ngIf="course.COURSE_DESCRIPTION.length>75" (click)="gotoCourseDetail(course)"
+                                        href="javascript:return(0);">View More</a>
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <span class="text-white me-2 fw-bold">{{course.COURSESHD_AMOUNT
+                                            |currency:'INR'}}</span>
+                                        <!-- <spn class=" text-bg-danger">$ 500</spn> -->
+                                    </div>
+                                    <div><span><button class="btn btn-sm btn-outline-light"
+                                                (click)="gotoCourseDetail(course)">View Course</button></span>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row mb-2">
+                <div class="col-xl-12 text-end">
+                    <button class="btn btn-sm btn-seeall" (click)="backToCompanies()"><i class="bi bi-arrow-left-circle fa-2x"></i>Back</button>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+</section>

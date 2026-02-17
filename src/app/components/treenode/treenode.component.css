@@ -1,0 +1,19 @@
+.childs{
+    margin:2px;
+    margin-left: 10px;
+}
+.header_node{
+    position: relative;
+}
+.action_group{
+    position: absolute;
+    top: 26px;
+    left: 20px;
+    /* border: 0.5px solid gray; */
+    background-color: rgb(172, 141, 141);
+    z-index: 500;
+}
+ul{
+    list-style: none;
+    padding: 2px 15px;
+}

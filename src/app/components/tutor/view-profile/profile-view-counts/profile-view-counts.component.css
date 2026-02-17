@@ -1,0 +1,9 @@
+.fa-graduation-cap,
+.fa-book,
+.fa-comment-dots,
+.fa-calendar-check {
+    color: #4045ac;
+    border: 1px solid;
+    padding: 20px;
+    border-radius: 15px;
+}

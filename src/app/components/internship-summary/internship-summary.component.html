@@ -1,0 +1,148 @@
+<div class="page-wrapper pt-2">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid pt-2 pb-2">
+                        <div class="row m-0 g-3">
+                            <div class="col-xl-12 ps-0 pe-0">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 float-start">
+                                             Internship: <span class="me-2 ms-0 fw-bold">{{params.COURSE_NAME}}
+                                                            </span>
+                                        </h5>
+                                        <div class="float-end">
+                                            <button class=" btn btn-primary btn-sm" (click)="GoToIntrnship()"><i class="bi bi-arrow-left-circle me-1"></i>Back</button>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-body p-4 pt-3">
+
+                                         
+
+                                
+                                  <!-- <h4 class="title"></h4> -->
+                                      <table class="table table-sm table-borderless small mb-4 bg-light" style="border-bottom: 2px solid #2e7a9170;">
+                                                <tbody >
+                                                    <tr colspan="4" style="border-bottom: 1px solid rgb(219, 219, 219);">
+                                                        <td><strong>Summary</strong></td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name p-3" style="width: 25%;"><strong> Company Name</strong></td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e" style="border-right: 1px solid rgb(219, 219, 219);">{{params.COMPANY_NAME}}</td>
+                                                          <td class="table-name" style="width:20%;"><strong>Company Email</strong></td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e" >{{params.COMPANY_EMAIL_ID}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                      
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name"><strong>Company Contact No.</strong></td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e" style="border-right: 1px solid rgb(219, 219, 219);">{{params.COMPANY_CONTACT}}</td>
+                                                          <td class="table-name"><strong>Internship Id</strong></td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e">{{params.AUTO_GENARATED_INTERNSHIP_ID}}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                      
+                                                    </tr>
+                                                    <!-- <tr>
+                                                        <td class="table-name">FIRST NAME</td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e">{{params.FIRSTNAME}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">LAST NAME</td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e">{{params.LASTNAME}}</td>
+                                                    </tr> -->
+                                                    <tr>
+                                                        <td class="table-name"><strong>Registration Start Date</strong></td>
+                                                        <td class="dotted">:</td>
+                                                        <td style="border-right: 1px solid rgb(219, 219, 219);">{{params.REGISTRATION_STARTDATE | date: 'dd-MM-yyyy'}}</td>
+                                                         <td class="table-name"><strong>Registration End Date</strong></td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.REGISTRATION_ENDDATE | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <td class="table-name"><strong>Internship Start Date</strong></td>
+                                                        <td class="dotted">:</td>
+                                                        <td style="border-right: 1px solid rgb(219, 219, 219);">{{params.COURSESHD_STARTDATE | date: 'dd-MM-yyyy'}}</td>
+                                                          <td class="table-name"><strong>Internship End Date</strong></td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.COURSESHD_ENDDATE | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
+                                          
+
+                                             <div class="col-xl-12">
+
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                      
+                                    </div>
+                                    <div class="col-xl-3">
+                                           
+                                <div class="card shadow-sm">
+                                    <div class="card-body p-2">
+
+                                         <h4 class="title mb-0">{{params.COURSESHD_NAME}}
+                                                        <!-- {{courseDetails.LASTNAME}} -->
+                                                    </h4>
+
+                                        <img [src]="params.IMAGE_URL" alt="profile-sample1"
+                                                            class="background img-fluid" />
+
+                                         
+
+                                    </div>
+                                </div>
+                             
+
+                                    </div>
+                                    <div class="col-xl-9">
+
+                                          <h6>About Internship</h6>
+                                          <p class="mb-0">  {{params.COURSE_DESCRIPTION}} </p>
+
+                                    </div>
+                                    <div class="col-xl-12">
+                                         <h6 class="mt-4">Who Can Apply</h6>
+                                            <p>{{params.courseshd_canappy}}</p>
+
+                                            <h6 class="mt-4">Terms Of Engagement</h6>
+                                            <p>{{params.courseshd_terms}}</p>
+                                    </div>
+                                </div>
+                             
+                            </div>
+                                            </div>
+                                            </div>
+
+                            </div>
+                           
+                         
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+  

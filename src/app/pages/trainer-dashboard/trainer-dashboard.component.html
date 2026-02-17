@@ -1,0 +1,381 @@
+<div class="page-wrapper mt-5 pt-2">
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-xl-12 mb-4">
+        <div class="card card-1 card-shadow ps-3">
+
+          <div class="card-body table-style  pb-0">
+
+            <div class="row">
+              <div class="col-xl-8">
+                <p style="color:#5F78BA;margin-bottom: 5px; margin-top: 5px;">Hi</p>
+                <h2 style="color: #5F78BA;"><b>{{FullName}}</b></h2>
+                <p class="text"><img src="../../../assets/img/Group 53.png" class="img-fluid me-3">You have 1 new event
+                </p>
+                <!-- <button type="button" class="btn btn-outline-primary btn-sm py-1 px-3">View</button> -->
+              </div>
+              <!-- <div class="col-xl-4">
+                <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel"> -->
+              <!-- <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                      aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
+                  </div> -->
+              <!-- <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000">
+                      <img src="../../../assets/img/slider-1.png" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                      <img src="../../../assets/img/slider-1.png" class="d-block w-100" alt="...">
+
+                    </div>
+                    <div class="carousel-item">
+                      <img src="../../../assets/img/slider-1.png" class="d-block w-100" alt="...">
+
+                    </div>
+                  </div> -->
+              <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-4 mb-3">
+        <div class="card multi-card shadow-sm h-100 border-0">
+          <div class="card-body ">
+            <table class="table table-borderless mb-0">
+              <tr>
+                <td style="width: 25%;" rowspan="2">
+                  <div class="mt-3">
+                    <span class="card-icon p-3 shadow">
+
+                      <!-- <i class="bx bx-user"></i> -->
+                      <img src="../../../../assets/img/online-learning.png" class="img-fluid "
+                        style="width: 25px; height:25px">
+                      <!-- <img src="/../tutor/src/assets/img/online-learning.png" class="img-fluid " style="width: 25px; height:25px"> -->
+                    </span>
+                  </div>
+                </td>
+                <td style="width: 55%;">Active</td>
+                <td style=" float: right;">{{dashboard.registered_active}}</td>
+              </tr>
+              <tr style="padding-bottom: 10px;">
+                <td style="width: 55%;">Inactive</td>
+                <td style=" float: right;">{{dashboard.registered_Inactive}}</td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <hr style="border-top: 1px solid rgba(110, 110, 110, 0.11); margin-top: 2px; margin-bottom: 3px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2" style="width: 80%;">
+                  Number of registered courses
+                </td>
+                <td style=" float: right; ">{{dashboard.registered_active+dashboard.registered_Inactive}}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 mb-3 ">
+        <div class="card multi-card shadow-sm h-100 border-0">
+          <div class="card-body ">
+            <table class="table table-borderless mb-0">
+              <tr>
+                <td style="width: 25%;" rowspan="2">
+                  <div class="mt-3">
+                    <span class="card-icon p-3 shadow">
+
+                      <!-- <i class="bx bx-user"></i> -->
+                      <img src="../../../../assets/img/teacher (1).png" class="img-fluid "
+                        style="width: 25px; height:25px">
+                    </span>
+                  </div>
+                </td>
+                <td style="width: 55%;">Active</td>
+                <td style=" float: right;">{{dashboard.traineer_enrolled_active}}</td>
+              </tr>
+              <tr style="padding-bottom: 10px;">
+                <td style="width: 55%;">Inactive</td>
+                <td style=" float: right;">{{dashboard.traineer_enrolled_Inactive}}</td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <hr style="border-top: 1px solid rgba(110, 110, 110, 0.11); margin-top: 2px; margin-bottom: 3px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2" style="width: 80%;">
+                  Number of Trainees Enrolled
+                </td>
+                <td style=" float: right; ">{{dashboard.traineer_enrolled_active +
+                  dashboard.traineer_enrolled_Inactive}}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 mb-3">
+        <div class="card multi-card shadow-sm h-100 border-0">
+          <div class="card-body ">
+            <table class="table table-borderless mb-0">
+              <tr>
+                <td style="width: 25%;" rowspan="2">
+                  <div class="mt-3">
+                    <span class="card-icon p-3 shadow">
+
+                      <!-- <i class="bx bx-user"></i> -->
+                      <img src="../../../../assets/img/stacked-files.png" class="img-fluid "
+                        style="width: 25px; height:25px">
+                    </span>
+                  </div>
+                </td>
+                <td style="width: 55%;">Active</td>
+                <td style=" float: right;">{{dashboard.batches_active}}</td>
+              </tr>
+              <tr style="padding-bottom: 10px;">
+                <td style="width: 55%;">Inactive</td>
+                <td style=" float: right;">{{dashboard.batches_Inactive}}</td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <hr style="border-top: 1px solid rgba(110, 110, 110, 0.11); margin-top: 2px; margin-bottom: 3px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2" style="width: 80%;">
+                  Number of Batches
+                </td>
+                <td style=" float: right; ">{{dashboard.batches_active+dashboard.batches_Inactive}}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 mb-3">
+        <div class="card multi-card shadow-sm h-100 border-0">
+          <div class="card-body p-2">
+            <table class="table table-borderless mb-0">
+              <tr>
+                <td style="width: 25%;" rowspan="2">
+                  <div class="mt-3 mb-3">
+                    <span class="card-icon p-3 shadow">
+
+                      <!-- <i class="bx bx-user"></i> -->
+                      <img src="../../../../assets/img/presentation.png" class="img-fluid "
+                        style="width: 25px; height:25px">
+                    </span>
+                  </div>
+                </td>
+                <td style="width: 55%;"></td>
+                <td style=" float: right;"></td>
+              </tr>
+              <tr style="padding-bottom: 10px;">
+                <td style="width: 55%;"></td>
+                <td style=" float: right;"></td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <hr style="border-top: 1px solid rgba(110, 110, 110, 0.11); margin-top: 2px; margin-bottom: 3px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2" style="width: 80%;">
+                  Ongoing Sessions
+                </td>
+                <td style=" float: right; ">{{dashboard.session}}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 mb-3">
+        <div class="card multi-card shadow-sm h-100 border-0">
+          <div class="card-body p-2">
+            <table class="table table-borderless mb-0">
+              <tr>
+                <td style="width: 25%;" rowspan="2">
+                  <div class="mt-3 mb-3">
+                    <span class="card-icon p-3 shadow">
+
+                      <!-- <i class="bx bx-user"></i> -->
+                      <img src="../../../../assets/img/tick.png" class="img-fluid " style="width: 25px; height:25px">
+                    </span>
+                  </div>
+                </td>
+                <td style="width: 55%;"></td>
+                <td style=" float: right;"></td>
+              </tr>
+              <tr style="padding-bottom: 10px;">
+                <td style="width: 55%;"></td>
+                <td style=" float: right;"></td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <hr style="border-top: 1px solid rgba(110, 110, 110, 0.11); margin-top: 2px; margin-bottom: 3px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2" style="width: 80%;">
+                  Sessions Completed
+                </td>
+                <td style=" float: right; ">{{dashboard.session_completed}}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 mb-3">
+        <div class="card multi-card shadow-sm h-100 border-0">
+          <div class="card-body p-2">
+            <table class="table table-borderless mb-0">
+              <tr>
+                <td style="width: 25%;" rowspan="2">
+                  <div class="mt-3 mb-3">
+                    <span class="card-icon p-3 shadow">
+
+                      <!-- <i class="bx bx-user"></i> -->
+                      <img src="../../../../assets/img/presentation.png" class="img-fluid "
+                        style="width: 25px; height:25px">
+                    </span>
+                  </div>
+                </td>
+                <td style="width: 55%;"></td>
+                <td style=" float: right;"></td>
+              </tr>
+              <tr style="padding-bottom: 10px;">
+                <td style="width: 55%;"></td>
+                <td style=" float: right;"></td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <hr style="border-top: 1px solid rgba(110, 110, 110, 0.11); margin-top: 2px; margin-bottom: 3px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2" style="width: 80%;">
+                  Trainee Comments
+                </td>
+                <td style=" float: right; ">{{dashboard.trainee_comments}}</td>
+              </tr>
+
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- <div class="row">
+      <div class="col-xl-8 pt-4">
+
+        <div class="container-fluid" *ngIf="roleId==3">
+          <div id="accordion" class="accordion">
+            <div class="card mb-0 active">
+              <div class="card-header collapsed accordion1" data-toggle="collapse" href="#collapseOne">
+                <a class="card-title">
+                  My Learning Resources
+                </a>
+              </div>
+              <div id="collapseOne" class="card-body collapse show" data-parent="#accordion">
+                <div *ngIf="course.classes&&course.classes.length"> -->
+                  <!-- <h5>Grade that you have enrolled for</h5> -->
+                  <!-- <table class="table table-striped table-responsive-md btn-table table-bordered text-dark">
+                    <thead>
+                      <tr>
+                        <th> Name</th> -->
+                        <!-- <th>Category</th> -->
+                        <!-- <th>Resources</th>
+                        <th>Exam</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of course.classes">
+                        <td>{{item.Name}}</td> -->
+                        <!-- <td>Medical</td> -->
+                        <!-- <td><a class="a_click underLine" (click)="navigate(item,'HOME/learningmaterial')">view</a></td>
+                        <td><a class="a_click underLine" (click)="navigate(item,'HOME/postassessment')">Take Exam</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="text-dark" *ngIf="!course.classes|| !course.classes.length">
+                  No records to Display
+                </div>
+              </div> -->
+
+              <!-- <div class="card-header collapsed accordion1 mt-1" data-toggle="collapse" data-parent="#accordion"
+                href="#collapseTwo">
+                <a class="card-title">
+                  Online Sessions
+                </a>
+              </div> -->
+              <!-- <div id="collapseTwo" class="card-body collapse" data-parent="#accordion">
+                <div *ngIf="course.sessions&&course.sessions.length">
+                  <h5>Online Sessions for today</h5>
+                  <table class="table table-striped table-responsive-md btn-table text-dark">
+                    <thead>
+                      <tr>
+                        <th> Session Name </th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Join</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of course.sessions">
+                        <td>{{item.SessionName}}</td>
+                        <td>{{item.StartTime}}</td>
+                        <td>{{item.EndTime}}</td>
+                        <td><a *ngIf='item.URL' href="{{item.URL}}" target="blank">Join Session</a>
+                          <span *ngIf='!item.URL'>Host Not Joined</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="text-dark" *ngIf="!course.sessions || !course.sessions.length">
+                  No records Display
+                </div>
+              </div> -->
+
+            <!-- </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div> -->
+  </div>
+</div>
+
+<!-- Floating Chat Widget -->
+<app-chat-widget></app-chat-widget>

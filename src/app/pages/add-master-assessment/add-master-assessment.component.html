@@ -1,0 +1,255 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 *ngIf="!isEdit" class="mb-0 ">Add Master Assessment </h5>
+                                        <h5 *ngIf="isEdit" class="mb-0 ">Edit Master Assessment </h5>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="custom_container">
+                                            <form class="well form-horizontal" [formGroup]="myForm"
+                                                (ngSubmit)="onSubmit(myForm)">
+                                                <fieldset>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 control-label"> Course Category <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select [(ngModel)]="categoryId"
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    (change)="getCource()"
+                                                                    formControlName='ASSESSMENT_CATEGOREYID'>
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let category of categorys"
+                                                                        [value]='category.COURSE_CATEGORY_ID'>
+                                                                        {{category.COURSE_CATEGORY_NAME}}
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label"> Course Name <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select [(ngModel)]='courceId'
+                                                                    (change)="getCourceSchedule()"
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    formControlName="ASSESSMENT_COURSE_ID">
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let course of courses"
+                                                                        [value]='course.COURSE_ID'>
+                                                                        {{course.COURSE_NAME}}
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Batch Schedule <span
+                                                                class="text-danger">*</span> </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    formControlName='ASSESSMENT_COURSESECHD_ID'>
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let schedule of schedules"
+                                                                        [value]='schedule.COURSESHD_ID'>
+                                                                        {{schedule.COURSESHD_NAME}}
+                                                                    </option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label"> Assessment Name <span
+                                                                class="text-danger">*</span> </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input formControlName="ASSESSMENT_ASSESSMENT_NAME"
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            No of Attempts <span class="text-danger">*</span> </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text"
+                                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                    formControlName='ASSESSMENT_NOOFATTEMPTS'
+                                                                    placeholder="" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            No. of Questions <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text" (change)='noQChange()'
+                                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                    formControlName="ASSESSMENT_NO_OF_QUESTIONS"
+                                                                    placeholder="" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Pass % of Marks <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text"
+                                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                    formControlName='ASSESSMENT_MINPERCENTAGE'
+                                                                    placeholder="" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Assessment Time <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text"
+                                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                    formControlName='ASSESSMENT_TIMINGFORASSESSMENT'
+                                                                    placeholder="" class="form-control"> &nbsp;
+                                                                <span>mins</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Complexity <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select (change)="complexityChange($event.target.value)"
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    formControlName='COMPLEXITY_TYPE'>
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option value=1>Levels</option>
+                                                                    <option value=2>General </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Question Type <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <select (change)="qTypeChange($event.target.value)"
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    formControlName='ASSESSMENT_QUESTIONTYPE'>
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option value=1>Objective</option>
+                                                                    <option value=2>Subjective </option>
+                                                                    <option value="3">Both</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Marks </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <input type="text" placeholder="" class="form-control"
+                                                                    formControlName='ASSESSMENT_MARKS'>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="myForm.controls['formArray']">
+                                                        <div formArrayName='formArray'>
+
+                                                            <div class="form-group row  pt-4"
+                                                                *ngFor="let item of myForm.controls['formArray'].controls;let i=index"
+                                                                [formGroupName]="i">
+                                                                <label class="col-md-4 control-label">
+                                                                    L {{i+1}} <span class="text-danger">*</span></label>
+                                                                <label class="col-md-2 control-label">
+                                                                    Objective </label>
+                                                                <div class="col-md-2 inputGroupContainer">
+                                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                        <input class="form-control"
+                                                                            (change)="calcMarks($event.target.value)"
+                                                                            onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                            formControlName="objective">
+                                                                    </div>
+                                                                </div>
+                                                                <label class="col-md-2 control-label">
+                                                                    Subjective </label>
+                                                                <div class="col-md-2 inputGroupContainer">
+                                                                    <div class="input-group">
+                                                                        <strong>:</strong> &nbsp;
+                                                                        <input class="form-control"
+                                                                            (change)="calcMarks($event.target.value)"
+                                                                            onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                            formControlName="subjective">
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row  pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Description <span class="text-danger">*</span> </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group">
+                                                                <textarea placeholder=""
+                                                                    formControlName='ASSESSMENT_ASSESSMENT_DESC'
+                                                                    class="form-control"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                </fieldset>
+                                            </form>
+                                            <div class="text-center  pt-4">
+                                                <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save"
+                                                    (click)="onSubmit(myForm)" [disabled]="myForm.invalid">Save</button>
+                                                &nbsp; <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save"
+                                                    (click)="onSubmit(myForm)"
+                                                    [disabled]="myForm.invalid">Update</button>
+                                                &nbsp; <button type="button" class="btn btn-danger btn-sm" id="md_close"
+                                                    (click)="close()">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

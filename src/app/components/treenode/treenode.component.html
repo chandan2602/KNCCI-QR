@@ -1,0 +1,53 @@
+<div>
+    <div class="header_node" (mouseout)='mouseout()' (contextmenu)="rightClick()">
+        <p class="pointer" (click)="toggeleClick()"><span *ngIf='data.Childnode&&data.Childnode.length'> <i *ngIf='isEnable'
+                    class="fa fa-folder-open" aria-hidden="true"></i> <i *ngIf='!isEnable' class="far fa-folder"
+                    aria-hidden="true"></i></span> {{data.Text}} </p>
+        <span id={{getId(true)}} style="width: 0;height: 0;" [attr.data-target]="getId()" data-toggle="modal"></span>
+        <div *ngIf='isAction' class="action_group" #toggleButton (mouseleave)='mouseleave()'>
+            <ul>
+                <li (click)='add($event,false)'>Add</li>
+                <li [diabled]='!isEnabled' (click)='add($event,true)'>Edit</li>
+                <li [diabled]='!isEnabled' (click)='addfile()'>add file</li>
+            </ul>
+        </div>
+    </div>
+    <div class="childs" *ngIf='isEnable'>
+        <div class="child" *ngFor='let item of data.Childnode'>
+            <app-treenode [data]='item'></app-treenode>
+        </div>
+    </div>
+
+    <div class="add" *ngIf='isAdd'>
+        <div *ngIf='!isEdit'>
+            <input type="text" [(ngModel)]='name' autofocus> <button (click)='addNode()'>Add</button>
+        </div>
+        <div *ngIf='isEdit'>
+            <input type="text" [(ngModel)]='editName' autofocus> <button (click)='Update()'>Update</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id={{id}} role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="file" (change)="change($event)" accept=".doc,.docx,.pdf">
+                <br>
+                <span>
+                    Please upload pdf and doc file formats only.
+                </span>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="save()" class="btn btn-default">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id={{getCloseId()}}>Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

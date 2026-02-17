@@ -1,0 +1,24 @@
+
+input[type="text"]{
+    border: 1px solid black;
+}
+.card-footer{
+    text-align: center;
+}
+.card{
+    width: 70%;
+    margin: 0 auto;
+}
+h5{
+    border-bottom: 1px solid;
+    margin-bottom: 5px;
+}
+p{
+    text-align: center;
+}
+.check_answer{
+    
+    cursor: pointer;
+    float: right;
+    color: #007bff !important;
+}

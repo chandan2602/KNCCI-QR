@@ -1,0 +1,7 @@
+.eBSDP {
+    height: 31px !important;
+}
+
+.eBSDP::placeholder {
+    text-transform: uppercase;
+}

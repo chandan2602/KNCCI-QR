@@ -1,0 +1,114 @@
+<br><br>
+<div class="page-wrapper " style="margin-top:6rem;">
+    <div class="page-content pt-0 pe-0 ps-0">
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+
+
+
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 class="mb-0 text-center">Latest News</h5>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="row col-12">
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <div *ngFor='let item of newsList'>
+                                            <p class="date">{{item.EVENT_CREATEDDATE | date : "dd.MM.y" }}
+                                            </p>
+                                            <img src="{{item.EVENT_IMAGE}}" alt="News">
+                                            <h4 data-bs-toggle="modal" data-bs-target="#newsModal"
+                                                (click)="getNews(item.EVENT_ID)" id="title" class="title">
+                                                {{item.EVENT_NAME}}</h4>
+                                            <!-- <h6 class="des">{{item.EVENT_DESCRIPTION}}</h6> -->
+                                            <P>{{item.EVENT_DESCRIPTION}}</P>
+                                            <hr>
+                                        </div>
+
+                                        <div class="text-center" *ngIf="!newsList.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="card-body ">
+                                        <h5 style="padding-top: 120px;">Upcoming Events</h5>
+                                        <hr>
+                                        <div *ngFor='let item of events'>
+                                            <p class="date">{{item.EVENT_CREATEDDATE | date : "dd.MM.y" }}
+                                            </p>
+                                            <img src="{{item.EVENT_IMAGE}}" alt="Event">
+                                            <h6 data-bs-toggle="modal" data-bs-target="#newsModal"
+                                                (click)="getNews(item.EVENT_ID)" id="event" class="title">
+                                                {{item.EVENT_NAME}}</h6>
+                                            <!-- <h6>{{item.EVENT_DESCRIPTION}}</h6> -->
+                                            <P>{{item.EVENT_DESCRIPTION}}</P>
+                                            <hr>
+                                        </div>
+
+                                        <div class="text-center" *ngIf="!events.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">news</h4>
+                                <button type="button" class="close" data-bs-dismiss="modal"
+                                    (click)="onCloseModal()">&times;</button>
+                                <!-- <h4 class="modal-title" >Upcoming Event</h4> -->
+                                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                            </div>&nbsp;
+                            <div *ngIf='isNews'>
+                                <div class="container">
+                                    <div class="row col-12">
+                                        <div class="col-3">
+                                            <img src="{{news.EVENT_IMAGE}}" alt="News">
+                                        </div>
+                                        <div class="col-9">
+                                            <h3>{{news.EVENT_NAME}}</h3>
+                                            <!-- <h5 class="description">{{news.EVENT_DESCRIPTION}}</h5> -->
+                                            <P class="description">{{news.EVENT_DESCRIPTION}}</P>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+
+
+                                &nbsp;
+                                <button class="btn btn-danger" id='close' (click)="close()" data-bs-dismiss="modal"
+                                    (click)="onCloseModal()">
+                                    Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

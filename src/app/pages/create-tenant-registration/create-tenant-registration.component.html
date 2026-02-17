@@ -1,0 +1,232 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0"> Tenant</h5>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="custom_container">
+                                            <form class="well form-horizontal" [formGroup]="myform">
+                                                <fieldset>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 control-label mt-2">
+                                                            Tenant Name <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                    formControlName='TNT_NAME'>
+                                                            </div>
+                                                            <div *ngIf="myform.get('TNT_NAME').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myform.get('TNT_NAME').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label mt-2">
+                                                            Status <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <select
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                    formControlName='TNT_STATUS'>
+                                                                    <option [ngValue]='true'>Active</option>
+                                                                    <option [ngValue]='false'>Inactive</option>
+                                                                </select>
+                                                            </div>
+                                                            <div *ngIf="myform.get('TNT_STATUS').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myform.get('TNT_STATUS').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row  pt-4">
+                                                        <label class="col-md-4 control-label mt-2">
+                                                            Belongs To <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <select
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                    formControlName='TNT_PARENT_CODE'>
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option [value]='item.TNT_CODE'
+                                                                        *ngFor='let item of tenants'>{{item.TNT_NAME}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            <div *ngIf="myform.get('TNT_PARENT_CODE').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myform.get('TNT_PARENT_CODE').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row  pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            Description <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <textarea class="form-control"
+                                                                    formControlName='TNT_DESCRIPTION'>
+                                                    </textarea>
+                                                            </div>
+                                                            <div *ngIf="myform.get('TNT_DESCRIPTION').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myform.get('TNT_DESCRIPTION').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row  pt-4">
+                                                        <label class="col-md-4 control-label mt-2">
+                                                            TSubscription Duration <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                    type="date" formControlName='TNT_KEY'>
+
+                                                            </div>
+                                                            <div *ngIf="myform.get('TNT_KEY').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myform.get('TNT_KEY').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row  pt-4">
+                                                        <label class="col-md-4 control-label mt-2">
+                                                            Concurrent AV Sessions <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                    type="text"
+                                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                    formControlName='TNT_CONCURRENT_AVSESSIONS'>
+
+                                                            </div>
+                                                            <div
+                                                                *ngIf="myform.get('TNT_CONCURRENT_AVSESSIONS').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myform.get('TNT_CONCURRENT_AVSESSIONS').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row  pt-4">
+                                                        <label class="col-md-4 control-label mt-2">
+                                                            No of online users per Session <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                    type="text"
+                                                                    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                    formControlName='TNT_USERSPERSESSION'>
+
+                                                            </div>
+                                                            <div *ngIf="myform.get('TNT_USERSPERSESSION').touched">
+                                                                <span class="text-danger"
+                                                                    *ngIf="myform.get('TNT_USERSPERSESSION').hasError('required')">
+                                                                    This field is required.
+                                                                </span>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row  pt-4" *ngIf='isEdit'>
+                                                        <label class="col-md-4 control-label mt-2">
+                                                            Tenant Logo
+                                                        </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input type="file" (change)='changeFile($event)'>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row  pt-4" *ngIf='isEdit'>
+                                                        <label class="col-md-4 control-label mt-2">
+                                                            Show Provider Logo
+                                                        </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input class="mt-2" type="checkbox"
+                                                                    formControlName='SHOWLOGO'>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row  pt-4" id="isChecked">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Is Proctoring </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input type="checkbox" class="checkbox"
+                                                                    formControlName="allow_proctoring">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row  pt-4" id="isChecked">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Is Exampad </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input type="checkbox" class="checkbox"
+                                                                    formControlName="allow_exampad">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </fieldset>
+                                            </form>
+                                            <div class="text-center  pt-4">
+                                                <button type="button" *ngIf='!isEdit' class="btn btn-sm  btn-save"
+                                                    (click)="onSubmit(myform)" [disabled]="myform.invalid">Save</button>
+                                                <button type="button" *ngIf='isEdit' class="btn btn-sm  btn-save"
+                                                    (click)="onSubmit(myform)"
+                                                    [disabled]="myform.invalid">Update</button> &nbsp;
+                                                <button type="button" class="btn btn-danger btn-sm" id="md_close"
+                                                    (click)="close()"><i class="bi bi-arrow-left-circle fa-2x"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

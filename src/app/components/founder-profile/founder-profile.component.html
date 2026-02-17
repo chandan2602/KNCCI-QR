@@ -1,0 +1,68 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="main_section" *ngIf="editData !=''">
+                            <!-- Top Header Section -->
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <img src="../../assets/img/logo1-new.png" alt="Logo" class="logo me-3" />
+                                <h4 class="text-center mb-0" style="color:#307a91;">Founder Profile</h4>
+                            </div>
+                            <hr>                            
+                            <!-- Card 2: Address Information -->
+                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                <div class="card-body">
+                                <div class="highlight-title"></div>
+                                    <table class="table table-borderless mb-0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="data-label">First Name </td>
+                                                <td class="data-value">{{editData?.firstname}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label">Last Name</td>
+                                                <td class="data-value">{{editData?.lastname}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label">Email</td>
+                                                <td class="data-value">{{editData?.emailid}}</td>
+                                                </tr>
+                                            
+                                            <tr>
+                                                <td class="data-label">Mobile Number</td>
+                                                <td colspan="3" class="data-value">{{editData?.mobileno}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label">Date of birth</td>
+                                                <td class="data-value">{{editData?.dob | date: 'dd-MM-YYYY'}}</td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td class="data-label">Prototype / Demo Link</td>
+                                                <td class="data-value" colspan="3">
+                                                <a href="http://localhost:4200/HOME/startsUp">http://localhost:4200/HOME/startsUp</a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="data-label">Video Pitch Link</td>
+                                                <td class="data-value" colspan="3">
+                                                <a href="http://localhost:4200/HOME/startsUp">http://localhost:4200/HOME/startsUp</a>
+                                                </td>
+                                            </tr> -->
+
+
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <button class="btn btn-sm btn-success" *ngIf="isFounder" [routerLink]="['/HOME/approval-signup']"><i class="bi bi-arrow-left-circle fa-2x"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

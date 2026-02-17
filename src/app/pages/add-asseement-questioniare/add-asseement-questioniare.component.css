@@ -1,0 +1,10 @@
+.custom_container{
+    width: 55%;
+    margin: 0 auto;
+}
+
+.add_remove{
+    position: absolute;
+    bottom: 7rem;
+    right: 23rem;
+}

@@ -1,0 +1,110 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Student Report</h5>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Course Name : </label>
+                                                    <select [(ngModel)]='course_id '
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1" (change)="traineeReportChange()">
+                                                        <option value="0" [selected]="true">Select All</option>
+                                                        <option *ngFor="let course of courcesList"
+                                                            [value]='course.COURSE_ID'>
+                                                            {{course.COURSE_NAME}}
+                                                        </option>
+
+                                                    </select>
+                                                </div>
+
+                                            </div>&nbsp;
+
+                                            <div>
+                                                <div class="table-responsive">
+                                                    <table id="traineeReport" datatable [dtOptions]="dtOptions"
+                                                        [dtTrigger]="dtTrigger"
+                                                        class="table-striped table-bordered mt-2 pt-2 table-sm small display"
+                                                        style="width:100%">
+                                                        <thead class="top"
+                                                            style="background-color: #2e7a91; color:#ffffff;">
+                                                            <tr style="white-space: nowrap;">
+                                                                <th> S.No </th>
+                                                                <th> Trainee Name </th>
+                                                                <th> Course Name</th>
+                                                                <th> Email</th>
+                                                                <th> Mobile</th>
+                                                                <th> Batch Start Date </th>
+                                                                <th> Batch End Date </th>
+                                                                <th> Area </th>
+                                                                <th> City </th>
+                                                                <th> District </th>
+                                                                <th> State </th>
+                                                                <th> Education </th>
+                                                                <th> Course Fee </th>
+                                                                <th> View </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of traineeReportList; let i=index">
+                                                                <td>{{i+1}}</td>
+                                                                <td>{{item.name}}</td>
+                                                                <td>{{item.course_name}}</td>
+                                                                <td>{{item.email_id}}</td>
+                                                                <td>{{item.mobileno}}</td>
+                                                                <td>{{item.startdate | date:'dd-MM-yyyy'}}</td>
+                                                                <td>{{item.enddate | date:'dd-MM-yyyy'}}</td>
+                                                                <td>{{item.area_name ||''}}</td>
+                                                                <td>{{item.city_name||''}}</td>
+                                                                <td>{{item.district_name||''}}</td>
+                                                                <td>{{item.state_name||''}}</td>
+                                                                <td>{{item.education_name ||''}}</td>
+                                                                <td>{{item.amount |currency:'INR'}}</td>
+                                                                <!-- <td>{{item.upload_institute ||''}}</td> -->
+                                                                <td>
+                                                                    <!-- <button *ngIf="item.upload_institute" type="button" class="btn btn-success btn-sm" (click)="OpenModel(item.upload_institute)" >
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" 
+                                                                            width="16" height="16" fill="currentColor"
+                                                                            class="bi bi-view-list" viewBox="0 0 16 16">
+                                                                            <path
+                                                                                d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H3zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2zm0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14z" />
+                                                                        </svg>
+                                                                        View</button> -->
+                                                                    <button type="button" *ngIf="item.upload_institute"
+                                                                        class="btn btn-success btn-sm"
+                                                                        (click)="OpenModel(item.upload_institute)">View</button>
+
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="text-center" *ngIf="!traineeReportList.length">
+                                                No Records to display
+                                            </div> -->
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-show-file *ngIf="showModel" [FileName]="FileName" (CloseModelEvent)="closeModel($Event)"></app-show-file>

@@ -1,0 +1,65 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Book's Allocation Report</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="col-xl-12">
+                                            <div class="table">
+                                                <form class="well form-horizontal" [formGroup]="myForm"
+                                                    (ngSubmit)="onSubmit(myForm)">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group row">
+                                                                    <label class="col-md-4 control-label line_2 rem_1">
+                                                                        Select Book Title<span
+                                                                            class="text-danger">*</span></label>
+                                                                    <div class="col-md-8 inputGroupContainer">
+                                                                        <div class="input-group"> <strong>:</strong>
+                                                                            &nbsp;
+                                                                            <select name="title" id="title"
+                                                                                formControlName="title"
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg ">
+                                                                                <option value="" [selected]="true">
+                                                                                    Select</option>
+                                                                                <option
+                                                                                    *ngFor="let title of titleOption"
+                                                                                    [value]="title.BOOK_ID">
+                                                                                    {{title.BOOK_NAME}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+                                                    </fieldset>
+                                                    <br><br>
+                                                    <div class="text-center">
+                                                        <button type="submit" [disabled]="myForm.invalid"
+                                                            class="btn btn-sm  btn-save">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,629 @@
+<div class="default_class">
+    <div class="content-wrapper p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card rounded shadow-lg">
+                        <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                            <h5 class="mb-0 text-center">Billing Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <div class="sub_details">
+                                    <h4>
+                                        Subscription Details</h4>
+                                    <div class="row m-2">
+                                        <div class="col-md-6">Subcription Type : {{assignData.SubscriptionName}}</div>
+                                        <div class="col-md-6">Amount : {{assignData.Amount}}</div>
+                                        <div class="col-md-6">Duration : {{assignData.Duration}}</div>
+                                        <div class="col-md-6">Description: {{assignData.Description}} </div>
+                                    </div>
+                                </div>
+                                <div class="subscribe_details">
+                                    <div class="row">
+                                        <div class="col-xl-12 pt-4">
+                                            <div class="container-fluid">
+                                                <div id="accordion" class="accordion">
+                                                    <div class="card mb-0 active">
+                                                        <div class="card-header collapsed accordion1"
+                                                            data-toggle="collapse" href="#collapseOne">
+                                                            <a class="card-title">
+                                                                Subscriber Details
+                                                            </a>
+                                                        </div>
+                                                        <div id="collapseOne" class="card-body collapse padding_null"
+                                                            data-parent="#accordion">
+                                                            <form [formGroup]='userForm'>
+                                                                <div class="row1">
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label
+                                                                                    class="col-md-5 control-label mt-2">
+                                                                                    Organization Name <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <div
+                                                                                    class="col-md-7 inputGroupContainer">
+                                                                                    <div class="input-group">
+                                                                                        <strong>:</strong> &nbsp;
+                                                                                        <input
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                                            [value]='assignData.OrganizationName'
+                                                                                            disabled>
+                                                                                    </div>
+                                                                                    <!-- <div *ngIf="paymentForm.get('TNT_NAME').touched">
+                                                                                    <span class="text-danger"
+                                                                                        *ngIf="paymentForm.get('TNT_NAME').hasError('required')">
+                                                                                        This field is required.
+                                                                                    </span>
+                                
+                                                                                </div> -->
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label
+                                                                                    class="col-md-5 control-label mt-2">
+                                                                                    Time Zone  <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <div
+                                                                                    class="col-md-7 inputGroupContainer">
+                                                                                    <div class="input-group">
+                                                                                        <strong>:</strong> &nbsp;
+                                                                                        <select
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                                            formControlName='Timezone'>
+                                                                                            <option
+                                                                                                *ngFor='let item of timeZones'
+                                                                                                [value]='item.Id'>
+                                                                                                {{item.DisplayName}}
+                                                                                            </option>
+                                                                                        </select>
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label
+                                                                                    class="col-md-5 control-label mt-2">
+                                                                                    Organization Logo</label>
+                                                                                <div
+                                                                                    class="col-md-7 inputGroupContainer">
+                                                                                    <div class="input-group">
+                                                                                        <strong>:</strong> &nbsp;
+                                                                                        <input type="file" (change)="changeFile($event)"
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label
+                                                                                    class="col-md-5 control-label mt-2">
+                                                                                    Show Provider Logo</label>
+                                                                                <div
+                                                                                    class="col-md-7 inputGroupContainer">
+                                                                                    <div class="input-group">
+                                                                                        <strong>:</strong> &nbsp;
+                                                                                        <input type="checkbox" formControlName='showLogo'>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label
+                                                                                    class="col-md-5 control-label mt-2">
+                                                                                    Email Service</label>
+                                                                                <div
+                                                                                    class="col-md-7 inputGroupContainer">
+                                                                                    <div class="input-group">
+                                                                                        <strong>:</strong> &nbsp;
+                                                                                        <input type="checkbox" formControlName='IS_EMAIL'>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label
+                                                                                    class="col-md-5 control-label mt-2">
+                                                                                   SMS Service</label>
+                                                                                <div
+                                                                                    class="col-md-7 inputGroupContainer">
+                                                                                    <div class="input-group">
+                                                                                        <strong>:</strong> &nbsp;
+                                                                                        <input type="checkbox" formControlName='IS_SMS'>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row2 user_details">
+                                                                    <p>
+                                                                        Login Details</p>
+                                                                    <div class="row ml-2">
+                                                                        <div class="col-md-4">
+                                                                            <label>User Email <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <input type="email" formControlName='email'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                            <div *ngIf="userForm.get('email').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('email').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('email').hasError('email')">
+                                                                                    Please Enter The Valid Email
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <label>Password <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <input type="password"
+                                                                                formControlName='password'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                            <div
+                                                                                *ngIf="userForm.get('password').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('password').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('password').hasError('minlength')">
+                                                                                    The minimum length for this field is
+                                                                                    6 characters
+                                                                                </span>
+
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <label> Confirm Password <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <input type="password"
+                                                                                (change)='confirmPassword($event.target.value)'
+                                                                                formControlName='confirmPassword'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                            <div
+                                                                                *ngIf="userForm.get('confirmPassword').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('confirmPassword').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+                                                                                <span class="text-danger" *ngIf="userForm.get('confirmPassword').hasError('minlength')">
+                                                                                The minimum length for this field is 6 characters
+                                                                            </span>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row3 user_details">
+                                                                    <p>Basic Details</p>
+                                                                    <div class="row ml-2">
+
+                                                                        <div class="col-md-4">
+                                                                            <label>Title <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <select formControlName='title'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                                <option selected> Select</option>
+                                                                                <option [value]='item.DICTIONARYID'
+                                                                                    *ngFor='let item of titles'>
+                                                                                    {{item.DICTIONARYNAME}}</option>
+                                                                            </select>
+                                                                            <div *ngIf="userForm.get('title').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('title').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>First Name <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <input formControlName='firstName'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                            <div
+                                                                                *ngIf="userForm.get('firstName').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('firstName').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label> Last Name <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <input formControlName='lastName'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                            <div
+                                                                                *ngIf="userForm.get('lastName').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('lastName').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>Gender <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <select formControlName='gender'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                                <option value="" [selected]="true">
+                                                                                    select</option>
+                                                                                <option [value]='item.DICTIONARYID'
+                                                                                    *ngFor='let item of genders'>
+                                                                                    {{item.DICTIONARYNAME}}</option>
+                                                                            </select>
+                                                                            <div *ngIf="userForm.get('gender').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('gender').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>Date of Birth <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <input formControlName='DOB'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                                type="date">
+                                                                            <div *ngIf="userForm.get('DOB').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('DOB').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row4 user_details">
+                                                                    <p>Contact Details</p>
+                                                                    <div class="row ml-2">
+
+                                                                        <div class="col-md-4">
+                                                                            <label>Country <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <select formControlName='country'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                                (change)='changeCountry($event.target.value)'>
+                                                                                <option selected> Select</option>
+                                                                                <option [value]='item.DICTIONARYID'
+                                                                                    *ngFor='let item of country'>
+                                                                                    {{item.DICTIONARYNAME}}</option>
+                                                                            </select>
+                                                                            <div
+                                                                                *ngIf="userForm.get('country').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('country').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>State <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <select formControlName='state'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                                (change)='changeState($event.target.value)'>
+                                                                                <option selected> Select</option>
+                                                                                <option [value]='item.DICTIONARYID'
+                                                                                    *ngFor='let item of states'>
+                                                                                    {{item.DICTIONARYNAME}}</option>
+                                                                            </select>
+                                                                            <div *ngIf="userForm.get('state').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('state').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label> City <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <select formControlName='city'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                                <option selected> Select</option>
+                                                                                <option [value]='item.DICTIONARYID'
+                                                                                    *ngFor='let item of city'>
+                                                                                    {{item.DICTIONARYNAME}}</option>
+                                                                            </select>
+                                                                            <div *ngIf="userForm.get('city').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('city').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label> Mobile No <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <input formControlName='mobile'
+                                                                                type="text" min="1" onkeypress='return (event.charCode >= 48 && event.charCode <= 57)' maxlength="12"
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                            <div *ngIf="userForm.get('mobile').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('mobile').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+                                                                                <span class="text-danger" *ngIf="userForm.get('mobile').hasError('minlength')">
+                                                                                    The minimum length for this field is 10 characters
+                                                                                </span>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label>Address <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <textarea formControlName='address'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                                type="date">
+                                                                            </textarea>
+                                                                            <div
+                                                                                *ngIf="userForm.get('address').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('address').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label> Zip Code <span
+                                                                                    class="text-danger">*</span></label>
+                                                                            <input formControlName='zipCode'
+                                                                                class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                                type="text" onkeypress='return (event.charCode >= 48 && event.charCode <= 57)' maxlength="8">
+                                                                            <div
+                                                                                *ngIf="userForm.get('zipCode').touched">
+                                                                                <span class="text-danger"
+                                                                                    *ngIf="userForm.get('zipCode').hasError('required')">
+                                                                                    This field is required.
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                        <div class="card-header collapsed accordion1 mt-1"
+                                                            data-toggle="collapse" data-parent="#accordion"
+                                                            href="#collapseTwo">
+                                                            <a class="card-title">
+                                                                Payment
+                                                            </a>
+                                                        </div>
+                                                        <div id="collapseTwo" class="card-body collapse"
+                                                            data-parent="#accordion">
+                                                            <div>
+                                                                <form [formGroup]='paymentForm'>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-md-6 control-label">
+                                                                                    No of User Accounts <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <div
+                                                                                    class="col-md-6 inputGroupContainer">
+                                                                                    <div class="input-group">:
+                                                                                        <input type="number" min="1" maxlength="4"
+                                                                                            formControlName='noAcoounts' (change)='setAmount($event.target.value)'
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg">
+
+
+                                                                                    </div>
+                                                                                    <div
+                                                                                        *ngIf="paymentForm.get('noAcoounts').touched">
+                                                                                        <span class="text-danger"
+                                                                                            *ngIf="paymentForm.get('noAcoounts').hasError('required')">
+                                                                                            This field is required.
+                                                                                        </span>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-md-6 control-label">
+                                                                                    Amount Payable(Rs) </label>
+                                                                                <div
+                                                                                    class="col-md-6 inputGroupContainer">
+                                                                                    <div class="input-group">:
+                                                                                        <input type="number" min="1"
+                                                                                        formControlName='Amount' disabled
+                                                                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-md-6 control-label">
+                                                                                    Bank Name <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <div
+                                                                                    class="col-md-6 inputGroupContainer">
+                                                                                    <div class="input-group">:
+                                                                                        <input type="text"
+                                                                                            formControlName='BankName'
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                                    </div>
+                                                                                    <div
+                                                                                        *ngIf="paymentForm.get('BankName').touched">
+                                                                                        <span class="text-danger"
+                                                                                            *ngIf="paymentForm.get('BankName').hasError('required')">
+                                                                                            This field is required.
+                                                                                        </span>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-md-6 control-label">
+                                                                                    Account No<span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <div
+                                                                                    class="col-md-6 inputGroupContainer">
+                                                                                    <div class="input-group">:
+                                                                                        <input type="text"  maxlength="20"    onkeypress='return (event.charCode >= 48 && event.charCode <= 57)'
+                                                                                            formControlName='AccountNo'
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg" >
+                                                                                    </div>
+                                                                                    <div
+                                                                                        *ngIf="paymentForm.get('AccountNo').touched">
+                                                                                        <span class="text-danger"
+                                                                                            *ngIf="paymentForm.get('AccountNo').hasError('required')">
+                                                                                            This field is required.
+                                                                                        </span>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-md-6 control-label">
+                                                                                    Payment Type<span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <div
+                                                                                    class="col-md-6 inputGroupContainer">
+                                                                                    <div class="input-group">:
+                                                                                        <select formControlName='PaymentType' (change)='typeChange($event.target.value)'
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                                       
+                                                                                        <option value="1">Cash</option>
+                                                                                        <option value="2">Cheque</option>
+                                                                                        <option value="3">DD</option>
+                                                                                    </select>
+                                                                                    </div>
+                                                                                    <div
+                                                                                        *ngIf="paymentForm.get('PaymentType').touched">
+                                                                                        <span class="text-danger"
+                                                                                            *ngIf="paymentForm.get('PaymentType').hasError('required')">
+                                                                                            This field is required.
+                                                                                        </span>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row" *ngIf='isShow'>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-md-6 control-label">
+                                                                                    Cheque/DD No <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <div
+                                                                                    class="col-md-6 inputGroupContainer">
+                                                                                    <div class="input-group">:
+                                                                                        <input type="number"
+                                                                                            formControlName='ChequeNo'
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                                    </div>
+                                                                                    <div
+                                                                                        *ngIf="paymentForm.get('ChequeNo').touched">
+                                                                                        <span class="text-danger"
+                                                                                            *ngIf="paymentForm.get('ChequeNo').hasError('required')">
+                                                                                            This field is required.
+                                                                                        </span>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row" *ngIf='isShow'>
+                                                                        <div class="col-md-6">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-md-6 control-label">
+                                                                                    Cheque/DD Date <span
+                                                                                        class="text-danger">*</span></label>
+                                                                                <div
+                                                                                    class="col-md-6 inputGroupContainer">
+                                                                                    <div class="input-group">:
+                                                                                        <input type="date"
+                                                                                            formControlName='ChequeDate'
+                                                                                            class="form-control form-control-sm shadow-sm rounded-lg">
+                                                                                    </div>
+                                                                                    <div
+                                                                                        *ngIf="paymentForm.get('ChequeDate').touched">
+                                                                                        <span class="text-danger"
+                                                                                            *ngIf="paymentForm.get('ChequeDate').hasError('required')">
+                                                                                            This field is required.
+                                                                                        </span>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center mt-2 ">
+                                <button class="btn btn-success" (click)='submit()' >Proceed</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

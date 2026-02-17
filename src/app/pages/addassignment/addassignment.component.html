@@ -1,0 +1,248 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0"> Assignments</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="custom_container">
+                                            <form class="well form-horizontal" [formGroup]="myForm">
+                                                <fieldset>
+                                                    <div class="form-group row">
+                                                        <label class="col-md-4 control-label">
+                                                            Assignment Name <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input [readonly]='isDisable'
+                                                                    [(ngModel)]="data.ASSIGNMENT_NAME"
+                                                                    placeholder="Assignment Name" class="form-control"
+                                                                    formControlName="ASSIGNMENT_NAME" type="text">
+                                                            </div>
+                                                            <div *ngIf="myForm.get('ASSIGNMENT_NAME')?.touched">
+                                                                <span class="text-danger form-text"
+                                                                    *ngIf="myForm.get('ASSIGNMENT_NAME').hasError('required')">
+                                                                    Assignment Name is required.
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Course <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <select [(ngModel)]='courceId '
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    id="sel1" formControlName="ASSIGNMENT_COURSE"
+                                                                    (change)="courceChange()">
+                                                                    <option [disabled]='isDisable' value=""
+                                                                        [selected]="true">
+                                                                        select
+                                                                    </option>
+                                                                    <option [disabled]='isDisable'
+                                                                        *ngFor="let course of cources"
+                                                                        [value]='course.COURSE_ID'>
+                                                                        {{course.COURSE_NAME}}
+                                                                    </option>
+
+                                                                </select>
+
+                                                            </div>
+                                                            <div *ngIf="myForm.get('ASSIGNMENT_COURSE')?.touched">
+                                                                <span class="text-danger form-text"
+                                                                    *ngIf="myForm.get('ASSIGNMENT_COURSE').hasError('required')">
+                                                                    Course is required.
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Batch Schedule <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <select [disabled]='isDisable' [(ngModel)]='schedulId '
+                                                                    class="form-select form-select-sm shadow-sm rounded-lg"
+                                                                    id="sel1"
+                                                                    formControlName="ASSIGNMENT_COURSE_SCHEDULE"
+                                                                    (change)="getTrainees()">
+                                                                    <option [disabled]='isDisable' value=""
+                                                                        [selected]="true">
+                                                                        select
+                                                                    </option>
+                                                                    <option [disabled]='isDisable'
+                                                                        *ngFor="let schedul of scheduls"
+                                                                        [value]='schedul.COURSESHD_ID'>
+                                                                        {{schedul.COURSESHD_NAME}}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div
+                                                                *ngIf="myForm.get('ASSIGNMENT_COURSE_SCHEDULE')?.touched">
+                                                                <span class="text-danger form-text"
+                                                                    *ngIf="myForm.get('ASSIGNMENT_COURSE_SCHEDULE').hasError('required')">
+                                                                    Batch Schedule is required.
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <mat-form-field appearance="fill">
+                                                        <mat-label>Providers</mat-label>
+                                                        <mat-select multiple [formControl]="providers" (openedChange)="onOpenChange(multiUserSearch)">
+                                                          <mat-select-trigger>
+                                                            {{providers.value }}
+                                                          </mat-select-trigger>
+                                                          <input #multiUserSearch type="text" autocomplete="off" matInput placeholder="Search By Provider" (input)="onInputChange($event)"/>
+                                                      
+                                                          <mat-option *ngFor="let provider of filteredProviders" [value]="provider.PROV">{{provider.PROV}}</mat-option>
+                                                        </mat-select>
+                                                      </mat-form-field> -->
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Trainees </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <ng-multiselect-dropdown
+                                                                    [placeholder]="'Enter Trainee names'"
+                                                                    [settings]="dropdownSettings" [data]="traineeList"
+                                                                    formControlName="StudentList"
+                                                                    (onSelect)="onItemSelect($event)"
+                                                                    (onSelectAll)="onSelectAll($event)"
+                                                                    (onDeSelect)="onItemDeSelect($event)"
+                                                                    (onDeSelectAll)="onDeSelectAll()">
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                    <!-- <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Assessment Name </label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <select [(ngModel)]="data.ASSIGNMENTS_SCHEDULE_ID"
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                    id="sel1" formControlName="ASSIGNMENTS_SCHEDULE_ID">
+                                                                    <option value="" [selected]="true">select</option>
+                                                                    <option *ngFor="let item of assessments"
+                                                                        [value]='item.ASSESSMENT_ID'>
+                                                                        {{item.ASSESSMENT_ASSESSMENT_NAME}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            Start Date</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input min="{{minDate}}"
+                                                                    (change)="myForm.get('ASSIGNMENT_END_DATE').setValue(null)"
+                                                                    [readonly]='isDisable' class="form-control"
+                                                                    type="date"
+                                                                    [ngModel]="data.ASSIGNMENT_START_DATE | date:'yyyy-MM-dd'"
+                                                                    formControlName="ASSIGNMENT_START_DATE">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            End Date</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input min="{{minDate}}"
+                                                                    [ngModel]="data.ASSIGNMENT_END_DATE | date:'yyyy-MM-dd'"
+                                                                    (change)="endDateChange($event.target.value)"
+                                                                    class="form-control" type="date"
+                                                                    formControlName="ASSIGNMENT_END_DATE">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            File upload <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input class="form-control" type="file"
+                                                                    (change)="change($event)" accept=".doc,.docx,.pdf"
+                                                                    formControlName="ASSIGNMENT_UPLOAD"
+                                                                    name="ASSIGNMENT_UPLOAD" [value]="true">
+                                                                <span class="span" (click)="upload()">save</span>
+                                                                <br>
+                                                                <div class="progress" *ngIf="progress"
+                                                                    [ngStyle]='{"width":progress}'>
+                                                                </div>
+                                                                <p>{{fileName}}</p>
+
+
+                                                            </div>
+                                                            <p class="text-warning">Please upload pdf and doc file
+                                                                formats
+                                                                only.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            Maximum Marks <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input [ngModel]="data.ASSIGNMENT_MAX_MARKS "
+                                                                    formControlName='ASSIGNMENT_MAX_MARKS'
+                                                                    class="form-control" type="number">
+                                                            </div>
+                                                            <div *ngIf="myForm.get('ASSIGNMENT_MAX_MARKS')?.touched">
+                                                                <span class="text-danger form-text"
+                                                                    *ngIf="myForm.get('ASSIGNMENT_MAX_MARKS').hasError('required')">
+                                                                    Maximum Marks is required.
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Status</label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <select
+                                                                    class="form-control form-control-sm shadow-sm rounded-lg"
+                                                                    id="sel1" formControlName='AssignmentStatus'>
+                                                                    <option [ngValue]='1'>Active</option>
+                                                                    <option [ngValue]='0'>Inactive</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </fieldset>
+                                            </form>
+                                            <div class="text-center pt-4">
+
+                                                <button type="button" class="btn btn-sm  btn-save" type="submit"
+                                                    (click)="onSubmit(myForm)"
+                                                    [disabled]="myForm.invalid">Submit</button>
+
+                                                &nbsp; <button class="btn btn-danger btn-sm" (click)='back()'>
+                                                    Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

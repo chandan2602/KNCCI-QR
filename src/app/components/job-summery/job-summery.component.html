@@ -1,0 +1,347 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid pt-2 pb-2">
+                        <div class="row m-0 g-3">
+                            <div class="col-xl-7">
+
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+
+                                          <div class="about_course">
+                                        <div class="job-details-wrap mb-4">
+                                            <div class="job-details-info">
+                                                <div class="thumb">
+                                                   
+                                                </div>
+                                                <div class="content">
+                                                    <h4 class="title mb-0">{{params.job_title}}
+                                                        <!-- {{courseDetails.LASTNAME}} -->
+                                                    </h4>
+                                                    <!-- <ul>
+                                                        <li *ngFor="let item of courseDetails.moreoptions">{{item}}</li>
+                                                    </ul> -->
+                                                    <!-- <div class="">
+                                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                                        <span><i class="fa-solid fa-star checked"></i></span>
+                                                        <span><i class="fa-solid fa-star"></i></span>
+                                                        
+                                                    </div> -->
+                                                    <ul class="info-list ps-0">
+                                                        <li class="ps-0">Skills:
+                                                            <span class="me-2 ms-0 fw-bold">{{params.job_skills}}
+                                                            </span>
+                                                            <!-- |
+                                                            date:'dd-MMM-yyyy'}} to {{sessionDetails.COURSESHD_ENDDATE |
+                                                            date:'dd-MMM-yyyy'}} -->
+                                                        </li>
+        
+                                                    </ul>
+                                                    <h6 class="mt-2"> {{params.job_salary_from|currency:'KES'}} - {{params.job_salary_to|currency:'KES'}} </h6>
+                                                    <!-- <ul class="info-list ps-0">
+                                                        <li class="ps-0">Course:
+                                                            <span class="me-2 ms-0 fw-bold">{{sessionDetails.job_skills
+                                                                |
+                                                                date:'dd-MMM-yyyy'}} to {{sessionDetails.COURSESHD_ENDDATE |
+                                                                date:'dd-MMM-yyyy'}}</span>
+                                                        </li>
+        
+                                                    </ul>
+                                                    <h6 class="mt-2"> {{sessionDetails.COURSESHD_AMOUNT|currency:'INR'}} </h6> -->
+                                                </div>
+                                            </div>
+                                            <div class="job-details-price">
+        
+                                                <input type="button" class="d-none" data-bs-target="#myModal"
+                                                    data-bs-toggle="modal" id="btnEnrolled">
+                                                <!-- <button type="button" (click)="Enroll()" class="btn-theme">Enroll Now
+                                                </button> -->
+                                                <button type="button" *ngIf="jobApply == true || jobApply == 'true'" (click)="ApplyJob()" class="btn-theme">Apply Job Now
+                                                </button>
+        
+                                                <!-- <h4 class="title">$5000 <span>/monthly</span></h4>
+                                        <button type="button" class="btn-theme">Apply Now</button> -->
+                                            </div>
+                                        </div>
+                                        <div>
+                                          <p class="mb-0">  {{params.job_description}} </p>
+ 
+                                        </div>
+                                    </div>
+
+                                    </div>
+                                </div>
+                             
+                            </div>
+                            <div class="col-xl-5 sticky top-50">
+                                <div class="job-sidebar">
+                                    <div class="widget-item">
+                                        <div class="widget-title">
+                                            <h3 class="title">Summery</h3>
+                                        </div>
+                                        <div class="summery-info">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="table-name">Company Name</td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e">{{params.company_name}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Company Email</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.emailid}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Company Contact No.</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.contact_details}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Job Id</td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e">{{params.auto_genarated_job_id}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Job Type</td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#03a84e">{{params.job_type}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Category</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.job_category}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Posted</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.job_posted_date | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Skills</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.job_skills}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Salary</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.job_salary_from}} - ${{params.job_salary_to}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Experience</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.experience_level}}</td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                        <td class="table-name">Gender</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>Male or Female</td>
+                                                    </tr> -->
+                                                    <tr>
+                                                        <td class="table-name">Qualification</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.education_level}}</td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                        <td class="table-name">Level</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.job_type}}</td>
+                                                    </tr> -->
+                                                    <tr>
+                                                        <td class="table-name">Applied</td>
+                                                        <td class="dotted">:</td>
+                                                        <td>{{params.created_at | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="table-name">Application End</td>
+                                                        <td class="dotted">:</td>
+                                                        <td data-text-color="#ff6000">{{params.job_expiry_date | date: 'dd-MM-yyyy'}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <button class="btn btn-sm btn-dark mt-2 float-right" title="back" *ngIf="jobApply != true && jobApply != 'true'"
+                                                [routerLink]="['/HOME/myJobs']"><i class="bi bi-arrow-left-circle fa-2x"></i>Back </button>
+                                        <button class="btn btn-sm btn-dark mt-2 float-right" title="back" *ngIf="jobApply == true || jobApply == 'true'"
+                                                [routerLink]="['/HOME/cmpnyLst']"><i class="bi bi-arrow-left-circle fa-2x"></i>Back </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<body *ngIf="false">
+    <!-- <a href="javascript:" id="return-to-top"><i class="fa fa-arrow-up"></i></a> -->
+    <section>
+        <!-- <div class="page-header-area sec-overlay sec-overlay-black"
+            style="background-image: url('../../../../assets/images/new-images/Inner-Banner.png'); background-repeat: no-repeat;">
+            <div class="container pt--0 pb--0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-header-content">
+                            <h2 class="title">Job Details</h2>
+                            <nav class="breadcrumb-area">
+                                <ul class="breadcrumb justify-content-center">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-sep">//</li>
+                                    <li>Job Details</li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <!--== End Page Header Area Wrapper ==-->
+
+        <!--== Start Job Details Area Wrapper ==-->
+        <section class="job-details-area">
+            <div class="container-fluid pt-2 pb-2">
+                <div class="row">
+                    <div class="col-xl-8">
+                        <div class="">
+                            <div class="p-5 about_course">
+                                <div class="job-details-wrap">
+                                    <div class="job-details-info">
+                                        <div class="thumb">
+                                            <!-- <img [src]="courseDetails.IMAGE_URL" class="img-thumbnail" width="130"
+                                                height="130" alt="Image-HasTech"> -->
+                                        </div>
+                                        <div class="content">
+                                            <h4 class="title mb-0">{{params.job_title}}
+                                                <!-- {{courseDetails.LASTNAME}} -->
+                                            </h4>
+                                            <!-- <ul>
+                                                <li *ngFor="let item of courseDetails.moreoptions">{{item}}</li>
+                                            </ul> -->
+                                            <!-- <div class="">
+                                                <span><i class="fa-solid fa-star checked"></i></span>
+                                                <span><i class="fa-solid fa-star checked"></i></span>
+                                                <span><i class="fa-solid fa-star checked"></i></span>
+                                                <span><i class="fa-solid fa-star checked"></i></span>
+                                                <span><i class="fa-solid fa-star"></i></span>
+                                                
+                                            </div> -->
+                                            <ul class="info-list ps-0">
+                                                <li class="ps-0">Skills:
+                                                    <span class="me-2 ms-0 fw-bold">{{params.job_skills}}
+                                                    </span>
+                                                    <!-- |
+                                                    date:'dd-MMM-yyyy'}} to {{sessionDetails.COURSESHD_ENDDATE |
+                                                    date:'dd-MMM-yyyy'}} -->
+                                                </li>
+
+                                            </ul>
+                                            <h6 class="mt-2"> {{params.job_salary_from|currency:'KES'}} - {{params.job_salary_to|currency:'KES'}} </h6>
+                                            <!-- <ul class="info-list ps-0">
+                                                <li class="ps-0">Course:
+                                                    <span class="me-2 ms-0 fw-bold">{{sessionDetails.job_skills
+                                                        |
+                                                        date:'dd-MMM-yyyy'}} to {{sessionDetails.COURSESHD_ENDDATE |
+                                                        date:'dd-MMM-yyyy'}}</span>
+                                                </li>
+
+                                            </ul>
+                                            <h6 class="mt-2"> {{sessionDetails.COURSESHD_AMOUNT|currency:'INR'}} </h6> -->
+                                        </div>
+                                    </div>
+                                    <div class="job-details-price">
+
+                                        <input type="button" class="d-none" data-bs-target="#myModal"
+                                            data-bs-toggle="modal" id="btnEnrolled">
+                                        <!-- <button type="button" (click)="Enroll()" class="btn-theme">Enroll Now
+                                        </button> -->
+                                        <button type="button" (click)="ApplyJob()" class="btn-theme">Apply Job Now
+                                        </button>
+
+                                        <!-- <h4 class="title">$5000 <span>/monthly</span></h4>
+                                <button type="button" class="btn-theme">Apply Now</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xl-4 p-5 sticky top-50">
+                        <div class="job-sidebar">
+                            <div class="widget-item">
+                                <div class="widget-title">
+                                    <h3 class="title">Summery</h3>
+                                </div>
+                                <div class="summery-info">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="table-name">Job Type</td>
+                                                <td class="dotted">:</td>
+                                                <td data-text-color="#03a84e">{{params.job_type}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Category</td>
+                                                <td class="dotted">:</td>
+                                                <td>{{params.job_category}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Posted</td>
+                                                <td class="dotted">:</td>
+                                                <td>{{params.job_posted_date | date: 'dd-MM-yyyy'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Skills</td>
+                                                <td class="dotted">:</td>
+                                                <td>{{params.job_skills}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Salary</td>
+                                                <td class="dotted">:</td>
+                                                <td>{{params.job_salary_from}} - ${{params.job_salary_to}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Experience</td>
+                                                <td class="dotted">:</td>
+                                                <td>{{params.experience_level}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Gender</td>
+                                                <td class="dotted">:</td>
+                                                <td>Male or Female</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Qualification</td>
+                                                <td class="dotted">:</td>
+                                                <td>{{params.education_level}}</td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td class="table-name">Level</td>
+                                                <td class="dotted">:</td>
+                                                <td>{{params.job_type}}</td>
+                                            </tr> -->
+                                            <tr>
+                                                <td class="table-name">Applied</td>
+                                                <td class="dotted">:</td>
+                                                <td>{{params.created_at | date: 'dd-MM-yyyy'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="table-name">Application End</td>
+                                                <td class="dotted">:</td>
+                                                <td data-text-color="#ff6000">{{params.job_expiry_date | date: 'dd-MM-yyyy'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <app-footer-new></app-footer-new> -->
+    </section>
+</body>

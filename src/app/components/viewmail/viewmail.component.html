@@ -1,0 +1,20 @@
+<div class="">
+    <div class="card">
+        <div class="card-header">View Message <button (click)='close()' class="float-right ">X</button></div>
+
+        <div class="card-body">
+            <div>
+                <table style="width: 100%;" *ngFor="let item of table">
+                    <tbody>
+                        <tr class="border_v"><td>{{item.USERNAME}}</td></tr>
+                        <tr class="border_v"><td>{{item.TOUSER}}</td></tr>
+                        <tr class="border_v" *ngIf='item.CCUSER'><td>{{item.CCUSER}}</td></tr>
+                        <tr class="border_v"><td>{{item.SUBJECT}}</td></tr>
+                        <tr class="border_v"><td><div [innerHtml]='item.BODY'></div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

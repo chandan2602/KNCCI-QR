@@ -1,0 +1,159 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 *ngIf="!isEdit" class="mb-0">Add Poll</h5>
+                                        <h5 *ngIf="isEdit" class="mb-0"> Edit Poll</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="custom_container">
+                                            <form class="well form-horizontal" [formGroup]="myForm"
+                                                (ngSubmit)="onSubmit(myForm)">
+                                                <fieldset>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label line_2 rem_1">
+                                                            Poll Title <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input placeholder="Poll Title" class="form-control"
+                                                                    formControlName="PollTitle" type="text">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Course <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                <ng-multiselect-dropdown style="width:96%"
+                                                                    *ngIf="isData" formControlName="ASSIGNMENT_COURSE"
+                                                                    [placeholder]="'select cource'"
+                                                                    [settings]="dropdownSettings" [data]="dropdownList"
+                                                                    (onSelect)="onItemSelect($event)"
+                                                                    (onSelectAll)="onSelectAll($event)"
+                                                                    [(ngModel)]='selectedItems'>
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">Polls <span
+                                                                class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                <ng-multiselect-dropdown style="width:96%"
+                                                                    formControlName="PollMember"
+                                                                    [placeholder]="'select '"
+                                                                    [settings]="dropdownSettings" [data]="members"
+                                                                    (onSelect)="onItemSelect($event)"
+                                                                    (onSelectAll)="onSelectAll($event)"
+                                                                    [(ngModel)]='selectedMember'>
+                                                                </ng-multiselect-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            Start Date <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input class="form-control" min="{{minDate}}"
+                                                                    [ngModel]="startDate| date:'yyyy-MM-dd'" type="date"
+                                                                    formControlName="StartDate">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            End Date <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <input class="form-control" min="{{minDate}}"
+                                                                    (change)="endDateChange($event.target.value)"
+                                                                    [ngModel]="endDate| date:'yyyy-MM-dd'" type="date"
+                                                                    formControlName="EndDate">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            Description <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+                                                                <textarea rows="1" class="form-control"
+                                                                    formControlName="Description"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row pt-4">
+                                                        <label class="col-md-4 control-label">
+                                                            Question <span class="text-danger">*</span></label>
+                                                        <div class="col-md-8 inputGroupContainer">
+                                                            <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                <textarea rows="1" class="form-control"
+                                                                    formControlName="PollQuestion"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="myForm.controls['formArray']">
+                                                        <div formArrayName='formArray'>
+
+                                                            <div class="form-group row pt-4"
+                                                                *ngFor="let item of myForm.controls['formArray'].controls;let i=index"
+                                                                [formGroupName]="i">
+                                                                <label class="col-md-4 control-label">
+                                                                    option {{i+1}} <span
+                                                                        class="text-danger">*</span></label>
+                                                                <div class="col-md-8 inputGroupContainer">
+                                                                    <div class="input-group"> <strong>:</strong> &nbsp;
+
+                                                                        <textarea rows="1" class="form-control"
+                                                                            formControlName="option"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <angular-editor [placeholder]="'Enter text here...'" ></angular-editor> -->
+
+                                                </fieldset>
+
+                                            </form>
+                                            <div class="text-center pt-4">
+                                                <button type="button" *ngIf="isEdit" (click)='onSubmit(myForm)'
+                                                    class="btn btn-sm  btn-save" [disabled]="myForm.invalid"
+                                                    type="submit">Update</button>
+                                                <button type="button" (click)='onSubmit(myForm)' *ngIf="!isEdit"
+                                                    class="btn btn-sm  btn-save" [disabled]="myForm.invalid"
+                                                    type="submit">Save</button>
+
+                                                &nbsp; <button class="btn btn-danger btn-sm" (click)='back()'>
+                                                    Close</button>
+                                            </div>
+                                            <div class="text-right" style="margin-top:-46px">
+                                                <button class="btn text-success rem_2" *ngIf="isAdd()"
+                                                    (click)="add()">+</button>
+                                                <button class="btn text-danger rem_2" *ngIf="isVisable()"
+                                                    (click)="delete()">-</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="modal" id="InstallmentDetails" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2">
+                <h6 class="modal-title w-100"> Installment Details </h6>
+                <button type="button" (click)="closeModel()" class="close " data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body text-center">
+                <form class="well form-horizontal">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-xl-12 ">
+                                <div class="form">
+                                    <table class="table table-bordered">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th style="width: 35%;">Installment Name</th>
+                                                <th> Paid Amount</th>
+                                                <!-- <th> UnPaid Amount</th> -->
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr *ngFor="let install of InstallmentList">
+                                                <td>{{install.CSI_INSTALLMENT_NAME}}</td>
+                                                <td>{{install.STUDENT_PAYMENT_TOTAL_AMOUNT_PAID||0}}</td>
+                                                <!-- <td>{{install.TERM_AMOUNT}}</td> -->
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-sm btn-danger " id='md_close' (click)="closeModel()"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

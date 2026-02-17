@@ -1,0 +1,409 @@
+<!-- Stepper Navigation -->
+
+<div class="limiter" [formGroup]="incubatorForm">
+    <div class="container-login100 justify-content-end"
+        style="background-image: url('../../../assets/images/dhanush/bg-login.png');">
+        <div class="wrap-login100 ps-4 pt-2 pb-2 pe-4">
+            <div class="d-flex pt-2 justify-content-between">
+                <div class="d-flex">
+                <div class="text-center mt-2"> <img id="homepageimage_path" src="../../../assets/img/logo1-new.png"
+                        [routerLink]="['']" style="cursor:pointer;height:40px;" class="img-fluid" /></div>
+                <h6 class="text-center pt-4 fw-bold">Incubator Registration</h6>
+                </div>
+
+                 <a [routerLink]="['/default']">  <i class="bi bi-arrow-left-circle fa-2x"></i> </a>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card mb-4 mt-2">
+                            <div class="card-body pt-0">
+                                <div class="stepper">
+                                    <div #stepHeaderRef class="step-header">Organization</div>
+                                    <div #stepHeaderRef class="step-header">Contact</div>
+                                    <div #stepHeaderRef class="step-header">Profile</div>
+                                    <div #stepHeaderRef class="step-header">Program</div>
+                                    <div #stepHeaderRef class="step-header">Fees</div>
+                                    <div #stepHeaderRef class="step-header">Declaration</div>
+                                </div>
+
+                                <!-- Form -->
+                                <div>
+                                    <!-- Step 1 -->
+                                    <div #stepRef class="step active">
+                                        <div class="row g-3">
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Incubator Name :<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" placeholder="Incubator Name" required
+                                                    formControlName='incubator_name' [attr.disabled]="screenType == 'add' ? null: true">
+                                                <div *ngIf="fc.incubator_name.touched && fc.incubator_name.errors" class="text-danger">
+                                                    <div *ngIf="fc.incubator_name.errors.required">Incubator Name is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Legal Entity Type :<span
+                                                        class="text-danger">*</span></label>
+                                                <select class="form-select" formControlName="legal_entity_type_id" required>
+                                                    <option value="0">Select</option>
+                                                    <option [value]='item.id'
+                                                        *ngFor='let item of allDropDwns.legal_entitytype'>
+                                                        {{item.name}}</option>
+                                                </select>
+                                                <div *ngIf="fc.legal_entity_type_id.touched && fc.legal_entity_type_id.errors" class="text-danger">
+                                                    <div *ngIf="fc.legal_entity_type_id.errors.required">Legal Entity Type is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Year of Establishment
+                                                    <small>(1850 - 2025)</small>:<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control"
+                                                    placeholder="Year of Establishment" [attr.disabled]="screenType == 'add' ? null: true"
+                                                    formControlName="year_of_establishment" maxlength="4"
+                                                    onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )' required>
+                                                <div *ngIf="fc.year_of_establishment.touched && fc.year_of_establishment.errors" class="text-danger">
+                                                    <div *ngIf="fc.year_of_establishment.errors.required">Year of Establishment is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Registered Address :<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" placeholder="Registered Address" required
+                                                    formControlName="registered_address" [attr.disabled]="screenType == 'add' ? null: true">
+                                                <div *ngIf="fc.registered_address.touched && fc.registered_address.errors" class="text-danger">
+                                                    <div *ngIf="fc.registered_address.errors.required">Registered Address is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Official Website :<span
+                                                        class="text-danger">*</span></label>
+                                                <input type="url" class="form-control" placeholder="Official Website" required
+                                                    formControlName="official_website" [attr.disabled]="screenType == 'add' ? null: true">
+                                                <div *ngIf="fc.official_website.touched && fc.official_website.errors" class="text-danger">
+                                                    <div *ngIf="fc.official_website.errors.required">Official Website is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Logo Upload :</label>
+                                                <input type="file" (change)="changeFile($event, 'logo')"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Registration Number / DPIIT
+                                                    :<span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" [attr.disabled]="screenType == 'add' ? null: true"
+                                                    placeholder="Registration Number / DPIIT"
+                                                    formControlName="registration_number" required>
+                                                    <div *ngIf="fc.registration_number.touched && fc.registration_number.errors" class="text-danger">
+                                                        <div *ngIf="fc.registration_number.errors.required">Registration Number / DPIIT is required.</div>
+                                                    </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Upload Certificate of Recognition
+                                                    :</label>
+                                                <input type="file" (change)="changeFile($event, 'certificate')"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <!-- your step 1 inputs -->
+                                        <div class="row">
+                                            <div class="col-xl-12 text-end">
+                                                <button type="button" class="btn btn-sm btn-primary mt-2 text-end"
+                                                    (click)="nextPrev(1)">Next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Step 2 -->
+                                    <div #stepRef class="step">
+                                        <div class="row g-3">
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Full Name :</label>
+                                                <input type="text" class="form-control" placeholder="Full Name" required
+                                                    formControlName="full_name" [attr.disabled]="screenType == 'add' ? null: true">
+                                                <div *ngIf="fc.full_name.touched && fc.full_name.errors" class="text-danger">
+                                                    <div *ngIf="fc.full_name.errors.required">Full Name is required.</div>
+                                                </div>
+                                              
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Designation :</label>
+                                                <input type="text" class="form-control" placeholder="Designation" required
+                                                    formControlName="designation" [attr.disabled]="screenType == 'add' ? null: true">
+                                                <div *ngIf="fc.designation.touched && fc.designation.errors" class="text-danger">
+                                                    <div *ngIf="fc.designation.errors.required">Designation is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Official Email :</label>
+                                                <input type="email" class="form-control" placeholder="Official Email" required
+                                                    formControlName="email_id" [attr.disabled]="screenType == 'add' ? null: true">
+                                                <div *ngIf="fc.email_id.touched && fc.email_id.errors" class="text-danger">
+                                                    <div *ngIf="fc.email_id.errors.required">Email is required.</div>
+                                                    <div *ngIf="fc.email_id.errors.pattern">Please enter valid email.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Mobile Number :</label>
+                                                <input type="tel" class="form-control" placeholder="0000000000" required
+                                                    maxlength="10"  formControlName="mobile_no" [attr.disabled]="screenType == 'add' ? null: true"
+                                                    onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'>
+                                                <div *ngIf="fc.mobile_no.touched && fc.mobile_no.errors" class="text-danger">
+                                                    <div *ngIf="fc.mobile_no.errors.required">Mobile No. is required.</div>
+                                                    <div *ngIf="fc.mobile_no.errors.pattern">Please enter valid mobile number.</div>
+                                                    <div *ngIf="fc.mobile_no.errors.minlength">Please enter 10 digit number.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class=" control-label mt-2"> Date of Birth :<span
+                                                        class="text-danger">*</span></label>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text"
+                                                        class="form-control group-input form-control-sm eBSDP"
+                                                        [ngModelOptions]="{standalone: true}" placeholder="DD-MM-YYYY"
+                                                        [bsConfig]="dtPkrCnfg" bsDatepicker #dpAD="bsDatepicker"
+                                                        onkeypress='return event.charCode == 8'
+                                                        [(ngModel)]="dateOfBirth" [maxDate]="dt2Day" [attr.disabled]="screenType == 'add' ? null: true">
+                                                    <span class="input-group-text input-group-text1 eBSDP">
+                                                        <button class="btn btn-outline-bsdp btn-sm p-0 eBtnDP"
+                                                            type="button" (click)="dpAD.toggle()" [attr.disabled]="screenType == 'add' ? null: true"
+                                                            [attr.aria-expanded]="dpAD.isOpen" title="Calendar">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                                <!-- <div *ngIf="isSubmt && fc['date_birth'].errors" class="invalid-feedback">
+                                                    <div *ngIf="fc['date_birth'].errors['required']">Date of Birth is required</div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!-- your step 2 inputs -->
+                                        <div class="row">
+                                            <div class="col-xl-12 text-end">
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(1)">Next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Step 3 -->
+                                    <div #stepRef class="step">
+                                        <div class="row g-3">
+                                            <div class="col-md-12">
+                                                <label class="control-label mt-2"> Brief Description :</label>
+                                                <input type="text" class="form-control" formControlName="description" required
+                                                    maxlength="300" placeholder="Brief Description (max 300 chars)" [attr.disabled]="screenType == 'add' ? null: true">
+                                                    <div *ngIf="fc.description.touched && fc.description.errors" class="text-danger">
+                                                        <div *ngIf="fc.description.errors.required">Brief Description is required.</div>
+                                                    </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Services Offered :</label>
+                                                <ng-multiselect-dropdown [settings]="stngsMSD(false, 'id', 'name')"
+                                                    (onSelect)="onMSD('s', 'So', $event)"
+                                                    (onDeSelect)="onMSD('d', 'so', $event)"
+                                                    (onSelectAll)="onMSD('a', 'So', $event)"
+                                                    formControlName='services_offered_ids'
+                                                    (onDeSelectAll)="onMSD('r', 'So', $event)"
+                                                    [data]="allDropDwns.services_offered" class="ngMsd droplist"
+                                                    [(ngModel)]="slctSrvcOfrd" [disabled]="screenType == 'view'" >
+                                                </ng-multiselect-dropdown>
+                                                <div *ngIf="fc.services_offered_ids.touched && fc.services_offered_ids.errors" class="text-danger">
+                                                    <div *ngIf="fc.services_offered_ids.errors.required">Services Offered is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Target Sectors :</label>
+                                                <ng-multiselect-dropdown [settings]="stngsMSD(false, 'id', 'name')"
+                                                    (onSelect)="onMSD('s', 'Ts', $event)"
+                                                    (onDeSelect)="onMSD('d', 'Ts', $event)"
+                                                    (onSelectAll)="onMSD('a', 'Ts', $event)"
+                                                    formControlName='target_sectors_ids'
+                                                    (onDeSelectAll)="onMSD('r', 'Ts', $event)"
+                                                    [data]="allDropDwns.target_sectors" class="ngMsd droplist"
+                                                    [(ngModel)]="slctTrgtSctrList" [disabled]="screenType == 'view'" >
+                                                </ng-multiselect-dropdown>
+                                                <div *ngIf="fc.target_sectors_ids.touched && fc.target_sectors_ids.errors" class="text-danger">
+                                                    <div *ngIf="fc.target_sectors_ids.errors.required">Target Sectors is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Incubation Model :</label>
+                                                <select class="form-select" formControlName="incubation_model_id" required>
+                                                    <option value="0">Select</option>
+                                                    <option [value]='item.id'
+                                                        *ngFor='let item of allDropDwns.incubation_model'>
+                                                        {{item.name}}</option>
+                                                </select>
+                                                <div *ngIf="fc.incubation_model_id.touched && fc.incubation_model_id.errors" class="text-danger">
+                                                    <div *ngIf="fc.incubation_model_id.errors.required">Incubation Model is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Startup Capacity Per Year
+                                                    :</label>
+                                                <input type="number" class="form-control" required
+                                                    formControlName="startup_capacity" placeholder="" [attr.disabled]="screenType == 'add' ? null: true"
+                                                    onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'>
+                                                    <div *ngIf="fc.startup_capacity.touched && fc.startup_capacity.errors" class="text-danger">
+                                                        <div *ngIf="fc.startup_capacity.errors.required">Startup Capacity is required.</div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                        <!-- your step 2 inputs -->
+                                        <div class="row">
+                                            <div class="col-xl-12 text-end">
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(1)">Next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Step 5 -->
+                                    <div #stepRef class="step">
+                                        <div class="row g-3">
+                                            <div class="col-md-4">
+                                                <label class="control-label mt-2"> Do You Charge Startups Any Fees?
+                                                    :</label>
+                                                <select class="form-select" id="directFunding"
+                                                    formControlName="charge_startups_any_fees" [attr.disabled]="screenType == 'add' ? null: true"
+                                                    [(ngModel)]="chrgeStrtup" >
+                                                    <option selected disabled>Provide Direct Funding?</option>
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>
+                                                <!-- <div *ngIf="fc.charge_startups_any_fees.touched && fc.charge_startups_any_fees.errors" class="text-danger">
+                                                    <div *ngIf="fc.charge_startups_any_fees.errors.required">Charge Startups Any Fees is required.</div>
+                                                </div> -->
+                                            </div>
+                                            <div class="col-md-4" id="ticketSizeDiv" *ngIf="chrgeStrtup== 'yes'">
+                                                <label class="control-label mt-2"> Specify Amount and Payment Terms
+                                                    :</label>
+                                                <input type="text" class="form-control" placeholder="" [attr.disabled]="screenType == 'add' ? null: true"
+                                                    formControlName="specify_amount"
+                                                    onkeypress='return ((event.charCode >= 48 && event.charCode <= 57) || event.charCode == 8 )'>
+                                                    <!-- <div *ngIf="fc.specify_amount.touched && fc.specify_amount.errors" class="text-danger">
+                                                        <div *ngIf="fc.specify_amount.errors.required">Specify Amount is required.</div>
+                                                    </div> -->
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="control-label mt-2"> Upload Govt Recognitions /
+                                                    Affiliations :</label>
+                                                <input type="file" (change)="changeFile($event, 'govt')"
+                                                    class="form-control">
+                                            </div>
+
+                                        </div>
+
+                                        <!-- your step 5 inputs -->
+                                        <div class="row">
+                                            <div class="col-xl-12 text-end">
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(1)">Next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Step 4 -->
+                                    <div #stepRef class="step">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="control-label mt-2"> Selection Criteria for Startups
+                                                    :</label>
+                                                <textarea class="form-control" rows="3"
+                                                    formControlName="criteria_for_startups" [attr.disabled]="screenType == 'add' ? null: true"
+                                                    placeholder="Selection Criteria for Startups"></textarea>
+                                                    <div *ngIf="fc.criteria_for_startups.touched && fc.criteria_for_startups.errors" class="text-danger">
+                                                        <div *ngIf="fc.criteria_for_startups.errors.required">Selection Criteria for Startups is required.</div>
+                                                    </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="control-label mt-2">Monitoring & Reporting Process
+                                                    :</label>
+                                                <textarea class="form-control" rows="2" [attr.disabled]="screenType == 'add' ? null: true"
+                                                    formControlName="monitoring_reporting"
+                                                    placeholder="Monitoring & Reporting Process (optional)"></textarea>
+                                                    <div *ngIf="fc.monitoring_reporting.touched && fc.monitoring_reporting.errors" class="text-danger">
+                                                        <div *ngIf="fc.monitoring_reporting.errors.required">Monitoring & Reporting Process is required.</div>
+                                                    </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="control-label mt-2"> Do You Provide Direct Funding?
+                                                    :</label>
+                                                <select class="form-select" id="directFunding"
+                                                    formControlName="direct_funding" [(ngModel)]="dirctFndng" >
+                                                    <option selected disabled>Provide Direct Funding?</option>
+                                                    <option value="no">No</option>
+                                                    <option value="yes">Yes</option>
+                                                </select>   
+                                                <div *ngIf="fc.direct_funding.touched && fc.direct_funding.errors" class="text-danger">
+                                                    <div *ngIf="fc.direct_funding.errors.required">Direct Funding is required.</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3" id="ticketSizeDiv" *ngIf="dirctFndng== 'yes'">
+                                                <label class="control-label mt-2">Average Ticket Size :</label>
+                                                <select class="form-select" formControlName="average_ticket_size_id" >
+                                                    <option value="0">Select</option>
+                                                    <option [value]='item.id'
+                                                        *ngFor='let item of allDropDwns.average_ticket_size'>
+                                                        {{item.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- your step 4 inputs -->
+                                        <div class="row">
+                                            <div class="col-xl-12 text-end">
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(-1)">Previous</button> &nbsp;
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    (click)="nextPrev(1)">Next</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Step 6 -->
+                                    <!-- Step 6 -->
+                                    <div #stepRef class="step">
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="checkbox" formControlName="is_confirm" [attr.disabled]="screenType == 'add' ? null: true"
+                                                >
+                                            <label class="form-check-label">I confirm the above information is accurate and true.</label>
+                                        </div>
+                                        <div class="form-check mb-4">
+                                            <input class="form-check-input" type="checkbox" formControlName="is_agreed" [attr.disabled]="screenType == 'add' ? null: true">
+                                            <label class="form-check-label">I agree to the platform’s Terms of Use and Privacy Policy.</label>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xl-12 text-end">
+                                                <button type="button" class="btn btn-sm btn-primary mt-2"
+                                                    class="btn btn-secondary" (click)="nextPrev(-1)">Previous</button>
+                                                &nbsp;
+                                                <button type="submit" class="btn btn-success" *ngIf="screenType == 'add'"
+                                                    (click)="isSubmt=true;Save()">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- More steps... -->
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

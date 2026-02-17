@@ -1,0 +1,168 @@
+<div class="wrapper pt-4">
+    <div class="page-wrapper">
+        <div class="page-content pt-0 pe-0 ps-0">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">My Learning Resources</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Course Name : </label>
+                                                    <select [(ngModel)]='courceId ' id="sel1" [disabled]="isParam"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        (change)="courceChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let course of cources"
+                                                            [value]='course.COURSE_ID'>
+                                                            {{course.COURSE_NAME}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Course Schedule :</label>
+                                                    <select [(ngModel)]='schedulId ' [disabled]="isParam" id="sel1"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        (change)="schedulChange()">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let schedul of scheduls"
+                                                            [value]='schedul.COURSESHD_ID'>
+                                                            {{schedul.COURSESHD_NAME}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4" *ngIf="courseNames.length">
+                                            <ul class="nav nav-tabs tabgradint" id="myTab" role="tablist">
+                                                <li class="nav-item shadow-sm"
+                                                    *ngFor="let item of courseNames;let i=index"
+                                                    (click)="selectChapter(item.ChapterId,i)">
+                                                    <a class="nav-link" [ngClass]="{'active':item.ChapterId==cId}"
+                                                        role="tab" aria-controls="home">{{item.ChapterName}}</a>
+                                                </li>
+                                                <!-- <li class="nav-item shadow-sm ">
+                                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab"
+                                            aria-controls="profile">Collection of blood far various Tests</a>
+                                    </li>
+                                    <li class="nav-item shadow-sm">
+                                        <a class="nav-link" data-toggle="tab" href="#messages" role="tab"
+                                            aria-controls="messages">Test Cs</a>
+                                    </li>
+                                    <li class="nav-item shadow-sm">
+                                        <a class="nav-link" data-toggle="tab" href="#settings" role="tab"
+                                            aria-controls="settings">Final Assessment</a>
+                                    </li> -->
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="home" role="tabpanel">
+                                                    <div class="shadow bg-white p-4  mt-2">
+                                                        <div *ngIf="Materialnames.length">
+                                                            <div *ngFor="let item of Materialnames"
+                                                                class="card bg-light border-0 rounded mt-2">
+                                                                <div class="card-body p-2 rounded">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-10">
+                                                                            <p class=" mb-0 small">
+                                                                                {{item.MATERIAL_NAME}} </p>
+                                                                        </div>
+                                                                        <div class="col-xl-2 text-xl-right">
+                                                                            <button
+                                                                                class="btn btn-sm btn-outline-primary pl-3 pr-3"
+                                                                                *ngIf="item.ACTIONTEXT=='Download'"
+                                                                                (click)="download(item)">Download</button>
+                                                                            <button
+                                                                                class="btn btn-sm btn-outline-success"
+                                                                                *ngIf="item.ACTIONTEXT!='Download'"
+                                                                                (click)="action(item)">{{item.ACTIONTEXT}}
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p *ngIf="!Materialnames.length" class="text-center"> No Records
+                                                            to Display
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div>
+                <table style="width: 100%; padding: 1% 10% 0% 10%" id="tbLearning" runat="server" visible="true">
+                <tr>
+                        <td >
+                            <div style="height: 530px;">
+                                <table cellpadding="0" cellspacing="0" class="contentmaterials">
+                                    <tr>
+                                        <td id="tdcourseNames" style="width: 30%; vertical-align: top;">
+                                            <ul id="courseNames" runat="server" class="nav nav-pills nav-stacked contentClass1" style="width: 100%;" [innerHTML]='data.courseNames'>
+                                            </ul>
+                                        </td>
+                                        <td style="width: 70%;">
+                                            <div id="Materialname" runat="server" class="contentClass1 contentClass2" style="border-width: 1px; background: #fff; padding-left: 20px;" [innerHTML]="data.Materialname" >
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+              </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <span data-bs-toggle="modal" data-bs-target="#myModal" id='openpopup'></span> -->
+<input type="button" class="d-none" id="btnShowModel" data-bs-toggle="modal" data-bs-target="#myModal">
+<div *ngIf="IsShowModel" class="modal fade" id="myModal" role="dialog" data-bs-backdrop="static"
+    data-bs-keyboard="false">
+    <div class="modal-dialog  modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content modal_class">
+            <div class="modal-header py-2">
+                <h4 class="modal-title w-100"></h4>
+                <button type="button" class="close" data-bs-dismiss="modal" (click)="close()"><i
+                        class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="iframe">
+                    <iframe class="iframe" [src]="iframe | safe" title="Dhanush"></iframe>
+                </div>
+                <div>
+                    <video *ngIf="videoLink" width="320" height="240" controls>
+                        <!-- <source *ngIf="videoLink" src="{{videoLink}}" type="video/mp4"> -->
+                        <source [src]="videoLink">
+                    </video>
+                    <audio *ngIf="audio" controls>
+                        <source [src]="audio">
+                    </audio>
+                </div>
+                <div *ngIf='visualContent'>
+                    <div [innerHTML]='visualContent'></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" id="md_close"
+                    (click)="close()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,401 @@
+<div class="pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">start - up Profile</h5>
+                                        <div class="text-right">
+
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <div class="container-fluid">
+
+                                            <div class="row">
+                                                <div class="col-xl-12">
+                                                    <div class="progress-container px-0">
+                                                        <!-- Progress Bar Fill -->
+                                                        <div class="progress-line-bg"></div>
+                                                        <div class="progress-line-fill"
+                                                            [ngStyle]="{ width: progressPercentage + '%', backgroundColor: progressColor }">
+                                                        </div>
+
+                                                        <!-- Steps -->
+                                                        <div class="steps">
+                                                            <div *ngFor="let step of steps; let i = index" class="step"
+                                                                [ngClass]="step.status.toLowerCase()">
+                                                                <div class="step-circle">{{ i + 1 }}</div>
+                                                                <div class="step-label">{{ step.label }}</div>
+                                                                <div class="step-status">{{ step.status }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+
+                                        <div class="main_section mt-5" *ngIf="editData !=''">
+                                            <!-- Top Header Section -->
+                                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                                <img src="../../assets/img/logo1-new.png" alt="Logo"
+                                                    class="logo me-3" />
+                                                <h4 class="text-center mb-0" style="color:#307a91;">start - up Profile
+                                                </h4>
+                                            </div>
+                                            <hr>
+                                            <!-- Card 1: Personal Details -->
+                                            <div class="card mb-3 " style="border: 1px solid rgb(224, 224, 224);">
+                                                <div class="card-body">
+                                                    <div class="highlight-title">Basic Details</div>
+                                                    <table class="table table-borderless mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="data-label">Full Name of Applicant</td>
+                                                                <td class="data-value">{{editData?.userName}}</td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Email</td>
+                                                                <td class="data-value">{{ editData?.email_id }}</td>
+                                                                <!-- <td class="data-value">{{ allDropDwns.legal_entitytype.find(e => e.id == editData?.legal_entity_type_id).name }}</td> -->
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Mobile Number</td>
+                                                                <td class="data-value">{{editData?.mobile_no}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Institution / University</td>
+                                                                <td class="data-value">{{editData?.institution}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Course / Program</td>
+                                                                <td class="data-value">{{editData?.project_name}}</td>
+                                                            </tr>
+                                                                                                        <!-- <tr>
+                                                                
+                                                                    <td class="data-label">Logo Upload</td>
+                                                                    <td class="data-value">{{editData?.year_of_establishment}}</td>
+                                                                </tr> -->
+                                                            <tr>
+                                                                <td class="data-label">Year of Study</td>
+                                                                <td colspan="3" class="data-value">
+                                                                    {{editData?.year_of_study}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Team Members (Names & Roles)</td>
+                                                                <td class="data-value">{{editData?.team_members}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">How many people are currently in your team?</td>
+                                                                <td class="data-value">{{editData?.team_size}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What are the core team’s strengths?</td>
+                                                                <td class="data-value">{{editData?.core_team_strengths}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What gaps, if any, exist in your team?</td>
+                                                                <td class="data-value">{{editData?.team_gaps}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Are any of the founders working full-time on this startup?</td>
+                                                                <td class="data-value">{{editData?.yes_founders_working_full_time}}</td>
+                                                            </tr>
+                                                            
+                                                            </tbody>
+                                                    </table>
+
+
+                                                </div>
+                                            </div>
+                                            <!-- Card 2: Address Information -->
+                                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                                <div class="card-body">
+                                                    <div class="highlight-title">Start-up Idea Details</div>
+                                                    <table class="table table-borderless mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="data-label">Start-up / Project Name </td>
+                                                                <td class="data-value">{{editData?.project_name}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">One-line Pitch / Tagline</td>
+                                                                <td class="data-value">{{editData?.tagline}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Problem Statement</td>
+                                                                <td class="data-value">{{editData?.statement}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Solution Overview</td>
+                                                                <td colspan="3" class="data-value">
+                                                                    {{editData?.solution}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Target Audience / Market </td>
+                                                                <td class="data-value">{{editData?.target_audience}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What makes your idea unique?
+                                                                    (USP)</td>
+                                                                <td class="data-value">{{editData?.idea_unique}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Stage of Idea</td>
+                                                                <td class="data-value">{{editData?.stage_of_idea_Name}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Have you validated the idea?</td>
+                                                                <td colspan="3" class="data-value">
+                                                                    {{editData?.validated_idea}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Explanation</td>
+                                                                <td colspan="3" class="data-value">
+                                                                    {{editData?.explanation}}</td>
+                                                            </tr>
+                                                            <!-- <tr>
+                                                                    <td class="data-label">Business Plan Document</td>
+                                                                    <td colspan="3" class="data-value">{{editData?.validated_idea}}</td>
+                                                                </tr> -->
+                                                            <tr>
+                                                                <td class="data-label">Prototype / Demo Link</td>
+                                                                <td class="data-value" colspan="3">
+                                                                    <a
+                                                                        [href]="editData?.demo_link">{{editData?.demo_link}}</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Video Pitch Link</td>
+                                                                <td class="data-value" colspan="3">
+                                                                    <a
+                                                                        [href]="editData?.video_link">{{editData?.video_link}}</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What is your business model?</td>
+                                                                <td class="data-value">{{editData?.business_model}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Who are your main competitors?</td>
+                                                                <td class="data-value">{{editData?.main_competitors}}</td>
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                                <td class="data-label">Date Founded</td>
+                                                                <td class="data-value">{{editData?.date_founded}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Location</td>
+                                                                <td class="data-value">{{editData?.location}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+
+                                                </div>
+                                            </div>
+
+                                            <!-- Card 3: Education Details -->
+                                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                                <div class="card-body">
+                                                    <div class="highlight-title">Incubator Details</div>
+                                                    <table class="table table-borderless mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="data-label">Sector</td>
+                                                                <td class="data-value"> {{editData?.SectorName}}</td>
+                                                            </tr>
+                                                            <tr *ngIf="editData.incubatorDetails.length > 0">
+                                                                <td class="data-label" colspan="2">
+                                                                    <table id="patreggraph" datatable
+                                                                        class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                                        style="width:100%">
+                                                                        <thead class="top"
+                                                                            style="background-color: #2e7a91; color:#ffffff;">
+                                                                            <tr>
+                                                                                <th>S. No</th>
+                                                                                <th>Incubator Name</th>
+                                                                                <th>Status</th>
+                                                                                <th>Rating</th>
+                                                                                <th>Commants</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr
+                                                                                *ngFor="let g of editData.incubatorDetails; let i= index">
+                                                                                <td>{{i+1}}</td>
+                                                                                <td>{{g.incubator_name}}</td>
+                                                                                <td>{{g.application_status == 3 ?
+                                                                                    'Reject':
+                                                                                    (g.application_status ==
+                                                                                    2 ?
+                                                                                    'Approve': 'Pending')}}</td>
+                                                                                <td>{{g.rating}}</td>
+                                                                                <td>{{g.comments}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <!-- Card 3: Education Details -->
+                                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                                <div class="card-body">
+                                                    <div class="highlight-title">Market & Customers</div>
+                                                    <table class="table table-borderless mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="data-label">Who is your target customer?</td>
+                                                                <td class="data-value">{{editData?.target_customer}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What is the size of your target market?</td>
+                                                                <td class="data-value">{{editData?.target_market_size}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">How are you acquiring customers currently?</td>
+                                                                <td class="data-value">{{editData?.customer_acquisition}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What is your go-to-market strategy?</td>
+                                                                <td class="data-value">{{editData?.your_market_strategy}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">How many active users/customers do you currently have?</td>
+                                                                <td class="data-value">{{editData?.active_users_currently}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What is your current monthly revenue (if any)?</td>
+                                                                <td class="data-value">{{editData?.monthly_revenue}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What key milestones have you achieved so far?</td>
+                                                                <td class="data-value">{{editData?.milestones_achieved}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What are your next 3–6 month goals?</td>
+                                                                <td class="data-value">{{editData?.goals_next_3_6_months}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                             <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                                <div class="card-body">
+                                                    <div class="highlight-title">Funding & Financials</div>
+                                                    <table class="table table-borderless mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="data-label">How have you funded the company so far?</td>
+                                                                <td class="data-value">{{editData?.funded_company_name}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">How much capital have you raised to date?</td>
+                                                                <td class="data-value">{{editData?.capital_raised}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What is your monthly burn rate?</td>
+                                                                <td class="data-value">{{editData?.monthly_burn_rat}}</td>
+                                                            </tr>                                                            
+                                                            <tr>
+                                                                <td class="data-label">Are you currently raising funds?</td>
+                                                                <td class="data-value">{{editData?.currently_raising_funds}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What is your long-term vision for the company?</td>
+                                                                <td class="data-value">{{editData?.long_term_vision}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Why do you want to join our incubator?</td>
+                                                                <td class="data-value">{{editData?.incubator_motivation}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">What specific support do you hope to receive from us?</td>
+                                                                <td class="data-value">{{editData?.support_expected}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">How do you think you’ll contribute to the incubator community?</td>
+                                                                <td class="data-value">{{editData?.incubator_contribution}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="card mb-3" style="border: 1px solid rgb(224, 224, 224);">
+                                                <div class="card-body">
+                                                    <div class="highlight-title">Support & Consent</div>
+                                                    <table class="table table-borderless mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="data-label">Type of Support Needed</td>
+                                                                <td class="data-value"> {{editData?.support_type_Name}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">Date of Submission</td>
+                                                                <td class="data-value"> {{editData?.created_at |
+                                                                    date: 'dd-MM-YYYY'}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">I declare that this idea is
+                                                                    original and owned by my
+                                                                    team.
+                                                                </td>
+                                                                <td class="data-value"> {{editData?.declared}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="data-label">I agree to the Terms &
+                                                                    Conditions.</td>
+                                                                <td class="data-value"> {{editData?.agree}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- <div class="col-xl-2"></div> -->
+                                                <div class="col-xl-5">
+                                                    <button class="btn btn-sm btn-dark mt-2 float-right" title="back"
+                                                        *ngIf="isInvestor" [routerLink]="['/HOME/approval-signup']"><i
+                                                            class="bi bi-arrow-left-circle fa-2x"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-xl-5">
+                                                    <button class="btn btn-sm btn-primary mt-2 float-right"
+                                                        (click)="downloadForm()"><i
+                                                            class="bi bi-arrow-down-circle me-1"></i>Download</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

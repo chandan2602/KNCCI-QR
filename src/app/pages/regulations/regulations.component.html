@@ -1,0 +1,128 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Regulations</h5>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="text-right">
+                                            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal"
+                                                data-bs-target="#myModal" (click)="add()">Add</button>
+                                        </div>
+                                        <div *ngIf="table.length">
+                                            <table id="patreggraph" datatable
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th> Regulation Name </th>
+                                                        <th>
+                                                            Regulation Description
+                                                        </th>
+
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.REGULATIONS_NAME}}</td>
+                                                        <td>{{item.REGULATIONS_DESCRIPTION}}</td>
+
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon" (click)="edit(item)">
+                                                                <i class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="!table.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2">
+                <h6 *ngIf="!isEdit" class=" modal-title w-100"> Add Regulations</h6>
+                <h6 *ngIf="isEdit" class="modal-title w-100"> Edit Regulations</h6>
+                <button type="button" (click)="close()" class="close" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Regulations Name <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input placeholder="" class="form-control" formControlName="REGULATIONS_NAME">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Regulations Description <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input type="text" placeholder="" class="form-control"
+                                        formControlName="REGULATIONS_DESCRIPTION">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">Status <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <select class="form-control form-control-sm shadow-sm rounded-lg" id="sel1"
+                                        formControlName="REGULATIONS_STATUS">
+                                        <option [ngValue]=1>Active</option>
+                                        <option [ngValue]=0>InActive </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Save</button>
+                <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Update</button>
+                <button type="button" class="btn btn-sm btn-danger" id="md_close" (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

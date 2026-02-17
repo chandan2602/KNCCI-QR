@@ -1,0 +1,138 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Course Type</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-right mb-1">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                (click)="add()" data-bs-target="#myModal">Add</button>
+                                        </div>
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <div *ngIf='isSuperAdmin' class="col-md-3">
+                                                    <label for="sel1">Tenant Name : </label>
+                                                    <select [(ngModel)]='tId ' (change)="changeTname()"
+                                                        class="form-control form-control-sm shadow-sm rounded-lg"
+                                                        id="sel1">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
+                                                            {{item.TNT_NAME}}</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" pt-4">
+                                            <table datatable id="DataTables_Table_0" [dtOptions]="dtOptions"
+                                                [dtTrigger]="dtTrigger"
+                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th> Course Type </th>
+                                                        <th>Description</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.COURSE_TYPE_NAME}}</td>
+                                                        <td>{{item.COURSE_TYPE_DESCRIPTION}}</td>
+                                                        <td>{{item.STATUS_DESCRIPTION}}</td>
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon" (click)="edit(item)">
+                                                                <i class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="false">
+                                            No Records to display
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2">
+                <h6 *ngIf="!isEdit" class="modal-title w-100"> Add Course Type</h6>
+                <h6 *ngIf="isEdit" class="modal-title w-100"> Edit Course Type</h6>
+                <button type="button" (click)="close()" class="close" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Course Type <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input placeholder="" class="form-control" formControlName="MNAME">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Description </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <textarea placeholder="" class="form-control"
+                                        formControlName="MDESCRIPTION"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">Status</label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <select class="form-control form-control-sm shadow-sm rounded-lg" id="sel1"
+                                        formControlName="MSTATUS">
+                                        <option value=true>Active</option>
+                                        <option value=false>InActive </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" (click)="onSubmit(myForm)" class="btn btn-sm  btn-save"
+                    [disabled]="myForm.invalid">Save</button>
+                <button type="button" *ngIf="isEdit" (click)="onSubmit(myForm)" class="btn btn-sm  btn-save"
+                    [disabled]="myForm.invalid">Update</button>
+                <button type="button" class="btn btn-danger btn-sm" id='md_close' (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

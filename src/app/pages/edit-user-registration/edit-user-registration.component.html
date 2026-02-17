@@ -1,0 +1,121 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0 ">Update Profile</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="input-group mb-3 group-end"
+                                                    style="display: flex; justify-content: space-between;">
+                                                    <a class="btn btn-danger btnPrevious">Previous</a>
+                                                    <a class="btn btn-success btnNext">Next</a>
+                                                </div>
+                                                <ul id="tabsJustified"
+                                                    class="nav nav-tabs tabsactive tabinactive ml-3  border-0">
+                                                    <li (click)='selectTab(1)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase"
+                                                            [ngClass]="{'active':case==1}">Personal Data</a></li>
+                                                    <li (click)='selectTab(2)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==2}">Contact Details</a></li>
+                                                    <li (click)='selectTab(3)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==3}">Education</a></li>
+                                                    <li (click)='selectTab(4)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==4}">Skills</a></li>
+                                                    <!-- <li (click)='selectTab(5)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==5}">Projects</a></li> -->
+                                                    <li *ngIf="isSuperAdmin && (RoleId == '2' || RoleId == '1')"
+                                                        (click)='selectTab(5)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==5}">WorkExperience</a></li>
+                                                    <li (click)='selectTab(6)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==6}">Languages</a></li>
+                                                    <li (click)='selectTab(7)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==7}">Address</a></li>
+                                                    <li (click)='selectTab(8)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==8}">About Me</a></li>
+                                                    <li (click)='selectTab(9)' class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==9}">QR Code</a></li>
+                                                    <li *ngIf=" RoleId == '2'||RoleId == '1'" (click)='selectTab(10)'
+                                                        class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==10}">Bank Details</a></li>
+                                                    <li *ngIf=" RoleId == '2'||RoleId == '1'" (click)='selectTab(11)'
+                                                        class="nav-item pointer"><a
+                                                            class="nav-link small text-uppercase "
+                                                            [ngClass]="{'active':case==11}">Id Proof</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="card">
+                                            <div class="card-body p-3 overflow-auto" style="height: 500px ;">
+                                                <div class='row' [ngSwitch]="case">
+                                                    <div class="col-xl-12">
+                                                        <app-personal-data [editData]='editData' [parent]='this'
+                                                            class="none" [ngClass]="{'block':case==1}">
+                                                        </app-personal-data>
+                                                        <app-contact-details [editData]='editData' [parent]='this'
+                                                            class="none" [ngClass]="{'block':case==2}">
+                                                        </app-contact-details>
+                                                        <app-education [editData]='editData' [parent]='this'
+                                                            class="none" [ngClass]="{'block':case==3}"></app-education>
+                                                        <app-skills [editData]='editData' [parent]='this' class="none"
+                                                            [ngClass]="{'block':case==4}"></app-skills>
+                                                        <!-- <app-projects [editData]='editData' [parent]='this' class="none"
+                                                            [ngClass]="{'block':case==5}"></app-projects> -->
+                                                        <app-work-experience [editData]='editData' [parent]='this'
+                                                            class="none" [ngClass]="{'block':case==5}">
+                                                        </app-work-experience>
+                                                        <app-languages [editData]='editData' [parent]='this'
+                                                            class="none" [ngClass]="{'block':case==6}"></app-languages>
+                                                        <app-address [editData]='editData' [parent]='this' class="none"
+                                                            [ngClass]="{'block':case==7}"></app-address>
+                                                        <app-about-me [editData]='editData' [parent]='this' class="none"
+                                                            [ngClass]="{'block':case==8}"></app-about-me>
+                                                        <app-qr-code [width]="330" class="none" [parent]='this'
+                                                            [ngClass]="{'block':case==9}"></app-qr-code>
+                                                        <app-account-details [editData]='editData.UserBankDetails'
+                                                            [parent]='this' class="none" [ngClass]="{'block':case==10}">
+                                                        </app-account-details>
+                                                        <app-id-proof [editData]='editData.UserIdProof' [parent]='this'
+                                                            class="none" [ngClass]="{'block':case==11}">
+                                                        </app-id-proof>
+
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="text-center pt-4">
+                                                    <button type="button" class="btn btn-sm  btn-success"
+                                                        (click)='save()'>Submit</button> &nbsp;
+                                                    <button type="button" class="btn btn-sm btn-danger"
+                                                        (click)="close()">Close</button>
+                                                </div> -->
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

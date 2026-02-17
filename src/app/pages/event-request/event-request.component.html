@@ -1,0 +1,191 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="container-fluid">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <h5 class="mb-0">Event Request</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-right mb-1">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#myModal" (click)="add()">Add </button>
+                                        </div>
+
+                                        <div *ngIf="table.length">
+                                            <table id="patreggraph" datatable
+                                                class=" table table-striped table-bordered mt-2 pt-2 table-sm small display"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr>
+                                                        <th>
+                                                            Title </th>
+                                                        <th> Date </th>
+                                                        <th>
+                                                            Start Time
+                                                        </th>
+                                                        <th> End Time</th>
+                                                        <th>Room</th>
+                                                        <th>Edit</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.APPOINTMENT_NAME}}</td>
+                                                        <td>{{item.APPOINTMENT_DATE}}</td>
+                                                        <td>{{item.APPOINTMENT_STARTTIME}}</td>
+                                                        <td>{{item.APPOINTMENT_ENDTIME}}</td>
+                                                        <td>{{item.ROOM_TYPE}}</td>
+                                                        <td style="display: flex;">
+                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
+                                                                src="" class="edit_icon" (click)="edit(item)"> <i
+                                                                    class="fas fa-pen pt-1 mt-1"></i></span>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="!table.length">
+                                            No Records to display
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header py-2">
+                <h6 *ngIf="!isEdit" class="modal-title w-100"> Add Event Request</h6>
+                <h6 *ngIf="isEdit" class="modal-title w-100"> Edit Event Request</h6>
+                <button type="button" (click)="close()" class="close" data-bs-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form class="well form-horizontal" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                    <fieldset>
+                        <div class="form-group row">
+                            <label class="col-md-4 control-label">Title <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input formControlName='APPOINTMENT_NAME'
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label"> Course Name <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <select [(ngModel)]='courseId' (change)="courseChange()"
+                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                        formControlName="COURSE_ID">
+                                        <option value="" [selected]="true">select</option>
+                                        <option *ngFor="let course of courses" [value]='course.COURSE_ID'>
+                                            {{course.COURSE_NAME}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label"> Course Schedule </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <select [(ngModel)]='scheduleId '
+                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                        formControlName="COURSESCHEDULE_ID">
+                                        <option value="" [selected]="true">select</option>
+                                        <option *ngFor="let schedule of schedules" [value]='schedule.COURSESHD_ID'>
+                                            {{schedule.COURSESHD_NAME}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Date <span class="text-danger">*</span> </label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input type="date" formControlName='APPOINTMENT_DATE'
+                                        [ngModel]="Date| date:'yyyy-MM-dd'" placeholder="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                Start Time <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input type="time" [(ngModel)]="startTime" formControlName='APPOINTMENT_STARTTIME'
+                                        placeholder="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label line_2 rem_1">
+                                End Time <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <input type="time" (change)="timeChange($event.target.value)"
+                                        formControlName='APPOINTMENT_ENDTIME' placeholder="" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row pt-4">
+                            <label class="col-md-4 control-label">Comments <span class="text-danger">*</span></label>
+                            <div class="col-md-8 inputGroupContainer">
+                                <div class="input-group">
+                                    <textarea formControlName='APPOINTMENT_DESCRIPTION'
+                                        class="form-control form-control-sm shadow-sm rounded-lg">
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </fieldset>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Save</button>
+                <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                    [disabled]="myForm.invalid">Update</button>
+                <button type="button" class="btn btn-danger btn-sm" id="md_close" (click)="close()"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

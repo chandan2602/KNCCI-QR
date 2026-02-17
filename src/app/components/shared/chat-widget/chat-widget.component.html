@@ -1,0 +1,54 @@
+<div class="chat-widget-container">
+  <!-- Collapsed Card Trigger -->
+  <button class="chat-card rounded-xl shadow" (click)="toggleOpen()" *ngIf="!isOpen" aria-label="Open Shangazi AI chat">
+    <div class="card-inner">
+      <div class="avatar">
+        <img src="assets/img/avatar.png" alt="Shangazi AI" onerror="this.style.display='none'">
+        <div class="avatar-fallback">SA</div>
+      </div>
+      <div class="card-text">
+        <div class="title">Shangazi AI</div>
+        <div class="call-btn">
+          <span class="phone-icon">📞</span>
+          <span>Start a call</span>
+        </div>
+      </div>
+    </div>
+  </button>
+
+  <!-- Expanded Chatbox -->
+  <div class="chatbox rounded-2xl shadow" [class.open]="isOpen">
+    <div class="chatbox-header">
+      <div class="left">
+        <div class="name">Shangazi Ai</div>
+        <div class="status">Online</div>
+      </div>
+      <button class="close-btn" (click)="toggleOpen()" aria-label="Close chat">✕</button>
+    </div>
+    <div #messagesScroller class="chatbox-body">
+      <ng-container *ngFor="let msg of messages">
+        <div class="message" [ngClass]="msg.type === 'user' ? 'user' : 'bot'">
+          <ng-container [ngSwitch]="msg.template || 'text'">
+            <div *ngSwitchCase="'text'" class="bubble">{{msg.text}}</div>
+            <div *ngSwitchCase="'whatsapp'" class="bubble">
+              <div class="bubble-title">{{msg.text}}</div>
+              <a class="whatsapp-link" [href]="msg.link" target="_blank" rel="noopener">WhatsApp</a>
+              <div class="qr-wrapper">
+                <a [href]="msg.link" target="_blank" rel="noopener" class="qr-link">
+                  <img [src]="msg.qrSrc" alt="WhatsApp QR" />
+                </a>
+              </div>
+            </div>
+          </ng-container>
+          <div class="timestamp">{{msg.timestamp | date:'shortTime'}}</div>
+        </div>
+      </ng-container>
+    </div>
+    <form class="chatbox-footer" (submit)="$event.preventDefault(); handleSend();">
+      <input #messageInput class="input" type="text" placeholder="Type your message" [(ngModel)]="inputText" name="message" (keydown.enter)="$event.preventDefault(); handleSend();" />
+      <button type="button" class="send-btn" aria-label="Send message" (click)="handleSend()">➤</button>
+    </form>
+  </div>
+</div>
+
+

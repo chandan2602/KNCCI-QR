@@ -1,0 +1,232 @@
+<div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-0 ps-0">
+        <div class="">
+            <div class="default_class">
+                <div class="content-wrapper p-0">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card rounded shadow-lg">
+                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
+                                        <div class="float-start">
+                                            <h5 class="mb-0">Content Manager</h5>
+                                        </div>
+                                        <div class="float-end m-0">
+                                            <button type="button" class="btn btn-sm btn-primary" [disabled]='!mId'
+                                                (click)="add()">Add</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <div *ngIf='isSuperAdmin' class="col-md-3">
+                                                    <label for="sel1">Tenant Name : </label>
+                                                    <select [(ngModel)]='tId ' (change)="changeTname()"
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
+                                                            {{item.TNT_NAME}}</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label for="sel1">Material Type : </label>
+                                                    <select [(ngModel)]='mId ' (change)="change()"
+                                                        class="form-select form-select-sm shadow-sm rounded-lg"
+                                                        id="sel1">
+                                                        <option value="" [selected]="true">select</option>
+                                                        <option>Uploaded Material</option>
+                                                        <option>Webinar Info</option>
+                                                        <option>E-Learning Material</option>
+                                                        <option>External Links</option>
+                                                        <option>Audio</option>
+
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div *ngIf="table.length" class="table-responsive">
+                                            <table id="contentReport" datatable [dtOptions]="dtOptions"
+                                                [dtTrigger]="dtTrigger"
+                                                class="table-striped table-bordered mt-2 pt-2 table-sm small display"
+                                                style="width:100%">
+                                                <thead class="top" style="background-color: #2e7a91; color:#ffffff;">
+                                                    <tr style="white-space: nowrap;">
+                                                        <th> Course Name </th>
+                                                        <th> Material Name </th>
+                                                        <th> Uploaded By </th>
+                                                        <th> Uploaded Date </th>
+                                                        <th> Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of table">
+                                                        <td>{{item.COURSE_NAME}}</td>
+                                                        <td>{{item.MATERIAL_NAME}}</td>
+                                                        <td>{{item.FirstName}}</td>
+                                                        <td>{{item.MATERIAL_CREATED_DATE | date:"dd-MM-yyyy"}}</td>
+                                                        <td class=" text-center"><input type="image"
+                                                                src="./../../../assets/images/sprites/edit.svg"
+                                                                class="edit_icon text-center"
+                                                                (click)="edit(item)"><button
+                                                                class="btn text-danger rem_1"
+                                                                (click)="delete(item)">X</button> </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="text-center" *ngIf="false">
+                                            No Records to display
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <input type="button" class="d-none" id="btnShowModel" data-bs-toggle="modal" data-bs-target="#myModal">
+            <div *ngIf="IsShowModel" class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog   modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header py-2">
+                            <h6 *ngIf="!isEdit" class="modal-title w-100"> Add </h6>
+                            <h6 *ngIf="isEdit" class="modal-title w-100"> Edit </h6>
+                            <button type="button" (click)="close()" class="close" data-bs-dismiss="modal"><i
+                                    class="fas fa-times"></i></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body pb-0">
+                            <div class="row">
+                                <div class="col-xl-8 mx-auto">
+
+
+                                    <form class="well form-horizontal" [formGroup]="myForm"
+                                        (ngSubmit)="onSubmit(myForm)">
+                                        <fieldset>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label line_2 rem_1">
+                                                    Course Name <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <select [(ngModel)]='courceId '
+                                                            formControlName="MATERIAL_COURSE_ID"
+                                                            class="form-select form-select-sm shadow-sm rounded-lg"
+                                                            id="sel1" (change)="courseChange()">
+                                                            <option value="" [selected]="true">select</option>
+                                                            <option *ngFor="let course of courses"
+                                                                [value]='course.COURSE_ID'>
+                                                                {{course.COURSE_NAME}}
+                                                            </option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label line_2 rem_1">
+                                                    Batch Schedule <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <select [(ngModel)]='sheduleId '
+                                                            class="form-select form-select-sm shadow-sm rounded-lg"
+                                                            formControlName="MATERIAL_COURSE_SCHEDULE_ID">
+                                                            <option value="" [selected]="true">select</option>
+                                                            <option *ngFor="let shedule of shedules"
+                                                                [value]='shedule.COURSESHD_ID'>
+                                                                {{shedule.COURSESHD_NAME}}
+                                                            </option>
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label line_2 rem_1">
+                                                    Name <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder=""
+                                                            class="form-control form-control-sm"
+                                                            formControlName="MATERIAL_NAME">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label line_2 rem_1">
+                                                    Material Description <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <textarea rows="2" placeholder=""
+                                                            class="form-control form-control-sm"
+                                                            formControlName="MATERIAL_DESCRIPTION"> </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row mb-3">
+                                                <label class="col-md-4 control-label">Status <span
+                                                        class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <select class="form-select form-select-sm shadow-sm rounded-lg"
+                                                            formControlName="MaterialStatus">
+                                                            <option value=1>Active</option>
+                                                            <option value=0>InActive </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf='isFile' class="form-group row mb-3">
+                                                <label class="col-md-4 control-label line_2 rem_1">
+                                                    Material Upload </label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input type="file" (change)="changeFile($event)"
+                                                            class="form-control form-control-sm">
+                                                    </div>
+                                                    <!-- <p *ngIf='isEdit'>{{fileName}}</p> -->
+                                                </div>
+                                            </div>
+                                            <div *ngIf='!isFile' class="form-group row mb-3">
+                                                <label class="col-md-4 control-label line_2 rem_1">
+                                                    Link <span class="text-danger">*</span></label>
+                                                <div class="col-md-8 inputGroupContainer">
+                                                    <div class="input-group">
+                                                        <input type="text" placeholder=""
+                                                            class="form-control form-control-sm"
+                                                            formControlName="MATERIAL_PATH">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer pt-4">
+                            <button type="button" *ngIf="!isEdit" class="btn btn-sm  btn-save"
+                                (click)="onSubmit(myForm)" [disabled]="myForm.invalid">Save</button>
+                            <button type="button" *ngIf="isEdit" class="btn btn-sm  btn-save" (click)="onSubmit(myForm)"
+                                [disabled]="myForm.invalid">Update</button>
+                            <button type="button" class="btn btn-danger btn-sm" id="md_close" (click)="close()"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
