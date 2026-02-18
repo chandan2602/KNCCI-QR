@@ -208,6 +208,7 @@ import { InvestorProfileComponent } from './components/investor-profile/investor
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { LandingComponent } from './landing/landing.component';
 import { LandingAboutComponent } from './landing/landing-about/landing-about.component';
+import { LandingContactComponent } from './landing/landing-contact/landing-contact.component';
 import { IntrenshipLstComponent } from './components/intrenship-lst/intrenship-lst.component';
 import { ResumesListComponent } from './components/resumes-list/resumes-list.component';
 import { InternshipSummaryComponent } from './components/internship-summary/internship-summary.component';
@@ -937,7 +938,7 @@ const routes: Routes = [
   { path: 'job', component: LandingComponent },
   { path: 'internship', component: LandingComponent },
   { path: 'corporate', component: LandingComponent },
-  { path: 'contacts', component: LandingComponent },
+  { path: 'contacts', component: LandingContactComponent },
   { path: 'cmpnyLst', component: JobsInCompanyLstComponent },
   // { path: '', component: TutorHomeComponent },
   { path: '**', redirectTo: 'default' },
