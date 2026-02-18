@@ -1,43 +1,306 @@
-
-
-
-
-<div style="padding-top: 3rem !important;">
-    <section class="position-relative py-5 py-md-6" id="about">
-        <div class="container pb-0 pt-0">
-            <div class="row align-items-center g-4">
-                <div class="col-lg-5 col-md-6">
-                    <img src="../../../../assets/images/new-images/about-photo.png" class=" img-fluid" />
-                </div>
-                <div class="col-lg-7 col-md-6 mt-5 mt-md-0">
-                    <div class="ms-lg-5">
-                        <h3 class="mb-4 display-6 fw-semibold">Launch Your Career with Kenya’s Most In-Demand Jobs</h3>
-                        <p class="text-muted mb-4">
-                            <strong>Explore high-demand roles in business, technology, communication, and more. Whether
-                                you're just starting out or looking to specialize, there’s a role waiting for you.
-                            </strong>
-                        </p>
-                        <ul class="list-unstyled text-muted">
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="bi bi-search text-emerald-600 fs-5 me-2 text-success"></i>
-                                Curated roles aligned with market needs
-                            </li>
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="bi bi-bar-chart text-emerald-600 fs-5 me-2 text-success"></i>
-                                Opportunities for professional growth
-                            </li>
-                            <li class="mb-2 d-flex align-items-center">
-                                <i class="bi bi-buildings text-emerald-600 fs-5 me-2 text-success"></i>
-                                Roles across top companies and industries
-                            </li>
-
-                        </ul>
-                        <p>Find your perfect fit — browse jobs &nbsp; <a (click)="ApplyNow()" class="btn-theme btn-sm">Apply Now</a>
-                        </p>
-
+<header class="header-area transparent">
+    <div class="container">
+        <div class="row no-gutter align-items-center position-relative">
+            <div class="col-12">
+                <div class="header-align">
+                    <div class="header-align-start">
+                        <div class="header-logo-area">
+                            <a href="index.html" id="landingpageimage_path">
+                                <img class="logo-main" src="../../../../assets/img/logo-kncci.png" alt="Logo" />
+                                <img class="logo-light" src="../../../../assets/img/logo-kncci.png" alt="Logo" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="header-align-center">
+                        <div class="header-navigation-area position-relative">
+                            <ul class="main-menu nav mb-0">
+                                <li (click)="isSS('d');"><a [routerLink]="['/default']"><span>Home</span></a></li>
+                                <li (click)="isSS('c');"><a [routerLink]="['/corporate']"><span>Courses</span></a></li>
+                                <li (click)="isSS('j');"><a [routerLink]="['/job']"><span>Jobs</span></a></li>
+                                <li (click)="isSS('i');"><a [routerLink]="['/internship']"><span>Internships</span></a></li>
+                                <li (click)="isSS('c');"><a [routerLink]="['/corporate']"><span>Start-ups</span></a></li>
+                                <li (click)="isSS('a');"><a [routerLink]="['/about']"><span>About</span></a></li>
+                                <li (click)="isSS('p');"><a [routerLink]="['/contacts']"><span>Contact</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="offcanvas offcanvas-start d-lg-none d-md-block" tabindex="-1" id="AsideOffcanvasMenu">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title">Menu</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item" (click)="isSS('d')"><a class="nav-link" [routerLink]="['/default']">Home</a></li>
+                                    <li class="nav-item" (click)="isSS('j')"><a class="nav-link" [routerLink]="['/job']">Jobs</a></li>
+                                    <li class="nav-item" (click)="isSS('i')"><a class="nav-link" [routerLink]="['/internship']">Internships</a></li>
+                                    <li class="nav-item" (click)="isSS('c')"><a class="nav-link" [routerLink]="['/corporate']">Courses</a></li>
+                                    <li class="nav-item" (click)="isSS('c')"><a class="nav-link" [routerLink]="['/corporate']">Start-ups</a></li>
+                                    <li class="nav-item" (click)="isSS('a')"><a class="nav-link" [routerLink]="['/about']">About</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-align-end">
+                        <div class="header-action-area">
+                            <a class="btn-registration w-auto ps-3 pe-3 me-2" aria-current="page" [routerLink]="['/login']">Login</a>
+                            <a class="btn-registration w-auto ps-3 pe-3" data-bs-toggle="modal" data-bs-target="#signupModal">Signup</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</header>
+
+<div class="about-page">
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-left">
+          <h1 class="about-title">About KNCCI</h1>
+          
+          <div class="about-text">
+            <p>
+              The Kenya National Chamber of Commerce and Industry is registered as a not-for-profit private company limited by guarantee under the Companies Act Chapter 486 of the Laws of Kenya. Before the promulgation of the Kenyan Constitution in August 2010, the KNCCI had its main operations at the head office in Nairobi with regional offices in all 47 counties in Kenya. However, after the promulgation of the constitution, the Chamber extended its large operations to establish a National Office with the devolved county chambers.
+            </p>
+            
+            <p>
+              The Kenya National Chamber of Commerce and Industry (KNCCI) is a membership based trade support institution (TSI) working to protect commercial and industrial interests of Kenyan business community. KNCCI advocates for the creation of a favorable business, trade and investment environment that supports enterprise expansion. The membership of KNCCI constitutes small, micro enterprises (SMEs), medium and large enterprises.
+            </p>
+
+            <div class="vision-mission">
+              <div class="vm-item">
+                <div class="vm-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                </div>
+                <div class="vm-content">
+                  <h3>Vision</h3>
+                  <p>A vibrant and prosperous business community</p>
+                </div>
+              </div>
+
+              <div class="vm-item">
+                <div class="vm-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                  </svg>
+                </div>
+                <div class="vm-content">
+                  <h3>Mission</h3>
+                  <p>To initiate and promote a sustainable business environment for economic growth and prosperity</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="integrity-section">
+              <p>
+                At the Kenya National Chamber of Commerce and Industry (KNCCI), integrity is a cornerstone of our mission to promote, protect, and develop the interests of the Kenyan business community. We are committed to upholding the highest ethical standards in all our operations, interactions, and decisions.
+              </p>
+              <p>
+                KNCCI provides strong protection against malpractices and ensures all reports are treated seriously and investigated independently. We also uphold strict safeguarding principles to protect vulnerable individuals across all our programs and partnerships.
+              </p>
+              <p>
+                To raise a concern anonymously or in confidence, contact us at 
+                <a href="mailto:web@kenyachamber.org" class="email-link">web@kenyachamber.org</a> 
+                or call us on <strong>"Private & Confidential – Whistleblower Concern"</strong>.
+              </p>
+              <p class="office-info">
+                KNCCI National Office: <strong>P.O. Box 47024 - 00100, Nairobi</strong>
+              </p>
+              <p>
+                Together, let us create a transparent and trusted business environment. 
+                <strong>#SpeakUp #Integrity #Matters #SafeguardingAtKNCCI</strong>
+              </p>
+              <p>
+                <a href="#" class="policy-link">Download Whistleblower Policy</a>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-right">
+          <div class="rallying-call-card">
+            <img src="https://www.kenyachamber.or.ke/wp-content/uploads/2019/09/about-pg-rallying-call-image.jpg" 
+                 alt="Growing your business together" 
+                 class="rallying-image">
+            <div class="rallying-overlay">
+              <p class="rallying-label">Our rallying call</p>
+              <h2 class="rallying-title">"Growing your business together"</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KNCCI Functions Section -->
+  <section class="functions-section">
+    <div class="container">
+      <h2 class="functions-title">KNCCI Functions</h2>
+      
+      <div class="functions-grid">
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Promote, coordinate and protect commercial and industrial interest to its members and Kenya in general.</p>
+        </div>
+
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Collect and disseminate statistically sound information and other materials to its members</p>
+        </div>
+
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Promote trade within and outside Kenya</p>
+        </div>
+
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Arbitrate in the settlement of commercial and industrial disputes among its members</p>
+        </div>
+
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Establish and organize related trade and industries exhibitions and displays either on its own or in participation with other persons or organizations</p>
+        </div>
+
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Establish commercial exchanges, new rooms, libraries and other facilities that may be beneficial to its members</p>
+        </div>
+
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Foster social unity and promote the welfare of the commercial and industrial community</p>
+        </div>
+
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Provide facilities for the study, enquiry and research into commercial and industrial matters and to publish relevant and suitable writing others for the benefit of its members</p>
+        </div>
+
+        <div class="function-item">
+          <div class="function-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <p>Promote, support or oppose legislations and ineffective bureaucratic measures that may be put in place by the government for the interest of the members.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
+
+<!-- Footer Section -->
+<footer class="footer-section">
+    <div class="footer-content">
+        <div class="container">
+            <div class="row">
+                <!-- Column 1 -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-col">
+                        <h5 class="footer-heading">About KNCCI</h5>
+                        <img src="../../../../assets/img/logo-kncci.png" alt="KNCCI" class="footer-logo">
+                        <p class="footer-text">We advocate for the creation of a favorable commercial, trade and
+                            investment environment that supports enterprise expansion.</p>
+                        <p class="footer-text">The membership of KNCCI constitutes small, micro enterprises (SMEs),
+                            medium and large enterprises.</p>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-col">
+                        <h5 class="footer-heading">Quick Links</h5>
+                        <ul class="footer-list">
+                            <li><a href="#">KNCCI Events</a></li>
+                            <li><a href="#">KNCCI Membership</a></li>
+                            <li><a href="#">KNCCI Services</a></li>
+                            <li><a href="#">News & Press</a></li>
+                            <li><a href="#">KNCCI Publications</a></li>
+                            <li><a href="#">Our Members</a></li>
+                            <li><a href="#">Country Chambers</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-col">
+                        <h5 class="footer-heading">Contact Us</h5>
+                        <div class="footer-contact">
+                            <p><strong>📍 Address:</strong></p>
+                            <p>Tulani Plaza, Chyulu Road, 2nd Floor, Upper Hill, Nairobi City, Kenya</p>
+                            <p><strong>📞 Phone:</strong></p>
+                            <p>+254 703 823 000</p>
+                            <p><strong>✉️ Email:</strong></p>
+                            <p><a href="mailto:info@kncci.or.ke">info@kncci.or.ke</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-col">
+                        <h5 class="footer-heading">Follow Us</h5>
+                        <p class="footer-text">Connect with us on social media</p>
+                        <div class="footer-social">
+                            <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

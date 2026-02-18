@@ -27,4 +27,8 @@ constructor(public rtr: Router,
       this.rtr.navigate(['/signup'], { queryParams: {type : 'jobSeeker'}});
   }
 
+  isSS(t: string): boolean {
+    return ((t == 'd') ? location.href.includes('/default') : ((t == 'a') ? location.href.includes('/about') : ((t == 'j') ? location.href.includes('/job') : ((t == 'i') ? location.href.includes('/internship') : ((t == 'c') ? location.href.includes('/corporate') : ((t == 'p') ? location.href.includes('/contacts') : false))))));
+  }
+
 }

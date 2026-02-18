@@ -207,6 +207,7 @@ import { IncubatorProfileComponent } from './components/incubator-profile/incuba
 import { InvestorProfileComponent } from './components/investor-profile/investor-profile.component';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { LandingComponent } from './landing/landing.component';
+import { LandingAboutComponent } from './landing/landing-about/landing-about.component';
 import { IntrenshipLstComponent } from './components/intrenship-lst/intrenship-lst.component';
 import { ResumesListComponent } from './components/resumes-list/resumes-list.component';
 import { InternshipSummaryComponent } from './components/internship-summary/internship-summary.component';
@@ -932,7 +933,7 @@ const routes: Routes = [
   // { path: '**', redirectTo: 'tutore-home' },
   { path: '', redirectTo: 'default', pathMatch: 'full' }, // { path: '', component: LandingComponent },
   { path: 'default', component: LandingComponent },
-  { path: 'about', component: LandingComponent },
+  { path: 'about', component: LandingAboutComponent },
   { path: 'job', component: LandingComponent },
   { path: 'internship', component: LandingComponent },
   { path: 'corporate', component: LandingComponent },
