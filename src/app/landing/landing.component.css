@@ -8420,8 +8420,8 @@ tabs */
   background: #ffffff;
   position: relative;
   overflow: hidden;
-  margin-top: 0;
-  padding-top: 90px;
+  margin-top: -620px;
+  padding-top: 20px;
 }
 
 .hero-content {
@@ -8645,8 +8645,8 @@ tabs */
 @media (max-width: 768px) {
   .hero-section {
     padding: 30px 0 60px 0;
-    margin-top: 0;
-    padding-top: 80px;
+    margin-top: 60px;
+    padding-top: 20px;
   }
 
   .hero-title {
@@ -8671,8 +8671,8 @@ tabs */
 @media (max-width: 480px) {
   .hero-section {
     padding: 20px 0 40px 0;
-    margin-top: 0;
-    padding-top: 75px;
+    margin-top: 55px;
+    padding-top: 20px;
   }
 }
 
