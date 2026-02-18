@@ -610,6 +610,139 @@
   color: #fff;
   text-decoration: none;
   transition: all 0.3s ease;
+  font-size: 14px;
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  line-height: 45px;
+}
+
+@media only screen and (max-width: 1199px) {
+  .footer-area .social-icons a {
+    font-size: 13px;
+    height: 42px;
+    width: 42px;
+    line-height: 38px;
+  }
+}
+
+.footer-area .social-icons a+a {
+  margin-left: 15px;
+}
+
+.footer-area .social-icons a:hover {
+  border-color: #0791a9;
+  background-color: #0791a9;
+}
+
+.footer-area .nav-menu {
+  margin-bottom: 0;
+}
+
+.footer-area .nav-menu li {
+  color: #d8dadf;
+  display: block;
+  font-size: 18px;
+  line-height: 50px;
+}
+
+.footer-area .nav-menu li a {
+  color: #d8dadf;
+  font-size: 18px;
+  line-height: 50px;
+  padding: 0 0;
+  display: block;
+}
+
+@media only screen and (max-width: 1199px) {
+  .footer-area .nav-menu li a {
+    font-size: 14px;
+    line-height: 45px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .footer-area .nav-menu li a {
+    line-height: 35px;
+  }
+}
+
+.footer-area .nav-menu li a:hover {
+  color: #0791a9;
+}
+
+.footer-top {
+  background-color: #0791a9;
+  padding: 47px 0 43px;
+}
+
+@media only screen and (max-width: 991px) {
+  .footer-top {
+    padding: 47px 0 57px;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .footer-newsletter-content {
+    text-align: center;
+  }
+}
+
+.footer-newsletter-content .title {
+  color: #fefdfc;
+  font-size: 40px;
+  line-height: 1.5;
+}
+
+@media only screen and (max-width: 1199px) {
+  .footer-newsletter-content .title {
+    font-size: 32px;
+    margin-bottom: 0;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .footer-newsletter-content .title {
+    font-size: 25px;
+  }
+}
+
+.footer-newsletter-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: flex-end;
+  -ms-flex-pack: flex-end;
+  justify-content: flex-end;
+  margin-top: 28px;
+}
+
+@media only screen and (max-width: 1199px) {
+  .footer-newsletter-form {
+    margin-top: 18px;
+  }
+}
+
+.footer-newsletter-form form {
+  display: inline-block;
+  position: relative;
+}
+
+@media only screen and (max-width: 1199px) {
+  .footer-newsletter-form form {
+    width: 100%;
+  }
+}
+
+.footer-newsletter-form form [type=email] {
+  background-color: #fff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  width: 600px;
+  border: none;
+  height: 70px;
+  border-radius: 5px;
   font-size: 16px;
 }
 

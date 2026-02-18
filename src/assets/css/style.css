@@ -49,7 +49,7 @@ h3 {
     position: relative;
     background: none;
     border: none;
-    justify-content: end;
+    justify-content: flex-end;
     color: red;
   }
 
