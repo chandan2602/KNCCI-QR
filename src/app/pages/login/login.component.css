@@ -69,14 +69,15 @@
 
 .login-container {
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
-  padding: 20px;
+  padding: 20px !important;
+  padding-top: 80px !important;
   animation: fadeIn 0.6s ease-out;
 }
 
@@ -595,6 +596,9 @@
 @media (max-width: 768px) {
   .login-container {
     padding: 16px !important;
+    padding-top: 70px !important;
+    min-height: 100vh;
+    align-items: flex-start;
   }
 
   .login-wrapper {
@@ -643,8 +647,10 @@
 
 @media (max-width: 480px) {
   .login-container {
-    min-height: auto !important;
+    min-height: 100vh;
     padding: 12px !important;
+    padding-top: 65px !important;
+    align-items: flex-start;
   }
 
   .login-wrapper {

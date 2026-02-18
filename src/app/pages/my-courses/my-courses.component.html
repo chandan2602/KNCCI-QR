@@ -194,7 +194,7 @@
 
 
 <!-- Modal Popup (only after login) -->
-<div *ngIf="showAdPopup">
+<!-- <div *ngIf="showAdPopup">
     <div class="modal fade show" style="display: block; background: rgba(0,0,0,0.5);">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -208,7 +208,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 
 <app-recording-schedule *ngIf="isSubmitted" (closeModelEvent)="closeModel($event)" [recordingList]="recordingList">

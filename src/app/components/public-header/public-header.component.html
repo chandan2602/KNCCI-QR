@@ -1,0 +1,80 @@
+<header class="public-header">
+  <div class="header-container">
+    <div class="header-content">
+      <!-- Logo -->
+      <div class="header-logo">
+        <a [routerLink]="['/default']">
+          <img src="assets/img/logo-kncci.png" alt="KNCCI Logo" class="logo-img">
+        </a>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="header-nav">
+        <a [routerLink]="['/default']" class="nav-link">Home</a>
+        <a [routerLink]="['/corporate']" class="nav-link">Courses</a>
+        <a [routerLink]="['/job']" class="nav-link">Jobs</a>
+        <a [routerLink]="['/internship']" class="nav-link">Internships</a>
+        <a [routerLink]="['/corporate']" class="nav-link">Start-Ups</a>
+        <a [routerLink]="['/about']" class="nav-link">About</a>
+        <a [routerLink]="['/contacts']" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+        <i class="bx bx-menu"></i>
+      </button>
+
+      <!-- Action Buttons -->
+      <div class="header-actions">
+        <button type="button" class="btn-login" [routerLink]="['/login']">Login</button>
+        <button type="button" class="btn-signup" data-bs-toggle="modal" data-bs-target="#signupModal">Sign Up</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Offcanvas Menu -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="mobile-nav">
+      <li><a [routerLink]="['/default']" class="mobile-nav-link" data-bs-dismiss="offcanvas">Home</a></li>
+      <li><a [routerLink]="['/corporate']" class="mobile-nav-link" data-bs-dismiss="offcanvas">Courses</a></li>
+      <li><a [routerLink]="['/job']" class="mobile-nav-link" data-bs-dismiss="offcanvas">Jobs</a></li>
+      <li><a [routerLink]="['/internship']" class="mobile-nav-link" data-bs-dismiss="offcanvas">Internships</a></li>
+      <li><a [routerLink]="['/corporate']" class="mobile-nav-link" data-bs-dismiss="offcanvas">Start-Ups</a></li>
+      <li><a [routerLink]="['/about']" class="mobile-nav-link" data-bs-dismiss="offcanvas">About</a></li>
+      <li><a [routerLink]="['/contacts']" class="mobile-nav-link" data-bs-dismiss="offcanvas">Contact</a></li>
+    </ul>
+    <div class="mobile-actions">
+      <button type="button" class="btn-login-mobile" [routerLink]="['/login']" data-bs-dismiss="offcanvas">Login</button>
+      <button type="button" class="btn-signup-mobile" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="offcanvas">Sign Up</button>
+    </div>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" id="cls" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="userTypeSelect" class="form-label">I am a</label>
+        <select class="form-select" id="userTypeSelect" (change)="onSignupTypeChange($any($event.target).value)">
+          <option value="">Select</option>
+          <option value="1">Company</option>
+          <option value="2">Job Seeker</option>
+          <option value="3">Founder</option>
+          <option value="4">Incubator</option>
+          <option value="5">Investor</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
