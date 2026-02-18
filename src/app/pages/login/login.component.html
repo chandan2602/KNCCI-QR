@@ -1,93 +1,153 @@
-<div class="limiter">
-    <div class="container-login100 justify-content-center"
-        style="background-image: url('../../../assets/images/dhanush/bg-login.png');">
-        <div class="wrap-login100">
-            <div class="text-center"> <img id="homepageimage_path" src="../../../assets/img/logo1-new.png"
-                    [routerLink]="['']" style="cursor:pointer;width: 150px;" class="img-fluid" /></div>
-            <br>
-            <form class="login100-form validate-form" [formGroup]="loginForm" autocompleteOff>
-                <span class="login100-form-title p-b-24"> <span style="font-size:22px;">Welcome to OUK</span> <br>
-                    <!-- <span style="font-size:15px;">Learning Management System</span>   Welcome to Shiksion-->
-                </span>
-                <div class="wrap-input100 validate-input mt-4" data-validate="Valid email is: a@b.c">
-                    <input class="input100" id="userName" type="text" autocompleteOff name="userName"
-                        formControlName="userName" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }">
-                    <span class="focus-input1001" data-placeholder="Email"></span>
-                    <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
-                        <div *ngIf="f.userName.errors.required">Email Id is
-                            required</div>
-                    </div>
-                </div>
-                <div class="wrap-input100 validate-input" data-validate="Enter password"> <span class="btn-show-pass">
-                        <!-- <i class="zmdi zmdi-eye"></i> --><i class="fa" id="viewPassword"
-                            [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}"
-                            (click)="toggleFieldTextType()"></i></span>
-                    <input class="input100" id="password" type="password" autocompleteOff name="pass"
-                        formControlName="password" [type]="fieldTextType ?'text':'password'"
-                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-                    <span class="focus-input1001" data-placeholder="Password"></span>
-                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                        <div *ngIf="f.password.errors.required">Password is
-                            required</div>
-                    </div>
-                </div>
-                <div class="container-login100-form-btn">
-                    <div class="wrap-login100-form-btn">
-                        <div class="login100-form-bgbtn"></div>
-                        <button type="submit" class="login100-form-btn" value="login" (click)="registerUser(loginForm)">
-                            Login </button>
-                    </div>
-                </div>
-                <!-- <div class="text-center p-t-23"> <span class="txt1"> Don’t have an account? </span> <a class="txt2" href="#"> Sign Up </a> </div> -->
-            </form>
-            <div class="container-login100-form-btn">
-                <span>Forgot password? <a style="cursor:pointer"
-                        (click)="onForgotPasswordClick()"><u>ForgotPassword</u></a></span>
-                <span>Don't have an account?
-                    <a class="btn-registration w-auto ps-3 pe-3" data-bs-toggle="modal"
-                        data-bs-target="#signupModal"><u>Signup</u></a></span>
-                <!-- <a style="cursor:pointer" (click)="gotoSignUp()"><u>SignUp</u></a></span> -->
-            </div>
+<div class="login-container">
+  <!-- Background -->
+  <div class="login-background"></div>
+
+  <!-- Main Content -->
+  <div class="login-wrapper">
+    <!-- Left Card - Authentication Panel -->
+    <div class="auth-card">
+      <!-- Header -->
+      <div class="auth-header">
+        <h1 class="auth-title">Welcome to KNCCI Portal</h1>
+        <p class="auth-subtitle">Your gateway to verified opportunities and career growth</p>
+      </div>
+
+      <!-- Toggle Buttons -->
+      <div class="toggle-container">
+        <button type="button" class="toggle-btn">LOGIN</button>
+      </div>
+
+      <!-- Login Form -->
+      <form class="auth-form" [formGroup]="loginForm" autocompleteOff>
+        <!-- Email Field -->
+        <div class="form-group">
+          <label class="form-label">Email Address <span class="required">*</span></label>
+          <input 
+            type="email" 
+            class="form-input" 
+            placeholder="your.email@example.com"
+            id="userName"
+            formControlName="userName"
+            [ngClass]="{ 'is-invalid': submitted && f.userName.errors }"
+            autocompleteOff>
+          <div *ngIf="submitted && f.userName.errors" class="error-message">
+            <div *ngIf="f.userName.errors.required">Email is required</div>
+          </div>
         </div>
-    </div>
-</div>
 
-<div class="modal fade text-center mt-5 pt-5" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog m-auto">
-        <div class="modal-content">
-            <div class="modal-header p-3">
-                <h5 class="modal-title" id="signupModalLabel">Signup <button class="btn btn-sm"
-                        [appTooltip]="tooltipContent">
-                        <i class="bi bi-info-circle-fill"></i>
-                    </button></h5>
-                <button type="button" class="" data-bs-dismiss="modal" id="cls" aria-label="Close"><i
-                        class="bi bi-x-square"></i></button>
-            </div>
-
-            <div class="modal-body text-start p-2">
-                <!-- Signup form or content -->
-                <label for="floatingSelectDisabled">I am a</label>
-                <div class="">
-                    <select class="form-select p-2" (change)="signUPLogin($any($event.target).value)">
-                        <option>Select</option>
-                        <option value="1">Company</option>
-                        <option value="2">Job Seeker</option>
-                        <option value="3">Founder</option>
-                        <option value="4">Incubator</option>
-                        <option value="5">Investor</option>
-                    </select>
-
-                </div>
-
-
-            </div>
-
-            <!-- <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div> -->
-
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="form-label">Password <span class="required">*</span></label>
+          <div class="password-input-wrapper">
+            <input 
+              [type]="fieldTextType ? 'text' : 'password'" 
+              class="form-input" 
+              placeholder="Enter password"
+              id="password"
+              formControlName="password"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+              autocompleteOff>
+            <button 
+              type="button" 
+              class="password-toggle"
+              (click)="toggleFieldTextType()">
+              <i class="fa" [ngClass]="{'fa-eye-slash': !fieldTextType, 'fa-eye': fieldTextType}"></i>
+            </button>
+          </div>
+          <div *ngIf="submitted && f.password.errors" class="error-message">
+            <div *ngIf="f.password.errors.required">Password is required</div>
+          </div>
+          <a href="javascript:void(0)" class="forgot-password" (click)="onForgotPasswordClick()">Forgot Password?</a>
         </div>
+
+        <!-- Sign In Button -->
+        <button type="submit" class="btn-signin" (click)="registerUser(loginForm)">Sign In</button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span>Or continue with</span>
+      </div>
+
+      <!-- Social Buttons -->
+      <div class="social-buttons">
+        <button type="button" class="social-btn linkedin-btn">
+          <i class="fab fa-linkedin-in"></i>
+          <span>LinkedIn</span>
+        </button>
+        <button type="button" class="social-btn google-btn">
+          <i class="fab fa-google"></i>
+          <span>Google</span>
+        </button>
+      </div>
+
+      <!-- Sign Up Link -->
+      <div class="signup-link">
+        Don't have an account? <a href="javascript:void(0)">Sign Up</a>
+      </div>
     </div>
+
+    <!-- Right Card - Feature Panel -->
+    <div class="feature-card">
+      <h2 class="feature-title">Why Join KNCCI Portal?</h2>
+      
+      <!-- Features List -->
+      <div class="features-list">
+        <!-- Feature 1 -->
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-name">KNCCI Verified</h3>
+            <p class="feature-desc">All opportunities verified by Kenya National Chamber of Commerce.</p>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-name">Quick Applications</h3>
+            <p class="feature-desc">Apply to multiple opportunities in seconds.</p>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-name">Track Progress</h3>
+            <p class="feature-desc">Monitor your application status in real-time.</p>
+          </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-item">
+          <div class="feature-icon">
+            <i class="fas fa-file-certificate"></i>
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-name">Digital Certificates</h3>
+            <p class="feature-desc">Receive verified digital credentials.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security Highlight -->
+      <div class="security-box">
+        <div class="security-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <div class="security-content">
+          <h4 class="security-title">Your Data is Secure</h4>
+          <p class="security-desc">We use bank-level encryption and comply with Kenya's Data Protection Act to keep your information safe.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
