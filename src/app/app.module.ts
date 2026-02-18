@@ -303,6 +303,7 @@ import { StudentJobMenuComponent } from './components/student-job-menu/student-j
 import { StudentInternshipRecommenderComponent } from './student-internship-recommender/student-internship-recommender.component';
 import { ChatWidgetComponent } from './components/shared/chat-widget/chat-widget.component';
 import { PublicHeaderComponent } from './components/public-header/public-header.component';
+import { PublicFooterComponent } from './components/public-footer/public-footer.component';
 
 
 
@@ -591,6 +592,7 @@ export function momentAdapterFactory() {
     StudentInternshipRecommenderComponent,
     ChatWidgetComponent,
     PublicHeaderComponent,
+    PublicFooterComponent,
     
   ],
   imports: [
