@@ -28,6 +28,7 @@ export class StudentAppliedInternshipsComponent extends BaseComponent implements
   viewDetailsForm: UntypedFormGroup;
   userStudentDetails: any=[];
   studentIDImage: any='';
+  activeTab: string = 'applied';
 tooltipContent = `
 					View all the internships you’ve applied for along with their current status. Click on the <strong>Internship Details</strong> button to access full information anytime.<br><br>
           Click the delete icon on the left to revoke this application and become eligible to apply for a new internship.

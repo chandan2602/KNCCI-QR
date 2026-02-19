@@ -1,0 +1,26 @@
+/* Green theme for internship header */
+.headerbg-green {
+  background: linear-gradient(135deg, #2E7D5B 0%, #47c48e 100%) !important;
+  color: #FFFFFF !important;
+}
+
+.headerbg-green h5 {
+  color: #FFFFFF !important;
+}
+
+/* Tab styling */
+.nav-tabs .nav-link {
+  color: #666666 !important;
+  border-bottom: 3px solid transparent !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-tabs .nav-link:hover {
+  color: #2E7D5B !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: #2E7D5B !important;
+  border-bottom-color: #2E7D5B !important;
+  background-color: transparent !important;
+}
