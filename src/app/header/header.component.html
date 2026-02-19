@@ -67,16 +67,17 @@
             </ul>
           </li>
 
-          <li class="nav-item" *ngIf="ROLEID=='4'">
-            <a class="nav-link" [routerLink]="['/HOME/advertisements']">
-              Approve Ads
+          <!-- System & User Setup for Admin/Trainer (ROLEID == 1 or 2) -->
+          <li class="nav-item dropdown" *ngIf="ROLEID=='1' || ROLEID=='2'">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              System Setup
             </a>
-          </li>
-
-          <li class="nav-item" *ngIf="ROLEID=='4'">
-            <a class="nav-link" [routerLink]="['/HOME/aprve-job-internship']">
-              Approve Jobs
-            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="['/HOME/usersRegistrationList']" *ngIf="ROLEID=='1'">User Registration</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/HOME/userRegistration']" *ngIf="ROLEID=='2'">My Profile</a></li>
+              <li *ngIf="ROLEID=='1'"><a class="dropdown-item" [routerLink]="['/HOME/company-details']">Company Profile</a></li>
+              <li *ngIf="ROLEID=='1'"><a class="dropdown-item" [routerLink]="['/HOME/configure-images']">Configure Image</a></li>
+            </ul>
           </li>
 
           <!-- Job & Internship Management (Admin/Trainer) -->
@@ -91,6 +92,37 @@
             </ul>
           </li>
 
+          <!-- Promotion & Engagement (Admin only) -->
+          <li class="nav-item" *ngIf="ROLEID=='1'">
+            <a class="nav-link" [routerLink]="['/HOME/advertisements']">
+              Advertisements
+            </a>
+          </li>
+
+          <!-- Subscriptions (Admin/Trainer) -->
+          <li class="nav-item dropdown" *ngIf="ROLEID=='1' || ROLEID=='2'">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Subscriptions
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" [routerLink]="['/HOME/subscribe']">Subscribe</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/HOME/my-subscriptions']">My Subscriptions</a></li>
+            </ul>
+          </li>
+
+          <!-- Super Admin specific items -->
+          <li class="nav-item" *ngIf="ROLEID=='4'">
+            <a class="nav-link" [routerLink]="['/HOME/advertisements']">
+              Approve Ads
+            </a>
+          </li>
+
+          <li class="nav-item" *ngIf="ROLEID=='4'">
+            <a class="nav-link" [routerLink]="['/HOME/aprve-job-internship']">
+              Approve Jobs
+            </a>
+          </li>
+
           <!-- Job & Internship Management (Student) -->
           <li class="nav-item dropdown" *ngIf="ROLEID=='3'">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -102,8 +134,8 @@
             </ul>
           </li>
 
-          <!-- Subscriptions -->
-          <li class="nav-item dropdown" *ngIf="ROLEID=='1' || ROLEID=='2' || ROLEID=='3'">
+          <!-- Subscriptions (Student) -->
+          <li class="nav-item dropdown" *ngIf="ROLEID=='3'">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
               Subscriptions
             </a>
@@ -111,13 +143,6 @@
               <li><a class="dropdown-item" [routerLink]="['/HOME/subscribe']">Subscribe</a></li>
               <li><a class="dropdown-item" [routerLink]="['/HOME/my-subscriptions']">My Subscriptions</a></li>
             </ul>
-          </li>
-
-          <!-- Advertisements (Admin) -->
-          <li class="nav-item" *ngIf="ROLEID=='1'">
-            <a class="nav-link" [routerLink]="['/HOME/advertisements']">
-              Ads
-            </a>
           </li>
 
           <!-- Subscription Info Display -->

@@ -39,8 +39,8 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     // this.UserRoleName = this.RoleName;
     // this.loadNotification();
     
-    // Load dynamic menus for super admin
-    if (this.ROLEID == '4') {
+    // Load dynamic menus for super admin and admin
+    if (this.ROLEID == '4' || this.ROLEID == '1') {
       this.getMenu();
     }
 
