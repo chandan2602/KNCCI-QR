@@ -2,6 +2,14 @@
    MODERN PREMIUM DASHBOARD STYLING
    ============================================ */
 
+/* KNCCI Color Scheme */
+:root {
+    --kncci-green-dark: #2E7D5B;
+    --kncci-green-light: #155f3b;
+    --kncci-red: #dc3545;
+    --kncci-red-dark: #c82333;
+}
+
 /* Wrapper and Background */
 .modern-dashboard-wrapper {
     background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
@@ -24,10 +32,10 @@
    ============================================ */
 
 .premium-header {
-    background: linear-gradient(135deg, #155f3b 0%, #155f3b 100%);
+    background: linear-gradient(135deg, #2E7D5B 0%, #155f3b 100%);
     padding: 28px 32px;
     border-radius: 18px 18px 0 0;
-    box-shadow: 0 4px 12px rgba(31, 143, 107, 0.15);
+    box-shadow: 0 4px 12px rgba(46, 125, 91, 0.15);
     position: relative;
     overflow: hidden;
 }
@@ -80,7 +88,7 @@
 }
 
 .section-title i {
-    color: #155f3b;
+    color: #2E7D5B;
     font-size: 20px;
 }
 
@@ -95,7 +103,7 @@
 }
 
 .info-btn:hover {
-    color: #155f3b;
+    color: #2E7D5B;
     transform: scale(1.1);
 }
 
@@ -118,8 +126,8 @@
 
 /* Table Header */
 .modern-table-head {
-    background: linear-gradient(135deg, #155f3b 0%, #155f3b 100%);
-    box-shadow: 0 2px 8px rgba(31, 143, 107, 0.1);
+    background: #2E7D5B;
+    box-shadow: 0 2px 8px rgba(46, 125, 91, 0.1);
 }
 
 .modern-table-head tr {
@@ -228,7 +236,7 @@
 
 .status-active {
     background: #d4f4e8;
-    color: #1f8f6b;
+    color: #2E7D5B;
 }
 
 .status-inactive {
@@ -243,7 +251,7 @@
 
 .status-approved {
     background: #e3f2fd;
-    color: #2f80ed;
+    color: #d62222;
 }
 
 /* ============================================
@@ -264,7 +272,7 @@
 
 /* Gradient Primary Button */
 .btn-gradient-primary {
-    background: linear-gradient(135deg, #2f80ed 0%, #1c5ed6 100%);
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
     color: #ffffff;
     border: none;
     padding: 8px 16px;
@@ -276,14 +284,14 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    box-shadow: 0 4px 12px rgba(47, 128, 237, 0.3);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .btn-gradient-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(47, 128, 237, 0.4);
+    box-shadow: 0 6px 16px rgba(220, 53, 69, 0.4);
 }
 
 .btn-gradient-primary:active {
@@ -387,8 +395,8 @@
 }
 
 .pagination-btn:hover:not(:disabled) {
-    border-color: #2bb673;
-    color: #2bb673;
+    border-color: #2E7D5B;
+    color: #2E7D5B;
     background: #f8f9fa;
 }
 
@@ -408,9 +416,33 @@
 }
 
 .pagination-number.active {
-    background: linear-gradient(135deg, #2f80ed 0%, #1c5ed6 100%);
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
     color: #ffffff;
     border-color: transparent;
+}
+
+/* Red Action Button Override */
+.btn-sm.btn-primary {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.btn-sm.btn-primary:hover {
+    background-color: #c82333 !important;
+    border-color: #c82333 !important;
+}
+
+.btn-sm.btn-primary:focus,
+.btn-sm.btn-primary.focus {
+    background-color: #c82333 !important;
+    border-color: #c82333 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5) !important;
+}
+
+.btn-sm.btn-primary:active,
+.btn-sm.btn-primary.active {
+    background-color: #bd2130 !important;
+    border-color: #b21f25 !important;
 }
 
 /* ============================================
