@@ -29,6 +29,8 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   notificationsLst: any[] = []
 
   subscribeData: any= '';
+  menus: Array<any> = [];
+  
   constructor(private route: Router, CommonService: CommonService, toastr: ToastrService) {
     super(CommonService, toastr);
     this.loadMessage();
@@ -36,6 +38,11 @@ export class HeaderComponent extends BaseComponent implements OnInit {
     // this.UserRoleName = (+sessionStorage.USERTYPE == 25) ? 'Trainer' : 'Trainee';
     // this.UserRoleName = this.RoleName;
     // this.loadNotification();
+    
+    // Load dynamic menus for super admin
+    if (this.ROLEID == '4') {
+      this.getMenu();
+    }
 
   }
 
@@ -230,6 +237,26 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   viewMessage(event: any) {
     this.viewNoti = [];
     this.viewNoti = +event == 0 ? this.notification : this.notification.filter(e => e.ID == event);
+  }
+
+  getMenu() {
+    let payLoad = {
+      RoleId: parseInt(sessionStorage.getItem('RoleId')), 
+      TENANT_CODE: parseInt(sessionStorage.getItem('TenantCode'))
+    }
+    this.CommonService.postCall('Account/LoadMenusByRoleId', payLoad).subscribe((res) => {
+      this.menus = res;
+    }, err => { })
+  }
+
+  navigate(path, menu) {
+    if (!menu.childs.length && path) {
+      this.route.navigate(['HOME/' + path])
+    }
+  }
+
+  getId(id: any) {
+    return id.replaceAll(/\s/g, '')
   }
 
 

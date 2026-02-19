@@ -87,3 +87,66 @@ a {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
 }
+
+/* Layout adjustments for removed sidebar */
+.main-content {
+    width: 100%;
+    padding-top: 70px;
+    min-height: calc(100vh - 70px);
+}
+
+.page-wrapper {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0 !important; /* Override sidebar margin */
+}
+
+.page-content {
+    padding: 20px;
+}
+
+/* Remove sidebar-related styles */
+.wrapper {
+    margin-left: 0 !important;
+}
+
+.wrapper.toggled,
+.sidebar-hovered {
+    margin-left: 0 !important;
+}
+
+.container-scroller {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Ensure content takes full width */
+.main-panel {
+    width: 100% !important;
+    margin-left: 0 !important;
+}
+
+.page-body-wrapper {
+    padding-top: 0 !important;
+    position: relative !important;
+    margin-left: 0 !important;
+}
+
+/* Hide sidebar completely */
+.sidebar-wrapper {
+    display: none !important;
+}
+
+/* Topbar adjustments */
+.topbar {
+    left: 0 !important;
+    width: 100% !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+    .main-content {
+        padding-top: 60px;
+    }
+}

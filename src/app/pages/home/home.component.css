@@ -1,0 +1,16 @@
+.container-scroller {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  padding-top: 70px; /* Height of header */
+}
+
+/* Remove any sidebar-related styles */
+.wrapper {
+  overflow-x: visible !important;
+}
