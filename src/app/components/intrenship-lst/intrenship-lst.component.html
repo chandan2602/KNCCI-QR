@@ -32,26 +32,60 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-xl-4 col-md-6 mb-5" *ngFor="let course of courseList;"
-                                                (click)="intrenshipDetails(course)">
-                                                <div class="card profile-card-3 h-100">
-                                                    <div class="background-block">
-                                                        <img [src]="course.IMAGE_URL" alt="profile-sample1"
-                                                            class="background img-fluid" />
+                                            <div class="col-xl-4 col-md-6 mb-5" *ngFor="let internship of internships">
+                                                <div class="internship-card">
+                                                    <!-- Card Image -->
+                                                    <div class="card-image-wrapper">
+                                                        <img [src]="internship.image" alt="internship" class="card-image" />
+                                                        <div class="verified-badge" *ngIf="internship.verified">
+                                                            <i class="fas fa-check-circle"></i> VERIFIED
+                                                        </div>
+                                                        <div class="company-logo">
+                                                            <img [src]="internship.logo" alt="company" />
+                                                        </div>
                                                     </div>
 
-                                                    <div class="card-content p-2">
-                                                        <div class="text-start mb-0">
-                                                            <h5 class="mb-1 fw-bold">{{course.COURSE_NAME}}</h5>
-                                                            <h6 class="mb-1">{{course?.COURSESHD_STARTDATE | date: 'dd-MM-yyyy'}} - {{course?.COURSESHD_ENDDATE | date: 'dd-MM-yyyy'}}</h6>
-                                                            <p class="mb-0">{{course?.courseshd_classifiedtype_id == 1 ? "Full Time" : "Part Time"}}</p>
+                                                    <!-- Card Content -->
+                                                    <div class="card-content">
+                                                        <h3 class="internship-title">{{ internship.title }}</h3>
+                                                        <p class="company-name">{{ internship.company }}</p>
+
+                                                        <!-- Badge and Duration -->
+                                                        <div class="badge-duration">
+                                                            <span class="badge">{{ internship.type }}</span>
+                                                            <span class="duration">{{ internship.duration }}</span>
+                                                        </div>
+
+                                                        <!-- Details -->
+                                                        <div class="details">
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-map-marker-alt"></i>
+                                                                <span>{{ internship.location }}</span>
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-money-bill-wave"></i>
+                                                                <span>{{ internship.salary }}</span>
+                                                            </div>
+                                                            <div class="detail-item">
+                                                                <i class="fas fa-calendar"></i>
+                                                                <span>{{ internship.deadline }}</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Description -->
+                                                        <p class="description">{{ internship.description }}</p>
+
+                                                        <!-- Buttons -->
+                                                        <div class="card-buttons">
+                                                            <button class="btn btn-apply">Quick Apply</button>
+                                                            <button class="btn btn-details">View Details</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div *ngIf="courseList.length == 0">
-                                            <h3 class="text-center">No Interships available</h3>
+                                        <div *ngIf="internships.length == 0">
+                                            <h3 class="text-center">No Internships available</h3>
                                         </div>
                                     </div>
                                 </div>

@@ -22,6 +22,79 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
   isLogin: boolean = false;
   fileUrl: string = environment.fileUrl;
 
+  internships: any[] = [
+    {
+      id: 1,
+      title: 'Software Development Internship',
+      company: 'Safaricom PLC',
+      image: 'assets/kncci-img/img-2.png',
+      logo: 'assets/kncci-img/header-kncci-logo.png',
+      verified: true,
+      type: 'INTERNSHIP',
+      duration: '6 months',
+      location: 'Nairobi',
+      salary: 'KES 30,000/month',
+      deadline: 'Deadline: 15 Mar 2026',
+      description: 'Join our engineering team to build next-generation mobile applications serving millions of Kenyans. Work...'
+    },
+    {
+      id: 2,
+      title: 'Data Analytics Internship',
+      company: 'Equity Bank',
+      image: 'assets/kncci-img/img-3.png',
+      logo: 'assets/kncci-img/header-kncci-logo.png',
+      verified: true,
+      type: 'INTERNSHIP',
+      duration: '6 months',
+      location: 'Nairobi',
+      salary: 'KES 25,000/month',
+      deadline: 'Deadline: 25 Mar 2026',
+      description: 'Work with financial data to generate insights. Learn SQL, Python, and business intelligence tools while...'
+    },
+    {
+      id: 3,
+      title: 'UI/UX Design Internship',
+      company: 'Craft Silicon',
+      image: 'assets/kncci-img/img-4.png',
+      logo: 'assets/kncci-img/header-kncci-logo.png',
+      verified: true,
+      type: 'INTERNSHIP',
+      duration: '3 months',
+      location: 'Mombasa',
+      salary: 'KES 25,000/month',
+      deadline: 'Deadline: 25 Mar 2026',
+      description: 'Design user interfaces for mobile and web applications. Collaborate with product teams and lea...'
+    },
+    {
+      id: 4,
+      title: 'Cybersecurity Internship',
+      company: 'Safaricom PLC',
+      image: 'assets/kncci-img/img-5.png',
+      logo: 'assets/kncci-img/header-kncci-logo.png',
+      verified: true,
+      type: 'INTERNSHIP',
+      duration: '6 months',
+      location: 'Nairobi',
+      salary: 'KES 30,000/month',
+      deadline: 'Deadline: 15 Mar 2026',
+      description: 'Protect digital assets and learn cybersecurity best practices. Work on real security challenges...'
+    },
+    {
+      id: 5,
+      title: 'Marketing Internship',
+      company: 'Tech Innovations Ltd',
+      image: 'assets/kncci-img/img-6.jpg',
+      logo: 'assets/kncci-img/header-kncci-logo.png',
+      verified: true,
+      type: 'INTERNSHIP',
+      duration: '3 months',
+      location: 'Nairobi',
+      salary: 'KES 20,000/month',
+      deadline: 'Deadline: 30 Mar 2026',
+      description: 'Develop marketing strategies and campaigns. Learn digital marketing, social media, and brand...'
+    }
+  ];
+
   tooltipContent = `
 					Browse and filter internships by company name using the dropdown. Click on any job card to view full details. To apply, use the <strong>Enroll</strong> button at the top right. Once approved by the company, your internship will appear under <strong>My Internships.</strong>
 					`;
