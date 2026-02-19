@@ -97,6 +97,9 @@ a {
 
 	top: 0px;
 
+	
+	display: none;
+
 
 	bottom: 0;
 
@@ -221,7 +224,7 @@ a {
 	top: 0;
 
 
-	left: 250px;
+	left: 0;
 
 
 	right: 0;
@@ -278,7 +281,7 @@ a {
 	margin-bottom: 30px;
 
 
-	margin-left: 250px;
+	margin-left: 0px;
 
 
 }
@@ -299,7 +302,7 @@ a {
 	background: #ffffff;
 
 
-	left: 250px;
+	left: 0;
 
 
 	right: 0;
