@@ -1,0 +1,205 @@
+<div class="applications-page">
+    <!-- List View -->
+    <div class="table-container" *ngIf="viewMode === 'list'">
+        <!-- Filter and Search Controls -->
+        <div class="filter-controls">
+            <div class="status-filter">
+                <label>Filter by Status:</label>
+                <select [(ngModel)]="filterStatus" (change)="currentPage = 1">
+                    <option value="All">All</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Table Controls -->
+        <div class="table-controls">
+            <div class="entries-control">
+                <label>
+                    Show
+                    <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                        <option [value]="10">10</option>
+                        <option [value]="25">25</option>
+                        <option [value]="50">50</option>
+                    </select>
+                    entries
+                </label>
+            </div>
+            <div class="search-control">
+                <label>
+                    Search:
+                    <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search applications...">
+                </label>
+            </div>
+        </div>
+
+        <!-- Applications Table -->
+        <div class="table-responsive" *ngIf="filteredApplications.length > 0">
+            <table class="applications-table">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Student Name</th>
+                        <th>Apprenticeship Name</th>
+                        <th>Creation Date</th>
+                        <th>Closing Date</th>
+                        <th>Comments</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of paginatedApplications">
+                        <td class="company-name-cell">{{item.company}}</td>
+                        <td class="student-name-cell">{{item.studentName}}</td>
+                        <td class="program-name-cell">{{item.programName}}</td>
+                        <td>{{item.appliedDate}}</td>
+                        <td>{{item.closingDate}}</td>
+                        <td>{{item.comments}}</td>
+                        <td>
+                            <span class="status-badge" [ngClass]="getStatusClass(item.status)">
+                                {{item.status}}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-view-details" (click)="viewApplicationDetails(item)">
+                                    <i class="bi bi-eye"></i> Details
+                                </button>
+                                <button class="btn-approve" (click)="approveApplication(item)" *ngIf="item.status === 'Pending'" title="Approve">
+                                    <i class="bi bi-check-circle"></i>
+                                </button>
+                                <button class="btn-reject" (click)="rejectApplication(item)" *ngIf="item.status === 'Pending'" title="Reject">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- No Records Message -->
+        <div class="no-records" *ngIf="filteredApplications.length === 0">
+            <i class="bi bi-file-earmark-check"></i>
+            <p>No applications found</p>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container" *ngIf="filteredApplications.length > 0">
+            <div class="pagination-info">
+                Showing {{ ((currentPage - 1) * entriesPerPage) + 1 }} to 
+                {{ Math.min(currentPage * entriesPerPage, filteredApplications.length) }} 
+                of {{ filteredApplications.length }} entries
+            </div>
+            <div class="pagination-controls">
+                <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+                    Previous
+                </button>
+                <button *ngFor="let page of totalPages" 
+                        class="btn-page" 
+                        [class.active]="page === currentPage"
+                        (click)="goToPage(page)">
+                    {{ page }}
+                </button>
+                <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages.length">
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details View -->
+    <div class="details-container" *ngIf="viewMode === 'details' && selectedApplication">
+        <div class="page-header">
+            <div class="header-top">
+                <span class="breadcrumb">Internship: {{selectedApplication.programName}}</span>
+                <button class="btn-back" (click)="goBackToList()">
+                    <i class="bi bi-arrow-left"></i> Back
+                </button>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <h2 class="section-title">Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="label">Company Name</span>
+                    <span class="value">{{selectedApplication.company}}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Company Email</span>
+                    <span class="value">{{selectedApplication.companyEmail}}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Company Contact No.</span>
+                    <span class="value">{{selectedApplication.companyContact}}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Internship Id</span>
+                    <span class="value">{{selectedApplication.id}}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Registration Start Date</span>
+                    <span class="value">{{selectedApplication.registrationStartDate}}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Registration End Date</span>
+                    <span class="value">{{selectedApplication.registrationEndDate}}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Internship Start Date</span>
+                    <span class="value">{{selectedApplication.internshipStartDate}}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Internship End Date</span>
+                    <span class="value">{{selectedApplication.internshipEndDate}}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Internship Section -->
+        <div class="content-section">
+            <h3 class="section-subtitle">About Internship</h3>
+            <p class="section-content">{{selectedApplication.aboutInternship}}</p>
+        </div>
+
+        <!-- Who Can Apply Section -->
+        <div class="content-section">
+            <h3 class="section-subtitle">Who Can Apply</h3>
+            <p class="section-content">{{selectedApplication.whoCanApply}}</p>
+        </div>
+
+        <!-- Terms of Engagement Section -->
+        <div class="content-section">
+            <h3 class="section-subtitle">Terms Of Engagement</h3>
+            <p class="section-content">{{selectedApplication.termsOfEngagement}}</p>
+        </div>
+
+        <!-- Application Status Section -->
+        <div class="status-section">
+            <h3 class="section-subtitle">Application Status</h3>
+            <div class="status-info">
+                <span class="status-label">Current Status:</span>
+                <span class="status-badge" [ngClass]="'status-' + selectedApplication.status.toLowerCase()">
+                    {{selectedApplication.status}}
+                </span>
+            </div>
+            <div class="status-info">
+                <span class="status-label">Student Name:</span>
+                <span class="status-value">{{selectedApplication.studentName}}</span>
+            </div>
+            <div class="status-info">
+                <span class="status-label">Applied Date:</span>
+                <span class="status-value">{{selectedApplication.appliedDate}}</span>
+            </div>
+            <div class="status-info">
+                <span class="status-label">Comments:</span>
+                <span class="status-value">{{selectedApplication.comments}}</span>
+            </div>
+        </div>
+    </div>
+</div>

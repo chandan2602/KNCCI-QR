@@ -306,6 +306,9 @@ import { PublicHeaderComponent } from './components/public-header/public-header.
 import { PublicFooterComponent } from './components/public-footer/public-footer.component';
 import { KncciCoursesComponent } from './pages/kncci-courses/kncci-courses.component';
 import { ApprenticeshipsComponent } from './pages/apprenticeships/apprenticeships.component';
+import { ApprenticeshipDetailsComponent } from './pages/apprenticeship-details/apprenticeship-details.component';
+import { ApprenticeshipsScheduleComponent } from './pages/apprenticeships-schedule/apprenticeships-schedule.component';
+import { ApprenticeshipsApplicationsComponent } from './pages/apprenticeships-applications/apprenticeships-applications.component';
 
 
 
@@ -597,6 +600,9 @@ export function momentAdapterFactory() {
     PublicFooterComponent,
     KncciCoursesComponent,
     ApprenticeshipsComponent,
+    ApprenticeshipDetailsComponent,
+    ApprenticeshipsScheduleComponent,
+    ApprenticeshipsApplicationsComponent,
     
   ],
   imports: [

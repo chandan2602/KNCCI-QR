@@ -192,6 +192,7 @@ import { HeaderJobsComponent } from './components/tutor/header-jobs/header-jobs.
 import { SubHeaderComponent } from './components/tutor/sub-header/sub-header.component';
 import { JobsInCompanyLstComponent } from './components/jobs-in-company-lst/jobs-in-company-lst.component';
 import { ApprenticeshipsComponent } from './pages/apprenticeships/apprenticeships.component';
+import { ApprenticeshipDetailsComponent } from './pages/apprenticeship-details/apprenticeship-details.component';
 import { StartsUpComponent } from './components/tutor/starts-up/starts-up.component';
 import { IncubatorRegComponent } from './components/shared/incubator-reg/incubator-reg.component';
 import { InvestorRegComponent } from './components/shared/investor-reg/investor-reg.component';
@@ -524,6 +525,10 @@ const routes: Routes = [
       {
         path: 'apprenticeships',
         component: ApprenticeshipsComponent
+      },
+      {
+        path: 'apprenticeship-details/:id',
+        component: ApprenticeshipDetailsComponent
       },
       {
         path: 'addUserRegistration',

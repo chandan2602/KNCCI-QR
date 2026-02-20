@@ -1,0 +1,694 @@
+<div class="schedule-page">
+    <div class="table-container">
+        <!-- Add Button -->
+        <div class="add-button-container">
+            <button class="btn-add-schedule" (click)="openAddScheduleModal()">
+                <i class="bi bi-plus-circle"></i> Add Batch Schedule
+            </button>
+        </div>
+
+        <!-- Table Controls -->
+        <div class="table-controls">
+            <div class="entries-control">
+                <label>
+                    Show
+                    <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                        <option [value]="10">10</option>
+                        <option [value]="25">25</option>
+                        <option [value]="50">50</option>
+                    </select>
+                    entries
+                </label>
+            </div>
+            <div class="search-control">
+                <label>
+                    Search:
+                    <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search schedules...">
+                </label>
+            </div>
+        </div>
+
+        <!-- Schedule Table -->
+        <div class="table-responsive" *ngIf="filteredSchedules.length > 0">
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Program Name</th>
+                        <th>Company</th>
+                        <th>Phase</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Mentor</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of paginatedSchedules">
+                        <td class="program-name-cell">{{item.programName}}</td>
+                        <td class="company-name-cell">{{item.company}}</td>
+                        <td>{{item.phase}}</td>
+                        <td>{{item.startDate}}</td>
+                        <td>{{item.endDate}}</td>
+                        <td class="mentor-cell">{{item.mentor}}</td>
+                        <td>{{item.location}}</td>
+                        <td>
+                            <span class="status-badge" [ngClass]="getStatusClass(item.status)">
+                                {{item.status}}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <!-- <button class="btn-view-details" (click)="viewScheduleDetails(item)">
+                                    <i class="bi bi-eye"></i> View Details
+                                </button> -->
+                                <button class="btn-edit" (click)="openEditScheduleModal(item)" title="Edit Schedule">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn-add-trainer" (click)="openAddTrainerModal(item)" title="Add Trainer">
+                                    <i class="bi bi-person-plus"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- No Records Message -->
+        <div class="no-records" *ngIf="filteredSchedules.length === 0">
+            <i class="bi bi-calendar-event"></i>
+            <p>No schedules found</p>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container" *ngIf="filteredSchedules.length > 0">
+            <div class="pagination-info">
+                Showing {{ ((currentPage - 1) * entriesPerPage) + 1 }} to 
+                {{ Math.min(currentPage * entriesPerPage, filteredSchedules.length) }} 
+                of {{ filteredSchedules.length }} entries
+            </div>
+            <div class="pagination-controls">
+                <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+                    Previous
+                </button>
+                <button *ngFor="let page of totalPages" 
+                        class="btn-page" 
+                        [class.active]="page === currentPage"
+                        (click)="goToPage(page)">
+                    {{ page }}
+                </button>
+                <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages.length">
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Batch Schedule Modal -->
+<div class="modal fade" id="addScheduleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Batch Schedule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addScheduleForm">
+                    <!-- Meeting Type -->
+                    <div class="form-group mb-3">
+                        <label class="form-label">Meeting Type <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="dailyMeeting" value="Daily Meeting" formControlName="meetingType">
+                            <label class="form-check-label" for="dailyMeeting">Daily Meeting</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="weeklyMeeting" value="Weekly Meeting" formControlName="meetingType">
+                            <label class="form-check-label" for="weeklyMeeting">Weekly Meeting</label>
+                        </div>
+                    </div>
+
+                    <!-- Row 1: Internship Category, Internship Name -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="internshipCategory" class="form-label">Internship Category <span class="text-danger">*</span></label>
+                                <select class="form-select" id="internshipCategory" formControlName="internshipCategory">
+                                    <option value="">Select</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Marketing">Marketing</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="internshipName" class="form-label">Internship Name <span class="text-danger">*</span></label>
+                                <select class="form-select" id="internshipName" formControlName="internshipName">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Student Level, Batch Name -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="studentLevel" class="form-label">Student Level <span class="text-danger">*</span></label>
+                                <select class="form-select" id="studentLevel" formControlName="studentLevel">
+                                    <option value="">Select</option>
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="batchName" class="form-label">Batch Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="batchName" formControlName="batchName" placeholder="Enter batch name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Application Fees, Internship Classification -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="applicationFees" class="form-label">Application Fees <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="applicationFees" formControlName="applicationFees" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="internshipClassification" class="form-label">Internship Classification <span class="text-danger">*</span></label>
+                                <select class="form-select" id="internshipClassification" formControlName="internshipClassification">
+                                    <option value="">Select</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Batch End Date, Stipend/per month -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="batchEndDate" class="form-label">Batch End Date <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="batchEndDate" formControlName="batchEndDate" placeholder="dd-mm-yyyy">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="stipendPerMonth" class="form-label">Stipend/per month <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="stipendPerMonth" formControlName="stipendPerMonth" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Registration Start Date, Batch Start Date -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="registrationStartDate" class="form-label">Registration Start Date <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="registrationStartDate" formControlName="registrationStartDate" placeholder="dd-mm-yyyy">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="batchStartDate" class="form-label">Batch Start Date <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="batchStartDate" formControlName="batchStartDate" placeholder="dd-mm-yyyy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Number of students, Batch Start Time -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="numberOfStudents" class="form-label">Number of students <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="numberOfStudents" formControlName="numberOfStudents" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="batchStartTime" class="form-label">Batch Start Time <span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" id="batchStartTime" formControlName="batchStartTime">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 7: Payment Method, Batch End Time -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="paymentMethod" class="form-label">Payment Method <span class="text-danger">*</span></label>
+                                <select class="form-select" id="paymentMethod" formControlName="paymentMethod">
+                                    <option value="">Select</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Cheque">Cheque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="batchEndTime" class="form-label">Batch End Time <span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" id="batchEndTime" formControlName="batchEndTime">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 8: Registration End Date, Batch Duration(days) -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="registrationEndDate" class="form-label">Registration End Date <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="registrationEndDate" formControlName="registrationEndDate" placeholder="dd-mm-yyyy">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="batchDurationDays" class="form-label">Batch Duration(days) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="batchDurationDays" formControlName="batchDurationDays" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- External Link -->
+                    <div class="form-group mb-3">
+                        <label for="externalLink" class="form-label">External Link</label>
+                        <input type="text" class="form-control" id="externalLink" formControlName="externalLink" placeholder="Enter external link">
+                    </div>
+
+                    <!-- Terms of Engagement -->
+                    <div class="form-group mb-3">
+                        <label for="termsOfEngagement" class="form-label">Terms of Engagement <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="termsOfEngagement" formControlName="termsOfEngagement" rows="4" placeholder="Enter terms of engagement"></textarea>
+                    </div>
+
+                    <!-- Upload Demo Video -->
+                    <div class="form-group mb-3">
+                        <label for="uploadDemoVideo" class="form-label">Upload Demo Video</label>
+                        <input type="file" class="form-control" id="uploadDemoVideo" formControlName="uploadDemoVideo">
+                    </div>
+
+                    <!-- Who Can Apply -->
+                    <div class="form-group mb-3">
+                        <label for="whoCanApply" class="form-label">Who Can Apply <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="whoCanApply" formControlName="whoCanApply" rows="4" placeholder="Enter who can apply"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-save" (click)="saveSchedule()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Schedule Details Modal -->
+<div class="modal fade" id="scheduleDetailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content details-modal-content">
+            <div class="modal-header details-modal-header">
+                <button type="button" class="btn-back" data-bs-dismiss="modal">
+                    <i class="bi bi-arrow-left"></i> Back to Schedules
+                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body details-modal-body" *ngIf="selectedSchedule">
+                <div class="details-card">
+                    <!-- Image Section -->
+                    <div class="details-image-section">
+                        <img [src]="selectedSchedule.image" [alt]="selectedSchedule.programName" class="details-image">
+                    </div>
+
+                    <!-- Content Section -->
+                    <div class="details-content-section">
+                        <!-- Category Badge -->
+                        <span class="category-badge">{{selectedSchedule.category}}</span>
+
+                        <!-- Title -->
+                        <h2 class="details-title">{{selectedSchedule.programName}}</h2>
+
+                        <!-- Description -->
+                        <p class="details-description">{{selectedSchedule.description}}</p>
+
+                        <!-- Info Grid -->
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Company</span>
+                                    <span class="info-value">{{selectedSchedule.company}}</span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="bi bi-calendar-event"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Start Date</span>
+                                    <span class="info-value">{{selectedSchedule.startDate}}</span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="bi bi-hourglass-split"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Duration</span>
+                                    <span class="info-value">{{selectedSchedule.duration}}</span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="bi bi-calendar-check"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">End Date</span>
+                                    <span class="info-value">{{selectedSchedule.endDate}}</span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Phase</span>
+                                    <span class="info-value">{{selectedSchedule.phase}}</span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="bi bi-person-badge"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Mentor</span>
+                                    <span class="info-value">{{selectedSchedule.mentor}}</span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Location</span>
+                                    <span class="info-value">{{selectedSchedule.location}}</span>
+                                </div>
+                            </div>
+
+                            <div class="info-item">
+                                <div class="info-icon">
+                                    <i class="bi bi-check-circle"></i>
+                                </div>
+                                <div class="info-content">
+                                    <span class="info-label">Status</span>
+                                    <span class="info-value" [ngClass]="selectedSchedule.status === 'Upcoming' ? 'status-active' : 'status-inactive'">
+                                        {{selectedSchedule.status}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Enroll Button -->
+                        <button type="button" class="btn-enroll">
+                            <i class="bi bi-check-lg"></i> Enroll Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Schedule Modal -->
+<div class="modal fade" id="editScheduleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Batch Schedule</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editScheduleForm">
+                    <!-- Meeting Type -->
+                    <div class="form-group mb-3">
+                        <label class="form-label">Meeting Type <span class="text-danger">*</span></label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="editDailyMeeting" value="Daily Meeting" formControlName="meetingType">
+                            <label class="form-check-label" for="editDailyMeeting">Daily Meeting</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" id="editWeeklyMeeting" value="Weekly Meeting" formControlName="meetingType">
+                            <label class="form-check-label" for="editWeeklyMeeting">Weekly Meeting</label>
+                        </div>
+                    </div>
+
+                    <!-- Row 1: Internship Category, Internship Name -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editInternshipCategory" class="form-label">Internship Category <span class="text-danger">*</span></label>
+                                <select class="form-select" id="editInternshipCategory" formControlName="internshipCategory">
+                                    <option value="">Select</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Marketing">Marketing</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editInternshipName" class="form-label">Internship Name <span class="text-danger">*</span></label>
+                                <select class="form-select" id="editInternshipName" formControlName="internshipName">
+                                    <option value="">Select</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Student Level, Batch Name -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editStudentLevel" class="form-label">Student Level <span class="text-danger">*</span></label>
+                                <select class="form-select" id="editStudentLevel" formControlName="studentLevel">
+                                    <option value="">Select</option>
+                                    <option value="Beginner">Beginner</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Advanced">Advanced</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editBatchName" class="form-label">Batch Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="editBatchName" formControlName="batchName" placeholder="Enter batch name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Application Fees, Internship Classification -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editApplicationFees" class="form-label">Application Fees <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="editApplicationFees" formControlName="applicationFees" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editInternshipClassification" class="form-label">Internship Classification <span class="text-danger">*</span></label>
+                                <select class="form-select" id="editInternshipClassification" formControlName="internshipClassification">
+                                    <option value="">Select</option>
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Batch End Date, Stipend/per month -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editBatchEndDate" class="form-label">Batch End Date <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="editBatchEndDate" formControlName="batchEndDate" placeholder="dd-mm-yyyy">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editStipendPerMonth" class="form-label">Stipend/per month <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="editStipendPerMonth" formControlName="stipendPerMonth" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: Registration Start Date, Batch Start Date -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editRegistrationStartDate" class="form-label">Registration Start Date <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="editRegistrationStartDate" formControlName="registrationStartDate" placeholder="dd-mm-yyyy">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editBatchStartDate" class="form-label">Batch Start Date <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="editBatchStartDate" formControlName="batchStartDate" placeholder="dd-mm-yyyy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 6: Number of students, Batch Start Time -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editNumberOfStudents" class="form-label">Number of students <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="editNumberOfStudents" formControlName="numberOfStudents" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editBatchStartTime" class="form-label">Batch Start Time <span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" id="editBatchStartTime" formControlName="batchStartTime">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 7: Payment Method, Batch End Time -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editPaymentMethod" class="form-label">Payment Method <span class="text-danger">*</span></label>
+                                <select class="form-select" id="editPaymentMethod" formControlName="paymentMethod">
+                                    <option value="">Select</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Cheque">Cheque</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editBatchEndTime" class="form-label">Batch End Time <span class="text-danger">*</span></label>
+                                <input type="time" class="form-control" id="editBatchEndTime" formControlName="batchEndTime">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 8: Registration End Date, Batch Duration(days) -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editRegistrationEndDate" class="form-label">Registration End Date <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="editRegistrationEndDate" formControlName="registrationEndDate" placeholder="dd-mm-yyyy">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="editBatchDurationDays" class="form-label">Batch Duration(days) <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="editBatchDurationDays" formControlName="batchDurationDays" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- External Link -->
+                    <div class="form-group mb-3">
+                        <label for="editExternalLink" class="form-label">External Link</label>
+                        <input type="text" class="form-control" id="editExternalLink" formControlName="externalLink" placeholder="Enter external link">
+                    </div>
+
+                    <!-- Terms of Engagement -->
+                    <div class="form-group mb-3">
+                        <label for="editTermsOfEngagement" class="form-label">Terms of Engagement <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="editTermsOfEngagement" formControlName="termsOfEngagement" rows="4" placeholder="Enter terms of engagement"></textarea>
+                    </div>
+
+                    <!-- Upload Demo Video -->
+                    <div class="form-group mb-3">
+                        <label for="editUploadDemoVideo" class="form-label">Upload Demo Video</label>
+                        <input type="file" class="form-control" id="editUploadDemoVideo" formControlName="uploadDemoVideo">
+                    </div>
+
+                    <!-- Who Can Apply -->
+                    <div class="form-group mb-3">
+                        <label for="editWhoCanApply" class="form-label">Who Can Apply <span class="text-danger">*</span></label>
+                        <textarea class="form-control" id="editWhoCanApply" formControlName="whoCanApply" rows="4" placeholder="Enter who can apply"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-save" (click)="saveEditSchedule()">Update Schedule</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Trainer Modal -->
+<div class="modal fade" id="addTrainerModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Trainer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addTrainerForm">
+                    <!-- Trainer Name -->
+                    <div class="form-group mb-3">
+                        <label for="trainerName" class="form-label">Trainer Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="trainerName" formControlName="trainerName" placeholder="Enter trainer name">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group mb-3">
+                        <label for="trainerEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="trainerEmail" formControlName="email" placeholder="Enter email address">
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="form-group mb-3">
+                        <label for="trainerPhone" class="form-label">Phone <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="trainerPhone" formControlName="phone" placeholder="Enter phone number">
+                    </div>
+
+                    <!-- Specialization -->
+                    <div class="form-group mb-3">
+                        <label for="specialization" class="form-label">Specialization <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="specialization" formControlName="specialization" placeholder="Enter specialization">
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="form-group mb-3">
+                        <label for="experience" class="form-label">Years of Experience <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" id="experience" formControlName="experience" placeholder="Enter years of experience">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-save" (click)="saveTrainer()">Add Trainer</button>
+            </div>
+        </div>
+    </div>
+</div>

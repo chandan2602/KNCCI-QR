@@ -1,30 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-declare var $: any;
-declare var bootstrap: any;
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-apprenticeships',
-  templateUrl: './apprenticeships.component.html',
-  styleUrls: ['./apprenticeships.component.css']
+  selector: 'app-apprenticeship-details',
+  templateUrl: './apprenticeship-details.component.html',
+  styleUrls: ['./apprenticeship-details.component.css']
 })
-export class ApprenticeshipsComponent implements OnInit {
-  
-  // Pagination properties
-  searchTerm: string = '';
-  entriesPerPage: number = 10;
-  currentPage: number = 1;
-  Math = Math;
-  selectedApprenticeship: any = null;
-  activeTab: string = 'list';
+export class ApprenticeshipDetailsComponent implements OnInit {
 
-  tooltipContent = `
-    Browse available apprenticeship programs from leading companies. Apprenticeships combine on-the-job training with classroom learning, 
-    providing you with practical skills and industry experience. Click <strong>View Details</strong> to see full program information and requirements.
-  `;
+  apprenticeship: any = null;
 
-  // Static apprenticeship data
+  // Sample apprenticeships data - in real app, this would come from a service
   apprenticeshipsList = [
     {
       id: 1,
@@ -212,145 +198,29 @@ export class ApprenticeshipsComponent implements OnInit {
       requirements: [
         'Certificate in Automotive Engineering',
         'Mechanical aptitude',
-        'Physical stamina',
-        'Problem-solving skills'
-      ]
-    },
-    {
-      id: 11,
-      programName: 'Culinary Arts Apprenticeship',
-      company: 'Gourmet Restaurant',
-      duration: '12 months',
-      location: 'Nairobi',
-      stipend: 'KES 20,000/month',
-      startDate: '15-05-2026',
-      status: 'Open',
-      description: 'Train under professional chefs and learn various cooking techniques and kitchen management.',
-      requirements: [
-        'Certificate in Culinary Arts',
-        'Passion for cooking',
-        'Creativity',
-        'Ability to work under pressure'
-      ]
-    },
-    {
-      id: 12,
-      programName: 'Network Administration Apprenticeship',
-      company: 'IT Networks Ltd',
-      duration: '12 months',
-      location: 'Nairobi',
-      stipend: 'KES 26,000/month',
-      startDate: '01-06-2026',
-      status: 'Open',
-      description: 'Learn network setup, maintenance, security, and troubleshooting in enterprise environments.',
-      requirements: [
-        'Diploma in IT or Computer Science',
-        'Basic networking knowledge',
-        'CCNA certification (preferred)',
-        'Problem-solving skills'
+        'Problem-solving skills',
+        'Attention to detail'
       ]
     }
   ];
 
-  addApprenticeshipForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private router: Router) { 
-    this.addApprenticeshipForm = this.fb.group({
-      category: ['', Validators.required],
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      type: ['Uncertified'],
-      certificateName: [''],
-      status: ['Active', Validators.required]
-    });
-  }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-  }
-
-  // Pagination methods
-  get filteredApprenticeships() {
-    if (!this.searchTerm) {
-      return this.apprenticeshipsList;
-    }
-    const search = this.searchTerm.toLowerCase();
-    return this.apprenticeshipsList.filter(item =>
-      item.programName?.toLowerCase().includes(search) ||
-      item.company?.toLowerCase().includes(search) ||
-      item.location?.toLowerCase().includes(search) ||
-      item.status?.toLowerCase().includes(search)
-    );
-  }
-
-  get paginatedApprenticeships() {
-    const start = (this.currentPage - 1) * this.entriesPerPage;
-    const end = start + this.entriesPerPage;
-    return this.filteredApprenticeships.slice(start, end);
-  }
-
-  get totalPages(): number[] {
-    const pageCount = Math.ceil(this.filteredApprenticeships.length / this.entriesPerPage);
-    return Array.from({ length: pageCount }, (_, i) => i + 1);
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages.length) {
-      this.currentPage++;
-    }
-  }
-
-  previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-  }
-
-  goToPage(page: number) {
-    this.currentPage = page;
-  }
-
-  viewDetails(apprenticeship: any) {
-    this.router.navigate(['/HOME/apprenticeship-details', apprenticeship.id]);
-  }
-
-  openAddModal() {
-    this.addApprenticeshipForm.reset({
-      type: 'Uncertified',
-      status: 'Active'
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      this.apprenticeship = this.apprenticeshipsList.find(a => a.id === parseInt(id));
+      if (!this.apprenticeship) {
+        this.router.navigate(['/apprenticeships']);
+      }
     });
-    const modal = new bootstrap.Modal(document.getElementById('addApprenticeshipModal'));
-    modal.show();
   }
 
-  saveApprenticeship() {
-    if (this.addApprenticeshipForm.valid) {
-      const newApprenticeship = {
-        id: this.apprenticeshipsList.length + 1,
-        programName: this.addApprenticeshipForm.get('name')?.value,
-        company: 'New Company',
-        duration: '12 months',
-        location: 'Nairobi',
-        stipend: 'KES 25,000/month',
-        startDate: new Date().toLocaleDateString('en-GB'),
-        status: this.addApprenticeshipForm.get('status')?.value === 'Active' ? 'Open' : 'Closed',
-        description: this.addApprenticeshipForm.get('description')?.value,
-        requirements: ['Requirement 1', 'Requirement 2']
-      };
+  goBack() {
+    this.router.navigate(['/HOME/apprenticeships']);
+  }
 
-      this.apprenticeshipsList.push(newApprenticeship);
-      
-      // Close modal
-      const modal = bootstrap.Modal.getInstance(document.getElementById('addApprenticeshipModal'));
-      modal?.hide();
-
-      // Reset form
-      this.addApprenticeshipForm.reset({
-        type: 'Uncertified',
-        status: 'Active'
-      });
-
-      // Show success message (you can use toastr or similar)
-      alert('Apprenticeship added successfully!');
-    }
+  enrollNow() {
+    alert('Enrollment functionality would be implemented here');
   }
 }

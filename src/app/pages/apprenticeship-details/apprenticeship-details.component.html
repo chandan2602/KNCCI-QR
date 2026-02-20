@@ -1,0 +1,112 @@
+<div class="details-page" *ngIf="apprenticeship">
+    <div class="page-header">
+        <button class="btn-back" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i> Back to Apprenticeships
+        </button>
+    </div>
+
+    <div class="details-container">
+        <div class="details-card">
+            <!-- Image Section -->
+            <div class="details-image-section">
+                <img [src]="apprenticeship.image" [alt]="apprenticeship.programName" class="details-image">
+            </div>
+
+            <!-- Content Section -->
+            <div class="details-content-section">
+                <!-- Category Badge -->
+                <span class="category-badge">{{apprenticeship.category}}</span>
+
+                <!-- Title -->
+                <h1 class="details-title">{{apprenticeship.programName}}</h1>
+
+                <!-- Description -->
+                <p class="details-description">{{apprenticeship.description}}</p>
+
+                <!-- Info Grid -->
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="bi bi-building"></i>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Company</span>
+                            <span class="info-value">{{apprenticeship.company}}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="bi bi-calendar-event"></i>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Start Date</span>
+                            <span class="info-value">{{apprenticeship.startDate}}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="bi bi-hourglass-split"></i>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Duration</span>
+                            <span class="info-value">{{apprenticeship.duration}}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">{{apprenticeship.location}}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="bi bi-cash-coin"></i>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Stipend</span>
+                            <span class="info-value">{{apprenticeship.stipend}}</span>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="info-content">
+                            <span class="info-label">Status</span>
+                            <span class="info-value" [ngClass]="apprenticeship.status === 'Open' ? 'status-active' : 'status-inactive'">
+                                {{apprenticeship.status}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enroll Button -->
+                <button type="button" class="btn-enroll" *ngIf="apprenticeship?.status === 'Open'" (click)="enrollNow()">
+                    <i class="bi bi-check-lg"></i> Enroll Now
+                </button>
+            </div>
+        </div>
+
+        <!-- Requirements Section -->
+        <div class="requirements-section" *ngIf="apprenticeship.requirements">
+            <h2 class="section-title">
+                <i class="bi bi-list-check"></i> Requirements
+            </h2>
+            <ul class="requirements-list">
+                <li *ngFor="let req of apprenticeship.requirements">{{req}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="no-data" *ngIf="!apprenticeship">
+    <p>Apprenticeship not found</p>
+</div>
