@@ -63,41 +63,44 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
 
   getCourseList() { // CourseSchedule/GetAllActiveCoursesByCategoryId/0/companyId
     this.CommonService.getCall(`CourseSchedule/GetAllActiveCoursesByCategoryId/0/${this.intrenshipPL}`).subscribe((res: any) => {
-      this.courseList = [],
-      this.courseList = res.dtCourseScehdule.map((e: any) => (
-        {
-          ...e,
-          IMAGE_URL: `${this.fileUrl}${e.COURSE_IMAGE}`,
-          count: 120,
-          discount: 500
-        }));
-        this.getSubscriptnData()
+      if (res?.dtCourseScehdule && res.dtCourseScehdule.length > 0) {
+        this.internships = res.dtCourseScehdule.map((e: any) => (
+          {
+            ...e,
+            title: e.COURSE_NAME || e.title,
+            verified: e.IS_CERTIFIED || false,
+            deadline: e.COURSE_END_DATE || e.deadline,
+            IMAGE_URL: `${this.fileUrl}${e.COURSE_IMAGE}`,
+            count: 120,
+            discount: 500
+          }));
+        this.courseList = this.internships;
+      } else {
+        this.internships = [];
+        this.courseList = [];
+      }
+      this.getSubscriptnData()
     })
   }
 
-  getSubscriptnData() { // http://localhost:56608/api/InternshipJobs/GetSubscriberByUserId/12345
+  getSubscriptnData() {
     let userId: any = sessionStorage.UserId;
     if(userId != undefined && userId != null && userId !='') {
       this.activeSpinner();
       this.CommonService.getCall(`InternshipJobs/GetSubscriberByUserId/${sessionStorage.UserId}`, '', false).subscribe(
         (res: any) => {
-          if (res?.status == true) {
-            this.deactivateSpinner();
-            if(res?.data.length > 0) {
-              // this.subscribeData = res?.data[0];
-              sessionStorage.setItem('subscribeData', `${JSON.stringify(res?.data[0])}`);
-            }
-              
-            } else {
-              this.toastr.success(res.message);
-              this.deactivateSpinner();
-            }
+          this.deactivateSpinner();
+          if (res?.status == true && res?.data?.length > 0) {
+            sessionStorage.setItem('subscribeData', `${JSON.stringify(res?.data[0])}`);
+          }
         },
         err => {
           this.deactivateSpinner();
-          this.toastr.warning(err.error ? err.error.text || err.error : 'Records not getting');
-          window.history.back()
+          console.warn('Subscription check failed:', err);
+          // Don't navigate back - let user see internships anyway
         })
+    } else {
+      this.deactivateSpinner();
     }
   }
 
