@@ -11,6 +11,8 @@ import { environment } from '../../../environments/environment';
 export class TutoreMenuComponent extends BaseComponent implements OnInit {
   RoleId = sessionStorage.RoleId;
   USERTYPE = sessionStorage.USERTYPE;
+  activeMenuId: string | null = null;
+
   constructor(CommonService: CommonService, toastr: ToastrService) {
 
     super(CommonService, toastr);
@@ -20,14 +22,40 @@ export class TutoreMenuComponent extends BaseComponent implements OnInit {
     setTimeout(() => this.companyDetails(), 10);
     console.clear();
     console.log("ScreenPermission:=", this.ScreenPermission);
-
+    this.setupMenuClickHandlers();
   }
+
   companyDetails() {
     const { fileUrl } = environment;
     if (sessionStorage.homepageimage_path) {
       document.getElementById("homepageimage_path")?.setAttribute("src", `${fileUrl}${sessionStorage.homepageimage_path} `);
 
     }
+  }
+
+  setupMenuClickHandlers() {
+    const menuItems = document.querySelectorAll('.sidebar-menu-wrapper li.parent > a.has-arrow');
+    menuItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const parentLi = (item as HTMLElement).closest('li.parent');
+        if (parentLi) {
+          const menuId = parentLi.getAttribute('data-menu-id');
+          if (this.activeMenuId === menuId) {
+            this.activeMenuId = null;
+            parentLi.classList.remove('active');
+          } else {
+            // Close previously active menu
+            const previousActive = document.querySelector('.sidebar-menu-wrapper li.parent.active');
+            if (previousActive) {
+              previousActive.classList.remove('active');
+            }
+            this.activeMenuId = menuId;
+            parentLi.classList.add('active');
+          }
+        }
+      });
+    });
   }
 
 }

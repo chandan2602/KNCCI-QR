@@ -1,18 +1,18 @@
 .simplebar-content-wrapper{overflow: scroll;}
     /* .sidebar-wrapper{height: 100vh;} */
-    .sidebar-menu-wrapper  .wrapper {
+    .sidebar-menu-wrapper > .wrapper {
       position: relative;
       font-size: 12px !important;
     }
 
     /* .wrapper .toggled.sidebar-hovered{display: block !important;} */
     .sidebar-menu-wrapper .wrapper  .nav-active1 li:hover{
-        background-color: #FA9357 !important;
+        background-color: #2E7D5B !important;
         color: #fff;
         border-radius: 5px;
         }
     .sidebar-menu-wrapper .wrapper .nav-active1 li:hover ul li:hover {
-        background-color: #FA9357 !important;
+        background-color: #2E7D5B !important;
         color: #fff;
         border-radius: 5px;
         }
@@ -46,16 +46,6 @@
     .sidebar-menu-wrapper li, .sidebar-menu-wrapper li ul li, .sidebar-menu-wrapper li ul li ul li, .sidebar-menu-wrapper li ul li ul li ul li, .sidebar-menu-wrapper li ul li ul li ul li ul li {
       position: static;
     }
-    .sidebar-menu-wrapper li .wrapper {
-      position: absolute;
-      z-index: 10;
-      display: none;
-      margin-left: 230px;
-      top: 0;
-    }
-    .sidebar-menu-wrapper li:hover > .wrapper {
-      display: block;
-    }
     
     .sidebar-menu-wrapper ul {
       color: #000;
@@ -65,12 +55,23 @@
     }
     
     .sidebar-menu-wrapper li a{padding: 8px 8px; line-height: 1.5;}
-    .sidebar-menu-wrapper li a:hover {background: #FA9357 !important; border-radius: 5px; color: #fff;   padding: 8px 8px}
+    .sidebar-menu-wrapper li a:hover {background: #2E7D5B !important; border-radius: 5px; color: #fff;   padding: 8px 8px}
     .sidebar-menu-wrapper li ul {
       margin: 0;
     }
     .sidebar-menu-wrapper li .wrapper {
       cursor: auto;
+      position: absolute;
+      z-index: 10;
+      display: none;
+      margin-left: 230px;
+      top: 0;
+    }
+    .sidebar-menu-wrapper li:hover > .wrapper {
+      display: block;
+    }
+    .sidebar-menu-wrapper li.active > .wrapper {
+      display: block;
     }
     .sidebar-menu-wrapper li .wrapper li {
       background: #fff;
