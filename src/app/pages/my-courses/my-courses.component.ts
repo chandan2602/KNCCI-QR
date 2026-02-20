@@ -31,6 +31,13 @@ export class MyCoursesComponent extends BaseComponent implements OnInit, OnDestr
   companyid: any = '';
   coursesheduleid: any;
   documentId: any = 0;
+  
+  // Pagination properties
+  searchTerm: string = '';
+  entriesPerPage: number = 10;
+  currentPage: number = 1;
+  Math = Math;
+  
 tooltipContent = `
 					View all your approved and certified internships here. After completion, use the <strong>Download Certificate</strong> option under the <strong>Actions</strong> dropdown. Once certified, you’ll also see an <strong>Upload Resume</strong> button to submit your resume directly to the respective company.
 					`;
@@ -228,5 +235,46 @@ tooltipContent = `
       this.route.navigate(['/HOME/my-courses']);
          $('#cls').click();
     }, e => { });
+  }
+
+  // Pagination methods
+  get filteredInternships() {
+    if (!this.searchTerm) {
+      return this.myCourseList;
+    }
+    const search = this.searchTerm.toLowerCase();
+    return this.myCourseList.filter(item =>
+      item.COURSE_NAME?.toLowerCase().includes(search) ||
+      item.TNT_NAME?.toLowerCase().includes(search) ||
+      item.COURSESHD_STARTDATE?.toLowerCase().includes(search) ||
+      item.COURSESHD_ENDDATE?.toLowerCase().includes(search)
+    );
+  }
+
+  get paginatedInternships() {
+    const start = (this.currentPage - 1) * this.entriesPerPage;
+    const end = start + this.entriesPerPage;
+    return this.filteredInternships.slice(start, end);
+  }
+
+  get totalPages(): number[] {
+    const pageCount = Math.ceil(this.filteredInternships.length / this.entriesPerPage);
+    return Array.from({ length: pageCount }, (_, i) => i + 1);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages.length) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
   }
 }

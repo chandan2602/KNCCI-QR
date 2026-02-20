@@ -4,240 +4,383 @@
     max-width: 300px !important;
 }
 
-
-/* Internship Card Styling */
-.internship-card {
-  background: #FFFFFF;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.internships-page {
+    padding: 100px 20px 40px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
 }
 
-.internship-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  transform: translateY(-4px);
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
-/* Card Image Section */
-.card-image-wrapper {
-  position: relative;
-  width: 100%;
-  height: 200px;
-  overflow: hidden;
-  background: #f0f0f0;
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0;
 }
 
-.card-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.btn-info-icon {
+    background: transparent;
+    border: none;
+    color: #2e7d32;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s ease;
 }
 
-/* Verified Badge */
-.verified-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(46, 125, 91, 0.9);
-  color: #FFFFFF;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+.btn-info-icon:hover {
+    color: #1b5e20;
 }
 
-.verified-badge i {
-  font-size: 12px;
+/* Filter Section */
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
-/* Company Logo */
-.company-logo {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 60px;
-  height: 60px;
-  background: #FFFFFF;
-  border-radius: 8px;
-  padding: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+.filter-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.company-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.filter-control label {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
 }
 
-/* Card Content */
-.card-content {
-  padding: 20px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+.filter-control .form-select {
+    min-width: 250px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-.internship-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1A1A1A;
-  margin: 0 0 8px 0;
-  line-height: 1.3;
+.btn-add {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.company-name {
-  font-size: 13px;
-  color: #666666;
-  margin: 0 0 12px 0;
-  font-weight: 500;
+.btn-add:hover {
+    background-color: #1b5e20;
 }
 
-/* Badge and Duration */
-.badge-duration {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+/* Table Container */
+.table-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.badge {
-  background: #2E7D5B;
-  color: #FFFFFF;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
+/* Table Controls */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.duration {
-  font-size: 12px;
-  color: #999999;
-  font-weight: 500;
+.entries-control label,
+.search-control label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
 }
 
-/* Details */
-.details {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #E8E8E8;
+.entries-control select,
+.search-control input {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-.detail-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: #666666;
+.search-control input {
+    width: 250px;
 }
 
-.detail-item i {
-  color: #2E7D5B;
-  font-size: 13px;
-  width: 16px;
+/* Internships Table */
+.table-responsive {
+    overflow-x: auto;
 }
 
-/* Description */
-.description {
-  font-size: 12px;
-  color: #999999;
-  line-height: 1.5;
-  margin: 0 0 16px 0;
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+.internships-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 20px;
 }
 
-/* Buttons */
-.card-buttons {
-  display: flex;
-  gap: 12px;
+.internships-table thead {
+    background-color: #2e7d32;
+    color: white;
 }
 
-.btn {
-  flex: 1;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.internships-table thead th {
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    border: none;
 }
 
-.btn-apply {
-  background: #2E7D5B;
-  color: #FFFFFF;
+.internships-table thead th:first-child {
+    border-top-left-radius: 8px;
 }
 
-.btn-apply:hover {
-  background: #256D4F;
-  transform: translateY(-2px);
+.internships-table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.internships-table tbody tr {
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+}
+
+.internships-table tbody tr:hover {
+    background-color: #e9ecef;
+    transform: scale(1.01);
+}
+
+.internships-table tbody td {
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 10px solid white;
+}
+
+.internship-name-cell {
+    font-weight: 500;
+    color: #2e7d32;
+}
+
+/* Certified Badge */
+.certified-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.certified-badge.certified {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.certified-badge.uncertified {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-active {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* Approve Badge */
+.approve-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-action {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.btn-edit {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.btn-edit:hover {
+    background-color: #f57c00;
+    color: white;
+}
+
+.btn-users {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.btn-users:hover {
+    background-color: #1976d2;
+    color: white;
 }
 
 .btn-details {
-  background: #FFFFFF;
-  color: #2E7D5B;
-  border: 2px solid #2E7D5B;
+    background-color: #e8f5e9;
+    color: #2e7d32;
 }
 
 .btn-details:hover {
-  background: #F5F5F5;
-  border-color: #256D4F;
-  color: #256D4F;
+    background-color: #2e7d32;
+    color: white;
+}
+
+/* No Records Message */
+.no-records {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.no-records i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.no-records p {
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: #666;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-page {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #333;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-page:hover:not(:disabled) {
+    background-color: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
+}
+
+.btn-page.active {
+    background-color: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
+}
+
+.btn-page:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .internship-card {
-    margin-bottom: 20px;
-  }
+    .internships-page {
+        padding: 80px 15px 30px;
+    }
 
-  .card-image-wrapper {
-    height: 160px;
-  }
+    .page-title {
+        font-size: 24px;
+    }
 
-  .card-content {
-    padding: 16px;
-    width: 19.333333%;
-  }
+    .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-  .internship-title {
-    font-size: 14px;
-  }
+    .filter-control {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-  .company-logo {
-    width: 50px;
-    height: 50px;
-  }
-}
+    .filter-control .form-select {
+        min-width: 100%;
+    }
 
+    .table-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-/* Green theme for internship header */
-.headerbg-green {
-  background: linear-gradient(135deg, #2E7D5B 0%, #47c48e 100%) !important;
-  color: #FFFFFF !important;
-}
+    .search-control input {
+        width: 100%;
+    }
 
-.headerbg-green h5 {
-  color: #FFFFFF !important;
-}
+    .internships-table {
+        font-size: 12px;
+    }
 
-.headerbg-green button {
-  color: #FFFFFF !important;
+    .internships-table thead th,
+    .internships-table tbody td {
+        padding: 8px 10px;
+    }
+
+    .pagination-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

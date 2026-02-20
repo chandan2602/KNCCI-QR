@@ -1,51 +1,91 @@
-<div class="page-wrapper pt-4">
-    <div class="page-content pt-0 pe-0 ps-0">
-        <div class="container-fluid">
-            <div class="default_class">
-                <div class="content-wrapper p-0">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card rounded shadow-lg">
-                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
-                                        <h5 class="mb-0 ">Subscriptions <button class="btn btn-sm"
-                        [appTooltip]="tooltipContent">
-                        <i class="bi bi-info-circle-fill"></i>
-                    </button></h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div *ngIf="listGrid.length">
-                                            <table id="patreggraph" datatable
-                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
-                                                style="width:100%">
-                                                <thead class="top" style="background-color: #2E7D5B; color:#ffffff;">
-                                                    <tr>
-                                                        <th>S. No</th>
-                                                        <th>Subscription Type</th>
-                                                        <th>Subscription Expiry Date</th>
-                                                        <th>Subscription Amount</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let item of listGrid; let i= index">
-                                                        <td>{{i+1}}</td>
-                                                        <td>{{item.name}}</td>
-                                                        <td>{{item.expired_date | date: 'dd-MM-yyyy'}}</td>
-                                                        <td>{{item.amount}}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="text-center" *ngIf="!listGrid.length">
-                                            No Records to display
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="subscriptions-page">
+  <div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">My Subscriptions</h1>
+      <button class="btn btn-info-icon" [appTooltip]="tooltipContent">
+        <i class="bi bi-info-circle-fill"></i>
+      </button>
     </div>
+
+    <!-- Table Container -->
+    <div class="table-container">
+      <!-- Table Controls -->
+      <div class="table-controls">
+        <div class="entries-control">
+          <label>Show 
+            <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+              <option [value]="10">10</option>
+              <option [value]="25">25</option>
+              <option [value]="50">50</option>
+            </select>
+            entries
+          </label>
+        </div>
+        <div class="search-control">
+          <label>Search: 
+            <input type="text" [(ngModel)]="searchText" placeholder="Search subscriptions...">
+          </label>
+        </div>
+      </div>
+
+      <!-- Subscriptions Table -->
+      <div class="table-responsive" *ngIf="filteredSubscriptions.length > 0">
+        <table class="table subscriptions-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Subscription Type</th>
+              <th>Subscription Expiry Date</th>
+              <th>Subscription Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of paginatedSubscriptions; let i = index">
+              <td>{{(currentPage - 1) * entriesPerPage + i + 1}}</td>
+              <td class="subscription-name-cell">{{item.name}}</td>
+              <td>{{item.expired_date | date: 'dd-MM-yyyy'}}</td>
+              <td class="amount-cell">KES {{item.amount}}</td>
+              <td>
+                <span class="status-badge" [class.status-active]="isActive(item.expired_date)" 
+                      [class.status-expired]="!isActive(item.expired_date)">
+                  {{isActive(item.expired_date) ? 'Active' : 'Expired'}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No Records Message -->
+      <div class="no-records" *ngIf="filteredSubscriptions.length === 0">
+        <i class="bx bx-inbox"></i>
+        <p>No subscriptions found</p>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-container" *ngIf="filteredSubscriptions.length > 0">
+        <div class="pagination-info">
+          Showing {{(currentPage - 1) * entriesPerPage + 1}} to 
+          {{Math.min(currentPage * entriesPerPage, filteredSubscriptions.length)}} of 
+          {{filteredSubscriptions.length}} entries
+        </div>
+        <div class="pagination-controls">
+          <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+            Previous
+          </button>
+          <button class="btn-page" 
+                  *ngFor="let page of [].constructor(totalPages); let i = index"
+                  [class.active]="currentPage === i + 1"
+                  (click)="goToPage(i + 1)">
+            {{i + 1}}
+          </button>
+          <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

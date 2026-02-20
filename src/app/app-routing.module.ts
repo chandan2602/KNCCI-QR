@@ -13,6 +13,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { KncciCoursesComponent } from './pages/kncci-courses/kncci-courses.component';
 import { MaincontentComponent } from './maincontent/maincontent.component';
 import { PolsComponent } from './pages/pols/pols.component';
 import { TakepolsComponent } from './pages/takepols/takepols.component';
@@ -230,6 +231,10 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: MaincontentComponent
+      },
+      {
+        path: 'kncci-courses',
+        component: KncciCoursesComponent
       },
       {
         path: '',
@@ -829,7 +834,8 @@ const routes: Routes = [
       { path: 'notification', component: NotificationComponent },
       { path: 'learning-resources', component: LearningResourcesComponent },
       { path: 'company-details', component: CompanyDetailsComponent },
-      { path: 'advertisements', component: AdvertisementsComponent },
+      // TODO: Uncomment when advertisements feature is needed
+      // { path: 'advertisements', component: AdvertisementsComponent },
       { path: 'appliedInternships', component: StudentAppliedInternshipsComponent },
       { path: 'myJobs', component:  MyJobsComponent},
       { path: 'apply_job', component: ApplyJobComponent },

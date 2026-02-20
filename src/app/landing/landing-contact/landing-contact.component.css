@@ -3,6 +3,7 @@
   background-color: white;
   min-height: 100vh;
   padding-top: 69px;
+  margin-top: -610px;
 }
 
 /* Hero Banner */
@@ -12,7 +13,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  margin-top: -610px;
+  margin-top: 0;
 }
 
 .hero-overlay {

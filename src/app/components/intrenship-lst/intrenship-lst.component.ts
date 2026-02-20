@@ -17,16 +17,21 @@ declare var $: any;
 })
 export class IntrenshipLstComponent extends BaseComponent implements OnInit {
   
-
-  companyList: any[] = []; courseList: any[] = []; intrenshipPL: any = 0;
+  companyList: any[] = []; 
+  courseList: any[] = []; 
+  intrenshipPL: any = 0;
   isLogin: boolean = false;
   fileUrl: string = environment.fileUrl;
+  searchText: string = '';
+  entriesPerPage: number = 10;
+  currentPage: number = 1;
+  Math = Math;
 
   internships: any[] = [];
 
   tooltipContent = `
-					Browse and filter internships by company name using the dropdown. Click on any job card to view full details. To apply, use the <strong>Enroll</strong> button at the top right. Once approved by the company, your internship will appear under <strong>My Internships.</strong>
-					`;
+    Browse and filter internships by company name using the dropdown. Click on any job card to view full details. To apply, use the <strong>Enroll</strong> button at the top right. Once approved by the company, your internship will appear under <strong>My Internships.</strong>
+  `;
 
   constructor(public rtr: Router,
     private rte: ActivatedRoute,
@@ -105,15 +110,51 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
       this.rtr.navigate(['view-course-details'], { state: evnt });
     else
       this.rtr.navigate(['eRP/view-course-details'], { state: evnt });
+  }
 
-    // this.rtr.navigate(['view-course-details'])
-    // let params = evnt
-    // let params = this.params
-    // if (this.isLogin) {
-    //   this.rtr.navigate(['HOME/applyJob'], {  queryParams: {jobId: params.job_id} })
-    // } else 
-    //   this.rtr.navigate(['/login']);
-    // this.rtr.navigate(['jobSummery'], { queryParams: params });
+  get filteredInternships() {
+    let internships = this.internships;
+    
+    // Filter by search text
+    if (this.searchText) {
+      internships = internships.filter(i => 
+        i.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        i.company.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
+    
+    return internships;
+  }
+
+  get paginatedInternships() {
+    const start = (this.currentPage - 1) * this.entriesPerPage;
+    const end = start + this.entriesPerPage;
+    return this.filteredInternships.slice(start, end);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.filteredInternships.length / this.entriesPerPage);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  addInternship() {
+    // Add internship logic here
+    console.log('Add internship clicked');
   }
 
 }

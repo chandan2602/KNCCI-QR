@@ -1,0 +1,250 @@
+.subscriptions-page {
+    padding: 100px 20px 40px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0;
+}
+
+.btn-info-icon {
+    background: transparent;
+    border: none;
+    color: #2e7d32;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.btn-info-icon:hover {
+    color: #1b5e20;
+}
+
+/* Table Container */
+.table-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Table Controls */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.entries-control label,
+.search-control label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+}
+
+.entries-control select,
+.search-control input {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.search-control input {
+    width: 250px;
+}
+
+/* Subscriptions Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.subscriptions-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+
+.subscriptions-table thead {
+    background-color: #2e7d32;
+    color: white;
+}
+
+.subscriptions-table thead th {
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+    border: none;
+}
+
+.subscriptions-table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.subscriptions-table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.subscriptions-table tbody tr {
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+}
+
+.subscriptions-table tbody tr:hover {
+    background-color: #e9ecef;
+    transform: scale(1.01);
+}
+
+.subscriptions-table tbody td {
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 10px solid white;
+}
+
+.subscription-name-cell {
+    font-weight: 500;
+    color: #2e7d32;
+}
+
+.amount-cell {
+    font-weight: 600;
+    color: #1976d2;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-active {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-expired {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+/* No Records Message */
+.no-records {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.no-records i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.no-records p {
+    font-size: 18px;
+    margin: 0;
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: #666;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-page {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #333;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-page:hover:not(:disabled) {
+    background-color: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
+}
+
+.btn-page.active {
+    background-color: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
+}
+
+.btn-page:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .subscriptions-page {
+        padding: 80px 15px 30px;
+    }
+
+    .page-title {
+        font-size: 24px;
+    }
+
+    .table-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .search-control input {
+        width: 100%;
+    }
+
+    .subscriptions-table {
+        font-size: 12px;
+    }
+
+    .subscriptions-table thead th,
+    .subscriptions-table tbody td {
+        padding: 8px 10px;
+    }
+
+    .pagination-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

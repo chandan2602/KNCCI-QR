@@ -1,97 +1,127 @@
-<div class="pt-4">
-    <div class="page-content pt-0 pe-0 ps-0">
-        <div class="container-fluid">
-            <div class="default_class">
-                <div class="content-wrapper p-0">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card rounded shadow-lg">
-                                    <div class="card-header headerbg-green" style="border-bottom:3px solid #2E7D5B;">
-                                        <h5 class="mb-0">
-                                            Internships
-                                            <button class="btn btn-sm"
-                                                [appTooltip]="tooltipContent">
-                                                <i class="bi bi-info-circle-fill"></i>
-                                            </button>
-                                        </h5>
+<div class="internships-page">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Internships</h1>
+            <button class="btn btn-info-icon" [appTooltip]="tooltipContent">
+                <i class="bi bi-info-circle-fill"></i>
+            </button>
+        </div>
 
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-xl-4 mb-3">
-                                                <select id="companySelect"
-                                                    class="form-select form-select-sm shadow-sm rounded"
-                                                    [(ngModel)]="intrenshipPL" name="company_id"
-                                                    (change)="getCourseList()">
-                                                    <option value="0" selected>Choose Company</option>
-                                                    <option *ngFor="let item of companyList" [value]="item.COMPANY_ID">
-                                                        {{
-                                                        item.COMPANY_NAME }}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-2-4 col-md-4 col-sm-6 mb-5" *ngFor="let internship of internships">
-                                                <div class="internship-card">
-                                                    <!-- Card Image -->
-                                                    <div class="card-image-wrapper">
-                                                        <img [src]="internship.image" alt="internship" class="card-image" />
-                                                        <div class="verified-badge" *ngIf="internship.verified">
-                                                            <i class="fas fa-check-circle"></i> VERIFIED
-                                                        </div>
-                                                        <div class="company-logo">
-                                                            <img [src]="internship.logo" alt="company" />
-                                                        </div>
-                                                    </div>
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-control">
+                <label>Filter by Company:</label>
+                <select class="form-select" [(ngModel)]="intrenshipPL" (change)="getCourseList()">
+                    <option value="0">All Companies</option>
+                    <option *ngFor="let item of companyList" [value]="item.COMPANY_ID">
+                        {{item.COMPANY_NAME}}
+                    </option>
+                </select>
+            </div>
+            <button class="btn btn-add" (click)="addInternship()">
+                <i class="bx bx-plus"></i> Add
+            </button>
+        </div>
 
-                                                    <!-- Card Content -->
-                                                    <div class="card-content">
-                                                        <h3 class="internship-title">{{ internship.title }}</h3>
-                                                        <p class="company-name">{{ internship.company }}</p>
+        <!-- Table Container -->
+        <div class="table-container">
+            <!-- Table Controls -->
+            <div class="table-controls">
+                <div class="entries-control">
+                    <label>Show 
+                        <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                            <option [value]="10">10</option>
+                            <option [value]="25">25</option>
+                            <option [value]="50">50</option>
+                        </select>
+                        entries
+                    </label>
+                </div>
+                <div class="search-control">
+                    <label>Search: 
+                        <input type="text" [(ngModel)]="searchText" placeholder="Search internships...">
+                    </label>
+                </div>
+            </div>
 
-                                                        <!-- Badge and Duration -->
-                                                        <div class="badge-duration">
-                                                            <span class="badge">{{ internship.type }}</span>
-                                                            <span class="duration">{{ internship.duration }}</span>
-                                                        </div>
-
-                                                        <!-- Details -->
-                                                        <div class="details">
-                                                            <div class="detail-item">
-                                                                <i class="fas fa-map-marker-alt"></i>
-                                                                <span>{{ internship.location }}</span>
-                                                            </div>
-                                                            <div class="detail-item">
-                                                                <i class="fas fa-money-bill-wave"></i>
-                                                                <span>{{ internship.salary }}</span>
-                                                            </div>
-                                                            <div class="detail-item">
-                                                                <i class="fas fa-calendar"></i>
-                                                                <span>{{ internship.deadline }}</span>
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- Description -->
-                                                        <p class="description">{{ internship.description }}</p>
-
-                                                        <!-- Buttons -->
-                                                        <div class="card-buttons">
-                                                            <button class="btn btn-apply">Quick Apply</button>
-                                                            <button class="btn btn-details">View Details</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div *ngIf="internships.length == 0">
-                                            <h3 class="text-center">No Internships available</h3>
-                                        </div>
-                                    </div>
+            <!-- Internships Table -->
+            <div class="table-responsive" *ngIf="filteredInternships.length > 0">
+                <table class="table internships-table">
+                    <thead>
+                        <tr>
+                            <th>Internship Name</th>
+                            <th>Is Certified</th>
+                            <th>Status</th>
+                            <th>Approve / Reject Status</th>
+                            <th>Approve / Reject Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of paginatedInternships">
+                            <td class="internship-name-cell">{{item.title}}</td>
+                            <td>
+                                <span class="certified-badge" [class.certified]="item.verified" 
+                                      [class.uncertified]="!item.verified">
+                                    {{item.verified ? 'Certified Trainer' : 'Uncertified Trainer'}}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="status-badge status-active">
+                                    Active
+                                </span>
+                            </td>
+                            <td>
+                                <span class="approve-badge">
+                                    Approve
+                                </span>
+                            </td>
+                            <td>{{item.deadline}}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-action btn-edit" title="Edit">
+                                        <i class="bx bx-edit"></i>
+                                    </button>
+                                    <button class="btn-action btn-users" title="View Users">
+                                        <i class="bx bx-user"></i>
+                                    </button>
+                                    <button class="btn-action btn-details" (click)="intrenshipDetails(item)" title="View Details">
+                                        <i class="bx bx-show"></i>
+                                    </button>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- No Records Message -->
+            <div class="no-records" *ngIf="filteredInternships.length === 0">
+                <i class="bx bx-inbox"></i>
+                <p>No internships found</p>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container" *ngIf="filteredInternships.length > 0">
+                <div class="pagination-info">
+                    Showing {{(currentPage - 1) * entriesPerPage + 1}} to 
+                    {{Math.min(currentPage * entriesPerPage, filteredInternships.length)}} of 
+                    {{filteredInternships.length}} entries
+                </div>
+                <div class="pagination-controls">
+                    <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+                        Previous
+                    </button>
+                    <button class="btn-page" 
+                            *ngFor="let page of [].constructor(totalPages); let i = index"
+                            [class.active]="currentPage === i + 1"
+                            (click)="goToPage(i + 1)">
+                        {{i + 1}}
+                    </button>
+                    <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages">
+                        Next
+                    </button>
                 </div>
             </div>
         </div>
