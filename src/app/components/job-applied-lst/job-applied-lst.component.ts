@@ -24,6 +24,15 @@ Once the status is updated, the student will receive a <strong>system notificati
   USERTYPE: any = sessionStorage.getItem('USERTYPE'); tableId: any = '';
   isAdmin: boolean = false; listGrid: any[] = []; tnt_code: any = ''; isAddEdt = false; Job_Application_Comments: any = '';
   Job_Application_Status: any = 0;
+
+  // Pagination and filtering properties
+  searchText: string = '';
+  entriesPerPage: number = 10;
+  currentPage: number = 1;
+  filteredData: any[] = [];
+  paginatedData: any[] = [];
+  totalPages: number = 1;
+  Math = Math;
   constructor(CommonService: CommonService, public fb: FormBuilder, public router: Router, toastr: ToastrService) {
     super(CommonService, toastr)
     this.tnt_code = sessionStorage.getItem('TenantCode')
@@ -42,13 +51,17 @@ Once the status is updated, the student will receive a <strong>system notificati
 
   LoadGrid() { // http://localhost:56608/api/InternshipJobs/CompanyApplyJobsList/22584592/44
     this.listGrid = [];
+    this.filteredData = [];
+    this.paginatedData = [];
     this.CommonService.activateSpinner();
     this.CommonService.getCall(`InternshipJobs/CompanyApplyJobsList/${this.tnt_code}/${this.cmpny_id}`, '', false).subscribe(
           (res: any) => {
         if(res?.status == true) {
           this.deactivateSpinner();
-          this.listGrid = res.data;
+          this.listGrid = res.data || [];
+          this.filterData();
         } else {
+          this.deactivateSpinner();
           this.toastr.warning(res.message);
         }
       },
@@ -57,6 +70,68 @@ Once the status is updated, the student will receive a <strong>system notificati
         this.toastr.warning(err.error ? err.error.text || err.error : 'Job relatd record not getting');
         // window.history.back()
       })
+  }
+
+  filterData() {
+    if (!this.listGrid || this.listGrid.length === 0) {
+      this.filteredData = [];
+      this.updatePagination();
+      return;
+    }
+
+    if (!this.searchText) {
+      this.filteredData = [...this.listGrid];
+    } else {
+      const searchLower = this.searchText.toLowerCase();
+      this.filteredData = this.listGrid.filter(item =>
+        item.job_title?.toLowerCase().includes(searchLower) ||
+        item.firstname?.toLowerCase().includes(searchLower) ||
+        item.lastname?.toLowerCase().includes(searchLower) ||
+        item.experience_level?.toLowerCase().includes(searchLower) ||
+        item.skills?.toLowerCase().includes(searchLower) ||
+        item.phone_number?.toLowerCase().includes(searchLower) ||
+        item.student_email?.toLowerCase().includes(searchLower) ||
+        item.job_application_status_name?.toLowerCase().includes(searchLower)
+      );
+    }
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+
+  updatePagination() {
+    if (!this.filteredData || this.filteredData.length === 0) {
+      this.totalPages = 1;
+      this.paginatedData = [];
+      return;
+    }
+
+    this.totalPages = Math.ceil(this.filteredData.length / this.entriesPerPage);
+    const startIndex = (this.currentPage - 1) * this.entriesPerPage;
+    const endIndex = startIndex + this.entriesPerPage;
+    this.paginatedData = this.filteredData.slice(startIndex, endIndex);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
+  }
+
+  getPageNumbers(): number[] {
+    const pages: number[] = [];
+    const maxPagesToShow = 5;
+    let startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(this.totalPages, startPage + maxPagesToShow - 1);
+
+    if (endPage - startPage < maxPagesToShow - 1) {
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 
   add() {

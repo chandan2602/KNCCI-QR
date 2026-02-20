@@ -333,4 +333,50 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
         this.slctdLanguageLst = this.slctdLanguageLst.filter((f: { id: any; }) => f.id != item.id);
     }
   }
+
+  // Helper methods for view mode
+  getJobCategoryName(): string {
+    const categoryId = this.createJobForm.get('job_category_id')?.value;
+    return this.allDropDwns?.job_category?.find(c => c.id === categoryId)?.name || '';
+  }
+
+  getJobTypeName(): string {
+    const typeId = this.createJobForm.get('job_type_id')?.value;
+    return this.allDropDwns?.jobtype?.find(t => t.id === typeId)?.name || '';
+  }
+
+  getShiftName(): string {
+    const shiftId = this.createJobForm.get('shift_id')?.value;
+    return this.allDropDwns?.shift?.find(s => s.id === shiftId)?.name || '';
+  }
+
+  getEducationLevelName(): string {
+    const eduId = this.createJobForm.get('education_level_id')?.value;
+    return this.allDropDwns?.education_level?.find(e => e.id === eduId)?.name || '';
+  }
+
+  getExperienceLevelName(): string {
+    const expId = this.createJobForm.get('experience_level_id')?.value;
+    return this.allDropDwns?.experience_level?.find(e => e.id === expId)?.name || '';
+  }
+
+  getPayTypeName(): string {
+    const payId = this.createJobForm.get('pay_type_id')?.value;
+    return this.allDropDwns?.paytype?.find(p => p.id === payId)?.name || '';
+  }
+
+  getCountryName(): string {
+    const countryId = this.createJobForm.get('country_id')?.value;
+    return this.CountryList?.find(c => c.country_id === countryId)?.country_name || '';
+  }
+
+  getCountyName(): string {
+    const countyId = this.createJobForm.get('county_id')?.value;
+    return this.countyList?.find(c => c.COUNTIES_CODE === countyId)?.COUNTIES_NAME || '';
+  }
+
+  getSubCountyName(): string {
+    const subCountyId = this.createJobForm.get('sub_county_id')?.value;
+    return this.subCountyList?.find(s => s.sub_counties_id === subCountyId)?.sub_counties_name || '';
+  }
 }
