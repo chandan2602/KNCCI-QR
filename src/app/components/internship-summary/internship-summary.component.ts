@@ -27,9 +27,9 @@ export class InternshipSummaryComponent extends BaseComponent implements OnInit 
         // this.params = res?.jobDtls;
         this.GetById(res.course_id, res.inst_company_id)
       }
-      if (sessionStorage.getItem('subscribeData') != null && sessionStorage.getItem('subscribeData') != 'undefined' && sessionStorage.getItem('subscribeData') != undefined ) {
+      if (sessionStorage.getItem('subscribeData') != null && sessionStorage.getItem('subscribeData') != 'undefined' && sessionStorage.getItem('subscribeData') != undefined) {
         this.subscribeDetails = '',
-        this.subscribeDetails = JSON.parse(<string>sessionStorage.getItem('subscribeData'));
+          this.subscribeDetails = JSON.parse(<string>sessionStorage.getItem('subscribeData'));
       };
     })
   }
@@ -39,18 +39,24 @@ export class InternshipSummaryComponent extends BaseComponent implements OnInit 
   // https://oukinternship.dhanushinfotech.com/api/CourseSchedule/GetAllCoursesByCategoryId/0/0
   GetById(course_iD: any, inst_company_id: any) { // CourseSchedule/GetAllCoursesByCategoryId/{CATEGORY_ID}/{COMPANY_ID}
     this.CommonService.activateSpinner();
-        this.CommonService.getCall(`CourseSchedule/GetAllCoursesByCategoryId/${course_iD}/${inst_company_id}`).subscribe((res: any) => {
-      let xy: any = res.dtCourseScehdule.map((e: any) => (
-        {
-          ...e,
-          IMAGE_URL: `${this.fileUrl}${e.COURSE_IMAGE}`,
-          count: 120,
-          discount: 500
-        }));
-
+    this.CommonService.getCall(`CourseSchedule/GetAllCoursesByCategoryId/${course_iD}/${inst_company_id}`).subscribe(
+      (res: any) => {
+        let xy: any = res.dtCourseScehdule.map((e: any) => (
+          {
+            ...e,
+            IMAGE_URL: `${this.fileUrl}${e.COURSE_IMAGE}`,
+            count: 120,
+            discount: 500
+          }));
         this.params = xy[0];
-        this.deactivateSpinner()
-    })
+        this.deactivateSpinner();
+      },
+      (err: any) => {
+        this.deactivateSpinner();
+        console.error('Error fetching internship details:', err);
+        this.toastr.error('Failed to load internship details');
+      }
+    )
     // this.CommonService.getCall(`CourseSchedule/GetAllCoursesByCategoryId/${course_iD}/${inst_company_id}`, '', false).subscribe(
     //       (res: any) => {
     //     if(res?.status == true) {

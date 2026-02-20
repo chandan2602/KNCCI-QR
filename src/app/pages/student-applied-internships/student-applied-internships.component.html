@@ -64,8 +64,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li>
-                                    <a class="dropdown-item" href="#"
-                                        (click)="OnEditView(item)">View Details</a>
+                                    <a class="dropdown-item" (click)="OnEditView(item); $event.preventDefault()">View Details</a>
                                 </li>
                                 <li *ngIf="roleId == '1'">
                                     <a class="dropdown-item" href="#"
