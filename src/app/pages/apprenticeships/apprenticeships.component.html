@@ -1,0 +1,151 @@
+<div class="apprenticeships-page">
+    <div class="page-header">
+        <h1 class="page-title">
+            Apprenticeships
+            <button class="btn-info-icon" [appTooltip]="tooltipContent">
+                <i class="bi bi-info-circle-fill"></i>
+            </button>
+        </h1>
+        <p class="page-subtitle">Gain hands-on experience and develop practical skills through our apprenticeship programs</p>
+    </div>
+
+    <div class="table-container">
+        <!-- Table Controls -->
+        <div class="table-controls">
+            <div class="entries-control">
+                <label>
+                    Show
+                    <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                        <option [value]="10">10</option>
+                        <option [value]="25">25</option>
+                        <option [value]="50">50</option>
+                    </select>
+                    entries
+                </label>
+            </div>
+            <div class="search-control">
+                <label>
+                    Search:
+                    <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search apprenticeships...">
+                </label>
+            </div>
+        </div>
+
+        <!-- Apprenticeships Table -->
+        <div class="table-responsive" *ngIf="filteredApprenticeships.length > 0">
+            <table class="apprenticeships-table">
+                <thead>
+                    <tr>
+                        <th>Program Name</th>
+                        <th>Company</th>
+                        <th>Duration</th>
+                        <th>Location</th>
+                        <th>Stipend</th>
+                        <th>Start Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of paginatedApprenticeships">
+                        <td class="program-name-cell">{{item.programName}}</td>
+                        <td class="company-name-cell">{{item.company}}</td>
+                        <td>{{item.duration}}</td>
+                        <td>{{item.location}}</td>
+                        <td class="stipend-cell">{{item.stipend}}</td>
+                        <td>{{item.startDate}}</td>
+                        <td>
+                            <span class="status-badge" [ngClass]="item.status === 'Open' ? 'status-open' : 'status-closed'">
+                                {{item.status}}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn-view-details" (click)="viewDetails(item)">
+                                <i class="bi bi-eye"></i> View Details
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- No Records Message -->
+        <div class="no-records" *ngIf="filteredApprenticeships.length === 0">
+            <i class="bi bi-inbox"></i>
+            <p>No apprenticeships found</p>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container" *ngIf="filteredApprenticeships.length > 0">
+            <div class="pagination-info">
+                Showing {{ ((currentPage - 1) * entriesPerPage) + 1 }} to 
+                {{ Math.min(currentPage * entriesPerPage, filteredApprenticeships.length) }} 
+                of {{ filteredApprenticeships.length }} entries
+            </div>
+            <div class="pagination-controls">
+                <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+                    Previous
+                </button>
+                <button *ngFor="let page of totalPages" 
+                        class="btn-page" 
+                        [class.active]="page === currentPage"
+                        (click)="goToPage(page)">
+                    {{ page }}
+                </button>
+                <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages.length">
+                    Next
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Details Modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{selectedApprenticeship?.programName}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" *ngIf="selectedApprenticeship">
+                <div class="detail-section">
+                    <h6><i class="bi bi-building"></i> Company</h6>
+                    <p>{{selectedApprenticeship.company}}</p>
+                </div>
+                <div class="detail-section">
+                    <h6><i class="bi bi-clock"></i> Duration</h6>
+                    <p>{{selectedApprenticeship.duration}}</p>
+                </div>
+                <div class="detail-section">
+                    <h6><i class="bi bi-geo-alt"></i> Location</h6>
+                    <p>{{selectedApprenticeship.location}}</p>
+                </div>
+                <div class="detail-section">
+                    <h6><i class="bi bi-cash-coin"></i> Stipend</h6>
+                    <p>{{selectedApprenticeship.stipend}}</p>
+                </div>
+                <div class="detail-section">
+                    <h6><i class="bi bi-calendar"></i> Start Date</h6>
+                    <p>{{selectedApprenticeship.startDate}}</p>
+                </div>
+                <div class="detail-section">
+                    <h6><i class="bi bi-file-text"></i> Description</h6>
+                    <p>{{selectedApprenticeship.description}}</p>
+                </div>
+                <div class="detail-section">
+                    <h6><i class="bi bi-list-check"></i> Requirements</h6>
+                    <ul>
+                        <li *ngFor="let req of selectedApprenticeship.requirements">{{req}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" *ngIf="selectedApprenticeship?.status === 'Open'">
+                    <i class="bi bi-send"></i> Apply Now
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
