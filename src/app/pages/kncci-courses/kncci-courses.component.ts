@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-kncci-courses',
@@ -15,6 +15,8 @@ export class KncciCoursesComponent implements OnInit {
   entriesPerPage: number = 10;
   currentPage: number = 1;
   Math = Math;
+  isLoggedIn: boolean = false;
+  userId: string = '';
 
   allCourses = [
     {
@@ -172,12 +174,42 @@ export class KncciCoursesComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // Check if user is logged in
+    this.userId = sessionStorage.getItem('UserId') || '';
+    this.isLoggedIn = !!this.userId;
+    
+    // If not logged in, force "all" tab
+    if (!this.isLoggedIn) {
+      this.activeTab = 'all';
+    }
+    
+    // Check if user just logged in to enroll in a course
+    const enrollCourseId = sessionStorage.getItem('enrollCourseId');
+    if (this.isLoggedIn && enrollCourseId) {
+      // Find the course and show enrollment
+      const courseId = parseInt(enrollCourseId);
+      const course = this.allCourses.find(c => c.id === courseId);
+      if (course) {
+        // Clear the stored course ID
+        sessionStorage.removeItem('enrollCourseId');
+        // Show the course details
+        this.viewDetails(course);
+        // Optionally auto-trigger enrollment
+        setTimeout(() => {
+          this.enrollCourse(course);
+        }, 500);
+      }
+    }
   }
 
   setActiveTab(tab: string) {
+    // Only allow tab change if logged in
+    if (!this.isLoggedIn && tab !== 'all') {
+      return;
+    }
     this.activeTab = tab;
     this.currentPage = 1;
     this.showDetails = false;
@@ -228,8 +260,25 @@ export class KncciCoursesComponent implements OnInit {
   }
 
   enrollCourse(course: any) {
+    // Check if user is logged in
+    if (!this.isLoggedIn) {
+      // Store the course ID and current route for redirect after login
+      sessionStorage.setItem('enrollCourseId', course.id.toString());
+      sessionStorage.setItem('returnUrl', '/HOME/kncci-courses');
+      
+      // Redirect to login page
+      this.router.navigate(['/login']);
+      return;
+    }
+    
+    // User is logged in, proceed with enrollment
     console.log('Enrolling in course:', course.courseName);
     alert(`Enrolling in: ${course.courseName}\nPrice: KES ${course.price}`);
+    
+    // Here you would typically call an API to enroll the user
+    // After successful enrollment, update the course status
+    course.status = 'Enrolled';
+    course.applied = true;
   }
 
   nextPage() {

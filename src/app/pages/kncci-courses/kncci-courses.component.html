@@ -3,6 +3,10 @@
     <!-- Page Header -->
     <div class="page-header">
       <h1 class="page-title">Courses</h1>
+      <p class="login-prompt" *ngIf="!isLoggedIn">
+        <i class="bx bx-info-circle"></i> 
+        <a [routerLink]="['/login']" class="login-link">Login</a> to access Applied Courses, AI Courses, and My Courses
+      </p>
     </div>
 
     <!-- Tabs Navigation -->
@@ -13,17 +17,17 @@
             All Courses
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isLoggedIn">
           <a class="nav-link" [class.active]="activeTab === 'applied'" (click)="setActiveTab('applied')">
             Applied Courses
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isLoggedIn">
           <a class="nav-link" [class.active]="activeTab === 'ai'" (click)="setActiveTab('ai')">
             AI Courses
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isLoggedIn">
           <a class="nav-link" [class.active]="activeTab === 'my'" (click)="setActiveTab('my')">
             My Courses
           </a>
@@ -128,7 +132,7 @@
                   <span class="price-amount">KES {{selectedCourse.price}}</span>
                 </div>
                 <button class="btn btn-enroll-large" (click)="enrollCourse(selectedCourse)" *ngIf="selectedCourse.status !== 'Enrolled'">
-                  <i class="bx bx-book-add"></i> Enroll Now
+                  <i class="bx bx-book-add"></i> {{isLoggedIn ? 'Enroll Now' : 'Login to Enroll'}}
                 </button>
                 <button class="btn btn-enrolled" *ngIf="selectedCourse.status === 'Enrolled'" disabled>
                   <i class="bx bx-check"></i> Already Enrolled

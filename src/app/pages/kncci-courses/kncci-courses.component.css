@@ -12,7 +12,37 @@
     font-size: 28px;
     font-weight: 700;
     color: #333;
-    margin-bottom: 0;
+    margin-bottom: 10px;
+}
+
+.login-prompt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+}
+
+.login-prompt i {
+    font-size: 18px;
+    color: #ffc107;
+}
+
+.login-link {
+    color: #2e7d32;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-link:hover {
+    color: #1b5e20;
+    text-decoration: underline;
 }
 
 /* Tabs Navigation */

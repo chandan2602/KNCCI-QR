@@ -131,7 +131,17 @@ export class LoginComponent implements OnInit {
       if (this.isJobPerson && this.jobId != '' && this.jobId != 0) {
         this.route.navigate(['HOME/applyJob'], { queryParams: { jobId: this.jobId } });
       } else {
-        if (sessionStorage.courseDetails) {
+        // Check if user was trying to enroll in a course
+        const returnUrl = sessionStorage.getItem('returnUrl');
+        const enrollCourseId = sessionStorage.getItem('enrollCourseId');
+        
+        if (returnUrl && enrollCourseId) {
+          // Clear the stored values
+          sessionStorage.removeItem('returnUrl');
+          sessionStorage.removeItem('enrollCourseId');
+          // Redirect back to courses page
+          this.route.navigate([returnUrl]);
+        } else if (sessionStorage.courseDetails) {
           const course = JSON.parse(sessionStorage.courseDetails);
           this.route.navigate(['view-course-details'], { state: course });
         }
