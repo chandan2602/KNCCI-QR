@@ -1,97 +1,120 @@
-<div class="page-wrapper pt-4">
-    <div class="page-content pt-0 pe-0 ps-0">
-        <div class="container-fluid">
-            <div class="default_class">
-                <div class="content-wrapper p-0">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card rounded shadow-lg">
-                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
-                                        <h5 class="mb-0">My Internships <button class="btn btn-sm"
-                                                [appTooltip]="tooltipContent">
-                                                <i class="bi bi-info-circle-fill"></i>
-                                            </button></h5>
-                                    </div>
-                                    <div class="card-body">
+<div class="my-internships-page">
+    <div class="page-header">
+        <h1 class="page-title">
+            My Internships
+            <button class="btn-info-icon" [appTooltip]="tooltipContent">
+                <i class="bi bi-info-circle-fill"></i>
+            </button>
+        </h1>
+    </div>
 
-                                        <table id="patreggraph" datatable [dtOptions]="dtOptions"
-                                            [dtTrigger]="dtTrigger"
-                                            class="table table-striped table-bordered mt-2 pt-2 table-sm small display"
-                                            style="width:100%">
-                                            <thead class="top" style="background-color: #2E7D5B; color:#ffffff;">
-                                                <tr>
-                                                    <th> Internship Name</th>
-                                                    <th> Start Date </th>
-                                                    <th> End Date </th>
-                                                    <th> Start Time </th>
-                                                    <th> End Time </th>
-                                                    <th> Company Name </th>
-                                                    <!-- <th> Payment </th> -->
-                                                    <!-- <th> Join Link </th> -->
-                                                    <th> Action </th>
-                                                    <!-- <th> View </th> -->
+    <div class="table-container">
+        <!-- Table Controls -->
+        <div class="table-controls">
+            <div class="entries-control">
+                <label>
+                    Show
+                    <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                        <option [value]="10">10</option>
+                        <option [value]="25">25</option>
+                        <option [value]="50">50</option>
+                    </select>
+                    entries
+                </label>
+            </div>
+            <div class="search-control">
+                <label>
+                    Search:
+                    <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search internships...">
+                </label>
+            </div>
+        </div>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let item of myCourseList">
-                                                    <td>{{item.COURSE_NAME}}</td>
-                                                    <td>{{item.COURSESHD_STARTDATE | date:'dd-MM-yyyy'}}</td>
-                                                    <td>{{item.COURSESHD_ENDDATE | date:'dd-MM-yyyy'}}</td>
-                                                    <td>{{item.COURSESHD_STARTTIME | date:'hh:mm a'}}</td>
-                                                    <td>{{item.COURSESHD_ENDTIME | date:'hh:mm a'}}</td>
-                                                    <td>{{item.TNT_NAME}}</td>
-                                                    <!-- <td>Paid</td> -->
-                                                    <!-- <td>
-                                                        <a *ngIf="item.PARTICIPANT_URL" href="javascript: void(0)"
-                                                            (click)="joinMeeting(item.PARTICIPANT_URL)"><span>link</span></a>
-                                                    </td> -->
-
-                                                    <!-- [disabled]="isCheck(item.COURSESHD_STARTDATE)" -->
-                                                    <!-- <button style="white-space: nowrap;"
-                                                            *ngIf="validateDownloadCertivicate(item.COURSESHD_ENDDATE)"
-                                                            type="button" class="btn btn-sm btn-success"
-                                                            (click)="showModel=true;downloadCertificate(item)"> Download Certificate
-                                                        </button> -->
-                                                    <div class="dropdown mt-2 d-flex">
-                                                        <button class="btn btn-sm btn-primary dropdown-toggle"
-                                                            type="button" id="dropdownMenuButton1"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            Action
-                                                        </button>&nbsp;&nbsp;
-                                                        <button class="btn btn-sm btn-outline-primary" type="button"
-                                                            *ngIf="validateDownloadCertivicate(item.REVIEW_ID,item.COURSESHD_ENDDATE)"
-                                                            data-bs-toggle="modal" data-bs-target="#UploadResume"
-                                                            id="btnUploadRsume" (click)="onCourseData(item)">
-                                                            Upload Resume
-                                                        </button>
-                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                            <li> <button class="dropdown-item" href="#"
-                                                                    *ngIf="validateDownloadCertivicate(item.REVIEW_ID,item.COURSESHD_ENDDATE)"
-                                                                    (click)="showModel=true;downloadCertificate(item)">Download
-                                                                    Certificate</button></li>
-                                                            <li>
-                                                                <input type="button" data-bs-toggle="modal"
-                                                                    data-bs-target="#reviewModel"
-                                                                    id="btnShowReviewModel" class="d-none">
-                                                                <a class="dropdown-item"
-                                                                    (click)="setReviewForm(item)">Review</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <!-- <td> <a href="javascript: void(0)"
-                                                            (click)="changeStatus(item.PARTICIPANT_URL)">Recording</a>
-                                                    </td> -->
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+        <!-- Internships Table -->
+        <div class="table-responsive" *ngIf="filteredInternships.length > 0">
+            <table class="internships-table">
+                <thead>
+                    <tr>
+                        <th>Internship Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Company Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of paginatedInternships">
+                        <td class="internship-name-cell">{{item.COURSE_NAME}}</td>
+                        <td>{{item.COURSESHD_STARTDATE | date:'dd-MM-yyyy'}}</td>
+                        <td>{{item.COURSESHD_ENDDATE | date:'dd-MM-yyyy'}}</td>
+                        <td>{{item.COURSESHD_STARTTIME | date:'hh:mm a'}}</td>
+                        <td>{{item.COURSESHD_ENDTIME | date:'hh:mm a'}}</td>
+                        <td class="company-name-cell">{{item.TNT_NAME}}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-primary dropdown-toggle"
+                                    type="button" id="dropdownMenuButton1"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Action
+                                </button>
+                                <button class="btn btn-sm btn-upload" type="button"
+                                    *ngIf="validateDownloadCertivicate(item.REVIEW_ID,item.COURSESHD_ENDDATE)"
+                                    data-bs-toggle="modal" data-bs-target="#UploadResume"
+                                    id="btnUploadRsume" (click)="onCourseData(item)">
+                                    <i class="bi bi-upload"></i> Upload Resume
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li>
+                                        <button class="dropdown-item" href="#"
+                                            *ngIf="validateDownloadCertivicate(item.REVIEW_ID,item.COURSESHD_ENDDATE)"
+                                            (click)="showModel=true;downloadCertificate(item)">
+                                            <i class="bi bi-download"></i> Download Certificate
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <input type="button" data-bs-toggle="modal"
+                                            data-bs-target="#reviewModel"
+                                            id="btnShowReviewModel" class="d-none">
+                                        <a class="dropdown-item" (click)="setReviewForm(item)">
+                                            <i class="bi bi-star"></i> Review
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- No Records Message -->
+        <div class="no-records" *ngIf="filteredInternships.length === 0">
+            <i class="bi bi-inbox"></i>
+            <p>No internships found</p>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container" *ngIf="filteredInternships.length > 0">
+            <div class="pagination-info">
+                Showing {{ ((currentPage - 1) * entriesPerPage) + 1 }} to 
+                {{ Math.min(currentPage * entriesPerPage, filteredInternships.length) }} 
+                of {{ filteredInternships.length }} entries
+            </div>
+            <div class="pagination-controls">
+                <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+                    Previous
+                </button>
+                <button *ngFor="let page of totalPages" 
+                        class="btn-page" 
+                        [class.active]="page === currentPage"
+                        (click)="goToPage(page)">
+                    {{ page }}
+                </button>
+                <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages.length">
+                    Next
+                </button>
             </div>
         </div>
     </div>

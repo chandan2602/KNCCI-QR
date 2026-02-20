@@ -1,693 +1,253 @@
-/* ============================================
-   MODERN PREMIUM DASHBOARD STYLING
-   ============================================ */
-
-/* KNCCI Color Scheme */
-:root {
-    --kncci-green-dark: #2E7D5B;
-    --kncci-green-light: #155f3b;
-    --kncci-red: #dc3545;
-    --kncci-red-dark: #c82333;
-}
-
-/* Wrapper and Background */
-.modern-dashboard-wrapper {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+.applied-internships-page {
+    padding: 100px 20px 40px;
+    background-color: #f8f9fa;
     min-height: 100vh;
-    padding: 20px 0;
 }
 
-/* Premium Card Container */
-.premium-card {
-    background: #ffffff;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-    margin: 0 auto;
-    max-width: 100%;
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
-/* ============================================
-   HEADER SECTION
-   ============================================ */
-
-.premium-header {
-    background: linear-gradient(135deg, #2E7D5B 0%, #155f3b 100%);
-    padding: 28px 32px;
-    border-radius: 18px 18px 0 0;
-    box-shadow: 0 4px 12px rgba(46, 125, 91, 0.15);
-    position: relative;
-    overflow: hidden;
-}
-
-.premium-header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.header-title {
+.page-title {
     font-size: 28px;
     font-weight: 700;
-    color: #ffffff;
-    margin: 0;
-    letter-spacing: -0.5px;
-    position: relative;
-    z-index: 1;
-}
-
-/* ============================================
-   CARD BODY
-   ============================================ */
-
-.premium-body {
-    padding: 32px;
-}
-
-/* Section Header */
-.section-header {
-    margin-bottom: 28px;
+    color: #333;
+    margin-bottom: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
 }
 
-.section-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.section-title i {
-    color: #2E7D5B;
+.btn-info-icon {
+    background: transparent;
+    border: none;
+    color: #2e7d32;
     font-size: 20px;
-}
-
-.info-btn {
-    background: none;
-    border: none;
-    color: #999999;
     cursor: pointer;
-    font-size: 16px;
     padding: 0;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
 }
 
-.info-btn:hover {
-    color: #2E7D5B;
-    transform: scale(1.1);
+.btn-info-icon:hover {
+    color: #1b5e20;
 }
 
-/* ============================================
-   TABLE CONTAINER & STYLING
-   ============================================ */
-
+/* Table Container */
 .table-container {
-    background: #ffffff;
-    border: 1px solid #e9ecef;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.modern-table {
-    width: 100%;
-    border-collapse: collapse;
+/* Table Controls */
+.table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-/* Table Header */
-.modern-table-head {
-    background: #2E7D5B;
-    box-shadow: 0 2px 8px rgba(46, 125, 91, 0.1);
-}
-
-.modern-table-head tr {
-    height: 56px;
-}
-
-.modern-table-head th {
-    padding: 16px 18px;
-    text-align: left;
-    font-size: 13px;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    border: none;
-}
-
-.modern-table-head th:first-child {
-    padding-left: 24px;
-}
-
-.modern-table-head th:last-child {
-    padding-right: 24px;
-}
-
-/* Table Body */
-.modern-table-body {
-    background: #ffffff;
-}
-
-.modern-table-row {
-    height: 60px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: all 0.3s ease;
-}
-
-.modern-table-row:hover {
-    background: #f8f9fa;
-    box-shadow: inset 0 0 0 1px #e9ecef;
-}
-
-.modern-table-row:nth-child(even) {
-    background: #fafbfc;
-}
-
-.modern-table-row:nth-child(even):hover {
-    background: #f5f6f8;
-}
-
-.modern-table-row td {
-    padding: 16px 18px;
-    font-size: 14px;
-    color: #333333;
-    border: none;
-    vertical-align: middle;
-}
-
-.modern-table-row td:first-child {
-    padding-left: 24px;
-}
-
-.modern-table-row td:last-child {
-    padding-right: 24px;
-}
-
-/* Table Cells */
-.cell-company,
-.cell-student,
-.cell-internship {
-    font-weight: 600;
-    color: #1a1a1a;
-}
-
-.cell-date {
-    color: #666666;
-    font-size: 13px;
-}
-
-.cell-comments {
-    color: #666666;
-    max-width: 150px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.cell-status {
-    text-align: center;
-}
-
-.cell-action {
-    text-align: right;
-}
-
-/* Status Badges */
-.status-badge {
-    display: inline-block;
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-}
-
-.status-active {
-    background: #d4f4e8;
-    color: #2E7D5B;
-}
-
-.status-inactive {
-    background: #ffe8e8;
-    color: #d75050;
-}
-
-.status-pending {
-    background: #fff4e6;
-    color: #ff9800;
-}
-
-.status-approved {
-    background: #e3f2fd;
-    color: #d62222;
-}
-
-/* ============================================
-   ACTION BUTTONS
-   ============================================ */
-
-.action-buttons {
+.entries-control label,
+.search-control label {
     display: flex;
     align-items: center;
     gap: 8px;
-    justify-content: flex-end;
+    font-size: 14px;
+    color: #666;
 }
 
-.action-group {
-    display: flex;
-    gap: 6px;
+.entries-control select,
+.search-control input {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-/* Gradient Primary Button */
-.btn-gradient-primary {
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-    color: #ffffff;
+.search-control input {
+    width: 250px;
+}
+
+/* Internships Table */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.internships-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 20px;
+}
+
+.internships-table thead {
+    background-color: #2e7d32;
+    color: white;
+}
+
+.internships-table thead th {
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
     border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
+}
+
+.internships-table thead th:first-child {
+    border-top-left-radius: 8px;
+}
+
+.internships-table thead th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.internships-table tbody tr {
+    background-color: #f8f9fa;
+    transition: all 0.2s ease;
+}
+
+.internships-table tbody tr:hover {
+    background-color: #e9ecef;
+    transform: scale(1.01);
+}
+
+.internships-table tbody td {
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #333;
+    border-bottom: 10px solid white;
+}
+
+.company-name-cell {
+    font-weight: 600;
+    color: #1976d2;
+}
+
+.internship-name-cell {
+    font-weight: 500;
+    color: #2e7d32;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
     font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
-.btn-gradient-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(220, 53, 69, 0.4);
+.status-active {
+    background-color: #e8f5e9;
+    color: #2e7d32;
 }
 
-.btn-gradient-primary:active {
-    transform: translateY(0);
+.status-inactive {
+    background-color: #f5f5f5;
+    color: #757575;
 }
 
-/* Icon Buttons */
-.btn-icon-delete,
-.btn-icon-view,
-.btn-icon-approve,
-.btn-icon-reject {
-    background: none;
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    transition: all 0.3s ease;
+/* No Records Message */
+.no-records {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
 }
 
-.btn-icon-delete {
-    color: #d75050;
-    background: rgba(215, 80, 80, 0.1);
+.no-records i {
+    font-size: 64px;
+    color: #ddd;
+    margin-bottom: 20px;
 }
 
-.btn-icon-delete:hover {
-    background: rgba(215, 80, 80, 0.2);
-    transform: scale(1.05);
+.no-records p {
+    font-size: 18px;
+    margin: 0;
 }
 
-.btn-icon-view {
-    color: #2f80ed;
-    background: rgba(47, 128, 237, 0.1);
-}
-
-.btn-icon-view:hover {
-    background: rgba(47, 128, 237, 0.2);
-    transform: scale(1.05);
-}
-
-.btn-icon-approve {
-    color: #1f8f6b;
-    background: rgba(31, 143, 107, 0.1);
-}
-
-.btn-icon-approve:hover {
-    background: rgba(31, 143, 107, 0.2);
-    transform: scale(1.05);
-}
-
-.btn-icon-reject {
-    color: #ff9800;
-    background: rgba(255, 152, 0, 0.1);
-}
-
-.btn-icon-reject:hover {
-    background: rgba(255, 152, 0, 0.2);
-    transform: scale(1.05);
-}
-
-/* ============================================
-   PAGINATION
-   ============================================ */
-
+/* Pagination */
 .pagination-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 24px;
-    border-top: 1px solid #e9ecef;
-    background: #fafbfc;
-    border-radius: 0 0 12px 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
 .pagination-info {
-    font-size: 13px;
-    color: #666666;
-    font-weight: 500;
+    font-size: 14px;
+    color: #666;
 }
 
 .pagination-controls {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    gap: 5px;
 }
 
-.pagination-btn {
-    padding: 8px 12px;
-    border: 1px solid #e9ecef;
-    background: #ffffff;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #666666;
+.btn-page {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #333;
+    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
-.pagination-btn:hover:not(:disabled) {
-    border-color: #2E7D5B;
-    color: #2E7D5B;
-    background: #f8f9fa;
+.btn-page:hover:not(:disabled) {
+    background-color: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
 }
 
-.pagination-btn:disabled {
+.btn-page.active {
+    background-color: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
+}
+
+.btn-page:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.pagination-number {
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #666666;
-    background: #ffffff;
-    border: 1px solid #e9ecef;
-}
+/* Responsive */
+@media (max-width: 768px) {
+    .applied-internships-page {
+        padding: 80px 15px 30px;
+    }
 
-.pagination-number.active {
-    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
-    color: #ffffff;
-    border-color: transparent;
-}
+    .page-title {
+        font-size: 24px;
+    }
 
-/* Red Action Button Override */
-.btn-sm.btn-primary {
-    background-color: #dc3545 !important;
-    border-color: #dc3545 !important;
-}
-
-.btn-sm.btn-primary:hover {
-    background-color: #c82333 !important;
-    border-color: #c82333 !important;
-}
-
-.btn-sm.btn-primary:focus,
-.btn-sm.btn-primary.focus {
-    background-color: #c82333 !important;
-    border-color: #c82333 !important;
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5) !important;
-}
-
-.btn-sm.btn-primary:active,
-.btn-sm.btn-primary.active {
-    background-color: #bd2130 !important;
-    border-color: #b21f25 !important;
-}
-
-/* ============================================
-   NO RECORDS STATE
-   ============================================ */
-
-.no-records {
-    padding: 60px 32px;
-    color: #999999;
-}
-
-.no-records i {
-    font-size: 48px;
-    margin-bottom: 16px;
-    opacity: 0.5;
-}
-
-.no-records p {
-    font-size: 16px;
-    margin: 0;
-}
-
-/* ============================================
-   RESPONSIVE DESIGN
-   ============================================ */
-
-@media (max-width: 1024px) {
     .table-controls {
         flex-direction: column;
         align-items: flex-start;
     }
 
-    .controls-right {
+    .search-control input {
         width: 100%;
     }
 
-    .search-input {
-        width: 100%;
-    }
-
-    .modern-table-head th,
-    .modern-table-row td {
-        padding: 12px 14px;
-        font-size: 13px;
-    }
-
-    .action-buttons {
-        flex-direction: column;
-        gap: 4px;
-    }
-}
-
-@media (max-width: 768px) {
-    .premium-card {
-        border-radius: 12px;
-    }
-
-    .premium-header {
-        padding: 20px 24px;
-        border-radius: 12px 12px 0 0;
-    }
-
-    .header-title {
-        font-size: 22px;
-    }
-
-    .modern-tabs-container {
-        padding: 16px 24px;
-    }
-
-    .modern-tabs {
-        gap: 8px;
-    }
-
-    .tab-pill {
-        padding: 8px 16px;
+    .internships-table {
         font-size: 12px;
     }
 
-    .premium-body {
-        padding: 20px 24px;
-    }
-
-    .section-title {
-        font-size: 16px;
-    }
-
-    .table-controls {
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .search-input {
-        width: 100%;
-    }
-
-    .modern-table-head th,
-    .modern-table-row td {
-        padding: 10px 12px;
-        font-size: 12px;
-    }
-
-    .modern-table-head th:first-child,
-    .modern-table-row td:first-child {
-        padding-left: 16px;
-    }
-
-    .modern-table-head th:last-child,
-    .modern-table-row td:last-child {
-        padding-right: 16px;
-    }
-
-    .btn-gradient-primary {
-        padding: 6px 12px;
-        font-size: 11px;
-    }
-
-    .pagination-container {
-        flex-direction: column;
-        gap: 16px;
-        padding: 16px 24px;
-    }
-
-    .pagination-controls {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-@media (max-width: 576px) {
-    .modern-dashboard-wrapper {
-        padding: 12px 0;
-    }
-
-    .premium-card {
-        border-radius: 8px;
-        margin: 0 12px;
-    }
-
-    .premium-header {
-        padding: 16px 20px;
-        border-radius: 8px 8px 0 0;
-    }
-
-    .header-title {
-        font-size: 18px;
-    }
-
-    .modern-tabs-container {
-        padding: 12px 20px;
-    }
-
-    .modern-tabs {
-        gap: 6px;
-        flex-direction: column;
-    }
-
-    .tab-pill {
-        width: 100%;
-        justify-content: center;
-        padding: 10px 16px;
-    }
-
-    .premium-body {
-        padding: 16px 20px;
-    }
-
-    .section-title {
-        font-size: 14px;
-    }
-
-    .table-controls {
-        gap: 12px;
-    }
-
-    .entries-select {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .form-select-soft {
-        flex: 1;
-    }
-
-    .search-input {
-        width: 100%;
-    }
-
-    .modern-table {
-        font-size: 12px;
-    }
-
-    .modern-table-head th,
-    .modern-table-row td {
+    .internships-table thead th,
+    .internships-table tbody td {
         padding: 8px 10px;
-        font-size: 11px;
-    }
-
-    .action-buttons {
-        flex-direction: row;
-        gap: 4px;
-    }
-
-    .btn-gradient-primary {
-        padding: 6px 10px;
-        font-size: 10px;
-    }
-
-    .btn-icon-delete,
-    .btn-icon-view,
-    .btn-icon-approve,
-    .btn-icon-reject {
-        width: 32px;
-        height: 32px;
-        font-size: 14px;
     }
 
     .pagination-container {
-        padding: 12px 20px;
+        flex-direction: column;
+        align-items: flex-start;
     }
-
-    .pagination-info {
-        font-size: 12px;
-    }
-}
-
-/* ============================================
-   UTILITY CLASSES
-   ============================================ */
-
-::ng-deep .tooltip .tooltip-inner {
-    text-align: left !important;
-    white-space: normal !important;
-    max-width: 300px !important;
-    background: #1a1a1a !important;
-    border-radius: 8px !important;
-    padding: 10px 14px !important;
-    font-size: 12px !important;
-}
-
-/* Smooth transitions */
-* {
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-
-button, input, select {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }

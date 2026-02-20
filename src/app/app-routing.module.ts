@@ -834,7 +834,8 @@ const routes: Routes = [
       { path: 'notification', component: NotificationComponent },
       { path: 'learning-resources', component: LearningResourcesComponent },
       { path: 'company-details', component: CompanyDetailsComponent },
-      { path: 'advertisements', component: AdvertisementsComponent },
+      // TODO: Uncomment when advertisements feature is needed
+      // { path: 'advertisements', component: AdvertisementsComponent },
       { path: 'appliedInternships', component: StudentAppliedInternshipsComponent },
       { path: 'myJobs', component:  MyJobsComponent},
       { path: 'apply_job', component: ApplyJobComponent },

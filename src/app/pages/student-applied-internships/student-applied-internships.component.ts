@@ -29,6 +29,13 @@ export class StudentAppliedInternshipsComponent extends BaseComponent implements
   userStudentDetails: any=[];
   studentIDImage: any='';
   activeTab: string = 'applied';
+  
+  // Pagination properties
+  searchTerm: string = '';
+  entriesPerPage: number = 10;
+  currentPage: number = 1;
+  Math = Math;
+  
 tooltipContent = `
 					View all the internships you’ve applied for along with their current status. Click on the <strong>Internship Details</strong> button to access full information anytime.<br><br>
           Click the delete icon on the left to revoke this application and become eligible to apply for a new internship.
@@ -381,6 +388,47 @@ tooltipContent = `
 
   OnEditView(evnt: any) {
     this.rtr.navigate(['/HOME/internshipSummery'], { queryParams: {course_id: evnt.course_category_id, inst_company_id: evnt.inst_company_id} })
+  }
+
+  // Pagination methods
+  get filteredInternships() {
+    if (!this.searchTerm) {
+      return this.table;
+    }
+    const search = this.searchTerm.toLowerCase();
+    return this.table.filter(item =>
+      item.company_name?.toLowerCase().includes(search) ||
+      item.fullname?.toLowerCase().includes(search) ||
+      item.course_name?.toLowerCase().includes(search) ||
+      (item.isactive_internship ? 'active' : 'in-active').includes(search)
+    );
+  }
+
+  get paginatedInternships() {
+    const start = (this.currentPage - 1) * this.entriesPerPage;
+    const end = start + this.entriesPerPage;
+    return this.filteredInternships.slice(start, end);
+  }
+
+  get totalPages(): number[] {
+    const pageCount = Math.ceil(this.filteredInternships.length / this.entriesPerPage);
+    return Array.from({ length: pageCount }, (_, i) => i + 1);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages.length) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
   }
 
 }

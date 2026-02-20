@@ -129,6 +129,7 @@ export class LoginComponent implements OnInit {
       //   this.route.navigate(['home/change-password']);
 
       if (this.isJobPerson && this.jobId != '' && this.jobId != 0) {
+        // Special case: User came from a job application link
         this.route.navigate(['HOME/applyJob'], { queryParams: { jobId: this.jobId } });
       } else {
         // Check if user was trying to enroll in a course
@@ -142,21 +143,31 @@ export class LoginComponent implements OnInit {
           // Redirect back to courses page
           this.route.navigate([returnUrl]);
         } else if (sessionStorage.courseDetails) {
+          // Special case: User came from a course details link
           const course = JSON.parse(sessionStorage.courseDetails);
           this.route.navigate(['view-course-details'], { state: course });
+        } else {
+          // Default: Redirect to respective dashboard based on user type
+          if (userData.USERTYPE == 24) {
+            // Admin
+            this.route.navigate(['HOME/admin-dashboard']);
+          } else if (userData.USERTYPE == 25) {
+            // Trainer
+            this.route.navigate(['HOME/trainer-dashboard']);
+          } else if (userData.USERTYPE == 27) {
+            // Founder
+            this.route.navigate(['HOME/founder-dshbrd']);
+          } else if (userData.USERTYPE == 28) {
+            // Incubator
+            this.route.navigate(['HOME/incubator-dshbrd']);
+          } else if (userData.USERTYPE == 29) {
+            // Investor
+            this.route.navigate(['HOME/investor-dshbrd']);
+          } else {
+            // Student or other roles - redirect to trainer dashboard
+            this.route.navigate(['HOME/trainer-dashboard']);
+          }
         }
-        else if (userData.USERTYPE == 24)
-          this.route.navigate(['HOME/usersRegistrationList']);
-        else if (userData.USERTYPE == 25)
-          this.route.navigate(['HOME/trainer-dashboard']);
-        else if (userData.USERTYPE == 27)
-          this.route.navigate(['HOME/founder-dshbrd'])
-        else if (userData.USERTYPE == 28)
-          this.route.navigate(['HOME/incubator-dshbrd'])
-        else if (userData.USERTYPE == 29)
-          this.route.navigate(['HOME/investor-dshbrd'])
-        else
-          this.route.navigate(['HOME/my-courses']);
       }
       // this.route.navigate(['HOME/dashboard']);
 

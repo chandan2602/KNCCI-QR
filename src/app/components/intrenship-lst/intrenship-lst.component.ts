@@ -17,29 +17,34 @@ declare var $: any;
 })
 export class IntrenshipLstComponent extends BaseComponent implements OnInit {
   
-
-  companyList: any[] = []; courseList: any[] = []; intrenshipPL: any = 0;
+  companyList: any[] = []; 
+  courseList: any[] = []; 
+  intrenshipPL: any = 0;
   isLogin: boolean = false;
   fileUrl: string = environment.fileUrl;
+  searchText: string = '';
+  entriesPerPage: number = 10;
+  currentPage: number = 1;
+  Math = Math;
 
   internships: any[] = [
     {
       id: 1,
-      title: 'Software Development Internship',
+      title: 'AI/ML Model Development Intern',
       company: 'Safaricom PLC',
       image: 'assets/kncci-img/img-2.png',
       logo: 'assets/kncci-img/header-kncci-logo.png',
-      verified: true,
+      verified: false,
       type: 'INTERNSHIP',
       duration: '6 months',
       location: 'Nairobi',
       salary: 'KES 30,000/month',
-      deadline: 'Deadline: 15 Mar 2026',
+      deadline: '01-10-2026',
       description: 'Join our engineering team to build next-generation mobile applications serving millions of Kenyans. Work...'
     },
     {
       id: 2,
-      title: 'Data Analytics Internship',
+      title: 'AML Arc',
       company: 'Equity Bank',
       image: 'assets/kncci-img/img-3.png',
       logo: 'assets/kncci-img/header-kncci-logo.png',
@@ -48,26 +53,26 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
       duration: '6 months',
       location: 'Nairobi',
       salary: 'KES 25,000/month',
-      deadline: 'Deadline: 25 Mar 2026',
+      deadline: '01-07-2025',
       description: 'Work with financial data to generate insights. Learn SQL, Python, and business intelligence tools while...'
     },
     {
       id: 3,
-      title: 'UI/UX Design Internship',
+      title: 'AML Training',
       company: 'Craft Silicon',
       image: 'assets/kncci-img/img-4.png',
       logo: 'assets/kncci-img/header-kncci-logo.png',
-      verified: true,
+      verified: false,
       type: 'INTERNSHIP',
       duration: '3 months',
       location: 'Mombasa',
       salary: 'KES 25,000/month',
-      deadline: 'Deadline: 25 Mar 2026',
+      deadline: '01-07-2025',
       description: 'Design user interfaces for mobile and web applications. Collaborate with product teams and lea...'
     },
     {
       id: 4,
-      title: 'Cybersecurity Internship',
+      title: 'Angular2026',
       company: 'Safaricom PLC',
       image: 'assets/kncci-img/img-5.png',
       logo: 'assets/kncci-img/header-kncci-logo.png',
@@ -76,12 +81,12 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
       duration: '6 months',
       location: 'Nairobi',
       salary: 'KES 30,000/month',
-      deadline: 'Deadline: 15 Mar 2026',
+      deadline: '08-10-2026',
       description: 'Protect digital assets and learn cybersecurity best practices. Work on real security challenges...'
     },
     {
       id: 5,
-      title: 'Marketing Internship',
+      title: 'Apple Time',
       company: 'Tech Innovations Ltd',
       image: 'assets/kncci-img/img-6.jpg',
       logo: 'assets/kncci-img/header-kncci-logo.png',
@@ -90,14 +95,56 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
       duration: '3 months',
       location: 'Nairobi',
       salary: 'KES 20,000/month',
-      deadline: 'Deadline: 30 Mar 2026',
+      deadline: '30-07-2025',
+      description: 'Develop marketing strategies and campaigns. Learn digital marketing, social media, and brand...'
+    },
+    {
+      id: 6,
+      title: 'Apple Time test',
+      company: 'Tech Innovations Ltd',
+      image: 'assets/kncci-img/img-6.jpg',
+      logo: 'assets/kncci-img/header-kncci-logo.png',
+      verified: false,
+      type: 'INTERNSHIP',
+      duration: '3 months',
+      location: 'Nairobi',
+      salary: 'KES 20,000/month',
+      deadline: '30-07-2025',
+      description: 'Develop marketing strategies and campaigns. Learn digital marketing, social media, and brand...'
+    },
+    {
+      id: 7,
+      title: 'Apple Time test2',
+      company: 'Tech Innovations Ltd',
+      image: 'assets/kncci-img/img-6.jpg',
+      logo: 'assets/kncci-img/header-kncci-logo.png',
+      verified: true,
+      type: 'INTERNSHIP',
+      duration: '3 months',
+      location: 'Nairobi',
+      salary: 'KES 20,000/month',
+      deadline: '30-07-2025',
+      description: 'Develop marketing strategies and campaigns. Learn digital marketing, social media, and brand...'
+    },
+    {
+      id: 8,
+      title: 'Apple watch Ads',
+      company: 'Tech Innovations Ltd',
+      image: 'assets/kncci-img/img-6.jpg',
+      logo: 'assets/kncci-img/header-kncci-logo.png',
+      verified: true,
+      type: 'INTERNSHIP',
+      duration: '3 months',
+      location: 'Nairobi',
+      salary: 'KES 20,000/month',
+      deadline: '09-12-2025',
       description: 'Develop marketing strategies and campaigns. Learn digital marketing, social media, and brand...'
     }
   ];
 
   tooltipContent = `
-					Browse and filter internships by company name using the dropdown. Click on any job card to view full details. To apply, use the <strong>Enroll</strong> button at the top right. Once approved by the company, your internship will appear under <strong>My Internships.</strong>
-					`;
+    Browse and filter internships by company name using the dropdown. Click on any job card to view full details. To apply, use the <strong>Enroll</strong> button at the top right. Once approved by the company, your internship will appear under <strong>My Internships.</strong>
+  `;
 
   constructor(public rtr: Router,
     private rte: ActivatedRoute,
@@ -176,15 +223,51 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
       this.rtr.navigate(['view-course-details'], { state: evnt });
     else
       this.rtr.navigate(['eRP/view-course-details'], { state: evnt });
+  }
 
-    // this.rtr.navigate(['view-course-details'])
-    // let params = evnt
-    // let params = this.params
-    // if (this.isLogin) {
-    //   this.rtr.navigate(['HOME/applyJob'], {  queryParams: {jobId: params.job_id} })
-    // } else 
-    //   this.rtr.navigate(['/login']);
-    // this.rtr.navigate(['jobSummery'], { queryParams: params });
+  get filteredInternships() {
+    let internships = this.internships;
+    
+    // Filter by search text
+    if (this.searchText) {
+      internships = internships.filter(i => 
+        i.title.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        i.company.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
+    
+    return internships;
+  }
+
+  get paginatedInternships() {
+    const start = (this.currentPage - 1) * this.entriesPerPage;
+    const end = start + this.entriesPerPage;
+    return this.filteredInternships.slice(start, end);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.filteredInternships.length / this.entriesPerPage);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  addInternship() {
+    // Add internship logic here
+    console.log('Add internship clicked');
   }
 
 }
