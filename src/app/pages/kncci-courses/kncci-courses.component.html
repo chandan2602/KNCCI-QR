@@ -1,10 +1,11 @@
+<app-public-header></app-public-header>
+
 <div class="courses-page">
   <div class="container-fluid">
-    <!-- Page Header -->
-    <div class="page-header">
-      <h1 class="page-title">Courses</h1>
-      <p class="login-prompt" *ngIf="!isLoggedIn">
-        <i class="bx bx-info-circle"></i> 
+    <!-- Login Prompt for Non-Logged In Users -->
+    <div class="login-prompt-section" *ngIf="!isLoggedIn">
+      <p class="login-prompt">
+        <i class="bx bx-info-circle"></i>
         <a [routerLink]="['/login']" class="login-link">Login</a> to access Applied Courses, AI Courses, and My Courses
       </p>
     </div>
@@ -42,7 +43,7 @@
           <i class="bx bx-arrow-back"></i> Back to Courses
         </button>
       </div>
-      
+
       <div class="details-content">
         <div class="row">
           <div class="col-md-4">
@@ -55,7 +56,7 @@
               <span class="badge badge-category">{{selectedCourse.category}}</span>
               <h2 class="details-title">{{selectedCourse.courseName}}</h2>
               <p class="details-description">{{selectedCourse.description}}</p>
-              
+
               <div class="details-meta">
                 <div class="meta-row">
                   <div class="meta-col">
@@ -73,7 +74,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="meta-row">
                   <div class="meta-col">
                     <i class="bx bx-calendar"></i>
@@ -90,7 +91,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="meta-row">
                   <div class="meta-col">
                     <i class="bx bx-group"></i>
@@ -107,7 +108,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="meta-row">
                   <div class="meta-col">
                     <i class="bx bx-layer"></i>
@@ -125,13 +126,14 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="details-footer">
                 <div class="price-section">
                   <span class="price-label">Course Fee:</span>
                   <span class="price-amount">KES {{selectedCourse.price}}</span>
                 </div>
-                <button class="btn btn-enroll-large" (click)="enrollCourse(selectedCourse)" *ngIf="selectedCourse.status !== 'Enrolled'">
+                <button class="btn btn-enroll-large" (click)="enrollCourse(selectedCourse)"
+                  *ngIf="selectedCourse.status !== 'Enrolled'">
                   <i class="bx bx-book-add"></i> {{isLoggedIn ? 'Enroll Now' : 'Login to Enroll'}}
                 </button>
                 <button class="btn btn-enrolled" *ngIf="selectedCourse.status === 'Enrolled'" disabled>
@@ -149,7 +151,7 @@
       <!-- Table Controls -->
       <div class="table-controls">
         <div class="entries-control">
-          <label>Show 
+          <label>Show
             <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
               <option [value]="10">10</option>
               <option [value]="25">25</option>
@@ -159,7 +161,7 @@
           </label>
         </div>
         <div class="search-control">
-          <label>Search: 
+          <label>Search:
             <input type="text" [(ngModel)]="searchText" placeholder="Search courses...">
           </label>
         </div>
@@ -191,8 +193,8 @@
               <td>{{course.startDate}}</td>
               <td>{{course.endDate}}</td>
               <td>
-                <span class="status-badge" [class.status-active]="course.status === 'Active'" 
-                      [class.status-enrolled]="course.status === 'Enrolled'">
+                <span class="status-badge" [class.status-active]="course.status === 'Active'"
+                  [class.status-enrolled]="course.status === 'Enrolled'">
                   {{course.status}}
                 </span>
               </td>
@@ -212,18 +214,16 @@
       <!-- Pagination -->
       <div class="pagination-container" *ngIf="filteredCourses.length > 0">
         <div class="pagination-info">
-          Showing {{(currentPage - 1) * entriesPerPage + 1}} to 
-          {{Math.min(currentPage * entriesPerPage, filteredCourses.length)}} of 
+          Showing {{(currentPage - 1) * entriesPerPage + 1}} to
+          {{Math.min(currentPage * entriesPerPage, filteredCourses.length)}} of
           {{filteredCourses.length}} entries
         </div>
         <div class="pagination-controls">
           <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
             Previous
           </button>
-          <button class="btn-page" 
-                  *ngFor="let page of [].constructor(totalPages); let i = index"
-                  [class.active]="currentPage === i + 1"
-                  (click)="goToPage(i + 1)">
+          <button class="btn-page" *ngFor="let page of [].constructor(totalPages); let i = index"
+            [class.active]="currentPage === i + 1" (click)="goToPage(i + 1)">
             {{i + 1}}
           </button>
           <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages">

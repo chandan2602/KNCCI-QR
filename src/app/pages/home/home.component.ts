@@ -37,8 +37,8 @@ export class HomeComponent extends BaseComponent implements OnInit {
         },
         err => {
           this.deactivateSpinner();
-          this.toastr.warning(err.error ? err.error.text || err.error : 'Records not getting');
-          window.history.back()
+          console.warn('Subscription check failed:', err);
+          // Don't navigate back - let user stay on the page
         })
     }
   }

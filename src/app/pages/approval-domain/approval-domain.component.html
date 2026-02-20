@@ -4,87 +4,78 @@
             <div class="default_class">
                 <div class="content-wrapper p-0">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card rounded shadow-lg">
-                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
-                                        <h5 class="mb-0 ">Approval Domain</h5>
-                                    </div>
+                        <!-- Filter Tabs -->
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs approval-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" (click)="getApproval(true)">
+                                        Company
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" (click)="getApproval(false)">
+                                        Individual
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
-                                    <div class="text-center pt-4">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="isCompany"
-                                                (change)="getApproval($event.target.value)" id="company" [value]="true"
-                                                checked>
-                                            <label class="form-check-label" for="subDomain">Company</label>
-                                        </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="isCompany"
-                                                (change)="getApproval($event.target.value)" id="company"
-                                                [value]="false">
-                                            <label class="form-check-label">Individual</label>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="card-body">
-                                        <div>
-                                            <div class="table-responsive">
-                                                <table id="approvaldomain" datatable [dtOptions]="dtOptions"
-                                                    [dtTrigger]="dtTrigger"
-                                                    class="table-striped table-bordered mt-2 pt-2 table-sm small display"
-                                                    style="width:100%">
-                                                    <thead class="top"
-                                                        style="background-color: #2E7D5B; color:#ffffff;">
-                                                        <tr style="white-space: nowrap;">
-                                                            <th> User Name </th>
-                                                            <th> Email Id </th>
-                                                            <th> Contact No. </th>
-                                                            <th> Company Name </th>
-                                                            <th> Approval Status </th>
-                                                            <th> SubDomain </th>
-                                                            <th> Approved / Rejected Date </th>
-                                                            <!-- <th> Rejected date </th> -->
-                                                            <th> Action </th>
-                                                            <th>View</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr *ngFor="let item of approvalList">
-                                                            <td> {{item.Firstname}} </td>
-                                                            <td> {{item.username}} </td>
-                                                            <td> {{item.mobileno}} </td>
-                                                            <td> {{item.company_name}} </td>
-                                                            <td> {{item.approval_status == 1 ? "pending" :
-                                                                item.approval_status == 2 ? "Approved":"Reject"}} </td>
-                                                            <td> {{item.subdomainname}} </td>
-                                                            <td>{{item.approval_status == 1 ? '' :
-                                                                (item.approval_status == 2 ? (item.approved_date |
-                                                                date:'dd-MM-yyyy') : (item.rejected_date |
-                                                                date:'dd-MM-yyyy'))}}</td>
-                                                            <!-- <td> {{item.approved_date | date:'dd-MM-yyyy'}} </td>
-                                                            <td> {{item.rejected_date | date:'dd-MM-yyyy'}} </td> -->
-                                                            <td>
-                                                                <a *ngIf="[1].includes(item.approval_status)"
-                                                                    href="javascript: void(0)"
-                                                                    (click)="changeStatus(item)">Approve</a>
-                                                            </td>
-                                                            <td>
-                                                                <button class="btn btn-warning btn-sm"
-                                                                    data-bs-target="#viewDetails" data-bs-toggle="modal"
-                                                                    (click)="viewStndtDetails(item)">
-                                                                    View Details
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <!-- Table Container -->
+                        <div class="table-container">
+                            <!-- Approval Table -->
+                            <div class="table-responsive">
+                                <table id="approvaldomain" datatable [dtOptions]="dtOptions"
+                                    [dtTrigger]="dtTrigger" class="table approval-table">
+                                    <thead>
+                                        <tr>
+                                            <th>User Name</th>
+                                            <th>Email Id</th>
+                                            <th>Contact No.</th>
+                                            <th>Company Name</th>
+                                            <th>Approval Status</th>
+                                            <th>SubDomain</th>
+                                            <th>Approved / Rejected Date</th>
+                                            <th>Action</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of approvalList">
+                                            <td>{{item.Firstname}}</td>
+                                            <td>{{item.username}}</td>
+                                            <td>{{item.mobileno}}</td>
+                                            <td class="company-name-cell">{{item.company_name}}</td>
+                                            <td>
+                                                <span class="status-badge" 
+                                                    [class.status-pending]="item.approval_status == 1"
+                                                    [class.status-approved]="item.approval_status == 2"
+                                                    [class.status-rejected]="item.approval_status == 3">
+                                                    {{item.approval_status == 1 ? 'Pending' : 
+                                                      item.approval_status == 2 ? 'Approved' : 'Rejected'}}
+                                                </span>
+                                            </td>
+                                            <td>{{item.subdomainname}}</td>
+                                            <td>{{item.approval_status == 1 ? '' :
+                                                (item.approval_status == 2 ? (item.approved_date | date:'dd-MM-yyyy') : 
+                                                (item.rejected_date | date:'dd-MM-yyyy'))}}</td>
+                                            <td>
+                                                <button *ngIf="[1].includes(item.approval_status)"
+                                                    class="btn-approve"
+                                                    (click)="changeStatus(item)">
+                                                    Approve
+                                                </button>
+                                                <span *ngIf="![1].includes(item.approval_status)">-</span>
+                                            </td>
+                                            <td>
+                                                <button class="btn-view-details"
+                                                    data-bs-target="#viewDetails" data-bs-toggle="modal"
+                                                    (click)="viewStndtDetails(item)">
+                                                    View Details
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -93,6 +84,8 @@
         </div>
     </div>
 </div>
+
+<!-- View Details Modal -->
 <div class="modal" data-keyboard="false" id="viewDetails" [formGroup]="viewDetailsForm">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -127,25 +120,11 @@
                         <input type="text" type="text" formControlName='ContactNumber'
                             class="form-control form-control-sm shadow-sm rounded-lg" readonly>
                     </div>
-                    <!-- <div class="col-xl-4 mb-3">
-                        <label class="col-md-5 control-label line_2 rem_1"> Gender
-                        </label>
-                        <input type="text" type="text" formControlName='Gender'
-                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
-                    </div>
-                    <div class="col-xl-4 mb-3">
-                        <label class="col-md-5 control-label line_2 rem_1"> Occupation
-                        </label>
-
-                        <input type="text" type="text" formControlName='occupation'
-                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
-                    </div> -->
                     <div class="col-xl-4 mb-3">
                         <label class="col-md-5 control-label line_2 rem_1"> Country
                         </label>
                         <input type="text" type="text" formControlName='Country'
                             class="form-control form-control-sm shadow-sm rounded-lg" readonly>
-
                     </div>
                     <div class="col-xl-4 mb-3">
                         <label class="control-label line_2 rem_1"> County/State
@@ -169,34 +148,6 @@
                         <img [src]="compImage" alt="Preview" class="img-thumbnail mt-2"
                             style="max-width: 100%;width: 150px;height: 150px;">
                     </div>
-                    <!-- <div class="col-xl-4 mb-3">
-                        <label class="col-md-5 control-label line_2 rem_1"> Education
-                        </label>
-                        <input type="text" type="text" formControlName='education'
-                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label class=" control-label line_2 rem_1">Any Other</label>
-                        <input type="text" type="text" formControlName='other'
-                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
-                    </div>
-                    <div class="col-xl-4 mb-3">
-                        <label class="col-md-5 control-label line_2 rem_1"> Pin code
-                        </label>
-                        <input type="text" type="text" formControlName='pincode'
-                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
-                    </div>
-                    <div class="col-xl-4 mb-3">
-                        <label class="col-md-5 control-label line_2 rem_1"> Nationality
-                        </label>
-                        <input type="text" type="text" formControlName='nationality'
-                            class="form-control form-control-sm shadow-sm rounded-lg" readonly>
-                    </div> -->
-                    <!-- <div class="col-md-4 mb-3">
-                        <label class=" control-label line_2 rem_1"> Upload Institute ID </label>
-                            <img [src]="studentIDImage" alt="Preview" 
-                                class="img-thumbnail mt-2" style="max-width: 100%;">
-                    </div> -->
                 </div>
             </div>
         </div>

@@ -26,27 +26,27 @@ export class StudentAppliedInternshipsComponent extends BaseComponent implements
   RoleId = sessionStorage.RoleId;
   serverPath: string = '';
   viewDetailsForm: UntypedFormGroup;
-  userStudentDetails: any=[];
-  studentIDImage: any='';
+  userStudentDetails: any = [];
+  studentIDImage: any = '';
   activeTab: string = 'applied';
-  
+
   // Pagination properties
   searchTerm: string = '';
   entriesPerPage: number = 10;
   currentPage: number = 1;
   Math = Math;
-  
-tooltipContent = `
+
+  tooltipContent = `
 					View all the internships you’ve applied for along with their current status. Click on the <strong>Internship Details</strong> button to access full information anytime.<br><br>
           Click the delete icon on the left to revoke this application and become eligible to apply for a new internship.
 					`;
 
-  constructor(private fileuploadService: FileuploadService, CommonService: CommonService, toastr: ToastrService, private fb: UntypedFormBuilder,private rtr:Router) {
+  constructor(private fileuploadService: FileuploadService, CommonService: CommonService, toastr: ToastrService, private fb: UntypedFormBuilder, private rtr: Router) {
     super(CommonService, toastr);
     this.serverPath = environment.internUrlFiles;
     this.getList();
 
-    
+
   }
 
   ngOnInit(): void {
@@ -94,7 +94,7 @@ tooltipContent = `
 
   courseDte(dateEnd: any) {
     // let params = this.params
-    let isFutureDate: boolean = true; 
+    let isFutureDate: boolean = true;
     let today = new Date();
 
     if (dateEnd != '' && dateEnd != null) {
@@ -142,15 +142,17 @@ tooltipContent = `
   }
 
   cancelRecord() { // Enroll/RevokeInternShipApplication
-    if(this.cnclComments == '') {
+    if (this.cnclComments == '') {
       return this.toastr.warning(`Enter Comments`);
     }
     this.CommonService.activateSpinner();
-    let payLoad: any = {internship_studentid: this.rowData?.internship_studentid, user_id: this.rowData?.inst_userid, courseshd_course_id: this.rowData?.course_id, 
-      Revoke_Comments: this.cnclComments}
+    let payLoad: any = {
+      internship_studentid: this.rowData?.internship_studentid, user_id: this.rowData?.inst_userid, courseshd_course_id: this.rowData?.course_id,
+      Revoke_Comments: this.cnclComments
+    }
     this.CommonService.postCall('Enroll/RevokeInternShipApplication', payLoad).subscribe(
       (res: any) => {
-        if(res?.status == true) {
+        if (res?.status == true) {
           this.deactivateSpinner();
           this.getList(); this.closeCncl(), this.getSubscriptnData()
         } else {
@@ -165,30 +167,25 @@ tooltipContent = `
       })
   }
 
-  getSubscriptnData() { // http://localhost:56608/api/InternshipJobs/GetSubscriberByUserId/12345
+  getSubscriptnData() {
     let userId: any = sessionStorage.UserId;
-    if(userId != undefined && userId != null && userId !='') {
+    if (userId != undefined && userId != null && userId != '') {
       this.activeSpinner();
       this.CommonService.getCall(`InternshipJobs/GetSubscriberByUserId/${sessionStorage.UserId}`, '', false).subscribe(
         (res: any) => {
-          if (res?.status == true) {
-            this.deactivateSpinner();
-            if(res?.data.length > 0) {
-              // this.subscribeData = res?.data[0];
-              sessionStorage.setItem('subscribeData', `${JSON.stringify(res?.data[0])}`);
-            }
-              
-            } else {
-              this.toastr.success(res.message);
-              this.deactivateSpinner();
-            }
+          this.deactivateSpinner();
+          if (res?.status == true && res?.data?.length > 0) {
+            sessionStorage.setItem('subscribeData', `${JSON.stringify(res?.data[0])}`);
+          }
         },
         err => {
           this.deactivateSpinner();
-          this.toastr.warning(err.error ? err.error.text || err.error : 'Records not getting');
-          window.history.back()
+          console.warn('Subscription check failed:', err);
+          // Don't navigate back - let user stay on the page
         })
-      }
+    } else {
+      this.deactivateSpinner();
+    }
   }
 
   getData(item, Id: number) {
@@ -220,7 +217,7 @@ tooltipContent = `
           $("#applicationForm").modal("show");
         } else
           // this.toastr.warning('Please try after some time!', "Details not found");
-        this.CommonService.deactivateSpinner();
+          this.CommonService.deactivateSpinner();
       },
       (err: any) => {
         this.toastr.error(err.error ? err.error : "Failed");
@@ -368,26 +365,26 @@ tooltipContent = `
       this.viewDetailsForm.patchValue({
         age: this.userStudentDetails.age,
         Gender: this.userStudentDetails.gender,
-      occupation:this.userStudentDetails.occupation,
-      Country: this.userStudentDetails.country_name,
-      County: this.userStudentDetails.state_name,
-      subCounty: this.userStudentDetails.districtname,
-      address: this.userStudentDetails.area,
-      education: this.userStudentDetails.education,
-      other: this.userStudentDetails.other,
-      pincode: this.userStudentDetails.pincode,
-      nationality:this.userStudentDetails.nationality,
-      fullname: this.userStudentDetails.fullname,
-      // idCard:`${this.fileUrl}${this.userStudentDetails.upload_institute}`,
-    })
-    this.studentIDImage=`${this.fileUrl}${this.userStudentDetails.upload_institute}`
+        occupation: this.userStudentDetails.occupation,
+        Country: this.userStudentDetails.country_name,
+        County: this.userStudentDetails.state_name,
+        subCounty: this.userStudentDetails.districtname,
+        address: this.userStudentDetails.area,
+        education: this.userStudentDetails.education,
+        other: this.userStudentDetails.other,
+        pincode: this.userStudentDetails.pincode,
+        nationality: this.userStudentDetails.nationality,
+        fullname: this.userStudentDetails.fullname,
+        // idCard:`${this.fileUrl}${this.userStudentDetails.upload_institute}`,
+      })
+      this.studentIDImage = `${this.fileUrl}${this.userStudentDetails.upload_institute}`
     }, 1000);
 
 
   }
 
   OnEditView(evnt: any) {
-    this.rtr.navigate(['/HOME/internshipSummery'], { queryParams: {course_id: evnt.course_category_id, inst_company_id: evnt.inst_company_id} })
+    this.rtr.navigate(['/HOME/internshipSummery'], { queryParams: { course_id: evnt.course_category_id, inst_company_id: evnt.inst_company_id } })
   }
 
   // Pagination methods
