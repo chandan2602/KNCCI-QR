@@ -79,6 +79,32 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
         this.internships = [];
         this.courseList = [];
       }
+      console.log('API Response:', res); // Debug log
+      this.courseList = [],
+      this.courseList = res.dtCourseScehdule.map((e: any) => (
+        {
+          ...e,
+          IMAGE_URL: `${this.fileUrl}${e.COURSE_IMAGE}`,
+          count: 120,
+          discount: 500
+        }));
+      console.log('Course List:', this.courseList); // Debug log
+      // Map courseList to internships for display
+      this.internships = this.courseList.map((course: any) => ({
+        id: course.COURSE_ID,
+        title: course.COURSE_NAME,
+        company: course.COMPANY_NAME || 'Company',
+        image: course.IMAGE_URL,
+        logo: 'assets/kncci-img/header-kncci-logo.png',
+        verified: true,
+        type: 'INTERNSHIP',
+        duration: course.COURSE_DURATION || '3-6 months',
+        location: course.LOCATION || 'Nairobi',
+        salary: course.SALARY || 'Negotiable',
+        deadline: course.DEADLINE || 'TBD',
+        description: course.COURSE_DESCRIPTION || ''
+      }));
+      console.log('Internships Array:', this.internships); // Debug log
       this.getSubscriptnData()
     })
   }

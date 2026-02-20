@@ -191,6 +191,7 @@ import { HeaderCorporatesComponent } from './components/tutor/header-corporates/
 import { HeaderJobsComponent } from './components/tutor/header-jobs/header-jobs.component';
 import { SubHeaderComponent } from './components/tutor/sub-header/sub-header.component';
 import { JobsInCompanyLstComponent } from './components/jobs-in-company-lst/jobs-in-company-lst.component';
+import { ApprenticeshipsComponent } from './pages/apprenticeships/apprenticeships.component';
 import { StartsUpComponent } from './components/tutor/starts-up/starts-up.component';
 import { IncubatorRegComponent } from './components/shared/incubator-reg/incubator-reg.component';
 import { InvestorRegComponent } from './components/shared/investor-reg/investor-reg.component';
@@ -519,6 +520,10 @@ const routes: Routes = [
       {
         path: 'cmpnyLst',
         component: JobsInCompanyLstComponent
+      },
+      {
+        path: 'apprenticeships',
+        component: ApprenticeshipsComponent
       },
       {
         path: 'addUserRegistration',
