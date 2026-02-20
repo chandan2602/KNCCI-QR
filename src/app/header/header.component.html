@@ -21,6 +21,13 @@
             </a>
           </li>
 
+          <!-- Courses (Available for all roles) -->
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/HOME/kncci-courses']">
+              Courses
+            </a>
+          </li>
+
           <!-- Super Admin Menu Items (ROLEID == 4) -->
           <li class="nav-item" *ngIf="ROLEID=='4'">
             <a class="nav-link" [routerLink]="['/HOME/approval-domain']">

@@ -304,6 +304,7 @@ import { StudentInternshipRecommenderComponent } from './student-internship-reco
 import { ChatWidgetComponent } from './components/shared/chat-widget/chat-widget.component';
 import { PublicHeaderComponent } from './components/public-header/public-header.component';
 import { PublicFooterComponent } from './components/public-footer/public-footer.component';
+import { KncciCoursesComponent } from './pages/kncci-courses/kncci-courses.component';
 
 
 
@@ -593,6 +594,7 @@ export function momentAdapterFactory() {
     ChatWidgetComponent,
     PublicHeaderComponent,
     PublicFooterComponent,
+    KncciCoursesComponent,
     
   ],
   imports: [

@@ -1,0 +1,232 @@
+<div class="courses-page">
+  <div class="container-fluid">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1 class="page-title">Courses</h1>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-container">
+      <ul class="nav nav-tabs course-tabs">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')">
+            All Courses
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'applied'" (click)="setActiveTab('applied')">
+            Applied Courses
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'ai'" (click)="setActiveTab('ai')">
+            AI Courses
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'my'" (click)="setActiveTab('my')">
+            My Courses
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Course Details View -->
+    <div class="course-details-view" *ngIf="showDetails && selectedCourse">
+      <div class="details-header">
+        <button class="btn-back" (click)="closeDetails()">
+          <i class="bx bx-arrow-back"></i> Back to Courses
+        </button>
+      </div>
+      
+      <div class="details-content">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="details-image">
+              <img [src]="selectedCourse.image" [alt]="selectedCourse.courseName">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="details-info">
+              <span class="badge badge-category">{{selectedCourse.category}}</span>
+              <h2 class="details-title">{{selectedCourse.courseName}}</h2>
+              <p class="details-description">{{selectedCourse.description}}</p>
+              
+              <div class="details-meta">
+                <div class="meta-row">
+                  <div class="meta-col">
+                    <i class="bx bx-user-circle"></i>
+                    <div>
+                      <span class="meta-label">Instructor</span>
+                      <span class="meta-value">{{selectedCourse.instructor}}</span>
+                    </div>
+                  </div>
+                  <div class="meta-col">
+                    <i class="bx bx-time-five"></i>
+                    <div>
+                      <span class="meta-label">Duration</span>
+                      <span class="meta-value">{{selectedCourse.duration}}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="meta-row">
+                  <div class="meta-col">
+                    <i class="bx bx-calendar"></i>
+                    <div>
+                      <span class="meta-label">Start Date</span>
+                      <span class="meta-value">{{selectedCourse.startDate}}</span>
+                    </div>
+                  </div>
+                  <div class="meta-col">
+                    <i class="bx bx-calendar-check"></i>
+                    <div>
+                      <span class="meta-label">End Date</span>
+                      <span class="meta-value">{{selectedCourse.endDate}}</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="meta-row">
+                  <div class="meta-col">
+                    <i class="bx bx-group"></i>
+                    <div>
+                      <span class="meta-label">Students Enrolled</span>
+                      <span class="meta-value">{{selectedCourse.students}}</span>
+                    </div>
+                  </div>
+                  <div class="meta-col">
+                    <i class="bx bx-star"></i>
+                    <div>
+                      <span class="meta-label">Rating</span>
+                      <span class="meta-value">{{selectedCourse.rating}} / 5.0</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="meta-row">
+                  <div class="meta-col">
+                    <i class="bx bx-layer"></i>
+                    <div>
+                      <span class="meta-label">Level</span>
+                      <span class="meta-value">{{selectedCourse.level}}</span>
+                    </div>
+                  </div>
+                  <div class="meta-col">
+                    <i class="bx bx-check-circle"></i>
+                    <div>
+                      <span class="meta-label">Status</span>
+                      <span class="meta-value">{{selectedCourse.status}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="details-footer">
+                <div class="price-section">
+                  <span class="price-label">Course Fee:</span>
+                  <span class="price-amount">KES {{selectedCourse.price}}</span>
+                </div>
+                <button class="btn btn-enroll-large" (click)="enrollCourse(selectedCourse)" *ngIf="selectedCourse.status !== 'Enrolled'">
+                  <i class="bx bx-book-add"></i> Enroll Now
+                </button>
+                <button class="btn btn-enrolled" *ngIf="selectedCourse.status === 'Enrolled'" disabled>
+                  <i class="bx bx-check"></i> Already Enrolled
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table View -->
+    <div class="table-container" *ngIf="!showDetails">
+      <!-- Table Controls -->
+      <div class="table-controls">
+        <div class="entries-control">
+          <label>Show 
+            <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+              <option [value]="10">10</option>
+              <option [value]="25">25</option>
+              <option [value]="50">50</option>
+            </select>
+            entries
+          </label>
+        </div>
+        <div class="search-control">
+          <label>Search: 
+            <input type="text" [(ngModel)]="searchText" placeholder="Search courses...">
+          </label>
+        </div>
+      </div>
+
+      <!-- Courses Table -->
+      <div class="table-responsive">
+        <table class="table courses-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Course Name</th>
+              <th>Instructor</th>
+              <th>Category</th>
+              <th>Duration</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of paginatedCourses; let i = index">
+              <td>{{(currentPage - 1) * entriesPerPage + i + 1}}</td>
+              <td class="course-name-cell">{{course.courseName}}</td>
+              <td>{{course.instructor}}</td>
+              <td><span class="badge badge-{{course.category.toLowerCase()}}">{{course.category}}</span></td>
+              <td>{{course.duration}}</td>
+              <td>{{course.startDate}}</td>
+              <td>{{course.endDate}}</td>
+              <td>
+                <span class="status-badge" [class.status-active]="course.status === 'Active'" 
+                      [class.status-enrolled]="course.status === 'Enrolled'">
+                  {{course.status}}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-view-details" (click)="viewDetails(course)">
+                  View Details
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="paginatedCourses.length === 0">
+              <td colspan="9" class="text-center">No courses found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-container" *ngIf="filteredCourses.length > 0">
+        <div class="pagination-info">
+          Showing {{(currentPage - 1) * entriesPerPage + 1}} to 
+          {{Math.min(currentPage * entriesPerPage, filteredCourses.length)}} of 
+          {{filteredCourses.length}} entries
+        </div>
+        <div class="pagination-controls">
+          <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+            Previous
+          </button>
+          <button class="btn-page" 
+                  *ngFor="let page of [].constructor(totalPages); let i = index"
+                  [class.active]="currentPage === i + 1"
+                  (click)="goToPage(i + 1)">
+            {{i + 1}}
+          </button>
+          <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
