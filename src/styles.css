@@ -180,3 +180,13 @@ a {
         max-width: 100%;
     }
 }
+
+/* Prevent layout shift when modal opens - preserve scrollbar space */
+body.modal-open {
+    overflow: hidden;
+    padding-right: 0 !important;
+}
+
+.modal {
+    padding-right: 0 !important;
+}
