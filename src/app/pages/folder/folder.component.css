@@ -2,3 +2,14 @@
     width: 200px;
     margin-top: 10px;
 }
+
+/* KNCCI Color Theme */
+.headerbg {
+    background-color: #2e7d32 !important;
+    color: white !important;
+}
+
+.headerbg h5 {
+    color: white !important;
+    font-weight: 600;
+}

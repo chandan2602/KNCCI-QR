@@ -1,4 +1,75 @@
 .icon_search{
     font-size: 25px;
     margin-top: 3px;
+    color: #2e7d32;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.icon_search:hover {
+    color: #1b5e20;
+}
+
+/* KNCCI Color Theme */
+.headerbg {
+    background-color: #2e7d32 !important;
+    color: white !important;
+}
+
+.headerbg h5 {
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Compose Post Button */
+.btn-compose-post {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-compose-post:hover {
+    background-color: #1b5e20 !important;
+    border-color: #1b5e20 !important;
+    color: white !important;
+    box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+}
+
+/* Save/Update Button */
+.btn-save {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+    background-color: #1b5e20 !important;
+    border-color: #1b5e20 !important;
+    color: white !important;
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-bottom: 1px solid #1b5e20;
+}
+
+.modal-header h4,
+.modal-header h5,
+.modal-header h6,
+.modal-header .modal-title {
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+.modal-header .close,
+.modal-header .btn-close {
+    color: white !important;
+    opacity: 1 !important;
 }

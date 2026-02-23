@@ -42,8 +42,8 @@
                                         <!-- <h5 class="mb-0 text-center">Mail Box</h5> -->
                                         <div class="row  mt-1">
                                             <div class="col col-lg-4 float-right">
-                                                <button type="button" class="btn btn-primary col-12"
-                                                    style="background: #2e7a91" (click)='composMail()'><span
+                                                <button type="button" class="btn btn-compose-mail col-12"
+                                                    (click)='composMail()'><span
                                                         class="fa fa-pencil"></span>&nbsp;&nbsp;&nbsp;Compose
                                                     Mail</button>
                                             </div>
@@ -55,26 +55,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
+                                        <ul class="nav nav-tabs mt-2" id="myTab" role="tablist" style="border-bottom: 2px solid #2e7d32;">
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
                                                     (click)='loadInbox("MailBox/InboxMails","Inbox")' role="tab"
-                                                    aria-controls="home" aria-selected="true"><span
+                                                    aria-controls="home" aria-selected="true" style="color: #2e7d32; border-bottom: 3px solid #2e7d32;"><span
                                                         style="font-size: 18px; font-weight: 500">Inbox</span>&nbsp;&nbsp;&nbsp;<span
-                                                        class="badge badge-secondary">{{stats.INBOXREAD+stats.INBOXUNREAD}}</span></a>
+                                                        class="badge badge-secondary" style="background-color: #2e7d32;">{{stats.INBOXREAD+stats.INBOXUNREAD}}</span></a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="profile-tab" data-toggle="tab"
                                                     (click)='loadInbox("MailBox/SentMails","Sent")' href="#home"
-                                                    role="tab" aria-controls="home" aria-selected="false"><span
+                                                    role="tab" aria-controls="home" aria-selected="false" style="color: #333;"><span
                                                         style="font-size: 18px; font-weight: 500">Sent
                                                         Mail</span>&nbsp;&nbsp;&nbsp;<span
-                                                        class="badge badge-secondary">{{stats.SENT}}</span></a>
+                                                        class="badge badge-secondary" style="background-color: #2e7d32;">{{stats.SENT}}</span></a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" id="contact-tab" data-toggle="tab"
                                                     (click)='loadInbox("MailBox/TrashMails","Trash")' href="#home"
-                                                    role="tab" aria-controls="home" aria-selected="false"><span
+                                                    role="tab" aria-controls="home" aria-selected="false" style="color: #333;"><span
                                                         style="font-size: 18px; font-weight: 500">Trash</span></a>
                                             </li>
                                         </ul>

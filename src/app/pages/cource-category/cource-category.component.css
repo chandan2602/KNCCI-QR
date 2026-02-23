@@ -1,0 +1,115 @@
+/* KNCCI Color Theme */
+.headerbg {
+    background-color: #2e7d32 !important;
+    color: white !important;
+}
+
+.headerbg h5 {
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Add Button */
+.btn-add-category {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 8px 20px;
+}
+
+.btn-add-category:hover {
+    background-color: #1b5e20 !important;
+    border-color: #1b5e20 !important;
+    color: white !important;
+    box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+}
+
+/* Upload Image Button */
+.btn-upload-image {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-upload-image:hover {
+    background-color: #1b5e20 !important;
+    border-color: #1b5e20 !important;
+    color: white !important;
+}
+
+/* Save/Update Button */
+.btn-save {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+    background-color: #1b5e20 !important;
+    border-color: #1b5e20 !important;
+    color: white !important;
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-bottom: 1px solid #1b5e20;
+}
+
+.modal-header h4,
+.modal-header h5,
+.modal-header h6,
+.modal-header .modal-title {
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+.modal-header .close,
+.modal-header .btn-close {
+    color: white !important;
+    opacity: 1 !important;
+}
+
+/* Table Header */
+.table thead {
+    background-color: #2e7d32 !important;
+    color: white !important;
+}
+
+.table thead th {
+    color: white !important;
+    font-weight: 600;
+    border-color: #2e7d32 !important;
+}
+
+/* Edit Icon */
+.edit_icon {
+    cursor: pointer;
+    color: #2e7d32;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.edit_icon:hover {
+    color: #1b5e20;
+    transform: scale(1.1);
+}
+
+/* Card Header in Modal */
+.modal-body .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #2e7d32;
+}
+
+.modal-body .card-header h6 {
+    color: #2e7d32;
+    font-weight: 600;
+}

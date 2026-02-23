@@ -1,115 +1,97 @@
 <div class="pt-4">
-    <div class="page-content pt-0 pe-0 ps-0">
-        <div class="default_class">
-            <div class="content-wrapper p-0">
-                <div class="">
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="card rounded shadow-lg">
-                                <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
-                                    <span class="float-start">
-                                        <h5 class="mb-0">Internship 
-                                            <button class="btn btn-sm"
-                        [appTooltip]="tooltipContent">
-                        <i class="bi bi-info-circle-fill"></i>
-                    </button>
-                                        </h5>
-                                    </span>
-                                    <span class="float-end">
-                                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                            *ngIf="isPermission" (click)="submitted = false;add()"
-                                            data-bs-target="#myModal">Add</button>
-                                    </span>
+    <div class="page-content pt-0 pe-2 ps-2">
+        <div class="container-fluid">
+            <!-- Filters and Controls Section -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <label for="entriesSelect" class="mb-0">Show</label>
+                    <select id="entriesSelect" class="form-select form-select-sm" style="width: auto;">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                    </select>
+                    <span class="text-muted">entries</span>
+                </div>
+                <div>
+                    <input type="text" class="form-control form-control-sm" placeholder="Search..." style="width: 200px;">
+                </div>
+            </div>
+
+            <!-- Tenant Filter -->
+            <div class="mb-2" *ngIf="isSuperAdmin">
+                <select [(ngModel)]='tId' (change)="changeTname()"
+                    class="form-select form-select-sm" style="max-width: 250px;">
+                    <option value="">Select Tenant</option>
+                    <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
+                        {{item.TNT_NAME}}
+                    </option>
+                </select>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-responsive">
+                <table datatable id="DataTables_Table_0" [dtOptions]="dtOptions"
+                    [dtTrigger]="dtTrigger"
+                    class="table table-striped table-bordered table-sm mb-0"
+                    style="width:100%">
+                    <thead style="background-color: #2e7d32; color:#ffffff; font-weight: 600;">
+                        <tr>
+                            <th style="padding: 12px 8px;">Internship Name</th>
+                            <th style="padding: 12px 8px;">Is Certified</th>
+                            <th style="padding: 12px 8px;">Status</th>
+                            <th style="padding: 12px 8px;">Approve / Reject Status</th>
+                            <th style="padding: 12px 8px;">Approve / Reject Date</th>
+                            <th style="width: 18%; padding: 12px 8px; text-align: center;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of table">
+                            <td style="padding: 10px 8px;">{{item.COURSE_NAME}}</td>
+                            <td style="padding: 10px 8px;">{{item.ISCERTIFIED?'Certified':'Uncertified'}}</td>
+                            <td style="padding: 10px 8px;">{{item.STATUS_DESCRIPTION}}</td>
+                            <td style="padding: 10px 8px;">
+                                <span *ngIf="item.SUPER_ADMIN_APP_REJ_STATUS == '2'" class="badge bg-success">Approve</span>
+                                <span *ngIf="item.SUPER_ADMIN_APP_REJ_STATUS == '3'" class="badge bg-danger">Reject</span>
+                                <span *ngIf="item.SUPER_ADMIN_APP_REJ_STATUS == '1'" class="badge bg-warning text-dark">Pending</span>
+                            </td>
+                            <td style="padding: 10px 8px;">{{item.SUPER_ADMIN_APP_REJ_STATUS != '1' ? (item.SUPER_ADMIN_APP_REJ_AT | date: 'dd-MM-yyyy'): '-'}}</td>
+                            <td style="padding: 10px 8px; text-align: center;">
+                                <div style="display: flex; gap: 4px; justify-content: center; flex-wrap: wrap;">
+                                    <button class="btn btn-sm btn-success rounded-circle"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#myModal" 
+                                        (click)="submitted = false;edit(item)"
+                                        *ngIf="isPermission"
+                                        title="Edit"
+                                        style="width: 28px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                                        <i class="bi bi-pencil" style="font-size: 14px;"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-info"
+                                        *ngIf="RoleId==1"
+                                        (click)="navigate(item,'course-assignTrainer')"
+                                        title="Add Trainers"
+                                        style="padding: 4px 8px; font-size: 12px;">
+                                        <i class="bi bi-person-plus"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary"
+                                        (click)="navigate(item,'course-programOutcome')"
+                                        title="Learning Objective"
+                                        style="padding: 4px 8px; font-size: 12px;">
+                                        <i class="bi bi-book"></i>
+                                    </button>
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group ">
-                                        <div class="row">
-                                            <div *ngIf='isSuperAdmin' class="col-md-3">
-                                                <label for="sel1">Tenant Name : </label>
-                                                <select [(ngModel)]='tId ' (change)="changeTname()"
-                                                    class="form-control form-control-sm shadow-sm rounded-lg" id="sel1">
-                                                    <option value="" [selected]="true">select</option>
-                                                    <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
-                                                        {{item.TNT_NAME}}</option>
-                                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pt-4">
-                                        <table datatable id="DataTables_Table_0" [dtOptions]="dtOptions"
-                                            [dtTrigger]="dtTrigger"
-                                            class=" table-striped table-bordered mt-2 pt-2 table-sm small display"
-                                            style="width:100%">
-                                            <thead class="top" style="background-color: #2E7D5B; color:#ffffff;">
-                                                <tr>
-                                                    <th> Internship Name </th>
-                                                    <th> Is Certified </th>
-                                                    <th> Status </th>
-                                                    <th>Approve / Reject Status </th>
-                                                    <th>Approve / Reject Date</th>
-                                                    <th> Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let item of table">
-                                                    <td>{{item.COURSE_NAME}}</td>
-                                                    <td>{{item.ISCERTIFIED?'Certified Trainer':'Uncertified Trainer'}}
-                                                    </td>
-                                                    <td>{{item.STATUS_DESCRIPTION}}</td>
-                                                    <td>{{item.SUPER_ADMIN_APP_REJ_STATUS == '2' ? 'Approve':
-                                                        (item.SUPER_ADMIN_APP_REJ_STATUS == '3' ? 'Reject': 'Pending')}}
-                                                    </td>
-                                                    <td>{{item.SUPER_ADMIN_APP_REJ_STATUS != '1' ?
-                                                        (item.SUPER_ADMIN_APP_REJ_AT | date: 'dd-MM-YYYY'): ''}}</td>
-                                                    <td style="display: flex;"> <span data-bs-toggle="modal"
-                                                            data-bs-target="#myModal" src="" class="edit_icon"
-                                                            (click)="submitted = false;edit(item)" *ngIf="isPermission">
-                                                            <i class="fas fa-pen pt-1 mt-1"></i></span>
-
-                                                        <button class="btn" *ngIf="RoleId==1"><i class='fa fa-user-plus'
-                                                                (click)="navigate(item,'course-assignTrainer')"
-                                                                style='font-size:24px'> <span class="span">Add
-                                                                    Trainers</span> </i> </button>
-
-                                                        <button class="btn"><i class="fa fa-desktop"
-                                                                (click)="navigate(item,'course-programOutcome')"
-                                                                style='font-size:24px' aria-hidden="true"> <span
-                                                                    class="span">learning objective</span> </i></button>
-                                                        <!--  -->
-                                                        <!-- <button type="button" class="btn btn-sm btn-light"
-                                                            (click)="showBulletOptions(item)"><svg
-                                                                xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                                                            </svg>
-                                                        </button> -->
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="text-center" *ngIf="false">
-                                        No Records to display
-                                    </div>
-                                </div>
-                                <!-- <div style="padding-left:500px" class="button pt-4"> -->
-                                <!-- <button type="button" class="btn btn-save btn-lg" data-bs-toggle="modal"
-                                        data-bs-target="#modelCertificate">Certificate</button> -->
-                                <!-- <button type="button" class="btn btn-save btn-lg" (click)="showModel=true;displayModel()" data-bs-toggle="modal"
-                                        data-bs-target="#modelCertificate">Certificate</button>
-                                        <app-certificate *ngIf="showModel" (closeCertificateEvent)="closeCertificateEvent($event)"></app-certificate>
-                                        <input type="button" id="btnShowModel" class="d-none" data-bs-toggle="modal"
-                  data-bs-target="#modelCertificate" data-bs-whatever="@mdo">
-
-                                </div> -->
-                            </div>
-                        </div>
-
-                    </div>
+            <!-- Pagination Info -->
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="text-muted small">Showing 1 to {{table?.length || 0}} of {{table?.length || 0}} entries</span>
+                <div>
+                    <button class="btn btn-sm btn-outline-secondary me-1">Previous</button>
+                    <button class="btn btn-sm btn-outline-secondary">Next</button>
                 </div>
             </div>
         </div>
