@@ -17,7 +17,14 @@ export class CourceScheduleComponent extends BaseComponent implements OnInit {
   isSubmitted: Boolean = false;
   editData: any = {};
   RecordingList: Array<any> = [];
-tooltipContent = `
+  
+  // Pagination and search properties
+  searchTerm: string = '';
+  currentPage: number = 1;
+  entriesPerPage: number = 10;
+  Math = Math;
+
+  tooltipContent = `
 					To schedule a created internship, follow these steps: <br><br>
 1.	Click the <strong>Add</strong> button. <br>
 2.	Select the appropriate <strong>Category. </strong> <br>
@@ -36,6 +43,7 @@ tooltipContent = `
   ngOnInit(): void {
 
   }
+  
   load() {
     this.activeSpinner();
     let payLoad = {
@@ -48,24 +56,71 @@ tooltipContent = `
     this.CommonService.postCall('LoadCourseScheduleBatchPlan', payLoad).subscribe((res: any) => {
       this.table = [];
       this.table = res;
-      this.renderDataTable()
       this.deactivateSpinner();
     }, e => { this.deactivateSpinner() })
-
   }
-  //CourseshAssigntrainersComponent courceSchedule-AssignTrainer  courceSchedule-AssignUser
+
+  // Filter schedules based on search term
+  filteredSchedules() {
+    if (!this.searchTerm) {
+      return this.table;
+    }
+    const term = this.searchTerm.toLowerCase();
+    return this.table.filter(schedule => 
+      schedule.COURSESHD_COURSE_ID?.toLowerCase().includes(term) ||
+      schedule.COURSESHD_NAME?.toLowerCase().includes(term)
+    );
+  }
+
+  // Get paginated schedules
+  paginatedSchedules() {
+    const filtered = this.filteredSchedules();
+    const startIndex = (this.currentPage - 1) * this.entriesPerPage;
+    const endIndex = startIndex + this.entriesPerPage;
+    return filtered.slice(startIndex, endIndex);
+  }
+
+  // Calculate total pages
+  totalPages() {
+    const total = Math.ceil(this.filteredSchedules().length / this.entriesPerPage);
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  // Navigate to next page
+  nextPage() {
+    if (this.currentPage < this.totalPages().length) {
+      this.currentPage++;
+    }
+  }
+
+  // Navigate to previous page
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Go to specific page
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
   add() {
     this.route.navigate(['HOME/courseSchedule/add'])
   }
+  
   close() {
 
   }
+  
   edit(item) {
     this.route.navigate(['HOME/courseSchedule/edit'], { queryParams: { cId: item.COURSESHD_ID } })
   }
+  
   navigate(data, route) {
     this.route.navigate(['HOME/' + route], { queryParams: { csId: data.COURSESHD_ID, cId: data.COURSE_ID } })
   }
+  
   sessions(item) {
     let params = {
       csId: item.COURSESHD_ID,
@@ -74,8 +129,8 @@ tooltipContent = `
       eDate: item.COURSESHD_ENDDATE
     }
     this.route.navigate(['HOME/courseSessions'], { queryParams: params })
-
   }
+  
   joinMeeting(url: string) {
     super.getMeetingDetails(url);
   }
@@ -83,11 +138,6 @@ tooltipContent = `
   changeTname() {
     this.load()
   }
-  ngOnDestroy() {
-    this.dtTrigger.unsubscribe();
-  }
-
-
 
   changeStatus(URL: any) {
     if (URL) {
@@ -95,13 +145,11 @@ tooltipContent = `
         this.RecordingList = res.data;
         setTimeout(() => { this.isSubmitted = true; }, 10);
       }, e => { });
-
     }
   }
 
   closeModel(data: any) {
     this.isSubmitted = false;
-
   }
 }
 

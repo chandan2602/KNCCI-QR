@@ -1,103 +1,91 @@
-<div class="page-wrapper pt-4">
-    <div class="page-content pt-0 pe-0 ps-0">
-        <div class="">
-            <div class="default_class">
-                <div class="content-wrapper p-0">
-                    <div class="">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card rounded shadow-lg">
-                                    <div class="card-header  headerbg" style="border-bottom:3px solid #d8eff8;">
-                                        <div class="float-start">
-                                            <h5 class="mb-0 ">{{isAdmin?'User Registration':'My Profile'}}</h5>
-                                        </div>
-                                        <div class="float-end " *ngIf='isAdmin'>
-                                            <button type="button" class="btn btn-sm btn-primary"
-                                                (click)="add()">Add</button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-xl-3 mb-3">
-                                                <div class="form-group ">
-                                                    <div class="row">
-                                                        <div class="col-md-12" *ngIf='roleId=="4"'>
-                                                            <label for="sel1">Tenant Name : </label>
-                                                            <select [(ngModel)]='tId ' (change)="changeTname()"
-                                                                class="form-control form-control-sm shadow-sm rounded-lg"
-                                                                id="sel1">
-                                                                <option value="" [selected]="true">select</option>
-                                                                <option *ngFor="let item of tenanates"
-                                                                    [value]='item.TNT_CODE'>
-                                                                    {{item.TNT_NAME}}</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-md-12" *ngIf='isAdmin'>
-                                                            <label for="sel1">User Role : </label>
-                                                            <select [(ngModel)]='rId' (change)="change()"
-                                                                class="form-control form-control-sm shadow-sm rounded-lg"
-                                                                id="sel1">
-                                                                <option value="" [selected]="true">select</option>
-                                                                <option *ngFor="let item of roles"
-                                                                    [value]='item.ROLE_ID'>
-                                                                    {{item.ROLE_NAME}}</option>
-                                                            </select>
-                                                        </div>
+<div class="user-registration-page">
+    <div class="container-fluid">
+        <div class="page-header">
+            <h1 class="page-title">
+                {{isAdmin ? 'User Registration' : 'My Profile'}}
+            </h1>
+        </div>
 
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-9  mb-3">
-
-                                            </div>
-                                        </div>
-
-
-
-                                        <!-- [disabled]='!(+rId==2)' *ngIf='isAdmin'-->
-
-                                        <div *ngIf="table.length">
-                                            <table id="patreggraph" datatable
-                                                class=" table-striped table-bordered mt-2 pt-2 table-sm small"
-                                                style="width:100%">
-                                                <thead class="top" style="background-color: #2E7D5B; color:#ffffff;">
-                                                    <tr>
-                                                        <th> User Name </th>
-                                                        <th>First Name</th>
-                                                        <th> Role </th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngFor="let item of table">
-                                                        <td>{{item.USERNAME}}</td>
-                                                        <td>{{item.FIRSTNAME}}</td>
-                                                        <td>{{item.ROLE_NAME}}</td>
-                                                        <!-- <td>{{(rId=='2')?'Trainer':(rId=='2')?UserRoleName}}</td> -->
-                                                        <td>{{item.STATUS}}</td>
-                                                        <td style="display: flex;">
-                                                            <span data-bs-toggle="modal" data-bs-target="#myModal"
-                                                                src="" class="edit_icon" (click)="edit(item)">
-                                                                <i class="fas fa-pen pt-1 mt-1"></i></span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="text-center" *ngIf="!table.length">
-                                            No Records to display
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+        <div class="table-container">
+            <!-- Filters Section -->
+            <div class="filters-section">
+                <div class="filter-group" *ngIf='roleId=="4"'>
+                    <label class="filter-label">Tenant Name</label>
+                    <select [(ngModel)]='tId' (change)="changeTname()" class="filter-select">
+                        <option value="">Select Tenant</option>
+                        <option *ngFor="let item of tenanates" [value]='item.TNT_CODE'>
+                            {{item.TNT_NAME}}
+                        </option>
+                    </select>
                 </div>
+                
+                <div class="filter-group" *ngIf='isAdmin'>
+                    <label class="filter-label">User Role</label>
+                    <select [(ngModel)]='rId' (change)="change()" class="filter-select">
+                        <option value="">Select Role</option>
+                        <option *ngFor="let item of roles" [value]='item.ROLE_ID'>
+                            {{item.ROLE_NAME}}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="filter-actions" *ngIf='isAdmin'>
+                    <button type="button" class="btn-add" (click)="add()">
+                        <i class="fas fa-plus"></i>
+                        Add User
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-responsive" *ngIf="table.length > 0">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>S. No</th>
+                            <th>User Name</th>
+                            <th>First Name</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of table; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td class="username-cell">{{item.USERNAME}}</td>
+                            <td>{{item.FIRSTNAME}}</td>
+                            <td>
+                                <span class="badge-role">{{item.ROLE_NAME}}</span>
+                            </td>
+                            <td>
+                                <span class="status-badge" 
+                                      [ngClass]="{
+                                        'status-active': item.STATUS?.toLowerCase() === 'active',
+                                        'status-inactive': item.STATUS?.toLowerCase() === 'inactive'
+                                      }">
+                                    {{item.STATUS}}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-action btn-edit" 
+                                            (click)="edit(item)"
+                                            title="Edit User">
+                                        <i class="fas fa-pen"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" *ngIf="table.length === 0">
+                <i class="fas fa-users"></i>
+                <p>No users found</p>
+                <small>Select a role to view users or add a new user</small>
             </div>
         </div>
     </div>

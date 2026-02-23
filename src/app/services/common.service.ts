@@ -22,7 +22,7 @@ export class CommonService {
   samvaadUrl: string = environment.SamvaadUrl;
   paystatus: boolean;
   totalAmount: any;
-  constructor(public http: HttpClient,  public dtPipe: DatePipe,) { }
+  constructor(public http: HttpClient, public dtPipe: DatePipe,) { }
 
 
   /////////////////////////////////////spinner/////////////////////////////////////////
