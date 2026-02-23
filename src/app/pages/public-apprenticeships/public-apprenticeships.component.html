@@ -1,0 +1,214 @@
+<app-public-header></app-public-header>
+
+<div class="apprenticeships-page">
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">Apprenticeships</h1>
+      <p class="page-subtitle">Gain hands-on experience and develop practical skills through our apprenticeship programs</p>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <!-- Login Notice for Non-Logged In Users -->
+    <div class="alert alert-info" *ngIf="!isLoggedIn">
+      <i class='bx bx-info-circle'></i>
+      You are viewing apprenticeships as a guest. Please <a (click)="redirectToLogin()" class="alert-link" style="cursor: pointer;">login</a> to enroll in programs.
+    </div>
+
+    <!-- Apprenticeship Details View -->
+    <div class="apprenticeship-details-view" *ngIf="selectedApprenticeship">
+      <div class="details-card">
+        <div class="row">
+          <!-- Left Side - Image -->
+          <div class="col-md-4">
+            <div class="apprenticeship-image">
+              <img [src]="selectedApprenticeship.image || 'assets/kncci-img/img-1.png'" alt="{{selectedApprenticeship.program_name}}">
+            </div>
+          </div>
+
+          <!-- Right Side - Details -->
+          <div class="col-md-8">
+            <div class="apprenticeship-header">
+              <span class="category-badge">{{selectedApprenticeship.category || 'TECHNOLOGY'}}</span>
+              <h2 class="apprenticeship-name">{{selectedApprenticeship.program_name}}</h2>
+              <p class="apprenticeship-description">{{selectedApprenticeship.description}}</p>
+            </div>
+
+            <div class="apprenticeship-info">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="info-item">
+                    <i class='bx bx-buildings'></i>
+                    <div>
+                      <span class="info-label">COMPANY</span>
+                      <span class="info-value">{{selectedApprenticeship.company}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info-item">
+                    <i class='bx bx-calendar'></i>
+                    <div>
+                      <span class="info-label">START DATE</span>
+                      <span class="info-value">{{selectedApprenticeship.start_date | date: 'dd-MM-yyyy'}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info-item">
+                    <i class='bx bx-time'></i>
+                    <div>
+                      <span class="info-label">DURATION</span>
+                      <span class="info-value">{{selectedApprenticeship.duration}} months</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info-item">
+                    <i class='bx bx-map'></i>
+                    <div>
+                      <span class="info-label">LOCATION</span>
+                      <span class="info-value">{{selectedApprenticeship.location}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info-item">
+                    <i class='bx bx-money'></i>
+                    <div>
+                      <span class="info-label">STIPEND</span>
+                      <span class="info-value">KES {{selectedApprenticeship.stipend}}/month</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info-item">
+                    <i class='bx bx-check-circle'></i>
+                    <div>
+                      <span class="info-label">STATUS</span>
+                      <span class="info-value" [style.color]="selectedApprenticeship.status === 'Open' ? '#28a745' : '#dc3545'">
+                        {{selectedApprenticeship.status}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-buttons">
+              <button class="btn-enroll" (click)="enrollNow(selectedApprenticeship)">
+                <i class='bx bx-check'></i> Enroll Now
+              </button>
+              <button class="btn-back" (click)="closeDetails()">
+                <i class='bx bx-arrow-back'></i> Back to List
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Requirements Section -->
+      <div class="requirements-section" *ngIf="selectedApprenticeship.requirements && selectedApprenticeship.requirements.length > 0">
+        <h3><i class='bx bx-list-ul'></i> Requirements</h3>
+        <ul class="requirements-list">
+          <li *ngFor="let req of selectedApprenticeship.requirements">
+            <i class='bx bx-check'></i> {{req}}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Apprenticeships Table -->
+    <div class="table-view" *ngIf="!selectedApprenticeship">
+      <!-- Table Controls -->
+      <div class="table-controls">
+        <div class="entries-control">
+          <label>
+            Show
+            <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+              <option [value]="10">10</option>
+              <option [value]="25">25</option>
+              <option [value]="50">50</option>
+            </select>
+            entries
+          </label>
+        </div>
+        <div class="search-control">
+          <label>
+            Search:
+            <input type="text" [(ngModel)]="searchText" (input)="currentPage = 1" placeholder="Search apprenticeships...">
+          </label>
+        </div>
+      </div>
+
+      <!-- Apprenticeships Table -->
+      <div class="table-responsive" *ngIf="filteredApprenticeships.length > 0">
+        <table class="apprenticeships-table">
+          <thead>
+            <tr>
+              <th>Program Name</th>
+              <th>Company</th>
+              <th>Duration</th>
+              <th>Location</th>
+              <th>Stipend</th>
+              <th>Start Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of paginatedApprenticeships">
+              <td class="program-name-cell">{{item.program_name}}</td>
+              <td class="company-name-cell">{{item.company}}</td>
+              <td>{{item.duration}} months</td>
+              <td>{{item.location}}</td>
+              <td class="stipend-cell">KES {{item.stipend}}/month</td>
+              <td>{{item.start_date | date: 'dd-MM-yyyy'}}</td>
+              <td>
+                <span class="status-badge" [ngClass]="item.status === 'Open' ? 'status-open' : 'status-closed'">
+                  {{item.status}}
+                </span>
+              </td>
+              <td>
+                <button class="btn-view-details" (click)="viewDetails(item)">
+                  <i class='bx bx-show'></i> View Details
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- No Records Message -->
+      <div class="no-records" *ngIf="filteredApprenticeships.length === 0">
+        <i class='bx bx-inbox'></i>
+        <p>No apprenticeships found</p>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-container" *ngIf="filteredApprenticeships.length > 0">
+        <div class="pagination-info">
+          Showing {{ ((currentPage - 1) * entriesPerPage) + 1 }} to 
+          {{ Math.min(currentPage * entriesPerPage, filteredApprenticeships.length) }} 
+          of {{ filteredApprenticeships.length }} entries
+        </div>
+        <div class="pagination-controls">
+          <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+            Previous
+          </button>
+          <button *ngFor="let page of totalPagesArray" 
+                  class="btn-page" 
+                  [class.active]="page === currentPage"
+                  (click)="goToPage(page)">
+            {{ page }}
+          </button>
+          <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPagesArray.length">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-public-footer></app-public-footer>
