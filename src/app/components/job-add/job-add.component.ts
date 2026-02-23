@@ -81,8 +81,8 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
         this.screenType = this.params?.type;
         this.isPublicView = this.params?.publicView === 'true';
         
-        // Only check subscription if not in public view mode
-        if (!this.isPublicView) {
+        // Only check subscription if not in public view mode and not adding/editing
+        if (!this.isPublicView && this.screenType !== 'add' && this.screenType !== 'edit') {
           if (sessionStorage.getItem('subscribeData') != null && sessionStorage.getItem('subscribeData') != 'undefined') {
             this.subscribeDetails = '';
             this.subscribeDetails = JSON.parse(<string>sessionStorage.getItem('subscribeData'));
@@ -91,6 +91,9 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
         
         this.AllDropDowns();
         this.GetById(this.params?.id);
+      } else {
+        // No query params means it's a new job (add mode)
+        this.screenType = 'add';
       }
     });
   }
@@ -109,9 +112,17 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
   }
 
   PostJob() {
-    // Skip subscription check if in public view mode (just viewing)
-    if (this.isPublicView) {
+    // Skip subscription check if:
+    // 1. In public view mode (just viewing)
+    // 2. In add mode (posting new job)
+    // 3. In edit mode (editing existing job)
+    if (this.isPublicView || this.screenType === 'add' || this.screenType === 'edit') {
       return;
+    }
+
+    // Only check subscription for other scenarios
+    if (!this.subscribeDetails || this.subscribeDetails == '' || this.subscribeDetails == 'undefined') {
+      return; // Don't redirect if no subscription data
     }
 
     let today = new Date();
@@ -122,21 +133,11 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
     dateToCheck.setHours(0, 0, 0, 0);
 
     let isFutureDate: boolean = dateToCheck < today;
-    if (this.subscribeDetails == '' || this.subscribeDetails == 'undefined' ) {
-      this.toastr.info('Please Subscribe');
-      this.router.navigate(['/HOME/subscribe']);
-    }
-    //  else 
+    
     if(this.subscribeDetails?.jobs_remaining == 0 || isFutureDate) {
       this.toastr.info('Subscription is Expired');
       this.router.navigate(['/HOME/subscribe']);
     }
-    //  else {
-    //   this.router.navigate(['HOME/job'])
-    // }
-    // if (this.isLogin) {
-    // } else 
-    //   this.router.navigate(['/login'], { queryParams: {job_id: params.job_id} });
   }
 
   AllDropDowns() { // http://localhost:56608/api/Registration/GetJobMasterList/KENYA

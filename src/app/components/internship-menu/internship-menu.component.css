@@ -1,26 +1,81 @@
-/* Green theme for internship header */
-.headerbg-green {
-  background: linear-gradient(135deg, #2E7D5B 0%, #47c48e 100%) !important;
-  color: #FFFFFF !important;
+.internship-menu-page {
+    padding: 100px 20px 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
 }
 
-.headerbg-green h5 {
-  color: #FFFFFF !important;
+/* Tabs Container */
+.tabs-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-/* Tab styling */
+/* Tab Navigation */
+.nav-tabs {
+    border-bottom: 2px solid #e0e0e0;
+    padding: 0 20px;
+    background-color: #fafafa;
+    margin-bottom: 0;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: 0;
+}
+
 .nav-tabs .nav-link {
-  color: #666666 !important;
-  border-bottom: 3px solid transparent !important;
-  transition: all 0.3s ease !important;
+    color: #666666;
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 15px 25px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    position: relative;
 }
 
 .nav-tabs .nav-link:hover {
-  color: #2E7D5B !important;
+    color: #2e7d32;
+    background-color: rgba(46, 125, 50, 0.05);
+    border-color: transparent;
 }
 
 .nav-tabs .nav-link.active {
-  color: #2E7D5B !important;
-  border-bottom-color: #2E7D5B !important;
-  background-color: transparent !important;
+    color: #2e7d32;
+    border-bottom-color: #2e7d32;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+/* Tab Content */
+.tab-content {
+    padding: 0;
+    background-color: white;
+}
+
+.tab-pane {
+    padding: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .internship-menu-page {
+        padding: 80px 15px 20px;
+    }
+
+    .nav-tabs {
+        padding: 0 10px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 12px 15px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
 }

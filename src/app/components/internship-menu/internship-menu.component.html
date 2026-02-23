@@ -1,54 +1,40 @@
-<div class="page-wrapper pt-4">
-    <div class="page-content pt-0 pe-0 ps-0">
-        <div class="container-fluid">
-            <div class="default_class">
-                <div class="content-wrapper p-0">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card rounded shadow-lg">
-                                    <div class="card-header headerbg-green" style="border-bottom:3px solid #2E7D5B;">
-                                        <h5 class="mb-0 ">Internships</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" [class.active]="activeTab === 'intrnShipLst'"
-                                                    (click)="activeTab = 'intrnShipLst'" type="button"
-                                                    role="tab">Internship List</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" [class.active]="activeTab === 'schedule'"
-                                                    (click)="activeTab = 'schedule'" type="button" role="tab">Internship Schedule</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" [class.active]="activeTab === 'aplictn'"
-                                                    (click)="activeTab = 'aplictn'" type="button" role="tab">Internship Applications</button>
-                                            </li>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link" [class.active]="activeTab === 'notification'"
-                                                    (click)="activeTab = 'notification'" type="button" role="tab">Notification</button>
-                                            </li>
-                                        </ul>
-                                        <div class="tab-content" id="myTabContent">
-                                            <div class="tab-pane fade" [class.active]="activeTab === 'intrnShipLst'" [class.show]="activeTab === 'intrnShipLst'">
-                                                <app-cources *ngIf="activeTab === 'intrnShipLst'"></app-cources>
-                                            </div>
-                                            <div class="tab-pane fade" [class.active]="activeTab === 'schedule'" [class.show]="activeTab === 'schedule'">
-                                                <app-cource-schedule *ngIf="activeTab === 'schedule'"></app-cource-schedule>
-                                            </div>
-                                            <div class="tab-pane fade" [class.active]="activeTab === 'aplictn'" [class.show]="activeTab === 'aplictn'">
-                                                <app-student-applied-internships *ngIf="activeTab === 'aplictn'"></app-student-applied-internships>
-                                            </div>
-                                            <div class="tab-pane fade" [class.active]="activeTab === 'notification'" [class.show]="activeTab === 'notification'">
-                                                <app-notification *ngIf="activeTab === 'notification'"></app-notification>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="internship-menu-page">
+    <div class="container-fluid">
+        <!-- Tabs Navigation -->
+        <div class="tabs-container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" [class.active]="activeTab === 'intrnShipLst'"
+                        (click)="activeTab = 'intrnShipLst'" type="button"
+                        role="tab">Internship List</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" [class.active]="activeTab === 'schedule'"
+                        (click)="activeTab = 'schedule'" type="button" role="tab">Internship Schedule</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" [class.active]="activeTab === 'aplictn'"
+                        (click)="activeTab = 'aplictn'" type="button" role="tab">Internship Applications</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" [class.active]="activeTab === 'notification'"
+                        (click)="activeTab = 'notification'" type="button" role="tab">Notification</button>
+                </li>
+            </ul>
+            
+            <!-- Tab Content -->
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" [class.active]="activeTab === 'intrnShipLst'" [class.show]="activeTab === 'intrnShipLst'">
+                    <app-cources *ngIf="activeTab === 'intrnShipLst'"></app-cources>
+                </div>
+                <div class="tab-pane fade" [class.active]="activeTab === 'schedule'" [class.show]="activeTab === 'schedule'">
+                    <app-cource-schedule *ngIf="activeTab === 'schedule'"></app-cource-schedule>
+                </div>
+                <div class="tab-pane fade" [class.active]="activeTab === 'aplictn'" [class.show]="activeTab === 'aplictn'">
+                    <app-student-applied-internships *ngIf="activeTab === 'aplictn'"></app-student-applied-internships>
+                </div>
+                <div class="tab-pane fade" [class.active]="activeTab === 'notification'" [class.show]="activeTab === 'notification'">
+                    <app-notification *ngIf="activeTab === 'notification'"></app-notification>
                 </div>
             </div>
         </div>
