@@ -72,7 +72,6 @@ export class DraftmypostsComponent implements OnInit {
     )
 
 
-
   }
 
   deletePost(flag: boolean, post?) {

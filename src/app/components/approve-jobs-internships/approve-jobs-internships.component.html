@@ -6,17 +6,19 @@
                     <div class="content-wrapper p-0">
                         <div class="container-fluid">
                             <div *ngIf="!isAddEdt">
-                                <!-- Filter Tabs -->
+                                <!-- Tabs Navigation -->
                                 <div class="tabs-container">
                                     <ul class="nav nav-tabs approval-tabs">
                                         <li class="nav-item">
-                                            <a class="nav-link" [class.active]="type === 'Job'" (click)="type='Job'; LoadGrid()">
-                                                Job
+                                            <a class="nav-link" [class.active]="type === 'Job'"
+                                                (click)="type='Job'; LoadGrid()">
+                                                Jobs
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" [class.active]="type === 'Internship'" (click)="type='Internship'; LoadGrid()">
-                                                Internship
+                                            <a class="nav-link" [class.active]="type === 'Internship'"
+                                                (click)="type='Internship'; LoadGrid()">
+                                                Internships
                                             </a>
                                         </li>
                                     </ul>
@@ -27,17 +29,16 @@
                                     <!-- Job Table -->
                                     <div *ngIf="type == 'Job'">
                                         <div class="table-responsive">
-                                            <table id="patreggraph" datatable
-                                                class="table approval-table">
+                                            <table id="patreggraph" datatable class="table approval-table">
                                                 <thead>
                                                     <tr>
                                                         <th>S. No</th>
                                                         <th>Job Title</th>
-                                                        <th>Job Posted Date</th>
-                                                        <th>Job Expiry Date</th>
-                                                        <th>Job Category</th>
-                                                        <th>Approval / Reject Status</th>
-                                                        <th>Approved / Reject Date</th>
+                                                        <th>Posted Date</th>
+                                                        <th>Expiry Date</th>
+                                                        <th>Category</th>
+                                                        <th>Status</th>
+                                                        <th>Action Date</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -49,15 +50,18 @@
                                                         <td>{{item.job_expiry_date | date: 'dd-MM-yyyy'}}</td>
                                                         <td>{{item.job_category}}</td>
                                                         <td>
-                                                            <span class="status-badge" 
+                                                            <span class="status-badge"
                                                                 [class.status-pending]="item.super_admin_app_rej_status == '1'"
                                                                 [class.status-approved]="item.super_admin_app_rej_status == '2'"
                                                                 [class.status-rejected]="item.super_admin_app_rej_status == '3'">
-                                                                {{item.super_admin_app_rej_status == '2' ? 'Approve':
-                                                                (item.super_admin_app_rej_status == '3' ? 'Reject': 'Pending')}}
+                                                                {{item.super_admin_app_rej_status == '2' ? 'Approved':
+                                                                (item.super_admin_app_rej_status == '3' ? 'Rejected':
+                                                                'Pending')}}
                                                             </span>
                                                         </td>
-                                                        <td>{{item.super_admin_app_rej_status != '1' ? (item.super_admin_app_rej_at | date: 'dd-MM-yyyy'): ''}}</td>
+                                                        <td>{{item.super_admin_app_rej_status != '1' ?
+                                                            (item.super_admin_app_rej_at | date: 'dd-MM-yyyy'): '-'}}
+                                                        </td>
                                                         <td>
                                                             <button class="btn-approve"
                                                                 (click)="isAddEdt=!isAddEdt;isAprveRejct=2;tableId=item;screnType='add';onCheck(item)"
@@ -72,7 +76,7 @@
                                                             <button class="btn-view-icon"
                                                                 (click)="isAddEdt=!isAddEdt;tableId=item;screnType='view';onCheck(item)"
                                                                 *ngIf="item.super_admin_app_rej_status !='1'">
-                                                                <i class="fas fa-eye"></i>
+                                                                View
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -85,32 +89,34 @@
                                     <div *ngIf="type == 'Internship'">
                                         <div class="table-responsive">
                                             <table datatable id="DataTables_Table_0" [dtOptions]="dtOptions"
-                                                [dtTrigger]="dtTrigger"
-                                                class="table approval-table">
+                                                [dtTrigger]="dtTrigger" class="table approval-table">
                                                 <thead>
                                                     <tr>
                                                         <th>Internship Name</th>
-                                                        <th>Is Certified</th>
-                                                        <th>Approve / Reject Status</th>
-                                                        <th>Approve / Reject Date</th>
+                                                        <th>Certification</th>
                                                         <th>Status</th>
+                                                        <th>Action Date</th>
+                                                        <th>Description</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let item of intrnListGrid">
                                                         <td class="job-title-cell">{{item.COURSE_NAME}}</td>
-                                                        <td>{{item.ISCERTIFIED?'Certified Trainer':'Uncertified Trainer'}}</td>
+                                                        <td>{{item.ISCERTIFIED?'Certified':'Uncertified'}}</td>
                                                         <td>
-                                                            <span class="status-badge" 
+                                                            <span class="status-badge"
                                                                 [class.status-pending]="item.SUPER_ADMIN_APP_REJ_STATUS == '1'"
                                                                 [class.status-approved]="item.SUPER_ADMIN_APP_REJ_STATUS == '2'"
                                                                 [class.status-rejected]="item.SUPER_ADMIN_APP_REJ_STATUS == '3'">
-                                                                {{item.SUPER_ADMIN_APP_REJ_STATUS == '2' ? 'Approve': 
-                                                                (item.SUPER_ADMIN_APP_REJ_STATUS == '3' ? 'Reject': 'Pending')}}
+                                                                {{item.SUPER_ADMIN_APP_REJ_STATUS == '2' ? 'Approved':
+                                                                (item.SUPER_ADMIN_APP_REJ_STATUS == '3' ? 'Rejected':
+                                                                'Pending')}}
                                                             </span>
                                                         </td>
-                                                        <td>{{item.SUPER_ADMIN_APP_REJ_STATUS != '1' ? (item.SUPER_ADMIN_APP_REJ_AT | date: 'dd-MM-YYYY'): ''}}</td>
+                                                        <td>{{item.SUPER_ADMIN_APP_REJ_STATUS != '1' ?
+                                                            (item.SUPER_ADMIN_APP_REJ_AT | date: 'dd-MM-YYYY'): '-'}}
+                                                        </td>
                                                         <td>{{item.STATUS_DESCRIPTION}}</td>
                                                         <td>
                                                             <button class="btn-approve"
@@ -126,7 +132,7 @@
                                                             <button class="btn-view-icon"
                                                                 (click)="isAddEdt=!isAddEdt;tableId=item;screnType='view';onCheck(item)"
                                                                 *ngIf="item.SUPER_ADMIN_APP_REJ_STATUS !='1'">
-                                                                <i class="fas fa-eye"></i>
+                                                                View
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -138,48 +144,52 @@
                             </div>
 
                             <!-- Detail View -->
-                            <div class="row" *ngIf="isAddEdt">
-                                <div class="col-xl-12">
-                                    <div class="card rounded shadow-lg">
-                                        <div class="card-header headerbg" style="border-bottom: 3px solid #d8eff8">
-                                            <h5 class="mb-0">{{isAprveRejct==2 ? 'Approve' : 'Reject'}} {{type}}</h5>
+                            <div *ngIf="isAddEdt">
+                                <div class="approval-header">
+                                    ✓ {{isAprveRejct==2 ? 'Approve' : 'Reject'}} {{type}}
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        {{type}} Summary
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- Summary Section -->
+                                        <div class="summary-section">
+                                            <div *ngIf="type == 'Job'">
+                                                <app-posting-job-view
+                                                    [parentId]="tableId?.job_id"></app-posting-job-view>
+                                            </div>
+                                            <div *ngIf="type == 'Internship'">
+                                                <app-posting-internship-view
+                                                    [parentId]="tableId?.COURSE_ID"></app-posting-internship-view>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="col-xl-12" *ngIf="type == 'Job'">
-                                                <app-posting-job-view [parentId]="tableId?.job_id"></app-posting-job-view>
-                                            </div>
-                                            <div class="col-xl-12" *ngIf="type == 'Internship'">
-                                                <app-posting-internship-view [parentId]="tableId?.COURSE_ID"></app-posting-internship-view>
-                                            </div>
-                                            <div class="row mt-3">
-                                                <div class="col-md-2"></div>
-                                                <div class="col-md-8">
-                                                    <div class="row">
-                                                        <div class="col-md-12 mb-2">
-                                                            <label class="control-label mt-2 fw-bold">{{isAprveRejct==2 ? 'Approve' : 'Reject'}} Comments:</label>
-                                                            <textarea class="form-control shadow-sm" rows="4"
-                                                                [readonly]="screnType == 'view'"
-                                                                [(ngModel)]="super_admin_app_rej_comments"
-                                                                placeholder="Enter your comments here..." maxlength="1000"
-                                                                style="border-left: 4px solid #2e7d32; border-radius: 6px;"></textarea>
-                                                        </div>
-                                                        <div class="col-md-12 float-right">
-                                                            <div class="float-right">
-                                                                <button type="button" *ngIf="screnType == 'add'"
-                                                                    (click)='Save()'
-                                                                    class="btn btn-sm me-2"
-                                                                    style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 8px 20px; border-radius: 6px; font-weight: 600; box-shadow: 0 2px 6px rgba(40, 167, 69, 0.3); border: none;">
-                                                                    <i class="fas fa-check me-1"></i>Save
-                                                                </button>
-                                                                <button type="button" (click)="Back()"
-                                                                    class="btn btn-sm"
-                                                                    style="background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%); color: white; padding: 8px 20px; border-radius: 6px; font-weight: 600; box-shadow: 0 2px 6px rgba(108, 117, 125, 0.3); border: none;">
-                                                                    <i class="fas fa-times me-1"></i>Close
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
+                                        <!-- Comments Section -->
+                                        <div style="margin-top: 24px;">
+                                            <label class="control-label">
+                                                {{isAprveRejct==2 ? 'Approval' : 'Rejection'}} Comments
+                                            </label>
+                                            <textarea class="form-control" rows="4" [readonly]="screnType == 'view'"
+                                                [(ngModel)]="super_admin_app_rej_comments"
+                                                placeholder="Enter your comments here..." maxlength="1000"></textarea>
+                                            <small class="text-muted" style="display: block; margin-top: 6px;">
+                                                Maximum 1000 characters
+                                            </small>
+                                        </div>
+
+                                        <!-- Action Buttons -->
+                                        <div style="margin-top: 24px;">
+                                            <div class="float-right">
+                                                <button type="button" *ngIf="screnType == 'add'" (click)='Save()'
+                                                    class="btn btn-sm" style="background-color: #28a745; color: white;">
+                                                    Save
+                                                </button>
+                                                <button type="button" (click)="Back()" class="btn btn-sm"
+                                                    style="background-color: #6c757d; color: white;">
+                                                    Back
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
