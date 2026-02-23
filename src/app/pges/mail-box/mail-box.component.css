@@ -23,3 +23,75 @@
 .mail_button, .mail_button .btn{color: #495057 !important;  font-family: "ubuntu-regular", sans-serif;}
 .addButton btn.focus, .addButton .btn:focus {outline: 0 !important; box-shadow: none !important;}
 .mail_button .dropdown-menu, .mail_button .dropdown-item{color: #495057 !important; font-size: 0.9rem !important;  font-family: "ubuntu-regular", sans-serif;}
+
+/* KNCCI Color Theme */
+.headerbg {
+    background-color: #2e7d32 !important;
+    color: white !important;
+}
+
+.headerbg h5 {
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Compose Mail Button */
+.btn-compose-mail {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-color: #2e7d32 !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-compose-mail:hover {
+    background-color: #1b5e20 !important;
+    border-color: #1b5e20 !important;
+    color: white !important;
+    box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+}
+
+/* Nav Tabs */
+.nav-tabs .nav-link {
+    color: #333;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #2e7d32;
+    border-bottom-color: #2e7d32;
+}
+
+.nav-tabs .nav-link.active {
+    color: #2e7d32 !important;
+    border-bottom-color: #2e7d32 !important;
+    background-color: transparent;
+}
+
+/* Badge */
+.badge-secondary {
+    background-color: #2e7d32 !important;
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border-bottom: 1px solid #1b5e20;
+}
+
+.modal-header h4,
+.modal-header h5,
+.modal-header h6,
+.modal-header .modal-title {
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+.modal-header .close,
+.modal-header .btn-close {
+    color: white !important;
+    opacity: 1 !important;
+}

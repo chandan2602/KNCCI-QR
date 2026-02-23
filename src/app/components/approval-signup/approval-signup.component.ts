@@ -1,3 +1,8 @@
+/*
+APPROVAL SIGNUP COMPONENT - COMPLETELY DISABLED
+This component is currently not in use. All code has been commented out.
+To re-enable, uncomment the section below.
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -86,3 +91,7 @@ export class ApprovalSignupComponent extends BaseComponent implements OnInit {
     
   }
 }
+*/
+
+// Placeholder component - disabled
+export class ApprovalSignupComponent { }

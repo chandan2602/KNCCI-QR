@@ -268,7 +268,7 @@ import { JobsInCompanyLstComponent } from './components/jobs-in-company-lst/jobs
 import { IncubatorRegComponent } from './components/shared/incubator-reg/incubator-reg.component';
 import { InvestorRegComponent } from './components/shared/investor-reg/investor-reg.component';
 import { StartsUpRegComponent } from './components/shared/starts-up-reg/starts-up-reg.component';
-import { ApprovalSignupComponent } from './components/approval-signup/approval-signup.component';
+// import { ApprovalSignupComponent } from './components/approval-signup/approval-signup.component'; // DISABLED
 import { FounderMenuComponent } from './components/shared/founder-menu/founder-menu.component';
 import { StartupListComponent } from './components/startup-list/startup-list.component';
 import { IncubatorDashboardComponent } from './components/incubator-dashboard/incubator-dashboard.component';
@@ -562,7 +562,7 @@ export function momentAdapterFactory() {
     IncubatorRegComponent,
     InvestorRegComponent,
     StartsUpRegComponent,
-    ApprovalSignupComponent,
+    // ApprovalSignupComponent, // DISABLED - Component is commented out
     FounderMenuComponent,
     StartupListComponent,
     IncubatorDashboardComponent,

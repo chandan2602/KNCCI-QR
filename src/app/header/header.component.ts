@@ -245,7 +245,12 @@ export class HeaderComponent extends BaseComponent implements OnInit {
       TENANT_CODE: parseInt(sessionStorage.getItem('TenantCode'))
     }
     this.CommonService.postCall('Account/LoadMenusByRoleId', payLoad).subscribe((res) => {
-      this.menus = res;
+      // Filter out specific menu items: Master Data, Subscription, and Reports
+      this.menus = res.filter((menu: any) => {
+        const menuName = menu.Name?.toLowerCase() || '';
+        // Hide Master Data, Subscription, and Reports menus
+        return !['master data', 'subscription', 'reports'].includes(menuName);
+      });
     }, err => { })
   }
 
