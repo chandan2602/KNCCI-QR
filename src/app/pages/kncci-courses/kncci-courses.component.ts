@@ -284,17 +284,25 @@ export class KncciCoursesComponent implements OnInit {
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
+      console.log('Next page clicked, current page:', this.currentPage);
     }
   }
 
   previousPage() {
     if (this.currentPage > 1) {
       this.currentPage--;
+      console.log('Previous page clicked, current page:', this.currentPage);
     }
   }
 
   goToPage(page: number) {
     this.currentPage = page;
+    console.log('Go to page clicked, current page:', this.currentPage);
+  }
+
+  testClick() {
+    console.log('Test click worked!');
+    alert('Button click is working!');
   }
 
 }

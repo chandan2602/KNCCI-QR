@@ -26,3 +26,12 @@
     margin-top: 6px;
 }
 
+/* Prevent layout shift when modal opens */
+:host ::ng-deep .modal {
+    padding-right: 0 !important;
+}
+
+:host ::ng-deep body.modal-open {
+    padding-right: 0 !important;
+}
+
