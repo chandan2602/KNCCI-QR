@@ -147,7 +147,7 @@
   padding: 8px 24px;
   border: 1px solid #2E7D5B;
   background: transparent;
-  color: #2E7D5B;
+  color: #000000 !important;
   border-radius: 50px;
   font-size: 13px;
   font-weight: 600;
@@ -159,7 +159,7 @@
 
 .btn-login:hover {
   background: #2E7D5B;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(46, 125, 91, 0.25);
 }
@@ -168,7 +168,7 @@
   padding: 8px 24px;
   border: none;
   background: #2E7D5B;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   border-radius: 50px;
   font-size: 13px;
   font-weight: 600;
@@ -181,6 +181,7 @@
 
 .btn-signup:hover {
   background: #256D4F;
+  color: #FFFFFF !important;
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(46, 125, 91, 0.35);
 }
@@ -251,23 +252,24 @@
 .btn-login-mobile {
   border: 1px solid #2E7D5B;
   background: transparent;
-  color: #2E7D5B;
+  color: #000000 !important;
 }
 
 .btn-login-mobile:hover {
   background: #2E7D5B;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .btn-signup-mobile {
   border: none;
   background: #2E7D5B;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   box-shadow: 0 4px 12px rgba(46, 125, 91, 0.25);
 }
 
 .btn-signup-mobile:hover {
   background: #256D4F;
+  color: #FFFFFF !important;
 }
 
 /* ============================================
