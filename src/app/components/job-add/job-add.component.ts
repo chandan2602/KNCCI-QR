@@ -30,6 +30,7 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
   slryFrm: number = 0; slryTo: number = 0; jobCatgry: any = '';
   CountryList: any=[]; subscribeDetails: any = '';
   countyList: any=[];
+  isPublicView: boolean = false;
   stngsMSD(isSngl: boolean,
     idFld: string, txtFld: string, alwSrch: boolean = true, itmShwLmt: number = 2, slctAllTxt: string = 'Select All',
     unSlctAllTxt: string = 'UnSelect All', noDatTxt: string = '') {
@@ -73,18 +74,25 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
 
   constructor(CommonService: CommonService, public fb: FormBuilder, public router: Router, private active: ActivatedRoute, toastr: ToastrService) {
     super(CommonService, toastr)
-    if (sessionStorage.getItem('subscribeData') != null && sessionStorage.getItem('subscribeData') != 'undefined') {
-      this.subscribeDetails = '',
-      this.subscribeDetails = JSON.parse(<string>sessionStorage.getItem('subscribeData'));
-    };
+    
     this.active.queryParams.subscribe((res) => {
       if (Object.keys(res).length) {
-        this.AllDropDowns();
         this.params = res;
-        this.screenType = this.params?.type,
-          this.GetById(this.params?.id)
+        this.screenType = this.params?.type;
+        this.isPublicView = this.params?.publicView === 'true';
+        
+        // Only check subscription if not in public view mode
+        if (!this.isPublicView) {
+          if (sessionStorage.getItem('subscribeData') != null && sessionStorage.getItem('subscribeData') != 'undefined') {
+            this.subscribeDetails = '';
+            this.subscribeDetails = JSON.parse(<string>sessionStorage.getItem('subscribeData'));
+          }
+        }
+        
+        this.AllDropDowns();
+        this.GetById(this.params?.id);
       }
-    })
+    });
   }
   get f() {
     return this.createJobForm.controls
@@ -101,7 +109,10 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
   }
 
   PostJob() {
-    // let params = this.params
+    // Skip subscription check if in public view mode (just viewing)
+    if (this.isPublicView) {
+      return;
+    }
 
     let today = new Date();
     let dateToCheck = new Date(this.subscribeDetails?.expired_date);
@@ -197,31 +208,63 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
 
   GetById(iD: any) {
     this.CommonService.activateSpinner();
-    let payLoad: any = { company_id: this.cmpny_id, tnt_code: sessionStorage.getItem('TenantCode'), job_id: iD }
-    this.CommonService.postCall('InternshipJobs/GetList', payLoad).subscribe(
-      (res: any) => {
-        if (res?.status == true) {
-          this.deactivateSpinner();
-          if (res.data.length > 0) {
-            this.editData = res.data[0];
-            this.contyChange(this.editData?.county_id);
-            this.BindData();
-            let srvcIds: any = this.editData?.language_ids.split(',').map(Number);
-            this.slctLngList = [];
-            setTimeout(() => {
-              this.slctLngList = this.allDropDwns.languages.filter(lang => srvcIds.includes(lang.id));
-              this.slctLngList = [...this.slctLngList];
-            }, 1000);
-          } else {
-            this.toastr.success(res.message);
+    
+    // For public view, use a simpler API call that doesn't require company_id
+    if (this.isPublicView) {
+      this.CommonService.getCall(`InternshipJobs/JobGetById/${iD}`, '', false).subscribe(
+        (res: any) => {
+          if (res?.status == true) {
+            this.deactivateSpinner();
+            if (res.data.length > 0) {
+              this.editData = res.data[0];
+              this.contyChange(this.editData?.county_id);
+              this.BindData();
+              let srvcIds: any = this.editData?.language_ids.split(',').map(Number);
+              this.slctLngList = [];
+              setTimeout(() => {
+                this.slctLngList = this.allDropDwns.languages.filter(lang => srvcIds.includes(lang.id));
+                this.slctLngList = [...this.slctLngList];
+              }, 1000);
+            } else {
+              this.toastr.success(res.message);
+            }
           }
+        },
+        err => {
+          this.deactivateSpinner();
+          this.toastr.warning(err.error ? err.error.text || err.error : 'Job related record not getting');
+          window.history.back();
         }
-      },
-      err => {
-        this.deactivateSpinner();
-        this.toastr.warning(err.error ? err.error.text || err.error : 'Job relatd record not getting');
-        window.history.back()
-      })
+      );
+    } else {
+      // For admin view, use the original API with company_id
+      let payLoad: any = { company_id: this.cmpny_id, tnt_code: sessionStorage.getItem('TenantCode'), job_id: iD };
+      this.CommonService.postCall('InternshipJobs/GetList', payLoad).subscribe(
+        (res: any) => {
+          if (res?.status == true) {
+            this.deactivateSpinner();
+            if (res.data.length > 0) {
+              this.editData = res.data[0];
+              this.contyChange(this.editData?.county_id);
+              this.BindData();
+              let srvcIds: any = this.editData?.language_ids.split(',').map(Number);
+              this.slctLngList = [];
+              setTimeout(() => {
+                this.slctLngList = this.allDropDwns.languages.filter(lang => srvcIds.includes(lang.id));
+                this.slctLngList = [...this.slctLngList];
+              }, 1000);
+            } else {
+              this.toastr.success(res.message);
+            }
+          }
+        },
+        err => {
+          this.deactivateSpinner();
+          this.toastr.warning(err.error ? err.error.text || err.error : 'Job related record not getting');
+          window.history.back();
+        }
+      );
+    }
   }
 
   BindData() {
@@ -310,7 +353,11 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
   }
 
   Back() {
-    this.router.navigate(['/HOME/jobsMnu'])
+    if (this.isPublicView) {
+      this.router.navigate(['/jobs']);
+    } else {
+      this.router.navigate(['/HOME/jobsMnu']);
+    }
   }
 
   onMSD(type: string, ctrl: string, item: any) {
@@ -379,4 +426,41 @@ Only after approval, the job will be <strong>visible on the portal</strong> and 
     const subCountyId = this.createJobForm.get('sub_county_id')?.value;
     return this.subCountyList?.find(s => s.sub_counties_id === subCountyId)?.sub_counties_name || '';
   }
+
+  applyForJob() {
+    const jobId = this.createJobForm.get('job_id')?.value;
+    const userId = sessionStorage.getItem('UserId');
+
+    if (!userId) {
+      // User not logged in, redirect to login
+      sessionStorage.setItem('viewJobId', jobId.toString());
+      sessionStorage.setItem('returnUrl', `/HOME/job?type=view&id=${jobId}&publicView=true`);
+      this.toastr.info('Please login to apply for this job');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Check subscription only when applying
+    if (this.subscribeDetails == '' || this.subscribeDetails == undefined || this.subscribeDetails == null) {
+      this.toastr.info('Please Subscribe to apply for jobs');
+      this.router.navigate(['/HOME/subscribe']);
+      return;
+    }
+
+    let today = new Date();
+    let dateToCheck = new Date(this.subscribeDetails?.expired_date);
+    today.setHours(0, 0, 0, 0);
+    dateToCheck.setHours(0, 0, 0, 0);
+    let isFutureDate: boolean = dateToCheck < today;
+
+    if (this.subscribeDetails?.jobs_remaining == 0 || isFutureDate) {
+      this.toastr.info('Subscription is Expired');
+      this.router.navigate(['/HOME/subscribe']);
+      return;
+    }
+
+    // Navigate to apply job page
+    this.router.navigate(['/HOME/applyJob'], { queryParams: { jobId: jobId } });
+  }
 }
+

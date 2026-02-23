@@ -136,6 +136,14 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Apply Button for Public View -->
+            <div class="apply-action-section" *ngIf="isPublicView">
+                <button class="btn-apply-now" (click)="applyForJob()">
+                    <i class="bi bi-send-fill"></i>
+                    Apply Now
+                </button>
+            </div>
         </div>
     </div>
 </div>

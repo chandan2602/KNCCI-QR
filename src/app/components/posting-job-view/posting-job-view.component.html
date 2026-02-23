@@ -1,182 +1,89 @@
-<div class="modern-job-view">
-    <div class="view-container" *ngIf="editData !=''">
-        <!-- Navigation Bar -->
-        <div class="top-nav">
-            <button class="nav-back-btn" [routerLink]="['/HOME/approval-signup']" *ngIf="isFounder">
-                <i class="bi bi-arrow-left"></i>
-                <span>Back</span>
-            </button>
-            <div class="nav-actions">
-                <button class="action-btn">
-                    <i class="bi bi-share"></i>
-                </button>
-                <button class="action-btn">
-                    <i class="bi bi-bookmark"></i>
+<div class="job-view-wrapper">
+    <div class="container-fluid">
+        <div class="job-view-container" *ngIf="editData !=''">
+            <!-- Back Button -->
+            <div class="header-section" *ngIf="isFounder">
+                <button class="back-button" [routerLink]="['/HOME/approval-signup']">
+                    <i class="bi bi-arrow-left"></i> Back
                 </button>
             </div>
-        </div>
 
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <div class="hero-bg-pattern"></div>
-            <div class="hero-content-wrapper">
-                <div class="company-logo-wrapper">
-                    <div class="company-logo">
-                        <i class="bi bi-building"></i>
+            <!-- Job Details Card -->
+            <div class="details-card">
+                <div class="details-list">
+                    <div class="detail-row">
+                        <span class="detail-label">Company Name</span>
+                        <span class="detail-value">{{params.company_name}}</span>
                     </div>
-                </div>
-                <div class="hero-text">
-                    <span class="job-id-chip">#{{params.auto_genarated_job_id}}</span>
-                    <h1 class="hero-title">{{params.job_title}}</h1>
-                    <p class="hero-company">{{params.company_name}}</p>
-                </div>
-                <div class="hero-tags">
-                    <span class="tag tag-primary">
-                        <i class="bi bi-briefcase-fill"></i>
-                        {{params.job_type}}
-                    </span>
-                    <span class="tag tag-secondary">
-                        <i class="bi bi-diagram-3-fill"></i>
-                        {{params.job_category}}
-                    </span>
-                    <span class="tag tag-accent">
-                        <i class="bi bi-bar-chart-fill"></i>
-                        {{params.experience_level}}
-                    </span>
-                </div>
-            </div>
-        </div>
 
-        <!-- Main Grid Layout -->
-        <div class="content-grid">
-            <!-- Left Column -->
-            <div class="main-column">
-                <!-- Description Card -->
-                <div class="glass-card">
-                    <div class="card-header">
-                        <div class="header-icon">
-                            <i class="bi bi-file-text-fill"></i>
-                        </div>
-                        <h2 class="card-title">Job Description</h2>
+                    <div class="detail-row">
+                        <span class="detail-label">Company Email</span>
+                        <span class="detail-value">{{params.emailid}}</span>
                     </div>
-                    <div class="card-body">
-                        <p class="text-content">{{params.job_description}}</p>
-                    </div>
-                </div>
 
-                <!-- Skills Card -->
-                <div class="glass-card">
-                    <div class="card-header">
-                        <div class="header-icon">
-                            <i class="bi bi-stars"></i>
-                        </div>
-                        <h2 class="card-title">Required Skills</h2>
+                    <div class="detail-row">
+                        <span class="detail-label">Company Contact No.</span>
+                        <span class="detail-value">{{params.contact_details}}</span>
                     </div>
-                    <div class="card-body">
-                        <div class="skills-grid">
-                            <div class="skill-chip">
-                                <i class="bi bi-check-circle-fill"></i>
-                                {{params.job_skills}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Company Info Card -->
-                <div class="glass-card">
-                    <div class="card-header">
-                        <div class="header-icon">
-                            <i class="bi bi-building-fill"></i>
-                        </div>
-                        <h2 class="card-title">Company Details</h2>
+                    <div class="detail-row">
+                        <span class="detail-label">Job Title</span>
+                        <span class="detail-value">{{params.job_title}}</span>
                     </div>
-                    <div class="card-body">
-                        <div class="info-list">
-                            <div class="info-item-modern">
-                                <div class="info-icon-wrapper">
-                                    <i class="bi bi-building"></i>
-                                </div>
-                                <div class="info-text">
-                                    <span class="info-label-modern">Company Name</span>
-                                    <span class="info-value-modern">{{params.company_name}}</span>
-                                </div>
-                            </div>
-                            <div class="info-item-modern">
-                                <div class="info-icon-wrapper">
-                                    <i class="bi bi-envelope"></i>
-                                </div>
-                                <div class="info-text">
-                                    <span class="info-label-modern">Email Address</span>
-                                    <span class="info-value-modern">{{params.emailid}}</span>
-                                </div>
-                            </div>
-                            <div class="info-item-modern">
-                                <div class="info-icon-wrapper">
-                                    <i class="bi bi-telephone"></i>
-                                </div>
-                                <div class="info-text">
-                                    <span class="info-label-modern">Contact Number</span>
-                                    <span class="info-value-modern">{{params.contact_details}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Right Sidebar -->
-            <div class="sidebar-column">
-                <!-- Salary Highlight -->
-                <div class="highlight-card salary-highlight">
-                    <div class="highlight-icon">
-                        <i class="bi bi-currency-dollar"></i>
+                    <div class="detail-row">
+                        <span class="detail-label">Job Id</span>
+                        <span class="detail-value">{{params.auto_genarated_job_id}}</span>
                     </div>
-                    <div class="highlight-content">
-                        <span class="highlight-label">Salary Range</span>
-                        <span class="highlight-value">${{params.job_salary_from}} - ${{params.job_salary_to}}</span>
-                        <span class="highlight-subtext">Per Year</span>
-                    </div>
-                </div>
 
-                <!-- Education Card -->
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="bi bi-mortarboard-fill"></i>
+                    <div class="detail-row">
+                        <span class="detail-label">Job Type</span>
+                        <span class="detail-value">{{params.job_type}}</span>
                     </div>
-                    <div class="stat-content">
-                        <span class="stat-label">Education</span>
-                        <span class="stat-value">{{params.education_level}}</span>
-                    </div>
-                </div>
 
-                <!-- Timeline Card -->
-                <div class="timeline-card">
-                    <h3 class="timeline-title">
-                        <i class="bi bi-clock-history"></i>
-                        Timeline
-                    </h3>
-                    <div class="timeline-list">
-                        <div class="timeline-item">
-                            <div class="timeline-dot posted"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-label">Posted</span>
-                                <span class="timeline-date">{{params.job_posted_date | date: 'dd MMM yyyy'}}</span>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot applied"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-label">Applied</span>
-                                <span class="timeline-date">{{params.created_at | date: 'dd MMM yyyy'}}</span>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot deadline"></div>
-                            <div class="timeline-content">
-                                <span class="timeline-label">Deadline</span>
-                                <span class="timeline-date">{{params.job_expiry_date | date: 'dd MMM yyyy'}}</span>
-                            </div>
-                        </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Skills</span>
+                        <span class="detail-value">{{params.job_skills}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Category</span>
+                        <span class="detail-value">{{params.job_category}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Posted</span>
+                        <span class="detail-value">{{params.job_posted_date | date: 'dd-MM-yyyy'}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Salary</span>
+                        <span class="detail-value">{{params.job_salary_from}} - ${{params.job_salary_to}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Experience</span>
+                        <span class="detail-value">{{params.experience_level}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Qualification</span>
+                        <span class="detail-value">{{params.education_level}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Applied</span>
+                        <span class="detail-value">{{params.created_at | date: 'dd-MM-yyyy'}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Application End</span>
+                        <span class="detail-value">{{params.job_expiry_date | date: 'dd-MM-yyyy'}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Description</span>
+                        <span class="detail-value">{{params.job_description}}</span>
                     </div>
                 </div>
             </div>

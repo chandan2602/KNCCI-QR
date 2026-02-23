@@ -305,10 +305,13 @@ import { ChatWidgetComponent } from './components/shared/chat-widget/chat-widget
 import { PublicHeaderComponent } from './components/public-header/public-header.component';
 import { PublicFooterComponent } from './components/public-footer/public-footer.component';
 import { KncciCoursesComponent } from './pages/kncci-courses/kncci-courses.component';
+import { PublicApprenticeshipsComponent } from './pages/public-apprenticeships/public-apprenticeships.component';
+import { PublicInternshipsComponent } from './pages/public-internships/public-internships.component';
 import { ApprenticeshipsComponent } from './pages/apprenticeships/apprenticeships.component';
 import { ApprenticeshipDetailsComponent } from './pages/apprenticeship-details/apprenticeship-details.component';
 import { ApprenticeshipsScheduleComponent } from './pages/apprenticeships-schedule/apprenticeships-schedule.component';
 import { ApprenticeshipsApplicationsComponent } from './pages/apprenticeships-applications/apprenticeships-applications.component';
+import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
 
 
 
@@ -599,10 +602,13 @@ export function momentAdapterFactory() {
     PublicHeaderComponent,
     PublicFooterComponent,
     KncciCoursesComponent,
+    PublicApprenticeshipsComponent,
+    PublicInternshipsComponent,
     ApprenticeshipsComponent,
     ApprenticeshipDetailsComponent,
     ApprenticeshipsScheduleComponent,
     ApprenticeshipsApplicationsComponent,
+    PublicJobsComponent,
     
   ],
   imports: [

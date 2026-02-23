@@ -224,6 +224,9 @@ import { JobsMenuComponent } from './components/jobs-menu/jobs-menu.component';
 import { InternshipMenuComponent } from './components/internship-menu/internship-menu.component';
 import { StudentInternshipMenuComponent } from './components/student-internship-menu/student-internship-menu.component';
 import { StudentJobMenuComponent } from './components/student-job-menu/student-job-menu.component';
+import { PublicApprenticeshipsComponent } from './pages/public-apprenticeships/public-apprenticeships.component';
+import { PublicInternshipsComponent } from './pages/public-internships/public-internships.component';
+import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
 const routes: Routes = [
   {
     path: 'HOME',
@@ -909,9 +912,9 @@ const routes: Routes = [
   { path: 'wellcome', component: WellcomeRegistraionComponent },
   { path: 'company-registration', component: CompanyRegistrationComponent },
   { path: 'contact', component: HeaderContactsComponent },
-  { path: 'internships', component: HeaderInternshipsComponent },
+  // { path: 'internships', component: HeaderInternshipsComponent }, // Replaced with PublicInternshipsComponent
   { path: 'corporates', component: HeaderCorporatesComponent },
-  { path: 'jobs', component: HeaderJobsComponent },
+  // { path: 'jobs', component: HeaderJobsComponent }, // Replaced with PublicJobsComponent
 
   {
     path: 'menu', component: SubHeaderComponent,
@@ -953,6 +956,9 @@ const routes: Routes = [
   { path: 'about', component: LandingAboutComponent },
   { path: 'job', component: LandingComponent },
   { path: 'internship', component: LandingComponent },
+  { path: 'internships', component: PublicInternshipsComponent },
+  { path: 'jobs', component: PublicJobsComponent },
+  { path: 'apprenticeships', component: PublicApprenticeshipsComponent },
   { path: 'corporate', component: LandingComponent },
   { path: 'contacts', component: LandingContactComponent },
   { path: 'cmpnyLst', component: JobsInCompanyLstComponent },
