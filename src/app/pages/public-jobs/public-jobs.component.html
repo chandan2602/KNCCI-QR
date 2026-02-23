@@ -1,0 +1,99 @@
+<app-public-header></app-public-header>
+
+<!-- Jobs List View -->
+<div class="jobs-page">
+  <div class="page-header-section">
+    <h1 class="page-title">
+      Job List
+      <i class='bx bx-info-circle info-icon'></i>
+    </h1>
+  </div>
+
+  <div class="page-content">
+    <div class="alert alert-info" *ngIf="!isLoggedIn">
+      <i class='bx bx-info-circle'></i>
+      You are viewing jobs as a guest. Please <a (click)="redirectToLogin()" class="alert-link" style="cursor: pointer;">login</a> to apply for jobs.
+    </div>
+
+    <div class="table-container">
+      <div class="table-controls">
+        <div class="entries-control">
+          <label>Show <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+            <option [value]="10">10</option>
+            <option [value]="25">25</option>
+            <option [value]="50">50</option>
+          </select> entries</label>
+        </div>
+        <div class="search-control">
+          <label>Search: <input type="text" [(ngModel)]="searchText" (input)="currentPage = 1" placeholder="Search jobs..."></label>
+        </div>
+      </div>
+
+      <div class="table-responsive" *ngIf="filteredJobs.length > 0">
+        <table class="jobs-table">
+          <thead>
+            <tr>
+              <th>S. No</th>
+              <th>Job Title</th>
+              <th>Job Posted Date</th>
+              <th>Job Expiry Date</th>
+              <th>Job Category</th>
+              <th>Approval Status</th>
+              <th>Approved/Reject Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of paginatedJobs; let i = index">
+              <td>{{ (currentPage - 1) * entriesPerPage + i + 1 }}</td>
+              <td class="job-title-cell">{{ item.job_title }}</td>
+              <td>{{ item.job_posted_date | date: 'dd-MM-yyyy' }}</td>
+              <td>{{ item.job_expiry_date | date: 'dd-MM-yyyy' }}</td>
+              <td>
+                <span class="badge-category">{{ item.job_category }}</span>
+              </td>
+              <td>
+                <span class="status-badge" 
+                      [ngClass]="{
+                        'status-approved': item.super_admin_app_rej_status == '2',
+                        'status-rejected': item.super_admin_app_rej_status == '3',
+                        'status-pending': item.super_admin_app_rej_status == '1'
+                      }">
+                    {{ item.super_admin_app_rej_status == '2' ? 'Approved' : 
+                       (item.super_admin_app_rej_status == '3' ? 'Rejected' : 'Pending') }}
+                </span>
+              </td>
+              <td>
+                {{ item.super_admin_app_rej_status != '1' ? 
+                   (item.super_admin_app_rej_at | date: 'dd-MM-yyyy') : '-' }}
+              </td>
+              <td>
+                <div class="action-buttons-group">
+                  <button class="btn-action btn-details" (click)="viewDetails(item)" title="View Details">
+                    <i class='bx bx-show'></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="no-records" *ngIf="filteredJobs.length === 0">
+        <i class='bx bx-inbox'></i>
+        <p>No jobs found</p>
+      </div>
+
+      <div class="pagination-container" *ngIf="filteredJobs.length > 0">
+        <div class="pagination-info">
+          Showing {{(currentPage - 1) * entriesPerPage + 1}} to {{Math.min(currentPage * entriesPerPage, filteredJobs.length)}} of {{filteredJobs.length}} entries
+        </div>
+        <div class="pagination-controls">
+          <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+          <button class="btn-page" *ngFor="let page of totalPagesArray" [class.active]="currentPage === page" (click)="goToPage(page)">{{page}}</button>
+          <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPagesArray.length">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

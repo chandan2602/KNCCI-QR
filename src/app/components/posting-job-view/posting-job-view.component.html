@@ -1,3 +1,4 @@
+
 <div>
     <div class="main_section" *ngIf="editData !=''">
         <!-- Top Header Section -->
@@ -73,6 +74,94 @@
                         </tr>
                     </tbody>
                 </table>
+<div class="job-view-wrapper">
+    <div class="container-fluid">
+        <div class="job-view-container" *ngIf="editData !=''">
+            <!-- Back Button -->
+            <div class="header-section" *ngIf="isFounder">
+                <button class="back-button" [routerLink]="['/HOME/approval-signup']">
+                    <i class="bi bi-arrow-left"></i> Back
+                </button>
+            </div>
+
+            <!-- Job Details Card -->
+            <!-- <div class="details-card">
+                <div class="details-list">
+                    <div class="detail-row">
+                        <span class="detail-label">Company Name</span>
+                        <span class="detail-value">{{params.company_name}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Company Email</span>
+                        <span class="detail-value">{{params.emailid}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Company Contact No.</span>
+                        <span class="detail-value">{{params.contact_details}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Job Title</span>
+                        <span class="detail-value">{{params.job_title}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Job Id</span>
+                        <span class="detail-value">{{params.auto_genarated_job_id}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Job Type</span>
+                        <span class="detail-value">{{params.job_type}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Skills</span>
+                        <span class="detail-value">{{params.job_skills}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Category</span>
+                        <span class="detail-value">{{params.job_category}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Posted</span>
+                        <span class="detail-value">{{params.job_posted_date | date: 'dd-MM-yyyy'}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Salary</span>
+                        <span class="detail-value">{{params.job_salary_from}} - ${{params.job_salary_to}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Experience</span>
+                        <span class="detail-value">{{params.experience_level}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Qualification</span>
+                        <span class="detail-value">{{params.education_level}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Applied</span>
+                        <span class="detail-value">{{params.created_at | date: 'dd-MM-yyyy'}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Application End</span>
+                        <span class="detail-value">{{params.job_expiry_date | date: 'dd-MM-yyyy'}}</span>
+                    </div>
+
+                    <div class="detail-row">
+                        <span class="detail-label">Description</span>
+                        <span class="detail-value">{{params.job_description}}</span>
+                    </div> -->
+                </div>
             </div>
         </div>
     </div>

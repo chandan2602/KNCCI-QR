@@ -1,0 +1,245 @@
+<app-public-header></app-public-header>
+
+<div class="internships-page">
+  <!-- Internship Details View -->
+  <div class="internship-details-view" *ngIf="showDetails && selectedInternship">
+    <div class="details-container">
+      <div class="back-button-section">
+        <button class="btn-back" (click)="backToList()">
+          <i class='bx bx-arrow-back'></i> Back
+        </button>
+      </div>
+
+      <div class="details-card">
+        <div class="details-layout">
+          <!-- Left Side - Full Height Image -->
+          <div class="details-image-section">
+            <img [src]="selectedInternship.IMAGE_URL" [alt]="selectedInternship.title" onerror="this.src='assets/images/default-course.jpg'">
+          </div>
+
+          <!-- Right Side - Content -->
+          <div class="details-info-section">
+            <div class="category-tag" *ngIf="selectedInternship.CATEGORY_NAME">{{selectedInternship.CATEGORY_NAME}}</div>
+            
+            <h1 class="details-title">{{selectedInternship.title}}</h1>
+            
+            <p class="details-description" *ngIf="selectedInternship.description">{{selectedInternship.description}}</p>
+
+            <div class="details-meta">
+              <div class="meta-row">
+                <div class="meta-item" *ngIf="selectedInternship.company">
+                  <i class='bx bx-user-circle'></i>
+                  <div>
+                    <div class="meta-label">Instructor</div>
+                    <div class="meta-value">{{selectedInternship.company}}</div>
+                  </div>
+                </div>
+                <div class="meta-item" *ngIf="selectedInternship.duration">
+                  <i class='bx bx-time'></i>
+                  <div>
+                    <div class="meta-label">Duration</div>
+                    <div class="meta-value">{{selectedInternship.duration}}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="meta-row">
+                <div class="meta-item" *ngIf="selectedInternship.COURSE_START_DATE">
+                  <i class='bx bx-calendar'></i>
+                  <div>
+                    <div class="meta-label">Start Date</div>
+                    <div class="meta-value">{{selectedInternship.COURSE_START_DATE | date:'yyyy-MM-dd'}}</div>
+                  </div>
+                </div>
+                <div class="meta-item" *ngIf="selectedInternship.deadline">
+                  <i class='bx bx-calendar-check'></i>
+                  <div>
+                    <div class="meta-label">End Date</div>
+                    <div class="meta-value">{{selectedInternship.deadline | date:'yyyy-MM-dd'}}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="meta-row">
+                <div class="meta-item">
+                  <i class='bx bx-group'></i>
+                  <div>
+                    <div class="meta-label">Students Enrolled</div>
+                    <div class="meta-value">{{selectedInternship.ENROLLED_COUNT || '0'}}</div>
+                  </div>
+                </div>
+                <div class="meta-item">
+                  <i class='bx bx-star'></i>
+                  <div>
+                    <div class="meta-label">Rating</div>
+                    <div class="meta-value">{{selectedInternship.RATING || '4.5'}} / 5.0</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="meta-row">
+                <div class="meta-item" *ngIf="selectedInternship.LEVEL">
+                  <i class='bx bx-layer'></i>
+                  <div>
+                    <div class="meta-label">Level</div>
+                    <div class="meta-value">{{selectedInternship.LEVEL}}</div>
+                  </div>
+                </div>
+                <div class="meta-item">
+                  <i class='bx bx-check-circle'></i>
+                  <div>
+                    <div class="meta-label">Status</div>
+                    <div class="meta-value">Active</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="course-fee-section" *ngIf="selectedInternship.salary">
+              <div class="fee-label">Course Fee:</div>
+              <div class="fee-amount">{{selectedInternship.salary}}</div>
+            </div>
+
+            <button class="btn-apply-enroll" (click)="applyNow(selectedInternship)">
+              <i class='bx bx-log-in'></i> Login to Enroll
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Internships List View -->
+  <div class="internships-list-view" *ngIf="!showDetails">
+    <div class="page-header-section">
+      <h1 class="page-title">
+        Internships
+        <i class='bx bx-info-circle info-icon'></i>
+      </h1>
+    </div>
+
+    <div class="page-content">
+      <!-- Login Notice for Non-Logged In Users -->
+      <div class="alert alert-info" *ngIf="!isLoggedIn">
+        <i class='bx bx-info-circle'></i>
+        You are viewing internships as a guest. Please <a (click)="redirectToLogin()" class="alert-link" style="cursor: pointer;">login</a> to apply for internships.
+      </div>
+
+      <div class="table-container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+          <div class="filter-control">
+            <label>Filter by Company:</label>
+            <select class="form-select" [(ngModel)]="selectedCompany" (change)="getInternships()">
+              <option value="0">All Companies</option>
+              <option *ngFor="let company of companyList" [value]="company.COMPANY_ID">
+                {{company.COMPANY_NAME}}
+              </option>
+            </select>
+          </div>
+          <button class="btn-add" *ngIf="isLoggedIn">
+            <i class='bx bx-plus'></i> Add
+          </button>
+        </div>
+
+        <!-- Table Controls -->
+        <div class="table-controls">
+          <div class="entries-control">
+            <label>
+              Show
+              <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                <option [value]="10">10</option>
+                <option [value]="25">25</option>
+                <option [value]="50">50</option>
+              </select>
+              entries
+            </label>
+          </div>
+          <div class="search-control">
+            <label>
+              Search:
+              <input type="text" [(ngModel)]="searchText" (input)="currentPage = 1" placeholder="Search internships...">
+            </label>
+          </div>
+        </div>
+
+        <!-- Internships Table -->
+        <div class="table-responsive" *ngIf="filteredInternships.length > 0">
+          <table class="internships-table">
+            <thead>
+              <tr>
+                <th>Internship Name</th>
+                <th>Is Certified</th>
+                <th>Status</th>
+                <th>Approve / Reject Status</th>
+                <th>Approve / Reject Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of paginatedInternships">
+                <td class="internship-name-cell">{{item.title}}</td>
+                <td>
+                  <span class="certified-badge" [class.certified]="item.verified" [class.uncertified]="!item.verified">
+                    {{item.verified ? 'Certified Trainer' : 'Uncertified Trainer'}}
+                  </span>
+                </td>
+                <td>
+                  <span class="status-badge status-active">Active</span>
+                </td>
+                <td>
+                  <span class="approve-badge">Approve</span>
+                </td>
+                <td>TBD</td>
+                <td>
+                  <div class="action-buttons-group">
+                    <button class="btn-action btn-edit" title="Edit" *ngIf="isLoggedIn">
+                      <i class='bx bx-edit'></i>
+                    </button>
+                    <button class="btn-action btn-users" title="View Users" *ngIf="isLoggedIn">
+                      <i class='bx bx-user'></i>
+                    </button>
+                    <button class="btn-action btn-details" (click)="viewDetails(item)" title="View Details">
+                      <i class='bx bx-show'></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- No Records Message -->
+        <div class="no-records" *ngIf="filteredInternships.length === 0">
+          <i class='bx bx-inbox'></i>
+          <p>No internships found</p>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container" *ngIf="filteredInternships.length > 0">
+          <div class="pagination-info">
+            Showing {{(currentPage - 1) * entriesPerPage + 1}} to 
+            {{Math.min(currentPage * entriesPerPage, filteredInternships.length)}} of 
+            {{filteredInternships.length}} entries
+          </div>
+          <div class="pagination-controls">
+            <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <button class="btn-page" 
+                    *ngFor="let page of totalPagesArray"
+                    [class.active]="currentPage === page"
+                    (click)="goToPage(page)">
+              {{page}}
+            </button>
+            <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPagesArray.length">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <app-public-footer></app-public-footer> -->
