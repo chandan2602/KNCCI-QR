@@ -8,8 +8,8 @@
       </p>
     </div>
 
-    <!-- Tabs Navigation -->
-    <div class="tabs-container">
+    <!-- Tabs Navigation for Students -->
+    <div class="tabs-container" *ngIf="isStudent || !isLoggedIn">
       <ul class="nav nav-tabs course-tabs">
         <li class="nav-item">
           <a class="nav-link" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')">
@@ -29,6 +29,38 @@
         <li class="nav-item" *ngIf="isLoggedIn">
           <a class="nav-link" [class.active]="activeTab === 'my'" (click)="setActiveTab('my')">
             My Courses
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tabs Navigation for Admin -->
+    <div class="tabs-container" *ngIf="isAdmin">
+      <ul class="nav nav-tabs course-tabs">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'list'" (click)="setActiveTab('list')">
+            Course List
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'schedule'" (click)="setActiveTab('schedule')">
+            Course Schedule
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'applications'" (click)="setActiveTab('applications')">
+            Course Applications
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Tabs Navigation for Super Admin -->
+    <div class="tabs-container" *ngIf="isSuperAdmin">
+      <ul class="nav nav-tabs course-tabs">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab === 'applications'" (click)="setActiveTab('applications')">
+            Course Applications
           </a>
         </li>
       </ul>
@@ -130,8 +162,9 @@
                   <span class="price-label">Course Fee:</span>
                   <span class="price-amount">KES {{selectedCourse.price}}</span>
                 </div>
+                <!-- Show Enroll button only for students, not for admin/super admin -->
                 <button class="btn btn-enroll-large" (click)="enrollCourse(selectedCourse)"
-                  *ngIf="selectedCourse.status !== 'Enrolled'">
+                  *ngIf="selectedCourse.status !== 'Enrolled' && !isAdmin && !isSuperAdmin">
                   <i class="bx bx-book-add"></i> {{isLoggedIn ? 'Enroll Now' : 'Login to Enroll'}}
                 </button>
                 <button class="btn btn-enrolled" *ngIf="selectedCourse.status === 'Enrolled'" disabled>
@@ -144,10 +177,15 @@
       </div>
     </div>
 
-    <!-- Table View -->
-    <div class="table-container" *ngIf="!showDetails">
+    <!-- Table View for Students (All, Applied, AI, My Courses) -->
+    <div class="table-container" *ngIf="!showDetails && (isStudent || !isLoggedIn) && ['all', 'applied', 'ai', 'my'].includes(activeTab)">
+      <!-- Loading Indicator -->
+      <div class="loading-container" *ngIf="isLoading">
+        <p>Loading courses...</p>
+      </div>
+
       <!-- Table Controls -->
-      <div class="table-controls">
+      <div class="table-controls" *ngIf="!isLoading">
         <div class="entries-control">
           <label>Show
             <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
@@ -166,7 +204,7 @@
       </div>
 
       <!-- Courses Table -->
-      <div class="table-responsive">
+      <div class="table-responsive" *ngIf="!isLoading">
         <table class="table courses-table">
           <thead>
             <tr>
@@ -210,7 +248,7 @@
       </div>
 
       <!-- Pagination -->
-      <div class="pagination-container" *ngIf="filteredCourses.length > 0">
+      <div class="pagination-container" *ngIf="filteredCourses.length > 0 && !isLoading">
         <div class="pagination-info">
           Showing {{(currentPage - 1) * entriesPerPage + 1}} to
           {{Math.min(currentPage * entriesPerPage, filteredCourses.length)}} of
@@ -231,6 +269,320 @@
             Next
           </button>
         </div>
+      </div>
+    </div>
+
+    <!-- Admin Course List Tab -->
+    <div class="table-container" *ngIf="isAdmin && activeTab === 'list'">
+      <!-- Loading Indicator -->
+      <div class="loading-container" *ngIf="isLoading">
+        <p>Loading courses...</p>
+      </div>
+
+      <!-- Table Controls -->
+      <div class="table-controls" *ngIf="!isLoading">
+        <div class="entries-control">
+          <label>Show
+            <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+              <option [value]="10">10</option>
+              <option [value]="25">25</option>
+              <option [value]="50">50</option>
+            </select>
+            entries
+          </label>
+        </div>
+        <div class="search-control">
+          <label>Search:
+            <input type="text" [(ngModel)]="searchText" placeholder="Search courses...">
+          </label>
+        </div>
+      </div>
+
+      <!-- Courses Table -->
+      <div class="table-responsive" *ngIf="!isLoading">
+        <table class="table courses-table">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Course Name</th>
+              <th>Instructor</th>
+              <th>Category</th>
+              <th>Duration</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Approval Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let course of paginatedCourses; let i = index">
+              <td>{{(currentPage - 1) * entriesPerPage + i + 1}}</td>
+              <td class="course-name-cell">{{course.courseName}}</td>
+              <td>{{course.instructor}}</td>
+              <td><span class="badge badge-{{course.category.toLowerCase()}}">{{course.category}}</span></td>
+              <td>{{course.duration}}</td>
+              <td>{{course.startDate}}</td>
+              <td>{{course.endDate}}</td>
+              <td>
+                <span class="status-badge" 
+                  [class.status-pending]="course.approvalStatus === 'Pending'"
+                  [class.status-active]="course.approvalStatus === 'Approved'"
+                  [class.status-rejected]="course.approvalStatus === 'Rejected'">
+                  {{course.approvalStatus || 'Pending'}}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-info me-1" (click)="viewDetails(course)">
+                  <i class="bx bx-eye"></i> View
+                </button>
+                <button class="btn btn-sm btn-warning" (click)="editCourse(course)">
+                  <i class="bx bx-edit"></i> Edit
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="paginatedCourses.length === 0">
+              <td colspan="9" class="text-center">No courses found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination-container" *ngIf="filteredCourses.length > 0 && !isLoading">
+        <div class="pagination-info">
+          Showing {{(currentPage - 1) * entriesPerPage + 1}} to
+          {{Math.min(currentPage * entriesPerPage, filteredCourses.length)}} of
+          {{filteredCourses.length}} entries
+        </div>
+        <div class="pagination-controls">
+          <button type="button" class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+            Previous
+          </button>
+          <button type="button" class="btn-page" *ngFor="let page of [].constructor(totalPages); let i = index"
+            [class.active]="currentPage === i + 1" (click)="goToPage(i + 1)">
+            {{i + 1}}
+          </button>
+          <button type="button" class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin Course Schedule Tab -->
+    <div *ngIf="isAdmin && activeTab === 'schedule'">
+      <!-- Add Course Button -->
+      <div class="add-button-container mb-3">
+        <button class="btn btn-primary" (click)="openAddCourseModal()">
+          <i class="bx bx-plus-circle"></i> Add Course
+        </button>
+      </div>
+
+      <!-- Course Schedule Table (Shows ALL courses including Pending) -->
+      <div class="table-container">
+        <!-- Loading Indicator -->
+        <div class="loading-container" *ngIf="isLoading">
+          <p>Loading courses...</p>
+        </div>
+
+        <!-- Table Controls -->
+        <div class="table-controls" *ngIf="!isLoading">
+          <div class="entries-control">
+            <label>Show
+              <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                <option [value]="10">10</option>
+                <option [value]="25">25</option>
+                <option [value]="50">50</option>
+              </select>
+              entries
+            </label>
+          </div>
+          <div class="search-control">
+            <label>Search:
+              <input type="text" [(ngModel)]="searchText" placeholder="Search courses...">
+            </label>
+          </div>
+        </div>
+
+        <!-- Courses Table -->
+        <div class="table-responsive" *ngIf="!isLoading">
+          <table class="table courses-table">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Course Name</th>
+                <th>Instructor</th>
+                <th>Category</th>
+                <th>Duration</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Approval Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let course of paginatedCourses; let i = index">
+                <td>{{(currentPage - 1) * entriesPerPage + i + 1}}</td>
+                <td class="course-name-cell">{{course.courseName}}</td>
+                <td>{{course.instructor}}</td>
+                <td><span class="badge badge-{{course.category.toLowerCase()}}">{{course.category}}</span></td>
+                <td>{{course.duration}}</td>
+                <td>{{course.startDate}}</td>
+                <td>{{course.endDate}}</td>
+                <td>
+                  <span class="status-badge" 
+                    [class.status-pending]="course.approvalStatus === 'Pending'"
+                    [class.status-active]="course.approvalStatus === 'Approved'"
+                    [class.status-rejected]="course.approvalStatus === 'Rejected'">
+                    {{course.approvalStatus || 'Pending'}}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-info me-1" (click)="viewDetails(course)">
+                    <i class="bx bx-eye"></i> View
+                  </button>
+                  <button class="btn btn-sm btn-warning" (click)="editCourse(course)" 
+                    *ngIf="course.approvalStatus !== 'Approved'">
+                    <i class="bx bx-edit"></i> Edit
+                  </button>
+                </td>
+              </tr>
+              <tr *ngIf="paginatedCourses.length === 0">
+                <td colspan="9" class="text-center">No courses found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container" *ngIf="filteredCourses.length > 0 && !isLoading">
+          <div class="pagination-info">
+            Showing {{(currentPage - 1) * entriesPerPage + 1}} to
+            {{Math.min(currentPage * entriesPerPage, filteredCourses.length)}} of
+            {{filteredCourses.length}} entries
+          </div>
+          <div class="pagination-controls">
+            <button type="button" class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+              Previous
+            </button>
+            <button type="button" class="btn-page" *ngFor="let page of [].constructor(totalPages); let i = index"
+              [class.active]="currentPage === i + 1" (click)="goToPage(i + 1)">
+              {{i + 1}}
+            </button>
+            <button type="button" class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Course Applications Tab (Admin & Super Admin) -->
+    <div *ngIf="(isAdmin || isSuperAdmin) && activeTab === 'applications'">
+      <app-course-applications></app-course-applications>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Add Course Modal -->
+<div class="modal fade" id="addCourseModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Course</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addCourseForm">
+          <div class="row">
+            <!-- Course Name -->
+            <div class="col-md-6 mb-3">
+              <label for="course_name" class="form-label">Course Name <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="course_name" formControlName="course_name" 
+                placeholder="e.g., Data Science by Chandan Kumar">
+            </div>
+
+            <!-- Category -->
+            <div class="col-md-6 mb-3">
+              <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
+              <select class="form-select" id="category" formControlName="category">
+                <option value="">Select Category</option>
+                <option value="AI">AI</option>
+                <option value="Technology">Technology</option>
+                <option value="Business">Business</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Finance">Finance</option>
+                <option value="Design">Design</option>
+              </select>
+            </div>
+
+            <!-- Description -->
+            <div class="col-12 mb-3">
+              <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+              <textarea class="form-control" id="description" formControlName="description" rows="3"
+                placeholder="Learn the principles of financial accounting, bookkeeping, financial statements..."></textarea>
+            </div>
+
+            <!-- Duration -->
+            <div class="col-md-6 mb-3">
+              <label for="duration" class="form-label">Duration <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="duration" formControlName="duration" 
+                placeholder="e.g., 12 Weeks">
+            </div>
+
+            <!-- Price -->
+            <div class="col-md-6 mb-3">
+              <label for="price" class="form-label">Price (KES) <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="price" formControlName="price" 
+                placeholder="e.g., 18000">
+            </div>
+
+            <!-- Instructor -->
+            <div class="col-md-6 mb-3">
+              <label for="instructor" class="form-label">Instructor <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="instructor" formControlName="instructor" 
+                placeholder="e.g., Chandan Kumar Nayak">
+            </div>
+
+            <!-- Level -->
+            <div class="col-md-6 mb-3">
+              <label for="level" class="form-label">Level <span class="text-danger">*</span></label>
+              <select class="form-select" id="level" formControlName="level">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+
+            <!-- Start Date -->
+            <div class="col-md-6 mb-3">
+              <label for="start_date" class="form-label">Start Date <span class="text-danger">*</span></label>
+              <input type="date" class="form-control" id="start_date" formControlName="start_date">
+            </div>
+
+            <!-- End Date -->
+            <div class="col-md-6 mb-3">
+              <label for="end_date" class="form-label">End Date <span class="text-danger">*</span></label>
+              <input type="date" class="form-control" id="end_date" formControlName="end_date">
+            </div>
+
+            <!-- Image URL (Optional) -->
+            <div class="col-12 mb-3">
+              <label for="image" class="form-label">Image URL (Optional)</label>
+              <input type="text" class="form-control" id="image" formControlName="image" 
+                placeholder="e.g., assets/new-images/pg.jpg">
+              <small class="text-muted">Leave empty to use default image</small>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="saveCourse()" [disabled]="!addCourseForm.valid">
+          <i class="bx bx-save"></i> Save Course
+        </button>
       </div>
     </div>
   </div>

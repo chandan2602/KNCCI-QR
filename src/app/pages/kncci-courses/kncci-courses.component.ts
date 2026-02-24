@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-kncci-courses',
@@ -17,174 +19,60 @@ export class KncciCoursesComponent implements OnInit {
   Math = Math;
   isLoggedIn: boolean = false;
   userId: string = '';
+  isLoading: boolean = false;
+  userType: string = '';
+  isStudent: boolean = false;
+  isAdmin: boolean = false;
+  isSuperAdmin: boolean = false;
+  addCourseForm: FormGroup;
 
-  allCourses = [
-    {
-      id: 1,
-      courseName: 'Digital Marketing Fundamentals',
-      description: 'Master the essentials of digital marketing including SEO, social media, and content marketing strategies. Learn how to create effective digital campaigns, analyze metrics, and optimize your online presence.',
-      image: 'assets/new-images/pg.jpg',
-      category: 'Marketing',
-      duration: '8 Weeks',
-      students: 245,
-      rating: 4.8,
-      price: '15,000',
-      instructor: 'Jane Kamau',
-      startDate: '2026-03-15',
-      endDate: '2026-05-10',
-      status: 'Active',
-      level: 'Beginner',
-      applied: false
-    },
-    {
-      id: 2,
-      courseName: 'Web Development Bootcamp',
-      description: 'Learn full-stack web development with HTML, CSS, JavaScript, and modern frameworks. Build responsive websites and web applications from scratch.',
-      image: 'assets/new-images/ProgrammingLanguages.jpeg',
-      category: 'Technology',
-      duration: '12 Weeks',
-      students: 189,
-      rating: 4.9,
-      price: '25,000',
-      instructor: 'John Ochieng',
-      startDate: '2026-03-20',
-      endDate: '2026-06-15',
-      status: 'Active',
-      level: 'Intermediate',
-      applied: false
-    },
-    {
-      id: 3,
-      courseName: 'Business Management Essentials',
-      description: 'Develop core business management skills including leadership, strategy, and operations. Perfect for aspiring managers and entrepreneurs.',
-      image: 'assets/new-images/pg.jpg',
-      category: 'Business',
-      duration: '6 Weeks',
-      students: 312,
-      rating: 4.7,
-      price: '18,000',
-      instructor: 'Mary Wanjiru',
-      startDate: '2026-03-10',
-      endDate: '2026-04-25',
-      status: 'Active',
-      level: 'Beginner',
-      applied: true
-    },
-    {
-      id: 4,
-      courseName: 'Artificial Intelligence Fundamentals',
-      description: 'Introduction to AI concepts, machine learning algorithms, neural networks, and practical applications in various industries.',
-      image: 'assets/new-images/artificial_intelligence.jpg',
-      category: 'AI',
-      duration: '10 Weeks',
-      students: 156,
-      rating: 4.8,
-      price: '22,000',
-      instructor: 'David Mwangi',
-      startDate: '2026-04-01',
-      endDate: '2026-06-10',
-      status: 'Active',
-      level: 'Advanced',
-      applied: false
-    },
-    {
-      id: 5,
-      courseName: 'Machine Learning with Python',
-      description: 'Deep dive into machine learning algorithms, data preprocessing, model training, and deployment using Python and popular ML libraries.',
-      image: 'assets/new-images/machine_learning.jpg',
-      category: 'AI',
-      duration: '12 Weeks',
-      students: 198,
-      rating: 4.9,
-      price: '28,000',
-      instructor: 'Sarah Akinyi',
-      startDate: '2026-03-25',
-      endDate: '2026-06-20',
-      status: 'Enrolled',
-      level: 'Advanced',
-      applied: true
-    },
-    {
-      id: 6,
-      courseName: 'Financial Management for SMEs',
-      description: 'Learn essential financial management skills for small and medium enterprises including budgeting, forecasting, and financial analysis.',
-      image: 'assets/new-images/pg.jpg',
-      category: 'Finance',
-      duration: '6 Weeks',
-      students: 267,
-      rating: 4.7,
-      price: '17,000',
-      instructor: 'Peter Kimani',
-      startDate: '2026-03-18',
-      endDate: '2026-05-01',
-      status: 'Active',
-      level: 'Intermediate',
-      applied: false
-    },
-    {
-      id: 7,
-      courseName: 'Mobile App Development',
-      description: 'Build native mobile applications for Android and iOS platforms using modern development tools and frameworks.',
-      image: 'assets/new-images/ProgrammingLanguages.jpeg',
-      category: 'Technology',
-      duration: '14 Weeks',
-      students: 134,
-      rating: 4.9,
-      price: '28,000',
-      instructor: 'Grace Njeri',
-      startDate: '2026-04-05',
-      endDate: '2026-07-10',
-      status: 'Active',
-      level: 'Advanced',
-      applied: true
-    },
-    {
-      id: 8,
-      courseName: 'Deep Learning & Neural Networks',
-      description: 'Advanced course on deep learning architectures, convolutional neural networks, recurrent networks, and transformer models.',
-      image: 'assets/new-images/artificial_intelligence.jpg',
-      category: 'AI',
-      duration: '10 Weeks',
-      students: 223,
-      rating: 4.8,
-      price: '30,000',
-      instructor: 'James Otieno',
-      startDate: '2026-04-10',
-      endDate: '2026-06-20',
-      status: 'Enrolled',
-      level: 'Advanced',
-      applied: true
-    },
-    {
-      id: 9,
-      courseName: 'Content Writing & Copywriting',
-      description: 'Develop professional writing skills for web content, blogs, and marketing copy. Learn SEO writing and content strategy.',
-      image: 'assets/new-images/pg.jpg',
-      category: 'Marketing',
-      duration: '6 Weeks',
-      students: 178,
-      rating: 4.5,
-      price: '14,000',
-      instructor: 'Lucy Wambui',
-      startDate: '2026-03-22',
-      endDate: '2026-05-05',
-      status: 'Active',
-      level: 'Beginner',
-      applied: false
-    }
-  ];
+  allCourses: any[] = [];
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private router: Router, 
+    private commonService: CommonService,
+    private fb: FormBuilder
+  ) {
+    // Initialize the add course form
+    this.addCourseForm = this.fb.group({
+      course_name: ['', Validators.required],
+      description: ['', Validators.required],
+      category: ['', Validators.required],
+      duration: ['', Validators.required],
+      price: ['', Validators.required],
+      instructor: ['', Validators.required],
+      start_date: ['', Validators.required],
+      end_date: ['', Validators.required],
+      level: ['Beginner', Validators.required],
+      students: [0],
+      rating: [0],
+      image: ['']
+    });
+  }
 
   ngOnInit(): void {
     // Check if user is logged in
     this.userId = sessionStorage.getItem('UserId') || '';
     this.isLoggedIn = !!this.userId;
+    this.userType = sessionStorage.getItem('USERTYPE') || '';
     
-    // If not logged in, force "all" tab
-    if (!this.isLoggedIn) {
-      this.activeTab = 'all';
+    // Determine user role
+    // Assuming USERTYPE: 24 = Admin, 1 = Super Admin, others = Student
+    this.isAdmin = this.userType === '24';
+    this.isSuperAdmin = this.userType === '1';
+    this.isStudent = !this.isAdmin && !this.isSuperAdmin && this.isLoggedIn;
+    
+    // Set default tab based on user type
+    if (this.isAdmin) {
+      this.activeTab = 'list'; // Course List for admin
+    } else if (this.isSuperAdmin) {
+      this.activeTab = 'applications'; // Course Applications for super admin
+    } else {
+      this.activeTab = 'all'; // All Courses for students
     }
+    
+    // Load courses from API
+    this.loadCourses();
     
     // Check if user just logged in to enroll in a course
     const enrollCourseId = sessionStorage.getItem('enrollCourseId');
@@ -205,14 +93,96 @@ export class KncciCoursesComponent implements OnInit {
     }
   }
 
+  loadCourses(): void {
+    this.isLoading = true;
+    this.commonService.getCoursesList().subscribe(
+      (response: any) => {
+        this.isLoading = false;
+        console.log('=== loadCourses Response ===');
+        console.log('Full response:', response);
+        console.log('Response status:', response?.status);
+        console.log('Response data:', response?.data);
+        
+        if (response && response.status && response.data) {
+          // Map all courses from API
+          const mappedCourses = response.data.map((course: any) => {
+            console.log('Course approval status:', course.course_approval_status, 'for course:', course.course_name);
+            return {
+              id: course.id,
+              courseName: course.course_name,
+              description: course.description,
+              image: course.image || 'assets/new-images/pg.jpg',
+              category: course.category,
+              duration: course.duration,
+              students: course.students || 0,
+              rating: course.rating || 0,
+              price: course.price,
+              instructor: course.instructor,
+              startDate: course.start_date,
+              endDate: course.end_date,
+              status: course.status || 'Active',
+              level: course.level,
+              applied: course.is_active || false,
+              // API returns course_approval_status (with underscore)
+              approvalStatus: course.course_approval_status || course.approval_status || 'Pending'
+            };
+          });
+
+          console.log('Mapped courses:', mappedCourses);
+          console.log('Current tab:', this.activeTab);
+          console.log('Is Admin:', this.isAdmin);
+          console.log('Is Student:', this.isStudent);
+
+          // Filter courses based on user role and active tab
+          if (this.isAdmin && this.activeTab === 'list') {
+            // Course List: Show only APPROVED courses
+            this.allCourses = mappedCourses.filter((c: any) => c.approvalStatus === 'Approved');
+            console.log('Filtered for Course List (Approved only):', this.allCourses.length);
+          } else if (this.isAdmin && this.activeTab === 'schedule') {
+            // Course Schedule: Show ALL courses (Pending, Approved, Rejected)
+            this.allCourses = mappedCourses;
+            console.log('Course Schedule (All courses):', this.allCourses.length);
+          } else if (this.isStudent || !this.isLoggedIn) {
+            // Students: Show only APPROVED courses
+            this.allCourses = mappedCourses.filter((c: any) => c.approvalStatus === 'Approved');
+            console.log('Filtered for Students (Approved only):', this.allCourses.length);
+          } else {
+            // Default: Show all courses
+            this.allCourses = mappedCourses;
+            console.log('Default (All courses):', this.allCourses.length);
+          }
+        } else {
+          console.error('Failed to load courses:', response?.message);
+          this.allCourses = [];
+        }
+      },
+      (error) => {
+        this.isLoading = false;
+        console.error('Error loading courses:', error);
+        this.allCourses = [];
+      }
+    );
+  }
+
   setActiveTab(tab: string) {
-    // Only allow tab change if logged in
-    if (!this.isLoggedIn && tab !== 'all') {
+    // Only allow tab change based on user role
+    if (this.isStudent && !['all', 'applied', 'ai', 'my'].includes(tab)) {
+      return;
+    }
+    if (this.isAdmin && !['list', 'schedule', 'applications'].includes(tab)) {
+      return;
+    }
+    if (this.isSuperAdmin && !['applications'].includes(tab)) {
       return;
     }
     this.activeTab = tab;
     this.currentPage = 1;
     this.showDetails = false;
+    
+    // Reload courses when switching tabs to apply correct filters
+    if (this.isAdmin && (tab === 'list' || tab === 'schedule')) {
+      this.loadCourses();
+    }
   }
 
   get filteredCourses() {
@@ -303,6 +273,65 @@ export class KncciCoursesComponent implements OnInit {
   testClick() {
     console.log('Test click worked!');
     alert('Button click is working!');
+  }
+
+  openAddCourseModal() {
+    // Reset form
+    this.addCourseForm.reset({
+      level: 'Beginner',
+      students: 0,
+      rating: 0
+    });
+    
+    // Open modal using Bootstrap
+    const modalElement = document.getElementById('addCourseModal');
+    if (modalElement) {
+      const modal = new (window as any).bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  saveCourse() {
+    if (this.addCourseForm.valid) {
+      this.isLoading = true;
+      const courseData = this.addCourseForm.value;
+      
+      this.commonService.addCourse(courseData).subscribe(
+        (response: any) => {
+          this.isLoading = false;
+          if (response && response.status) {
+            alert('Course added successfully! It will appear in Course Schedule with Pending status. Waiting for Super Admin approval.');
+            
+            // Close modal
+            const modalElement = document.getElementById('addCourseModal');
+            if (modalElement) {
+              const modal = (window as any).bootstrap.Modal.getInstance(modalElement);
+              modal?.hide();
+            }
+            
+            // Switch to schedule tab to show the newly added course
+            this.activeTab = 'schedule';
+            
+            // Reload courses
+            this.loadCourses();
+          } else {
+            alert('Failed to add course: ' + (response?.message || 'Unknown error'));
+          }
+        },
+        (error) => {
+          this.isLoading = false;
+          console.error('Error adding course:', error);
+          alert('Error adding course. Please try again.');
+        }
+      );
+    } else {
+      alert('Please fill in all required fields.');
+    }
+  }
+
+  editCourse(course: any) {
+    // Navigate to edit course page or open edit modal
+    this.router.navigate(['/HOME/edit-course', course.id]);
   }
 
 }

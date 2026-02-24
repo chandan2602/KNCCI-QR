@@ -129,6 +129,63 @@ export class CommonService {
     return this.http.get(uri + '/' + id)
   }
 
+  // Get all courses list from API
+  getCoursesList() {
+    // For localhost testing - uncomment the line below and comment the server line
+    let coursesApiUrl = 'http://127.0.0.1:8000/api/courses/list';
+    
+    // For server - uncomment the line below and comment the localhost line
+    // let coursesApiUrl = url + 'courses/list';
+    
+    return this.http.get(coursesApiUrl)
+  }
+
+  // Add new course (Admin) - POST /api/courses/create
+  addCourse(data: any) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/courses/create';
+    
+    // For server
+    // let uri = url + 'courses/create';
+    
+    return this.http.post(uri, data)
+  }
+
+  // Update course (Admin)
+  updateCourse(data: any) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/courses/update';
+    
+    // For server
+    // let uri = url + 'courses/update';
+    
+    return this.http.put(uri, data)
+  }
+
+  // Get course applications for approval (Super Admin)
+  getCourseApplications() {
+    // Use the existing /api/courses/list endpoint
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/courses/list';
+    
+    // For server
+    // let uri = url + 'courses/list';
+    
+    return this.http.get(uri)
+  }
+
+  // Approve/Reject course (Super Admin)
+  approveCourse(courseId: number, data: any) {
+    // Use the existing /api/courses/update/{course_id} endpoint
+    // For localhost testing
+    let uri = `http://127.0.0.1:8000/api/courses/update/${courseId}`;
+    
+    // For server
+    // let uri = url + `courses/update/${courseId}`;
+    
+    return this.http.put(uri, data)
+  }
+
   ///////get cources by admin//////////// http://localhost:50905/GetAdminCourses/68664158/2/51964213/////////////
 
   getAdminCourses(tnt_code?) {

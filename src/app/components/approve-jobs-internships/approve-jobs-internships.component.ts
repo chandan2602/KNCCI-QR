@@ -12,10 +12,19 @@ import { BaseComponent } from 'src/app/pages/base.component';
 })
 export class ApproveJobsInternshipsComponent extends BaseComponent implements OnInit {
 
-  jobListGrid: any[] = []; isAddEdt = false; isAprveRejct: any = 2; super_admin_app_rej_comments: any =''; parentId: number = 0;
-  roleId: any = sessionStorage.getItem('RoleId'); tableId: any = ''; screnType: any = 'add'; type: string = 'Job';
+  jobListGrid: any[] = []; 
+  courseListGrid: any[] = [];
+  isAddEdt = false; 
+  isAprveRejct: any = 2; 
+  super_admin_app_rej_comments: any =''; 
+  parentId: number = 0;
+  roleId: any = sessionStorage.getItem('RoleId'); 
+  tableId: any = ''; 
+  screnType: any = 'add'; 
+  type: string = 'Job';
   USERTYPE: any = sessionStorage.getItem('USERTYPE');
-  isAdmin: boolean = false; intrnListGrid: any[] = [];
+  isAdmin: boolean = false; 
+  intrnListGrid: any[] = [];
 
   constructor(CommonService: CommonService, public fb: FormBuilder, public router: Router, toastr: ToastrService) {
     super(CommonService, toastr)
@@ -36,8 +45,11 @@ export class ApproveJobsInternshipsComponent extends BaseComponent implements On
     if(this.type == 'Job') {
       this.LoadGridOfJob()
     }
-     if(this.type == 'Internship') {
+    if(this.type == 'Internship') {
       this.LoadGridOfIntrnship()
+    }
+    if(this.type == 'Course') {
+      this.LoadGridOfCourse()
     }
   }
 
@@ -71,6 +83,34 @@ export class ApproveJobsInternshipsComponent extends BaseComponent implements On
       this.renderDataTable();
       // this.deactivateSpinner();
     }, e => { this.deactivateSpinner() })
+  }
+
+  LoadGridOfCourse() {
+    this.courseListGrid = [];
+    this.CommonService.activateSpinner();
+    
+    this.CommonService.getCourseApplications().subscribe(
+      (res: any) => {
+        if(res?.status == true) {
+          this.deactivateSpinner();
+          
+          // Filter only pending courses from the response
+          const allCourses = res.data || [];
+          this.courseListGrid = allCourses.filter((course: any) => 
+            course.course_approval_status === 'Pending' || 
+            course.approval_status === 'Pending'
+          );
+          
+          this.renderDataTable();
+        } else {
+          this.deactivateSpinner();
+          this.toastr.warning(res.message || 'No courses found');
+        }
+      },
+      err => {
+        this.deactivateSpinner();
+        this.toastr.warning(err.error ? err.error.text || err.error : 'Error loading courses');
+      })
   }
 
   add() {
@@ -124,6 +164,31 @@ export class ApproveJobsInternshipsComponent extends BaseComponent implements On
       if(this.type == 'Internship') {
         payLoad = { super_admin_app_rej_status: this.isAprveRejct, super_admin_app_rej_by:`${sessionStorage.UserId}`,
           super_admin_app_rej_comments: this.super_admin_app_rej_comments, course_id: this.tableId?.COURSE_ID }
+      }
+      if(this.type == 'Course') {
+        const courseId = this.tableId?.id;
+        payLoad = { 
+          course_approval_status: this.isAprveRejct == 2 ? 'Approved' : 'Rejected',
+          approved_by: sessionStorage.UserId,
+          approval_comments: this.super_admin_app_rej_comments
+        }
+        this.CommonService.approveCourse(courseId, payLoad).subscribe(
+          (res: any) => {
+            if(res?.status == true) {
+              this.deactivateSpinner();
+              this.Back();
+              this.LoadGridOfCourse();
+              this.toastr.success(res.message || 'Course approval updated successfully');
+            } else {
+              this.deactivateSpinner();
+              this.toastr.warning(res.message);
+            }
+          },
+          err => {
+            this.deactivateSpinner();
+            this.toastr.warning(err.error ? err.error.text || err.error : 'Error updating course approval');
+          })
+        return;
       }
       this.CommonService.postCall(`InternshipJobs/ApprovalJobInternship/${this.type}`, payLoad).subscribe(
         (res: any) => {

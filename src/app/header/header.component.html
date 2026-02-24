@@ -21,8 +21,8 @@
             </a>
           </li>
 
-          <!-- Courses (Available for all roles) -->
-          <li class="nav-item">
+          <!-- Courses (Available for all roles EXCEPT Super Admin) -->
+          <li class="nav-item" *ngIf="ROLEID!='4'">
             <a class="nav-link" [routerLink]="['/HOME/kncci-courses']">
               Courses
             </a>
@@ -125,7 +125,7 @@
 
           <li class="nav-item" *ngIf="ROLEID=='4'">
             <a class="nav-link" [routerLink]="['/HOME/aprve-job-internship']">
-              Approve Jobs
+              Approvals
             </a>
           </li>
 

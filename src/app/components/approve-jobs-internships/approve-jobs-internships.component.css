@@ -364,3 +364,30 @@ textarea.form-control {
     justify-content: center;
   }
 }
+
+/* Course Detail View */
+.course-detail-view {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.course-detail-view .detail-item {
+    margin-bottom: 20px;
+}
+
+.course-detail-view .detail-item label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.course-detail-view .detail-item p {
+    color: #666;
+    margin: 0;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #dee2e6;
+}
