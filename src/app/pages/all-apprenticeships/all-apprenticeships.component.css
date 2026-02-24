@@ -17,6 +17,11 @@
   gap: 10px;
 }
 
+.add-button-control {
+  display: flex;
+  align-items: center;
+}
+
 .entries-control label,
 .search-control label {
   display: flex;
@@ -34,6 +39,29 @@
 
 .search-control input {
   width: 300px;
+}
+
+.btn-add-green {
+  padding: 10px 16px;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-green:hover {
+  background-color: #256D4F;
+}
+
+.btn-add-green i {
+  font-size: 16px;
 }
 
 .table-responsive {

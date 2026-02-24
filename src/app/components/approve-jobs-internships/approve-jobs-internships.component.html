@@ -21,6 +21,12 @@
                                                 Internships
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" [class.active]="type === 'Course'"
+                                                (click)="type='Course'; LoadGrid()">
+                                                Courses
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -140,6 +146,64 @@
                                             </table>
                                         </div>
                                     </div>
+
+                                    <!-- Course Table -->
+                                    <div *ngIf="type == 'Course'">
+                                        <div class="table-responsive">
+                                            <table datatable id="DataTables_Table_1" [dtOptions]="dtOptions"
+                                                [dtTrigger]="dtTrigger" class="table approval-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <th>Course Name</th>
+                                                        <th>Instructor</th>
+                                                        <th>Category</th>
+                                                        <th>Duration</th>
+                                                        <th>Status</th>
+                                                        <th>Action Date</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of courseListGrid; let i = index">
+                                                        <td>{{i+1}}</td>
+                                                        <td class="job-title-cell">{{item.course_name}}</td>
+                                                        <td>{{item.instructor}}</td>
+                                                        <td>{{item.category}}</td>
+                                                        <td>{{item.duration}}</td>
+                                                        <td>
+                                                            <span class="status-badge"
+                                                                [class.status-pending]="(item.course_approval_status || item.approval_status) === 'Pending'"
+                                                                [class.status-approved]="(item.course_approval_status || item.approval_status) === 'Approved'"
+                                                                [class.status-rejected]="(item.course_approval_status || item.approval_status) === 'Rejected'">
+                                                                {{item.course_approval_status || item.approval_status || 'Pending'}}
+                                                            </span>
+                                                        </td>
+                                                        <td>{{(item.course_approval_status || item.approval_status) !== 'Pending' ?
+                                                            (item.approved_at | date: 'dd-MM-yyyy'): '-'}}
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn-approve"
+                                                                (click)="isAddEdt=!isAddEdt;isAprveRejct=2;tableId=item;screnType='add';onCheck(item)"
+                                                                *ngIf="(item.course_approval_status || item.approval_status) === 'Pending'">
+                                                                Approve
+                                                            </button>
+                                                            <button class="btn-reject"
+                                                                (click)="isAddEdt=!isAddEdt;isAprveRejct=3;tableId=item;screnType='add';onCheck(item)"
+                                                                *ngIf="(item.course_approval_status || item.approval_status) === 'Pending'">
+                                                                Reject
+                                                            </button>
+                                                            <button class="btn-view-icon"
+                                                                (click)="isAddEdt=!isAddEdt;tableId=item;screnType='view';onCheck(item)"
+                                                                *ngIf="(item.course_approval_status || item.approval_status) !== 'Pending'">
+                                                                View
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -163,6 +227,67 @@
                                             <div *ngIf="type == 'Internship'">
                                                 <app-posting-internship-view
                                                     [parentId]="tableId?.COURSE_ID"></app-posting-internship-view>
+                                            </div>
+                                            <div *ngIf="type == 'Course'">
+                                                <!-- Course Details -->
+                                                <div class="course-detail-view">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="detail-item">
+                                                                <label>Course Name:</label>
+                                                                <p>{{tableId?.course_name}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="detail-item">
+                                                                <label>Instructor:</label>
+                                                                <p>{{tableId?.instructor}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="detail-item">
+                                                                <label>Category:</label>
+                                                                <p>{{tableId?.category}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="detail-item">
+                                                                <label>Duration:</label>
+                                                                <p>{{tableId?.duration}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="detail-item">
+                                                                <label>Level:</label>
+                                                                <p>{{tableId?.level}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="detail-item">
+                                                                <label>Price:</label>
+                                                                <p>KES {{tableId?.price}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="detail-item">
+                                                                <label>Start Date:</label>
+                                                                <p>{{tableId?.start_date}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="detail-item">
+                                                                <label>End Date:</label>
+                                                                <p>{{tableId?.end_date}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="detail-item">
+                                                                <label>Description:</label>
+                                                                <p>{{tableId?.description}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 

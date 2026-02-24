@@ -1,12 +1,5 @@
 <div class="table-container">
-    <!-- Add Button (Admin/Company Only) -->
-    <div class="add-button-container" *ngIf="ROLEID === '1'">
-        <button class="btn btn-add" (click)="openAddModal()">
-            <i class="bi bi-plus-circle"></i> Add Apprenticeship
-        </button>
-    </div>
-
-    <!-- Table Controls -->
+    <!-- Table Controls with Add Button -->
     <div class="table-controls">
         <div class="entries-control">
             <label>
@@ -24,6 +17,12 @@
                 Search:
                 <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search apprenticeships...">
             </label>
+        </div>
+        <!-- Add Button (Admin/Company Only) - Right Side -->
+        <div class="add-button-control" *ngIf="ROLEID === '1'">
+            <button class="btn btn-add-green" (click)="openAddModal()">
+                <i class="bi bi-plus-circle"></i> Add Apprenticeship
+            </button>
         </div>
     </div>
 
