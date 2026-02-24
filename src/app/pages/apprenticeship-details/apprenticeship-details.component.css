@@ -31,185 +31,177 @@
     margin: 0 auto;
 }
 
-.details-card {
+/* Image and Summary Wrapper */
+.image-summary-wrapper {
     display: flex;
-    gap: 40px;
-    padding: 40px;
+    gap: 30px;
+    margin-bottom: 30px;
     background: white;
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    margin-bottom: 30px;
 }
 
 .details-image-section {
     flex-shrink: 0;
-    width: 400px;
+    width: 280px;
 }
 
 .details-image {
     width: 100%;
-    height: 300px;
+    height: 280px;
     object-fit: cover;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.details-content-section {
+/* Summary Section */
+.summary-section {
     flex: 1;
 }
 
-.category-badge {
-    display: inline-block;
-    background-color: #e8f5e9;
-    color: #2e7d32;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.details-title {
-    font-size: 32px;
+.summary-section .section-title {
+    font-size: 18px;
     font-weight: 700;
     color: #333;
-    margin-bottom: 16px;
-    line-height: 1.3;
+    margin-bottom: 20px;
 }
 
-.details-description {
-    font-size: 15px;
-    color: #666;
-    line-height: 1.7;
-    margin-bottom: 28px;
+.summary-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
-.info-grid {
+.summary-row {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    margin-bottom: 32px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
-.info-item {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-}
-
-.info-icon {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    background-color: #f0f7f0;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #2e7d32;
-    font-size: 20px;
-}
-
-.info-content {
+.summary-item {
     display: flex;
     flex-direction: column;
 }
 
-.info-label {
+.summary-label {
     font-size: 12px;
     color: #999;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
-.info-value {
-    font-size: 15px;
+.summary-value {
+    font-size: 14px;
     color: #333;
     font-weight: 600;
 }
 
-.info-value.status-active {
-    color: #2e7d32;
+/* About Section */
+.about-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
 }
 
-.info-value.status-inactive {
-    color: #c62828;
+.about-section .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.about-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Who Can Apply Section */
+.who-can-apply-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.who-can-apply-section .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.who-can-apply-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Terms Section */
+.terms-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.terms-section .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.terms-text {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Action Section */
+.action-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: flex-end;
 }
 
 .btn-enroll {
-    background-color: #2e7d32;
+    padding: 12px 24px;
+    background-color: #dc3545;
     color: white;
     border: none;
-    padding: 14px 40px;
     border-radius: 6px;
-    font-size: 15px;
     font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 8px;
+    transition: background-color 0.3s ease;
 }
 
 .btn-enroll:hover {
-    background-color: #1b5e20;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.3);
-}
-
-/* Requirements Section */
-.requirements-section {
-    background: white;
-    padding: 40px;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    background-color: #c82333;
 }
 
 .section-title {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     color: #333;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.section-title i {
-    color: #2e7d32;
-    font-size: 28px;
-}
-
-.requirements-list {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: 0;
-}
-
-.requirements-list li {
-    padding: 12px 0;
-    color: #666;
-    font-size: 15px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.requirements-list li:last-child {
-    border-bottom: none;
-}
-
-.requirements-list li:before {
-    content: "✓";
-    color: #2e7d32;
-    font-weight: bold;
-    font-size: 18px;
-    flex-shrink: 0;
+    margin-bottom: 16px;
 }
 
 .no-data {
@@ -226,30 +218,32 @@
         padding: 80px 15px 30px;
     }
 
-    .details-card {
+    .image-summary-wrapper {
         flex-direction: column;
-        gap: 30px;
-        padding: 25px;
+        gap: 20px;
+        padding: 20px;
     }
 
     .details-image-section {
         width: 100%;
     }
 
-    .info-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .details-image {
+        height: 250px;
     }
 
-    .details-title {
-        font-size: 26px;
+    .summary-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
     }
 
-    .requirements-section {
-        padding: 25px;
+    .about-section,
+    .who-can-apply-section,
+    .terms-section {
+        padding: 20px;
     }
 
     .section-title {
-        font-size: 20px;
+        font-size: 16px;
     }
 }

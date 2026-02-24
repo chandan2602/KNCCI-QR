@@ -1,0 +1,74 @@
+<div class="cards-container">
+    <!-- Search Control -->
+    <div class="search-control-top">
+        <label>
+            Search:
+            <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search apprenticeships...">
+        </label>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid" *ngIf="filteredApprenticeships.length > 0">
+        <div class="apprenticeship-card" *ngFor="let item of paginatedApprenticeships">
+            <div class="card-header">
+                <h3 class="card-title">{{item.programName}}</h3>
+            </div>
+            <div class="card-body">
+                <div class="card-info">
+                    <span class="info-label">Skills Needed</span>
+                    <div class="skills-tags">
+                        <span class="skill-tag" *ngFor="let req of item.requirements | slice:0:3">{{req.split(' ')[0]}}</span>
+                    </div>
+                </div>
+                <div class="card-dates">
+                    <div class="date-item">
+                        <span class="date-label">Start</span>
+                        <span class="date-value">{{item.startDate}}</span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date-label">End</span>
+                        <span class="date-value">{{item.startDate}}</span>
+                    </div>
+                </div>
+                <div class="card-stipend">
+                    <i class="bi bi-cash-coin"></i>
+                    <span>{{item.stipend}}</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn-quick-apply" (click)="viewDetails(item)">
+                    <i class="bi bi-lightning-fill"></i> Quick Apply
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- No Records Message -->
+    <div class="no-records" *ngIf="filteredApprenticeships.length === 0">
+        <i class="bi bi-inbox"></i>
+        <p>No apprenticeships found</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container" *ngIf="filteredApprenticeships.length > 0">
+        <div class="pagination-info">
+            Showing {{ ((currentPage - 1) * entriesPerPage) + 1 }} to 
+            {{ Math.min(currentPage * entriesPerPage, filteredApprenticeships.length) }} 
+            of {{ filteredApprenticeships.length }} entries
+        </div>
+        <div class="pagination-controls">
+            <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+                Previous
+            </button>
+            <button *ngFor="let page of totalPages" 
+                    class="btn-page" 
+                    [class.active]="page === currentPage"
+                    (click)="goToPage(page)">
+                {{ page }}
+            </button>
+            <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages.length">
+                Next
+            </button>
+        </div>
+    </div>
+</div>
