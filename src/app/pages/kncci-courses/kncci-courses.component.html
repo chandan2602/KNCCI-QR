@@ -491,7 +491,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Add New Course</h5>
+        <h5 class="modal-title">{{ isEditMode ? 'Edit Course' : 'Add New Course' }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -581,7 +581,177 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary" (click)="saveCourse()" [disabled]="!addCourseForm.valid">
-          <i class="bx bx-save"></i> Save Course
+          <i class="bx bx-save"></i> {{ isEditMode ? 'Update Course' : 'Save Course' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Enrollment Modal -->
+<div class="modal fade" id="enrollmentModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <span *ngIf="enrollmentStep === 1">Enroll in Course</span>
+          <span *ngIf="enrollmentStep === 2">Payment</span>
+          <span *ngIf="enrollmentStep === 3">Enrollment Successful</span>
+        </h5>
+        <button type="button" class="btn-close" (click)="closeEnrollmentModal()" aria-label="Close"></button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- Step 1: Enrollment Form -->
+        <div *ngIf="enrollmentStep === 1 && enrollingCourse">
+          <div class="enrollment-course-info mb-4">
+            <h6>Course Details:</h6>
+            <p class="mb-1"><strong>Course:</strong> {{enrollingCourse.courseName}}</p>
+            <p class="mb-1"><strong>Instructor:</strong> {{enrollingCourse.instructor}}</p>
+            <p class="mb-1"><strong>Duration:</strong> {{enrollingCourse.duration}}</p>
+            <p class="mb-1"><strong>Fee:</strong> KES {{enrollingCourse.price}}</p>
+          </div>
+
+          <form [formGroup]="enrollmentForm">
+            <div class="row">
+              <!-- Full Name -->
+              <div class="col-md-6 mb-3">
+                <label for="full_name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="full_name" formControlName="full_name" 
+                  placeholder="Enter your full name" readonly disabled>
+                <small class="text-muted">From your profile</small>
+              </div>
+
+              <!-- Email -->
+              <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" formControlName="email" 
+                  placeholder="Enter your email" readonly>
+                <small class="text-muted">From your profile</small>
+              </div>
+
+              <!-- Phone -->
+              <div class="col-md-6 mb-3">
+                <label for="phone" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                <input type="tel" class="form-control" id="phone" formControlName="phone" 
+                  placeholder="Enter your phone number" readonly>
+                <small class="text-muted">From your profile</small>
+              </div>
+
+              <!-- Address -->
+              <div class="col-md-6 mb-3">
+                <label for="address" class="form-label">Address <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="address" formControlName="address" 
+                  placeholder="Enter your address">
+              </div>
+
+              <!-- Education -->
+              <div class="col-md-6 mb-3">
+                <label for="education" class="form-label">Highest Education <span class="text-danger">*</span></label>
+                <select class="form-select" id="education" formControlName="education">
+                  <option value="">Select Education Level</option>
+                  <option value="High School">High School</option>
+                  <option value="Diploma">Diploma</option>
+                  <option value="Bachelor's Degree">Bachelor's Degree</option>
+                  <option value="Master's Degree">Master's Degree</option>
+                  <option value="PhD">PhD</option>
+                </select>
+              </div>
+
+              <!-- Experience -->
+              <div class="col-md-6 mb-3">
+                <label for="experience" class="form-label">Relevant Experience (Optional)</label>
+                <input type="text" class="form-control" id="experience" formControlName="experience" 
+                  placeholder="e.g., 2 years in marketing">
+              </div>
+
+              <!-- Reason for Enrollment -->
+              <div class="col-12 mb-3">
+                <label for="reason" class="form-label">Why do you want to enroll in this course? <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="reason" formControlName="reason" rows="3"
+                  placeholder="Tell us why you're interested in this course"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Step 2: QR Code Payment -->
+        <div *ngIf="enrollmentStep === 2 && enrollingCourse" class="text-center">
+          <div class="qr-code-section">
+            <h6 class="mb-3">Scan QR Code to Complete Payment</h6>
+            <p class="mb-3">Course Fee: <strong>KES {{enrollingCourse.price}}</strong></p>
+            
+            <!-- Static QR Code Display -->
+            <div class="qr-code-container mb-4">
+              <div class="qr-code-image-wrapper">
+                <!-- Using a placeholder QR code image - replace with your actual QR code -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=Payment:KES{{enrollingCourse.price}}-Course:{{enrollingCourse.courseName}}" 
+                     alt="Payment QR Code" 
+                     class="qr-code-img">
+                <p class="mt-3 text-muted">Scan to pay KES {{enrollingCourse.price}}</p>
+              </div>
+            </div>
+
+            <div class="payment-instructions">
+              <h6>Payment Instructions:</h6>
+              <ol class="text-start">
+                <li>Open your mobile payment app (M-Pesa, Bank App, etc.)</li>
+                <li>Scan the QR code above</li>
+                <li>Confirm the payment amount: KES {{enrollingCourse.price}}</li>
+                <li>Complete the payment</li>
+                <li>Click "I've Completed Payment" button below</li>
+              </ol>
+              <div class="alert alert-warning mt-3">
+                <i class="bx bx-info-circle"></i> You can also skip payment now and pay later. Your enrollment will be saved.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Success Message -->
+        <div *ngIf="enrollmentStep === 3" class="text-center">
+          <div class="success-message">
+            <i class="bx bx-check-circle" style="font-size: 80px; color: #2e7d32;"></i>
+            <h4 class="mt-3 mb-2">Enrollment Successful!</h4>
+            <p class="text-muted">You have successfully enrolled in {{enrollingCourse?.courseName}}</p>
+            <p class="text-muted">You can now access this course from "My Courses" tab.</p>
+            <div class="alert alert-info mt-3">
+              <i class="bx bx-info-circle"></i> Payment can be completed later. Course access will be granted after payment confirmation.
+            </div>
+          </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div *ngIf="isLoading" class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2">Processing enrollment...</p>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeEnrollmentModal()" 
+          *ngIf="enrollmentStep !== 3">Cancel</button>
+        
+        <button type="button" class="btn btn-primary" (click)="submitEnrollment()" 
+          [disabled]="!enrollmentForm.valid || isLoading" *ngIf="enrollmentStep === 1">
+          <i class="bx bx-right-arrow-alt"></i> Proceed to Payment
+        </button>
+        
+        <button type="button" class="btn btn-outline-secondary" (click)="confirmPayment()" 
+          *ngIf="enrollmentStep === 2">
+          <i class="bx bx-skip-next"></i> Skip Payment (Pay Later)
+        </button>
+        
+        <button type="button" class="btn btn-success" (click)="confirmPayment()" 
+          *ngIf="enrollmentStep === 2">
+          <i class="bx bx-check"></i> I've Completed Payment
+        </button>
+        
+        <button type="button" class="btn btn-primary" (click)="closeEnrollmentModal()" 
+          *ngIf="enrollmentStep === 3">
+          <i class="bx bx-check"></i> Done
         </button>
       </div>
     </div>

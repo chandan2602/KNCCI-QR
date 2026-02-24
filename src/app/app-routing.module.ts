@@ -225,6 +225,7 @@ import { InternshipMenuComponent } from './components/internship-menu/internship
 import { StudentInternshipMenuComponent } from './components/student-internship-menu/student-internship-menu.component';
 import { StudentJobMenuComponent } from './components/student-job-menu/student-job-menu.component';
 import { PublicApprenticeshipsComponent } from './pages/public-apprenticeships/public-apprenticeships.component';
+import { PublicCoursesComponent } from './pages/public-courses/public-courses.component';
 import { PublicInternshipsComponent } from './pages/public-internships/public-internships.component';
 import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
 const routes: Routes = [
@@ -958,6 +959,7 @@ const routes: Routes = [
   { path: 'internship', component: LandingComponent },
   { path: 'internships', component: PublicInternshipsComponent },
   { path: 'jobs', component: PublicJobsComponent },
+  { path: 'courses', component: PublicCoursesComponent },
   { path: 'apprenticeships', component: PublicApprenticeshipsComponent },
   { path: 'corporate', component: LandingComponent },
   { path: 'contacts', component: LandingContactComponent },
