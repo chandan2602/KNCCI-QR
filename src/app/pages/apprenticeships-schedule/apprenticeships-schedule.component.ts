@@ -12,6 +12,7 @@ export class ApprenticeshipsScheduleComponent implements OnInit {
   editScheduleForm: FormGroup;
   addTrainerForm: FormGroup;
   selectedSchedule: any = null;
+  ROLEID: string = ''; // Get from sessionStorage
 
   scheduleList = [
     {
@@ -170,6 +171,8 @@ export class ApprenticeshipsScheduleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Get ROLEID from sessionStorage (same as header component - note: it's 'RoleId' not 'ROLEID')
+    this.ROLEID = sessionStorage.getItem('RoleId') || '';
   }
 
   get filteredSchedules() {

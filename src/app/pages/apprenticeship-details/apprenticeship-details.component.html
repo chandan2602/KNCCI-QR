@@ -1,108 +1,85 @@
 <div class="details-page" *ngIf="apprenticeship">
     <div class="page-header">
         <button class="btn-back" (click)="goBack()">
-            <i class="bi bi-arrow-left"></i> Back to Apprenticeships
+            <i class="bi bi-arrow-left"></i> Back
         </button>
     </div>
 
     <div class="details-container">
-        <div class="details-card">
+        <!-- Image and Summary Section -->
+        <div class="image-summary-wrapper">
             <!-- Image Section -->
             <div class="details-image-section">
                 <img [src]="apprenticeship.image" [alt]="apprenticeship.programName" class="details-image">
             </div>
 
-            <!-- Content Section -->
-            <div class="details-content-section">
-                <!-- Category Badge -->
-                <span class="category-badge">{{apprenticeship.category}}</span>
-
-                <!-- Title -->
-                <h1 class="details-title">{{apprenticeship.programName}}</h1>
-
-                <!-- Description -->
-                <p class="details-description">{{apprenticeship.description}}</p>
-
-                <!-- Info Grid -->
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="bi bi-building"></i>
+            <!-- Summary Section -->
+            <div class="summary-section">
+                <h2 class="section-title">Summary</h2>
+                <div class="summary-grid">
+                    <div class="summary-row">
+                        <div class="summary-item">
+                            <span class="summary-label">Company Name</span>
+                            <span class="summary-value">{{apprenticeship.company}}</span>
                         </div>
-                        <div class="info-content">
-                            <span class="info-label">Company</span>
-                            <span class="info-value">{{apprenticeship.company}}</span>
+                        <div class="summary-item">
+                            <span class="summary-label">Company Email</span>
+                            <span class="summary-value">contact@company.com</span>
                         </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="bi bi-calendar-event"></i>
+                        <div class="summary-item">
+                            <span class="summary-label">Company Contact No.</span>
+                            <span class="summary-value">+254 XXX XXX XXX</span>
                         </div>
-                        <div class="info-content">
-                            <span class="info-label">Start Date</span>
-                            <span class="info-value">{{apprenticeship.startDate}}</span>
+                        <div class="summary-item">
+                            <span class="summary-label">Registration Start Date</span>
+                            <span class="summary-value">01-01-2025</span>
                         </div>
                     </div>
-
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="bi bi-hourglass-split"></i>
+                    <div class="summary-row">
+                        <div class="summary-item">
+                            <span class="summary-label">Internship Id</span>
+                            <span class="summary-value">INT{{apprenticeship.id}}</span>
                         </div>
-                        <div class="info-content">
-                            <span class="info-label">Duration</span>
-                            <span class="info-value">{{apprenticeship.duration}}</span>
+                        <div class="summary-item">
+                            <span class="summary-label">Registration End Date</span>
+                            <span class="summary-value">31-03-2025</span>
                         </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="bi bi-geo-alt"></i>
+                        <div class="summary-item">
+                            <span class="summary-label">Internship Start Date</span>
+                            <span class="summary-value">{{apprenticeship.startDate}}</span>
                         </div>
-                        <div class="info-content">
-                            <span class="info-label">Location</span>
-                            <span class="info-value">{{apprenticeship.location}}</span>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="bi bi-cash-coin"></i>
-                        </div>
-                        <div class="info-content">
-                            <span class="info-label">Stipend</span>
-                            <span class="info-value">{{apprenticeship.stipend}}</span>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="bi bi-check-circle"></i>
-                        </div>
-                        <div class="info-content">
-                            <span class="info-label">Status</span>
-                            <span class="info-value" [ngClass]="apprenticeship.status === 'Open' ? 'status-active' : 'status-inactive'">
-                                {{apprenticeship.status}}
-                            </span>
+                        <div class="summary-item">
+                            <span class="summary-label">Internship End Date</span>
+                            <span class="summary-value">31-12-2025</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- Enroll Button -->
-                <button type="button" class="btn-enroll" *ngIf="apprenticeship?.status === 'Open'" (click)="enrollNow()">
-                    <i class="bi bi-check-lg"></i> Enroll Now
-                </button>
             </div>
         </div>
 
-        <!-- Requirements Section -->
-        <div class="requirements-section" *ngIf="apprenticeship.requirements">
-            <h2 class="section-title">
-                <i class="bi bi-list-check"></i> Requirements
-            </h2>
-            <ul class="requirements-list">
-                <li *ngFor="let req of apprenticeship.requirements">{{req}}</li>
-            </ul>
+        <!-- About Internship Section -->
+        <div class="about-section">
+            <h2 class="section-title">About Internship</h2>
+            <p class="about-text">{{apprenticeship.description}}</p>
+        </div>
+
+        <!-- Who Can Apply Section -->
+        <div class="who-can-apply-section">
+            <h2 class="section-title">Who Can Apply</h2>
+            <p class="who-can-apply-text">{{apprenticeship.requirements?.join(', ')}}</p>
+        </div>
+
+        <!-- Terms of Engagement Section -->
+        <div class="terms-section">
+            <h2 class="section-title">Terms Of Engagement</h2>
+            <p class="terms-text">Standard terms and conditions apply. Candidates must adhere to company policies and professional standards.</p>
+        </div>
+
+        <!-- Enroll Button - Only for All Apprenticeships and AI Apprenticeships -->
+        <div class="action-section" *ngIf="sourceComponent === 'all' || sourceComponent === 'ai'">
+            <button class="btn-enroll" (click)="enrollNow()">
+                <i class="bi bi-check-circle"></i> Enroll
+            </button>
         </div>
     </div>
 </div>

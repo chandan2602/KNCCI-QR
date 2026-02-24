@@ -169,10 +169,13 @@ export class ApprenticeshipsApplicationsComponent implements OnInit {
   filterStatus: string = 'All';
   viewMode: string = 'list'; // 'list' or 'details'
   selectedApplication: any = null;
+  ROLEID: string = ''; // Get from sessionStorage
 
   constructor() { }
 
   ngOnInit(): void {
+    // Get ROLEID from sessionStorage (same as header component - note: it's 'RoleId' not 'ROLEID')
+    this.ROLEID = sessionStorage.getItem('RoleId') || '';
   }
 
   get filteredApplications() {

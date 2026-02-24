@@ -1,98 +1,93 @@
-<div class="apprenticeships-page">
-    <div class="page-header">
-        <h1 class="page-title">
-            Apprenticeships
-            <button class="btn-info-icon" [appTooltip]="tooltipContent">
-                <i class="bi bi-info-circle-fill"></i>
+<div class="table-container">
+    <!-- Add Button (Admin/Company Only) -->
+    <div class="add-button-container" *ngIf="ROLEID === '1'">
+        <button class="btn btn-add" (click)="openAddModal()">
+            <i class="bi bi-plus-circle"></i> Add Apprenticeship
+        </button>
+    </div>
+
+    <!-- Table Controls -->
+    <div class="table-controls">
+        <div class="entries-control">
+            <label>
+                Show
+                <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                    <option [value]="10">10</option>
+                    <option [value]="25">25</option>
+                    <option [value]="50">50</option>
+                </select>
+                entries
+            </label>
+        </div>
+        <div class="search-control">
+            <label>
+                Search:
+                <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search apprenticeships...">
+            </label>
+        </div>
+    </div>
+
+    <!-- Apprenticeships Table -->
+    <div class="table-responsive" *ngIf="filteredApprenticeships.length > 0">
+        <table class="apprenticeships-table">
+            <thead>
+                <tr>
+                    <th>Apprenticeship Name </th>
+                    <th>Is Certified</th>
+                    <th>Status</th>
+                    <th>Approve / Reject Status</th>
+                    <th>Approve / Reject Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of paginatedApprenticeships">
+                    <td class="program-name-cell">{{item.programName}}</td>
+                    <td>Yes</td>
+                    <td>
+                        <span class="status-badge" [ngClass]="item.status === 'Open' ? 'status-open' : 'status-closed'">
+                            {{item.status}}
+                        </span>
+                    </td>
+                    <td>Approved</td>
+                    <td>{{item.startDate}}</td>
+                    <td>
+                        <button class="btn-view-details" (click)="viewDetails(item)">
+                            <i class="bi bi-eye"></i> View Details
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Records Message -->
+    <div class="no-records" *ngIf="filteredApprenticeships.length === 0">
+        <i class="bi bi-inbox"></i>
+        <p>No apprenticeships found</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container" *ngIf="filteredApprenticeships.length > 0">
+        <div class="pagination-info">
+            Showing {{ ((currentPage - 1) * entriesPerPage) + 1 }} to 
+            {{ Math.min(currentPage * entriesPerPage, filteredApprenticeships.length) }} 
+            of {{ filteredApprenticeships.length }} entries
+        </div>
+        <div class="pagination-controls">
+            <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+                Previous
             </button>
-        </h1>
-        <p class="page-subtitle">Gain hands-on experience and develop practical skills through our apprenticeship programs</p>
-    </div>
-
-    <!-- Tabs Navigation -->
-    <div class="tabs-container">
-        <ul class="nav nav-tabs" id="apprenticeshipTabs" role="tablist">
-            <!-- Student Tabs -->
-            <ng-container *ngIf="ROLEID !== '1'">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" [class.active]="activeTab === 'applied'"
-                        (click)="activeTab = 'applied'" type="button"
-                        role="tab">Applied Apprenticeships</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" [class.active]="activeTab === 'all'"
-                        (click)="activeTab = 'all'" type="button" role="tab">All Apprenticeships</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" [class.active]="activeTab === 'ai'"
-                        (click)="activeTab = 'ai'" type="button" role="tab">AI Apprenticeships</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" [class.active]="activeTab === 'my'"
-                        (click)="activeTab = 'my'" type="button" role="tab">My Apprenticeships</button>
-                </li>
-            </ng-container>
-
-            <!-- Admin/Company Tabs -->
-            <ng-container *ngIf="ROLEID === '1'">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" [class.active]="activeTab === 'all'"
-                        (click)="activeTab = 'all'" type="button" role="tab">All Apprenticeships</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" [class.active]="activeTab === 'schedule'"
-                        (click)="activeTab = 'schedule'" type="button" role="tab">Apprenticeship Schedule</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" [class.active]="activeTab === 'applications'"
-                        (click)="activeTab = 'applications'" type="button" role="tab">Apprenticeship Applications</button>
-                </li>
-            </ng-container>
-        </ul>
-    </div>
-
-    <!-- Tab Content -->
-    <div class="tab-content" id="apprenticeshipTabContent">
-        <!-- Student Tabs Content -->
-        <ng-container *ngIf="ROLEID !== '1'">
-            <!-- Applied Apprenticeships Tab -->
-            <div class="tab-pane fade" [class.active]="activeTab === 'applied'" [class.show]="activeTab === 'applied'">
-                <app-applied-apprenticeships *ngIf="activeTab === 'applied'"></app-applied-apprenticeships>
-            </div>
-
-            <!-- All Apprenticeships Tab -->
-            <div class="tab-pane fade" [class.active]="activeTab === 'all'" [class.show]="activeTab === 'all'">
-                <app-all-apprenticeships *ngIf="activeTab === 'all'"></app-all-apprenticeships>
-            </div>
-
-            <!-- AI Apprenticeships Tab -->
-            <div class="tab-pane fade" [class.active]="activeTab === 'ai'" [class.show]="activeTab === 'ai'">
-                <app-ai-apprenticeships *ngIf="activeTab === 'ai'"></app-ai-apprenticeships>
-            </div>
-
-            <!-- My Apprenticeships Tab -->
-            <div class="tab-pane fade" [class.active]="activeTab === 'my'" [class.show]="activeTab === 'my'">
-                <app-my-apprenticeships *ngIf="activeTab === 'my'"></app-my-apprenticeships>
-            </div>
-        </ng-container>
-
-        <!-- Admin/Company Tabs Content -->
-        <ng-container *ngIf="ROLEID === '1'">
-            <!-- All Apprenticeships Tab -->
-            <div class="tab-pane fade" [class.active]="activeTab === 'all'" [class.show]="activeTab === 'all'">
-                <app-all-apprenticeships *ngIf="activeTab === 'all'"></app-all-apprenticeships>
-            </div>
-
-            <!-- Apprenticeship Schedule Tab -->
-            <div class="tab-pane fade" [class.active]="activeTab === 'schedule'" [class.show]="activeTab === 'schedule'">
-                <app-apprenticeships-schedule *ngIf="activeTab === 'schedule'"></app-apprenticeships-schedule>
-            </div>
-
-            <!-- Apprenticeship Applications Tab -->
-            <div class="tab-pane fade" [class.active]="activeTab === 'applications'" [class.show]="activeTab === 'applications'">
-                <app-apprenticeships-applications *ngIf="activeTab === 'applications'"></app-apprenticeships-applications>
-            </div>
-        </ng-container>
+            <button *ngFor="let page of totalPages" 
+                    class="btn-page" 
+                    [class.active]="page === currentPage"
+                    (click)="goToPage(page)">
+                {{ page }}
+            </button>
+            <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages.length">
+                Next
+            </button>
+        </div>
     </div>
 </div>
 
@@ -195,4 +190,3 @@
         </div>
     </div>
 </div>
-

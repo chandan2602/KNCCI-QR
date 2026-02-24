@@ -1,0 +1,122 @@
+<div class="table-container">
+    <!-- Table Controls -->
+    <div class="table-controls">
+        <div class="entries-control">
+            <label>
+                Show
+                <select [(ngModel)]="entriesPerPage" (change)="currentPage = 1">
+                    <option [value]="10">10</option>
+                    <option [value]="25">25</option>
+                    <option [value]="50">50</option>
+                </select>
+                entries
+            </label>
+        </div>
+        <div class="search-control">
+            <label>
+                Search:
+                <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search apprenticeships...">
+            </label>
+        </div>
+    </div>
+
+    <!-- Apprenticeships Table -->
+    <div class="table-responsive" *ngIf="filteredApprenticeships.length > 0">
+        <table class="apprenticeships-table">
+            <thead>
+                <tr>
+                    <th>Apprenticeship Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Company Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of paginatedApprenticeships">
+                    <td class="program-name-cell">{{item.programName}}</td>
+                    <td>{{item.startDate}}</td>
+                    <td>{{item.endDate}}</td>
+                    <td>{{item.startTime}}</td>
+                    <td>{{item.endTime}}</td>
+                    <td class="company-name-cell">{{item.company}}</td>
+                    <td>
+                        <button class="btn-review" (click)="viewDetails(item)">
+                            <i class="bi bi-eye"></i> Review
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No Records Message -->
+    <div class="no-records" *ngIf="filteredApprenticeships.length === 0">
+        <i class="bi bi-inbox"></i>
+        <p>No apprenticeships found</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container" *ngIf="filteredApprenticeships.length > 0">
+        <div class="pagination-info">
+            Showing {{ ((currentPage - 1) * entriesPerPage) + 1 }} to 
+            {{ Math.min(currentPage * entriesPerPage, filteredApprenticeships.length) }} 
+            of {{ filteredApprenticeships.length }} entries
+        </div>
+        <div class="pagination-controls">
+            <button class="btn-page" (click)="previousPage()" [disabled]="currentPage === 1">
+                Previous
+            </button>
+            <button *ngFor="let page of totalPages" 
+                    class="btn-page" 
+                    [class.active]="page === currentPage"
+                    (click)="goToPage(page)">
+                {{ page }}
+            </button>
+            <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages.length">
+                Next
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Review Modal -->
+<div class="review-modal-overlay" *ngIf="showReviewModal" (click)="closeReviewModal()">
+    <div class="review-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h2>Submit Review</h2>
+            <button class="close-btn" (click)="closeReviewModal()">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>Rating :</label>
+                <div class="star-rating">
+                    <span *ngFor="let i of [1,2,3,4,5]" 
+                          class="star" 
+                          [class.active]="i <= selectedRating"
+                          (click)="setRating(i)">
+                        <i class="bi bi-star-fill"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Review Description :</label>
+                <textarea [(ngModel)]="reviewDescription" 
+                          placeholder="Enter your review..."
+                          rows="6"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-save" (click)="submitReview()">
+                <i class="bi bi-check"></i> Save
+            </button>
+            <button class="btn-cancel" (click)="closeReviewModal()">
+                <i class="bi bi-arrow-clockwise"></i>
+            </button>
+        </div>
+    </div>
+</div>

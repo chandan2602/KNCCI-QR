@@ -1,50 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-declare var $: any;
-declare var bootstrap: any;
 
 @Component({
-  selector: 'app-apprenticeships',
-  templateUrl: './apprenticeships.component.html',
-  styleUrls: ['./apprenticeships.component.css']
+  selector: 'app-all-apprenticeships',
+  templateUrl: './all-apprenticeships.component.html',
+  styleUrls: ['./all-apprenticeships.component.css']
 })
-export class ApprenticeshipsComponent implements OnInit {
-  
-  // Pagination properties
+export class AllApprenticeshipsComponent implements OnInit {
   searchTerm: string = '';
   entriesPerPage: number = 10;
   currentPage: number = 1;
   Math = Math;
-  selectedApprenticeship: any = null;
-  activeTab: string = 'list'; // 'list', 'schedule', 'applications' for admin; 'applied', 'all', 'ai', 'my' for student
   ROLEID: string = ''; // Get from sessionStorage
-  
-  // Applied apprenticeships (only 3)
-  appliedApprenticeships = [1, 2, 3];
-  
-  // AI apprenticeships (only 2)
-  aiApprenticeships = [4, 5];
-  
-  // My apprenticeships (only 1 - the first one)
-  myApprenticeships = [1];
+  addApprenticeshipForm: FormGroup;
 
-  tooltipContent = `
-    Browse available apprenticeship programs from leading companies. Apprenticeships combine on-the-job training with classroom learning, 
-    providing you with practical skills and industry experience. Click <strong>View Details</strong> to see full program information and requirements.
-  `;
-
-  // Static apprenticeship data
   apprenticeshipsList = [
     {
       id: 1,
-      programName: 'Software Development Apprenticeship',
       company: 'Tech Solutions Kenya',
-      duration: '12 months',
-      location: 'Nairobi',
-      stipend: 'KES 25,000/month',
-      startDate: '01-04-2026',
-      status: 'Open',
+      studentName: 'John Doe',
+      programName: 'Software Development Apprenticeship',
+      creationDate: '15-02-2026',
+      closingDate: '31-03-2026',
+      comments: 'PENDING',
+      status: 'Active',
       image: 'assets/kncci-img/img-1.png',
       category: 'Technology',
       description: 'Learn full-stack web development with hands-on projects and mentorship from experienced developers.',
@@ -57,13 +37,13 @@ export class ApprenticeshipsComponent implements OnInit {
     },
     {
       id: 2,
-      programName: 'Digital Marketing Apprenticeship',
       company: 'Marketing Pro Ltd',
-      duration: '6 months',
-      location: 'Mombasa',
-      stipend: 'KES 20,000/month',
-      startDate: '15-03-2026',
-      status: 'Open',
+      studentName: 'Jane Smith',
+      programName: 'Digital Marketing Apprenticeship',
+      creationDate: '10-02-2026',
+      closingDate: '30-04-2026',
+      comments: 'APPROVED',
+      status: 'Active',
       image: 'assets/kncci-img/img-2.png',
       category: 'Marketing',
       description: 'Gain practical experience in SEO, social media marketing, content creation, and digital advertising.',
@@ -76,13 +56,13 @@ export class ApprenticeshipsComponent implements OnInit {
     },
     {
       id: 3,
-      programName: 'Electrical Engineering Apprenticeship',
       company: 'Power Systems Kenya',
-      duration: '18 months',
-      location: 'Kisumu',
-      stipend: 'KES 30,000/month',
-      startDate: '01-05-2026',
-      status: 'Open',
+      studentName: 'Mike Johnson',
+      programName: 'Electrical Engineering Apprenticeship',
+      creationDate: '05-02-2026',
+      closingDate: '15-05-2026',
+      comments: 'PENDING',
+      status: 'Active',
       image: 'assets/kncci-img/img-3.png',
       category: 'Engineering',
       description: 'Work on real electrical installations and maintenance projects under the guidance of certified engineers.',
@@ -95,13 +75,13 @@ export class ApprenticeshipsComponent implements OnInit {
     },
     {
       id: 4,
-      programName: 'Accounting & Finance Apprenticeship',
       company: 'Financial Services Group',
-      duration: '12 months',
-      location: 'Nairobi',
-      stipend: 'KES 28,000/month',
-      startDate: '10-04-2026',
-      status: 'Open',
+      studentName: 'Sarah Williams',
+      programName: 'Accounting & Finance Apprenticeship',
+      creationDate: '20-02-2026',
+      closingDate: '10-04-2026',
+      comments: 'APPROVED',
+      status: 'Active',
       image: 'assets/kncci-img/img-4.png',
       category: 'Finance',
       description: 'Learn bookkeeping, financial reporting, tax preparation, and auditing in a professional environment.',
@@ -114,13 +94,13 @@ export class ApprenticeshipsComponent implements OnInit {
     },
     {
       id: 5,
-      programName: 'Hospitality Management Apprenticeship',
       company: 'Grand Hotel Nairobi',
-      duration: '9 months',
-      location: 'Nairobi',
-      stipend: 'KES 22,000/month',
-      startDate: '01-03-2026',
-      status: 'Closed',
+      studentName: 'Emily Brown',
+      programName: 'Hospitality Management Apprenticeship',
+      creationDate: '25-01-2026',
+      closingDate: '28-02-2026',
+      comments: 'REJECTED',
+      status: 'Inactive',
       image: 'assets/kncci-img/img-5.png',
       category: 'Hospitality',
       description: 'Rotate through various hotel departments including front desk, housekeeping, and food & beverage.',
@@ -262,9 +242,7 @@ export class ApprenticeshipsComponent implements OnInit {
     }
   ];
 
-  addApprenticeshipForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private router: Router) { 
+  constructor(private router: Router, private fb: FormBuilder) {
     this.addApprenticeshipForm = this.fb.group({
       category: ['', Validators.required],
       name: ['', Validators.required],
@@ -278,34 +256,14 @@ export class ApprenticeshipsComponent implements OnInit {
   ngOnInit(): void {
     // Get ROLEID from sessionStorage (same as header component - note: it's 'RoleId' not 'ROLEID')
     this.ROLEID = sessionStorage.getItem('RoleId') || '';
-    
-    // Set default tab based on role
-    if (this.ROLEID === '1') {
-      this.activeTab = 'all'; // Admin/Company sees All Apprenticeships by default
-    } else {
-      this.activeTab = 'applied'; // Student sees Applied by default
-    }
   }
 
-  // Pagination methods
   get filteredApprenticeships() {
-    let data = this.apprenticeshipsList;
-    
-    // Filter based on active tab
-    if (this.activeTab === 'applied') {
-      data = data.filter(item => this.appliedApprenticeships.includes(item.id));
-    } else if (this.activeTab === 'ai') {
-      data = data.filter(item => this.aiApprenticeships.includes(item.id));
-    } else if (this.activeTab === 'my') {
-      data = data.filter(item => this.myApprenticeships.includes(item.id));
-    }
-    
-    // Apply search filter
     if (!this.searchTerm) {
-      return data;
+      return this.apprenticeshipsList;
     }
     const search = this.searchTerm.toLowerCase();
-    return data.filter(item =>
+    return this.apprenticeshipsList.filter(item =>
       item.programName?.toLowerCase().includes(search) ||
       item.company?.toLowerCase().includes(search) ||
       item.location?.toLowerCase().includes(search) ||
@@ -341,7 +299,7 @@ export class ApprenticeshipsComponent implements OnInit {
   }
 
   viewDetails(apprenticeship: any) {
-    this.router.navigate(['/HOME/apprenticeship-details', apprenticeship.id]);
+    this.router.navigate(['/HOME/apprenticeship-details', apprenticeship.id, { source: 'all' }]);
   }
 
   openAddModal() {
@@ -349,7 +307,7 @@ export class ApprenticeshipsComponent implements OnInit {
       type: 'Uncertified',
       status: 'Active'
     });
-    const modal = new bootstrap.Modal(document.getElementById('addApprenticeshipModal'));
+    const modal = new (window as any).bootstrap.Modal(document.getElementById('addApprenticeshipModal'));
     modal.show();
   }
 
@@ -363,15 +321,19 @@ export class ApprenticeshipsComponent implements OnInit {
         location: 'Nairobi',
         stipend: 'KES 25,000/month',
         startDate: new Date().toLocaleDateString('en-GB'),
-        status: this.addApprenticeshipForm.get('status')?.value === 'Active' ? 'Open' : 'Closed',
+        creationDate: new Date().toLocaleDateString('en-GB'),
+        closingDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('en-GB'),
+        status: this.addApprenticeshipForm.get('status')?.value === 'Active' ? 'Active' : 'Inactive',
+        image: 'assets/kncci-img/img-1.png',
+        category: this.addApprenticeshipForm.get('category')?.value,
         description: this.addApprenticeshipForm.get('description')?.value,
         requirements: ['Requirement 1', 'Requirement 2']
       };
 
-      this.apprenticeshipsList.push(newApprenticeship);
+      this.apprenticeshipsList.push(newApprenticeship as any);
       
       // Close modal
-      const modal = bootstrap.Modal.getInstance(document.getElementById('addApprenticeshipModal'));
+      const modal = (window as any).bootstrap.Modal.getInstance(document.getElementById('addApprenticeshipModal'));
       modal?.hide();
 
       // Reset form
@@ -380,7 +342,6 @@ export class ApprenticeshipsComponent implements OnInit {
         status: 'Active'
       });
 
-      // Show success message (you can use toastr or similar)
       alert('Apprenticeship added successfully!');
     }
   }

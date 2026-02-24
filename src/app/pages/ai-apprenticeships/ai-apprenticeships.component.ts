@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-apprenticeship-details',
-  templateUrl: './apprenticeship-details.component.html',
-  styleUrls: ['./apprenticeship-details.component.css']
+  selector: 'app-ai-apprenticeships',
+  templateUrl: './ai-apprenticeships.component.html',
+  styleUrls: ['./ai-apprenticeships.component.css']
 })
-export class ApprenticeshipDetailsComponent implements OnInit {
+export class AiApprenticeshipsComponent implements OnInit {
+  searchTerm: string = '';
+  entriesPerPage: number = 10;
+  currentPage: number = 1;
+  Math = Math;
 
-  apprenticeship: any = null;
-  sourceComponent: string = ''; // Track which component called this
+  aiApprenticeships = [4, 5];
 
-  // Sample apprenticeships data - in real app, this would come from a service
   apprenticeshipsList = [
     {
       id: 1,
@@ -199,30 +201,94 @@ export class ApprenticeshipDetailsComponent implements OnInit {
       requirements: [
         'Certificate in Automotive Engineering',
         'Mechanical aptitude',
-        'Problem-solving skills',
-        'Attention to detail'
+        'Physical stamina',
+        'Problem-solving skills'
+      ]
+    },
+    {
+      id: 11,
+      programName: 'Culinary Arts Apprenticeship',
+      company: 'Gourmet Restaurant',
+      duration: '12 months',
+      location: 'Nairobi',
+      stipend: 'KES 20,000/month',
+      startDate: '15-05-2026',
+      status: 'Open',
+      description: 'Train under professional chefs and learn various cooking techniques and kitchen management.',
+      requirements: [
+        'Certificate in Culinary Arts',
+        'Passion for cooking',
+        'Creativity',
+        'Ability to work under pressure'
+      ]
+    },
+    {
+      id: 12,
+      programName: 'Network Administration Apprenticeship',
+      company: 'IT Networks Ltd',
+      duration: '12 months',
+      location: 'Nairobi',
+      stipend: 'KES 26,000/month',
+      startDate: '01-06-2026',
+      status: 'Open',
+      description: 'Learn network setup, maintenance, security, and troubleshooting in enterprise environments.',
+      requirements: [
+        'Diploma in IT or Computer Science',
+        'Basic networking knowledge',
+        'CCNA certification (preferred)',
+        'Problem-solving skills'
       ]
     }
   ];
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      const id = params['id'];
-      this.sourceComponent = params['source'] || '';
-      this.apprenticeship = this.apprenticeshipsList.find(a => a.id === parseInt(id));
-      if (!this.apprenticeship) {
-        this.router.navigate(['/apprenticeships']);
-      }
-    });
   }
 
-  goBack() {
-    this.router.navigate(['/HOME/apprenticeships']);
+  get filteredApprenticeships() {
+    let data = this.apprenticeshipsList.filter(item => this.aiApprenticeships.includes(item.id));
+    
+    if (!this.searchTerm) {
+      return data;
+    }
+    const search = this.searchTerm.toLowerCase();
+    return data.filter(item =>
+      item.programName?.toLowerCase().includes(search) ||
+      item.company?.toLowerCase().includes(search) ||
+      item.location?.toLowerCase().includes(search) ||
+      item.status?.toLowerCase().includes(search)
+    );
   }
 
-  enrollNow() {
-    alert('Enrollment functionality would be implemented here');
+  get paginatedApprenticeships() {
+    const start = (this.currentPage - 1) * this.entriesPerPage;
+    const end = start + this.entriesPerPage;
+    return this.filteredApprenticeships.slice(start, end);
+  }
+
+  get totalPages(): number[] {
+    const pageCount = Math.ceil(this.filteredApprenticeships.length / this.entriesPerPage);
+    return Array.from({ length: pageCount }, (_, i) => i + 1);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages.length) {
+      this.currentPage++;
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+
+  viewDetails(apprenticeship: any) {
+    this.router.navigate(['/HOME/apprenticeship-details', apprenticeship.id, { source: 'ai' }]);
   }
 }

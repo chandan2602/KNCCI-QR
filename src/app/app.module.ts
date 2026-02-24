@@ -311,6 +311,10 @@ import { ApprenticeshipsComponent } from './pages/apprenticeships/apprenticeship
 import { ApprenticeshipDetailsComponent } from './pages/apprenticeship-details/apprenticeship-details.component';
 import { ApprenticeshipsScheduleComponent } from './pages/apprenticeships-schedule/apprenticeships-schedule.component';
 import { ApprenticeshipsApplicationsComponent } from './pages/apprenticeships-applications/apprenticeships-applications.component';
+import { AppliedApprenticeshipsComponent } from './pages/applied-apprenticeships/applied-apprenticeships.component';
+import { AllApprenticeshipsComponent } from './pages/all-apprenticeships/all-apprenticeships.component';
+import { AiApprenticeshipsComponent } from './pages/ai-apprenticeships/ai-apprenticeships.component';
+import { MyApprenticeshipsComponent } from './pages/my-apprenticeships/my-apprenticeships.component';
 import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
 
 
@@ -608,6 +612,10 @@ export function momentAdapterFactory() {
     ApprenticeshipDetailsComponent,
     ApprenticeshipsScheduleComponent,
     ApprenticeshipsApplicationsComponent,
+    AppliedApprenticeshipsComponent,
+    AllApprenticeshipsComponent,
+    AiApprenticeshipsComponent,
+    MyApprenticeshipsComponent,
     PublicJobsComponent,
     
   ],

@@ -26,6 +26,8 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
   entriesPerPage: number = 10;
   currentPage: number = 1;
   Math = Math;
+  activeTab: string = 'list'; // 'list', 'schedule', 'applications' for admin; 'list' for student
+  ROLEID: string = ''; // Get from sessionStorage
 
   internships: any[] = [];
 
@@ -48,6 +50,16 @@ export class IntrenshipLstComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Get ROLEID from sessionStorage (same as header component - note: it's 'RoleId' not 'ROLEID')
+    this.ROLEID = sessionStorage.getItem('RoleId') || '';
+    
+    // Set default tab based on role
+    if (this.ROLEID === '1') {
+      this.activeTab = 'list'; // Admin/Company sees list by default
+    } else {
+      this.activeTab = 'list'; // Student sees list by default
+    }
+    
     this.getCompanyList(); this.getCourseList()
   }
   // ngAfterViewInit(): void {
