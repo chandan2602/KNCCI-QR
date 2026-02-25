@@ -1,5 +1,111 @@
 .schedule-page {
-    padding: 20px;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Add Form Container */
+.add-form-container {
+    background: white;
+    padding: 30px 40px;
+    min-height: 100vh;
+}
+
+.form-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.btn-back-circle {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.btn-back-circle:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.form-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.add-schedule-form {
+    max-width: 100%;
+}
+
+.form-check-inline {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+
+.form-check-inline .form-check-input {
+    margin-right: 8px;
+}
+
+.form-check-inline .form-check-label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+.btn-submit {
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #1b5e20;
 }
 
 .table-container {
@@ -7,6 +113,7 @@
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
 }
 
 /* Table Controls */
@@ -43,13 +150,15 @@
 /* Schedule Table */
 .table-responsive {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .schedule-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: white;
+    table-layout: fixed;
+    min-width: 1000px;
 }
 
 .schedule-table thead {
@@ -63,14 +172,23 @@
     font-size: 14px;
     text-align: left;
     border: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
-.schedule-table thead th:first-child {
-    border-top-left-radius: 8px;
+.schedule-table thead th:nth-child(1) {
+    width: 20%;
 }
 
-.schedule-table thead th:last-child {
-    border-top-right-radius: 8px;
+.schedule-table thead th:nth-child(2),
+.schedule-table thead th:nth-child(3),
+.schedule-table thead th:nth-child(4),
+.schedule-table thead th:nth-child(5) {
+    width: 15%;
+}
+
+.schedule-table thead th:nth-child(6) {
+    width: 15%;
 }
 
 .schedule-table tbody tr {
@@ -80,24 +198,43 @@
 
 .schedule-table tbody tr:hover {
     background-color: #e9ecef;
-    transform: scale(1.01);
 }
 
 .schedule-table tbody td {
     padding: 12px 15px;
     font-size: 14px;
     color: #333;
-    border-bottom: 10px solid white;
+    border-bottom: 1px solid #e0e0e0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.schedule-table tbody td:nth-child(1) {
+    width: 20%;
+}
+
+.schedule-table tbody td:nth-child(2),
+.schedule-table tbody td:nth-child(3),
+.schedule-table tbody td:nth-child(4),
+.schedule-table tbody td:nth-child(5) {
+    width: 15%;
+}
+
+.schedule-table tbody td:nth-child(6) {
+    width: 15%;
 }
 
 .program-name-cell {
     font-weight: 500;
     color: #2e7d32;
+    min-width: 150px;
+    white-space: normal;
 }
 
 .company-name-cell {
     font-weight: 600;
     color: #1976d2;
+    min-width: 130px;
 }
 
 .mentor-cell {

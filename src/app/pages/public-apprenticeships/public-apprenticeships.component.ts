@@ -17,199 +17,9 @@ export class PublicApprenticeshipsComponent extends BaseComponent implements OnI
   Math = Math;
   isLoggedIn: boolean = false;
   userId: string = '';
+  isLoading: boolean = false;
   
-  apprenticeshipsList: any[] = [
-    {
-      id: 1,
-      program_name: 'Software Development Apprenticeship',
-      company: 'Tech Solutions Kenya',
-      duration: '12',
-      location: 'Nairobi',
-      stipend: '25,000',
-      start_date: '2026-04-01',
-      status: 'Open',
-      category: 'TECHNOLOGY',
-      image: 'assets/kncci-img/img-1.png',
-      description: 'Learn full-stack web development with hands-on projects and mentorship from experienced developers.',
-      requirements: [
-        'Basic knowledge of programming',
-        'Diploma or Degree in Computer Science or related field',
-        'Good communication skills',
-        'Passion for technology'
-      ]
-    },
-    {
-      id: 2,
-      program_name: 'Digital Marketing Apprenticeship',
-      company: 'Marketing Pro Ltd',
-      duration: '6',
-      location: 'Mombasa',
-      stipend: '20,000',
-      start_date: '2026-03-15',
-      status: 'Open',
-      category: 'MARKETING',
-      image: 'assets/kncci-img/img-2.png',
-      description: 'Gain practical experience in SEO, social media marketing, content creation, and digital advertising.',
-      requirements: [
-        'Certificate or Diploma in Marketing',
-        'Social media savvy',
-        'Creative thinking',
-        'Basic graphic design skills'
-      ]
-    },
-    {
-      id: 3,
-      program_name: 'Electrical Engineering Apprenticeship',
-      company: 'Power Systems Kenya',
-      duration: '18',
-      location: 'Kisumu',
-      stipend: '30,000',
-      start_date: '2026-05-01',
-      status: 'Open',
-      category: 'ENGINEERING',
-      image: 'assets/kncci-img/img-3.png',
-      description: 'Work on real electrical installations and maintenance projects under the guidance of certified engineers.',
-      requirements: [
-        'Diploma in Electrical Engineering',
-        'Understanding of electrical systems',
-        'Safety consciousness',
-        'Physical fitness'
-      ]
-    },
-    {
-      id: 4,
-      program_name: 'Accounting & Finance Apprenticeship',
-      company: 'Financial Services Group',
-      duration: '12',
-      location: 'Nairobi',
-      stipend: '28,000',
-      start_date: '2026-04-10',
-      status: 'Open',
-      category: 'FINANCE',
-      image: 'assets/kncci-img/img-4.png',
-      description: 'Learn bookkeeping, financial reporting, tax preparation, and auditing in a professional environment.',
-      requirements: [
-        'CPA Part I or equivalent',
-        'Strong numerical skills',
-        'Attention to detail',
-        'Proficiency in MS Excel'
-      ]
-    },
-    {
-      id: 5,
-      program_name: 'Hospitality Management Apprenticeship',
-      company: 'Grand Hotel Nairobi',
-      duration: '9',
-      location: 'Nairobi',
-      stipend: '22,000',
-      start_date: '2026-03-01',
-      status: 'Closed',
-      category: 'HOSPITALITY',
-      image: 'assets/kncci-img/img-5.png',
-      description: 'Rotate through various hotel departments including front desk, housekeeping, and food & beverage.',
-      requirements: [
-        'Diploma in Hotel Management',
-        'Excellent customer service skills',
-        'Professional appearance',
-        'Flexibility with working hours'
-      ]
-    },
-    {
-      id: 6,
-      program_name: 'Mechanical Engineering Apprenticeship',
-      company: 'Manufacturing Industries Ltd',
-      duration: '24',
-      location: 'Thika',
-      stipend: '32,000',
-      start_date: '2026-06-01',
-      status: 'Open',
-      category: 'ENGINEERING',
-      image: 'assets/kncci-img/img-6.jpg',
-      description: 'Hands-on training in machine operation, maintenance, and manufacturing processes.',
-      requirements: [
-        'Diploma in Mechanical Engineering',
-        'Technical drawing skills',
-        'Problem-solving abilities',
-        'Teamwork skills'
-      ]
-    },
-    {
-      id: 7,
-      program_name: 'Graphic Design Apprenticeship',
-      company: 'Creative Studio Kenya',
-      duration: '6',
-      location: 'Nairobi',
-      stipend: '18,000',
-      start_date: '2026-04-15',
-      status: 'Open',
-      category: 'DESIGN',
-      image: 'assets/kncci-img/img-7.png',
-      description: 'Work on real client projects while learning advanced design techniques and software.',
-      requirements: [
-        'Certificate in Graphic Design',
-        'Portfolio of work',
-        'Adobe Creative Suite knowledge',
-        'Creative mindset'
-      ]
-    },
-    {
-      id: 8,
-      program_name: 'Data Analytics Apprenticeship',
-      company: 'Data Insights Africa',
-      duration: '12',
-      location: 'Nairobi',
-      stipend: '27,000',
-      start_date: '2026-05-01',
-      status: 'Open',
-      category: 'TECHNOLOGY',
-      image: 'assets/kncci-img/img-1.png',
-      description: 'Learn data collection, analysis, visualization, and reporting using industry-standard tools.',
-      requirements: [
-        'Degree in Statistics, Mathematics, or related field',
-        'Basic SQL knowledge',
-        'Analytical thinking',
-        'Excel proficiency'
-      ]
-    },
-    {
-      id: 9,
-      program_name: 'Human Resources Apprenticeship',
-      company: 'HR Solutions Kenya',
-      duration: '9',
-      location: 'Mombasa',
-      stipend: '23,000',
-      start_date: '2026-03-20',
-      status: 'Closed',
-      category: 'MANAGEMENT',
-      image: 'assets/kncci-img/img-2.png',
-      description: 'Gain experience in recruitment, employee relations, training, and HR administration.',
-      requirements: [
-        'Diploma in Human Resource Management',
-        'Good interpersonal skills',
-        'Confidentiality',
-        'Organizational skills'
-      ]
-    },
-    {
-      id: 10,
-      program_name: 'Automotive Mechanics Apprenticeship',
-      company: 'Auto Care Center',
-      duration: '18',
-      location: 'Nakuru',
-      stipend: '24,000',
-      start_date: '2026-04-01',
-      status: 'Open',
-      category: 'ENGINEERING',
-      image: 'assets/kncci-img/img-3.png',
-      description: 'Learn vehicle diagnostics, repair, and maintenance from certified mechanics.',
-      requirements: [
-        'Certificate in Automotive Engineering',
-        'Mechanical aptitude',
-        'Problem-solving skills',
-        'Attention to detail'
-      ]
-    }
-  ];
+  apprenticeshipsList: any[] = [];
   selectedApprenticeship: any = null;
   showDetails: boolean = false;
 
@@ -226,6 +36,9 @@ export class PublicApprenticeshipsComponent extends BaseComponent implements OnI
     this.userId = sessionStorage.getItem('UserId') || '';
     this.isLoggedIn = !!this.userId;
     
+    // Load apprenticeships from API
+    this.loadApprenticeships();
+    
     // Check if user just logged in to view a specific apprenticeship
     const apprenticeshipId = sessionStorage.getItem('viewApprenticeshipId');
     if (apprenticeshipId) {
@@ -238,13 +51,35 @@ export class PublicApprenticeshipsComponent extends BaseComponent implements OnI
     }
   }
 
+  loadApprenticeships() {
+    this.isLoading = true;
+    this.CommonService.getApprenticeshipsList().subscribe(
+      (res: any) => {
+        if (res?.status === true && res?.data) {
+          // Filter to show only apprenticeships approved by super admin
+          this.apprenticeshipsList = res.data.filter((item: any) => 
+            item.approval_status === 'Approved' || item.approval_status === 'approved'
+          );
+        } else {
+          this.apprenticeshipsList = [];
+        }
+        this.isLoading = false;
+      },
+      (err) => {
+        console.error('Error loading apprenticeships:', err);
+        this.toastr.error('Failed to load apprenticeships');
+        this.isLoading = false;
+      }
+    );
+  }
+
   get filteredApprenticeships() {
     let list = this.apprenticeshipsList;
     
     if (this.searchText) {
       list = list.filter(a => 
-        a.program_name?.toLowerCase().includes(this.searchText.toLowerCase()) ||
-        a.company?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        (a.apprenticeship_name || a.program_name)?.toLowerCase().includes(this.searchText.toLowerCase()) ||
+        (a.company_name || a.company)?.toLowerCase().includes(this.searchText.toLowerCase()) ||
         a.location?.toLowerCase().includes(this.searchText.toLowerCase())
       );
     }

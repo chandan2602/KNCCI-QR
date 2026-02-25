@@ -14,6 +14,7 @@ export class ApproveJobsInternshipsComponent extends BaseComponent implements On
 
   jobListGrid: any[] = []; 
   courseListGrid: any[] = [];
+  apprenticeshipListGrid: any[] = [];
   isAddEdt = false; 
   isAprveRejct: any = 2; 
   super_admin_app_rej_comments: any =''; 
@@ -50,6 +51,9 @@ export class ApproveJobsInternshipsComponent extends BaseComponent implements On
     }
     if(this.type == 'Course') {
       this.LoadGridOfCourse()
+    }
+    if(this.type == 'Apprenticeship') {
+      this.LoadGridOfApprenticeship()
     }
   }
 
@@ -110,6 +114,33 @@ export class ApproveJobsInternshipsComponent extends BaseComponent implements On
       err => {
         this.deactivateSpinner();
         this.toastr.warning(err.error ? err.error.text || err.error : 'Error loading courses');
+      })
+  }
+
+  LoadGridOfApprenticeship() {
+    this.apprenticeshipListGrid = [];
+    this.CommonService.activateSpinner();
+    
+    this.CommonService.getApprenticeshipsList().subscribe(
+      (res: any) => {
+        if(res?.status == true) {
+          this.deactivateSpinner();
+          
+          // Filter only pending apprenticeships from the response
+          const allApprenticeships = res.data || [];
+          this.apprenticeshipListGrid = allApprenticeships.filter((apprenticeship: any) => 
+            apprenticeship.approval_status === 'Pending'
+          );
+          
+          this.renderDataTable();
+        } else {
+          this.deactivateSpinner();
+          this.toastr.warning(res.message || 'No apprenticeships found');
+        }
+      },
+      err => {
+        this.deactivateSpinner();
+        this.toastr.warning(err.error ? err.error.text || err.error : 'Error loading apprenticeships');
       })
   }
 
@@ -187,6 +218,32 @@ export class ApproveJobsInternshipsComponent extends BaseComponent implements On
           err => {
             this.deactivateSpinner();
             this.toastr.warning(err.error ? err.error.text || err.error : 'Error updating course approval');
+          })
+        return;
+      }
+      if(this.type == 'Apprenticeship') {
+        const apprenticeshipId = this.tableId?.id;
+        payLoad = { 
+          approval_status: this.isAprveRejct == 2 ? 'Approved' : 'Rejected',
+          approved_by: sessionStorage.UserId,
+          approval_comments: this.super_admin_app_rej_comments,
+          approval_date: new Date().toISOString().split('T')[0]
+        }
+        this.CommonService.approveApprenticeship(apprenticeshipId, payLoad).subscribe(
+          (res: any) => {
+            if(res?.status == true) {
+              this.deactivateSpinner();
+              this.Back();
+              this.LoadGridOfApprenticeship();
+              this.toastr.success(res.message || 'Apprenticeship approval updated successfully');
+            } else {
+              this.deactivateSpinner();
+              this.toastr.warning(res.message);
+            }
+          },
+          err => {
+            this.deactivateSpinner();
+            this.toastr.warning(err.error ? err.error.text || err.error : 'Error updating apprenticeship approval');
           })
         return;
       }

@@ -77,14 +77,21 @@ export class StudentAppliedInternshipsComponent extends BaseComponent implements
     this.CommonService.getCall("Enroll/IntershipApprovalList/" + `${this.roleId == '3' ? 0 : this.company_id}/${this.roleId == '3' ? this.userId : 0}`).subscribe(
       (res: any) => {
         if (this.roleId == '3') {
-          let resp = res.data.map(e => ({ ...e, isCourseSte: this.courseDte(e.courseshd_startdate) }));
-          this.table = resp.filter(e => e.inst_userid == this.userId);
+          // Filter to show only internships where the student has actually applied/enrolled
+          let resp = res.data
+            .filter(e => e.inst_userid == this.userId && e.internship_studentid) // Only show if there's an enrollment record
+            .map(e => ({ ...e, isCourseSte: this.courseDte(e.courseshd_startdate) }));
+          this.table = resp;
           this.getSubscriptnData();
-          // this.table = res.data.map(e => ({ ...e, isCourseSte: this.courseDte(e.courseshd_startdate) }));
         }
-        else
-          this.table = res.data.map(e => ({ ...e, isCourseSte: this.courseDte(e.courseshd_startdate) }));
-        this.CommonService.deactivateSpinner(); this.getSubscriptnData();
+        else {
+          // For admin/company, show only records with actual student enrollments
+          this.table = res.data
+            .filter(e => e.internship_studentid && e.inst_userid) // Only show if there's a student enrollment
+            .map(e => ({ ...e, isCourseSte: this.courseDte(e.courseshd_startdate) }));
+        }
+        this.CommonService.deactivateSpinner(); 
+        this.getSubscriptnData();
       },
       (e) => {
         this.CommonService.deactivateSpinner();

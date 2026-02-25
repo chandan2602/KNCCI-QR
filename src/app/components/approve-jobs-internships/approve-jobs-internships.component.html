@@ -27,6 +27,12 @@
                                                 Courses
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" [class.active]="type === 'Apprenticeship'"
+                                                (click)="type='Apprenticeship'; LoadGrid()">
+                                                Apprenticeships
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -196,6 +202,64 @@
                                                             <button class="btn-view-icon"
                                                                 (click)="isAddEdt=!isAddEdt;tableId=item;screnType='view';onCheck(item)"
                                                                 *ngIf="(item.course_approval_status || item.approval_status) !== 'Pending'">
+                                                                View
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Apprenticeship Table -->
+                                    <div *ngIf="type == 'Apprenticeship'">
+                                        <div class="table-responsive">
+                                            <table datatable id="DataTables_Table_2" [dtOptions]="dtOptions"
+                                                [dtTrigger]="dtTrigger" class="table approval-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <th>Apprenticeship Name</th>
+                                                        <th>Category</th>
+                                                        <th>Batch Name</th>
+                                                        <th>Start Date</th>
+                                                        <th>Status</th>
+                                                        <th>Action Date</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of apprenticeshipListGrid; let i = index">
+                                                        <td>{{i+1}}</td>
+                                                        <td class="job-title-cell">{{item.apprenticeship_name}}</td>
+                                                        <td>{{item.apprenticeship_category}}</td>
+                                                        <td>{{item.batch_name || '-'}}</td>
+                                                        <td>{{item.batch_start_date || '-'}}</td>
+                                                        <td>
+                                                            <span class="status-badge"
+                                                                [class.status-pending]="item.approval_status === 'Pending'"
+                                                                [class.status-approved]="item.approval_status === 'Approved'"
+                                                                [class.status-rejected]="item.approval_status === 'Rejected'">
+                                                                {{item.approval_status || 'Pending'}}
+                                                            </span>
+                                                        </td>
+                                                        <td>{{item.approval_status !== 'Pending' ?
+                                                            (item.approval_date | date: 'dd-MM-yyyy'): '-'}}
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn-approve"
+                                                                (click)="isAddEdt=!isAddEdt;isAprveRejct=2;tableId=item;screnType='add';onCheck(item)"
+                                                                *ngIf="item.approval_status === 'Pending'">
+                                                                Approve
+                                                            </button>
+                                                            <button class="btn-reject"
+                                                                (click)="isAddEdt=!isAddEdt;isAprveRejct=3;tableId=item;screnType='add';onCheck(item)"
+                                                                *ngIf="item.approval_status === 'Pending'">
+                                                                Reject
+                                                            </button>
+                                                            <button class="btn-view-icon"
+                                                                (click)="isAddEdt=!isAddEdt;tableId=item;screnType='view';onCheck(item)"
+                                                                *ngIf="item.approval_status !== 'Pending'">
                                                                 View
                                                             </button>
                                                         </td>

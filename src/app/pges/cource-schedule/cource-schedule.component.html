@@ -73,17 +73,10 @@
                             <td>{{item.COURSESHD_ENDDATE | date:'dd-MM-yyyy'}}</td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-action btn-edit" 
-                                            *ngIf="isPermission"
-                                            (click)="edit(item)"
-                                            title="Edit Schedule">
-                                        <i class="fas fa-pen"></i>
-                                    </button>
-                                    <button class="btn-action btn-trainers" 
-                                            *ngIf="RoleId==1"
-                                            (click)="navigate(item,'courseSchedule-AssignTrainer')"
-                                            title="Add Trainers">
-                                        <i class="fas fa-user-plus"></i>
+                                    <button class="btn-action btn-view" 
+                                            (click)="viewDetails(item)"
+                                            title="View Details">
+                                        <i class="fas fa-eye"></i> View Details
                                     </button>
                                 </div>
                             </td>

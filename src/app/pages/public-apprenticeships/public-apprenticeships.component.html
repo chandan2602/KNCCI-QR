@@ -29,8 +29,8 @@
           <!-- Right Side - Details -->
           <div class="col-md-8">
             <div class="apprenticeship-header">
-              <span class="category-badge">{{selectedApprenticeship.category || 'TECHNOLOGY'}}</span>
-              <h2 class="apprenticeship-name">{{selectedApprenticeship.program_name}}</h2>
+              <span class="category-badge">{{selectedApprenticeship.apprenticeship_category || selectedApprenticeship.category || 'TECHNOLOGY'}}</span>
+              <h2 class="apprenticeship-name">{{selectedApprenticeship.apprenticeship_name || selectedApprenticeship.program_name}}</h2>
               <p class="apprenticeship-description">{{selectedApprenticeship.description}}</p>
             </div>
 
@@ -41,7 +41,7 @@
                     <i class='bx bx-buildings'></i>
                     <div>
                       <span class="info-label">COMPANY</span>
-                      <span class="info-value">{{selectedApprenticeship.company}}</span>
+                      <span class="info-value">{{selectedApprenticeship.company_name || selectedApprenticeship.company}}</span>
                     </div>
                   </div>
                 </div>
@@ -50,7 +50,16 @@
                     <i class='bx bx-calendar'></i>
                     <div>
                       <span class="info-label">START DATE</span>
-                      <span class="info-value">{{selectedApprenticeship.start_date | date: 'dd-MM-yyyy'}}</span>
+                      <span class="info-value">{{(selectedApprenticeship.batch_start_date || selectedApprenticeship.start_date) | date: 'dd-MM-yyyy'}}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info-item">
+                    <i class='bx bx-calendar-check'></i>
+                    <div>
+                      <span class="info-label">END DATE</span>
+                      <span class="info-value">{{(selectedApprenticeship.batch_end_date || selectedApprenticeship.end_date) | date: 'dd-MM-yyyy'}}</span>
                     </div>
                   </div>
                 </div>
@@ -59,7 +68,7 @@
                     <i class='bx bx-time'></i>
                     <div>
                       <span class="info-label">DURATION</span>
-                      <span class="info-value">{{selectedApprenticeship.duration}} months</span>
+                      <span class="info-value">{{selectedApprenticeship.batch_duration_days || selectedApprenticeship.duration}} {{selectedApprenticeship.batch_duration_days ? 'days' : 'months'}}</span>
                     </div>
                   </div>
                 </div>
@@ -77,7 +86,7 @@
                     <i class='bx bx-money'></i>
                     <div>
                       <span class="info-label">STIPEND</span>
-                      <span class="info-value">KES {{selectedApprenticeship.stipend}}/month</span>
+                      <span class="info-value">KES {{selectedApprenticeship.stipend_per_month || selectedApprenticeship.stipend}}/month</span>
                     </div>
                   </div>
                 </div>
@@ -148,22 +157,24 @@
             <tr>
               <th>Program Name</th>
               <th>Company</th>
+              <th>Start Date</th>
+              <th>End Date</th>
               <th>Duration</th>
               <th>Location</th>
               <th>Stipend</th>
-              <th>Start Date</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of paginatedApprenticeships">
-              <td class="program-name-cell">{{item.program_name}}</td>
-              <td class="company-name-cell">{{item.company}}</td>
-              <td>{{item.duration}} months</td>
+              <td class="program-name-cell">{{item.apprenticeship_name || item.program_name}}</td>
+              <td class="company-name-cell">{{item.company_name || item.company}}</td>
+              <td>{{(item.batch_start_date || item.start_date) | date: 'dd-MM-yyyy'}}</td>
+              <td>{{(item.batch_end_date || item.end_date) | date: 'dd-MM-yyyy'}}</td>
+              <td>{{item.batch_duration_days || item.duration}} {{item.batch_duration_days ? 'days' : 'months'}}</td>
               <td>{{item.location}}</td>
-              <td class="stipend-cell">KES {{item.stipend}}/month</td>
-              <td>{{item.start_date | date: 'dd-MM-yyyy'}}</td>
+              <td class="stipend-cell">KES {{item.stipend_per_month || item.stipend}}/month</td>
               <td>
                 <span class="status-badge" [ngClass]="item.status === 'Open' ? 'status-open' : 'status-closed'">
                   {{item.status}}

@@ -16,20 +16,20 @@
             <ng-container *ngIf="ROLEID !== '1'">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'applied'"
-                        (click)="activeTab = 'applied'" type="button"
+                        (click)="onTabChange('applied')" type="button"
                         role="tab">Applied Apprenticeships</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'all'"
-                        (click)="activeTab = 'all'" type="button" role="tab">All Apprenticeships</button>
+                        (click)="onTabChange('all')" type="button" role="tab">All Apprenticeships</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'ai'"
-                        (click)="activeTab = 'ai'" type="button" role="tab">AI Apprenticeships</button>
+                        (click)="onTabChange('ai')" type="button" role="tab">AI Apprenticeships</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'my'"
-                        (click)="activeTab = 'my'" type="button" role="tab">My Apprenticeships</button>
+                        (click)="onTabChange('my')" type="button" role="tab">My Apprenticeships</button>
                 </li>
             </ng-container>
 
@@ -37,7 +37,7 @@
             <ng-container *ngIf="ROLEID === '1'">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'all'"
-                        (click)="activeTab = 'all'" type="button" role="tab">All Apprenticeships</button>
+                        (click)="onTabChange('all')" type="button" role="tab">All Apprenticeships</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'schedule'"
@@ -101,15 +101,15 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Apprenticeship</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- <h5 class="modal-title">Add Apprenticeship</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body">
                 <form [formGroup]="addApprenticeshipForm">
                     <!-- Apprenticeship Category -->
                     <div class="form-group mb-3">
-                        <label for="category" class="form-label">Apprenticeship Category <span class="text-danger">*</span></label>
-                        <select class="form-select" id="category" formControlName="category">
+                        <label for="apprenticeship_category" class="form-label">Apprenticeship Category <span class="text-danger">*</span></label>
+                        <select class="form-select" id="apprenticeship_category" formControlName="apprenticeship_category">
                             <option value="">Select</option>
                             <option value="Technology">Technology</option>
                             <option value="Engineering">Engineering</option>
@@ -122,67 +122,169 @@
 
                     <!-- Apprenticeship Name -->
                     <div class="form-group mb-3">
-                        <label for="name" class="form-label">Apprenticeship Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter apprenticeship name">
-                    </div>
-
-                    <!-- Description -->
-                    <div class="form-group mb-3">
-                        <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="description" formControlName="description" rows="4" placeholder="Enter description"></textarea>
+                        <label for="apprenticeship_name" class="form-label">Apprenticeship Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="apprenticeship_name" formControlName="apprenticeship_name" placeholder="Enter apprenticeship name">
                     </div>
 
                     <!-- Two Column Layout -->
                     <div class="row">
-                        <!-- Left Column -->
                         <div class="col-md-6">
-                            <!-- Apprenticeship Type -->
+                            <!-- Student Level -->
                             <div class="form-group mb-3">
-                                <label class="form-label">Apprenticeship Type</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="certified" value="Certified" formControlName="type">
-                                    <label class="form-check-label" for="certified">Certified</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="uncertified" value="Uncertified" formControlName="type" checked>
-                                    <label class="form-check-label" for="uncertified">Uncertified</label>
-                                </div>
-                            </div>
-
-                            <!-- Certificate Name -->
-                            <div class="form-group mb-3">
-                                <label for="certificateName" class="form-label">Certificate Name</label>
-                                <input type="text" class="form-control" id="certificateName" formControlName="certificateName" placeholder="Enter certificate name">
-                            </div>
-
-                            <!-- Upload Attachments -->
-                            <div class="form-group mb-3">
-                                <button type="button" class="btn btn-upload">
-                                    <i class="bi bi-cloud-upload"></i> Upload Attachments if any
-                                </button>
+                                <label for="student_level" class="form-label">Student Level</label>
+                                <input type="text" class="form-control" id="student_level" formControlName="student_level" placeholder="e.g., Diploma, Degree">
                             </div>
                         </div>
-
-                        <!-- Right Column -->
                         <div class="col-md-6">
-                            <!-- Apprenticeship Image -->
+                            <!-- Batch Name -->
                             <div class="form-group mb-3">
-                                <label class="form-label">Apprenticeship Image</label>
-                                <div class="image-upload-area">
-                                    <button type="button" class="btn btn-upload">
-                                        <i class="bi bi-cloud-upload"></i> Upload Image
-                                    </button>
-                                </div>
+                                <label for="batch_name" class="form-label">Batch Name</label>
+                                <input type="text" class="form-control" id="batch_name" formControlName="batch_name" placeholder="e.g., Batch 2026-A">
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Two Column Layout -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Application Fees -->
+                            <div class="form-group mb-3">
+                                <label for="application_fees" class="form-label">Application Fees (KES)</label>
+                                <input type="number" class="form-control" id="application_fees" formControlName="application_fees" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Stipend Per Month -->
+                            <div class="form-group mb-3">
+                                <label for="stipend_per_month" class="form-label">Stipend Per Month (KES)</label>
+                                <input type="number" class="form-control" id="stipend_per_month" formControlName="stipend_per_month" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Two Column Layout -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Number of Students -->
+                            <div class="form-group mb-3">
+                                <label for="number_of_students" class="form-label">Number of Students</label>
+                                <input type="number" class="form-control" id="number_of_students" formControlName="number_of_students" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Batch Duration Days -->
+                            <div class="form-group mb-3">
+                                <label for="batch_duration_days" class="form-label">Batch Duration (Days)</label>
+                                <input type="number" class="form-control" id="batch_duration_days" formControlName="batch_duration_days" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Two Column Layout - Dates -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Registration Start Date -->
+                            <div class="form-group mb-3">
+                                <label for="registration_start_date" class="form-label">Registration Start Date</label>
+                                <input type="date" class="form-control" id="registration_start_date" formControlName="registration_start_date">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Registration End Date -->
+                            <div class="form-group mb-3">
+                                <label for="registration_end_date" class="form-label">Registration End Date</label>
+                                <input type="date" class="form-control" id="registration_end_date" formControlName="registration_end_date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Two Column Layout - Batch Dates -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Batch Start Date -->
+                            <div class="form-group mb-3">
+                                <label for="batch_start_date" class="form-label">Batch Start Date</label>
+                                <input type="date" class="form-control" id="batch_start_date" formControlName="batch_start_date">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Batch End Date -->
+                            <div class="form-group mb-3">
+                                <label for="batch_end_date" class="form-label">Batch End Date</label>
+                                <input type="date" class="form-control" id="batch_end_date" formControlName="batch_end_date">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Two Column Layout - Time -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <!-- Batch Start Time -->
+                            <div class="form-group mb-3">
+                                <label for="batch_start_time" class="form-label">Batch Start Time</label>
+                                <input type="time" class="form-control" id="batch_start_time" formControlName="batch_start_time">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- Batch End Time -->
+                            <div class="form-group mb-3">
+                                <label for="batch_end_time" class="form-label">Batch End Time</label>
+                                <input type="time" class="form-control" id="batch_end_time" formControlName="batch_end_time">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Apprenticeship Classification -->
+                    <div class="form-group mb-3">
+                        <label for="apprenticeship_classification" class="form-label">Classification</label>
+                        <input type="text" class="form-control" id="apprenticeship_classification" formControlName="apprenticeship_classification" placeholder="e.g., Full-time, Part-time">
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="form-group mb-3">
+                        <label for="payment_method" class="form-label">Payment Method</label>
+                        <input type="text" class="form-control" id="payment_method" formControlName="payment_method" placeholder="e.g., M-Pesa, Bank Transfer">
+                    </div>
+
+                    <!-- External Link -->
+                    <div class="form-group mb-3">
+                        <label for="external_link" class="form-label">External Link</label>
+                        <input type="url" class="form-control" id="external_link" formControlName="external_link" placeholder="https://example.com">
+                    </div>
+
+                    <!-- Demo Video URL -->
+                    <div class="form-group mb-3">
+                        <label for="demo_video_url" class="form-label">Demo Video URL</label>
+                        <input type="url" class="form-control" id="demo_video_url" formControlName="demo_video_url" placeholder="https://youtube.com/...">
+                    </div>
+
+                    <!-- Terms of Engagement -->
+                    <div class="form-group mb-3">
+                        <label for="terms_of_engagement" class="form-label">Terms of Engagement</label>
+                        <textarea class="form-control" id="terms_of_engagement" formControlName="terms_of_engagement" rows="3" placeholder="Enter terms and conditions"></textarea>
+                    </div>
+
+                    <!-- Who Can Apply -->
+                    <div class="form-group mb-3">
+                        <label for="who_can_apply" class="form-label">Who Can Apply</label>
+                        <textarea class="form-control" id="who_can_apply" formControlName="who_can_apply" rows="2" placeholder="Enter eligibility criteria"></textarea>
+                    </div>
+
+                    <!-- Is Certified -->
+                    <div class="form-group mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="is_certified" formControlName="is_certified">
+                            <label class="form-check-label" for="is_certified">
+                                Is Certified Program
+                            </label>
                         </div>
                     </div>
 
                     <!-- Apprenticeship Status -->
                     <div class="form-group mb-3">
-                        <label for="status" class="form-label">Apprenticeship Status <span class="text-danger">*</span></label>
+                        <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
                         <select class="form-select" id="status" formControlName="status">
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
+                            <option value="Open">Open</option>
                             <option value="Closed">Closed</option>
                         </select>
                     </div>

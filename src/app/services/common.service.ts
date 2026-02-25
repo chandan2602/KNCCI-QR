@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AppComponent } from '../app.component';
 import { environment } from './../../environments/environment'
 import { constants } from '../constants'
@@ -195,6 +196,219 @@ export class CommonService {
     // let uri = url + `courses/update/${courseId}`;
     
     return this.http.put(uri, data)
+  }
+
+  // ==================== APPRENTICESHIPS API METHODS ====================
+
+  // Get all apprenticeships list from API - GET /api/apprenticeships
+  getApprenticeshipsList() {
+    // For localhost testing - uncomment the line below and comment the server line
+    let apprenticeshipsApiUrl = 'http://127.0.0.1:8000/api/apprenticeships';
+    
+    // For server - uncomment the line below and comment the localhost line
+    // let apprenticeshipsApiUrl = url + 'apprenticeships';
+    
+    return this.http.get(apprenticeshipsApiUrl).pipe(
+      map((res: any) => {
+        if (res?.status === true && res?.data) {
+          // Keep the original API response structure
+          return res;
+        }
+        return res;
+      })
+    );
+  }
+
+  getStudentApprenticeships(studentName: string) {
+    // For localhost testing - uncomment the line below and comment the server line
+    let studentApprenticeshipsApiUrl = `http://127.0.0.1:8000/api/apprenticeships`;
+    
+    // For server - uncomment the line below and comment the localhost line
+    // let studentApprenticeshipsApiUrl = url + `apprenticeships`;
+    
+    return this.http.get(studentApprenticeshipsApiUrl).pipe(
+      map((res: any) => {
+        if (res?.status === true && res?.data) {
+          // Keep the original API response structure
+          return res;
+        }
+        return res;
+      })
+    );
+  }
+
+  createApprenticeshipSchedule(payload: any) {
+    // For localhost testing - uncomment the line below and comment the server line
+    let createScheduleApiUrl = 'http://127.0.0.1:8000/api/apprenticeships';
+    
+    // For server - uncomment the line below and comment the localhost line
+    // let createScheduleApiUrl = url + 'apprenticeships';
+    
+    return this.http.post(createScheduleApiUrl, payload).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  // Add new apprenticeship (Admin) - POST /api/apprenticeships
+  addApprenticeship(data: any) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeships';
+    
+    // For server
+    // let uri = url + 'apprenticeships';
+    
+    return this.http.post(uri, data)
+  }
+
+  // Update apprenticeship (Admin)
+  updateApprenticeship(data: any) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeships/update';
+    
+    // For server
+    // let uri = url + 'apprenticeships/update';
+    
+    return this.http.put(uri, data)
+  }
+
+  // Get single apprenticeship by ID
+  getApprenticeshipById(id: number) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeships/' + id;
+    
+    // For server
+    // let uri = url + 'apprenticeships/' + id;
+    
+    return this.http.get(uri)
+  }
+
+  // Delete apprenticeship
+  deleteApprenticeship(id: number) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeships/delete/' + id;
+    
+    // For server
+    // let uri = url + 'apprenticeships/delete/' + id;
+    
+    return this.http.delete(uri)
+  }
+
+  // Update apprenticeship status
+  updateApprenticeshipStatus(id: number, status: string) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeships/status/' + id + '?new_status=' + status;
+    
+    // For server
+    // let uri = url + 'apprenticeships/status/' + id + '?new_status=' + status;
+    
+    return this.http.put(uri, {})
+  }
+
+  // Search apprenticeships
+  searchApprenticeships(query: string) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeships/search/query?q=' + query;
+    
+    // For server
+    // let uri = url + 'apprenticeships/search/query?q=' + query;
+    
+    return this.http.get(uri)
+  }
+
+  // Approve/Reject apprenticeship (Super Admin)
+  approveApprenticeship(apprenticeshipId: number, data: any) {
+    // Use the existing /api/apprenticeships/update endpoint
+    // For localhost testing
+    let uri = `http://127.0.0.1:8000/api/apprenticeships/${apprenticeshipId}`;
+    
+    // For server
+    // let uri = url + `apprenticeships/${apprenticeshipId}`;
+    
+    return this.http.put(uri, data)
+  }
+
+  // Get apprenticeship applications (only enrolled students)
+  getApprenticeshipApplications() {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeships/applications';
+    
+    // For server
+    // let uri = url + 'apprenticeships/applications';
+    
+    return this.http.get(uri).pipe(
+      map((res: any) => {
+        if (res?.status === true && res?.data) {
+          // Filter to only show records where students have enrolled
+          return {
+            ...res,
+            data: res.data.filter((item: any) => 
+              item.student_name && 
+              item.student_name.trim() !== ''
+            )
+          };
+        }
+        return res;
+      })
+    );
+  }
+
+  // Enroll in apprenticeship (Student) - POST /api/apprenticeships/enroll
+  enrollApprenticeship(data: any) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeships/enroll';
+    
+    // For server
+    // let uri = url + 'apprenticeships/enroll';
+    
+    return this.http.post(uri, data);
+  }
+
+  // Get student's enrolled apprenticeships
+  getStudentEnrolledApprenticeships(studentId: string) {
+    // For localhost testing
+    let uri = `http://127.0.0.1:8000/api/apprenticeships/student/${studentId}/enrolled`;
+    
+    // For server
+    // let uri = url + `apprenticeships/student/${studentId}/enrolled`;
+    
+    return this.http.get(uri);
+  }
+
+  // ==================== APPRENTICESHIP SCHEDULE API METHODS ====================
+
+  // Get all apprenticeship schedules
+  getApprenticeshipSchedules() {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeship-schedule/list';
+    
+    // For server
+    // let uri = url + 'apprenticeship-schedule/list';
+    
+    return this.http.get(uri)
+  }
+
+  // Update apprenticeship schedule
+  updateApprenticeshipSchedule(id: number, data: any) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeship-schedule/update/' + id;
+    
+    // For server
+    // let uri = url + 'apprenticeship-schedule/update/' + id;
+    
+    return this.http.put(uri, data)
+  }
+
+  // Delete apprenticeship schedule
+  deleteApprenticeshipSchedule(id: number) {
+    // For localhost testing
+    let uri = 'http://127.0.0.1:8000/api/apprenticeship-schedule/delete/' + id;
+    
+    // For server
+    // let uri = url + 'apprenticeship-schedule/delete/' + id;
+    
+    return this.http.delete(uri)
   }
 
   ///////get cources by admin//////////// http://localhost:50905/GetAdminCourses/68664158/2/51964213/////////////

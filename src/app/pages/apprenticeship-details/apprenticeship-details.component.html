@@ -9,8 +9,8 @@
         <!-- Image and Summary Section -->
         <div class="image-summary-wrapper">
             <!-- Image Section -->
-            <div class="details-image-section">
-                <img [src]="apprenticeship.image" [alt]="apprenticeship.programName" class="details-image">
+            <div class="details-image-section" *ngIf="apprenticeship.image">
+                <img [src]="apprenticeship.image" [alt]="apprenticeship.apprenticeship_name" class="details-image">
             </div>
 
             <!-- Summary Section -->
@@ -20,70 +20,166 @@
                     <div class="summary-row">
                         <div class="summary-item">
                             <span class="summary-label">Company Name</span>
-                            <span class="summary-value">{{apprenticeship.company}}</span>
+                            <span class="summary-value">{{apprenticeship.company_name || 'N/A'}}</span>
                         </div>
                         <div class="summary-item">
                             <span class="summary-label">Company Email</span>
-                            <span class="summary-value">contact@company.com</span>
+                            <span class="summary-value">{{apprenticeship.company_email || 'N/A'}}</span>
                         </div>
                         <div class="summary-item">
                             <span class="summary-label">Company Contact No.</span>
-                            <span class="summary-value">+254 XXX XXX XXX</span>
+                            <span class="summary-value">{{apprenticeship.company_contact || 'N/A'}}</span>
                         </div>
                         <div class="summary-item">
                             <span class="summary-label">Registration Start Date</span>
-                            <span class="summary-value">01-01-2025</span>
+                            <span class="summary-value">{{apprenticeship.registration_start_date | date:'dd-MM-yyyy' || 'N/A'}}</span>
                         </div>
                     </div>
                     <div class="summary-row">
                         <div class="summary-item">
-                            <span class="summary-label">Internship Id</span>
-                            <span class="summary-value">INT{{apprenticeship.id}}</span>
+                            <span class="summary-label">Apprenticeship Id</span>
+                            <span class="summary-value">APP{{apprenticeship.id}}</span>
                         </div>
                         <div class="summary-item">
                             <span class="summary-label">Registration End Date</span>
-                            <span class="summary-value">31-03-2025</span>
+                            <span class="summary-value">{{apprenticeship.registration_end_date | date:'dd-MM-yyyy' || 'N/A'}}</span>
                         </div>
                         <div class="summary-item">
-                            <span class="summary-label">Internship Start Date</span>
-                            <span class="summary-value">{{apprenticeship.startDate}}</span>
+                            <span class="summary-label">Apprenticeship Start Date</span>
+                            <span class="summary-value">{{apprenticeship.batch_start_date | date:'dd-MM-yyyy' || 'N/A'}}</span>
                         </div>
                         <div class="summary-item">
-                            <span class="summary-label">Internship End Date</span>
-                            <span class="summary-value">31-12-2025</span>
+                            <span class="summary-label">Apprenticeship End Date</span>
+                            <span class="summary-value">{{apprenticeship.batch_end_date | date:'dd-MM-yyyy' || 'N/A'}}</span>
+                        </div>
+                    </div>
+                    <div class="summary-row">
+                        <div class="summary-item">
+                            <span class="summary-label">Batch Name</span>
+                            <span class="summary-value">{{apprenticeship.batch_name || 'N/A'}}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Student Level</span>
+                            <span class="summary-value">{{apprenticeship.student_level || 'N/A'}}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Stipend Per Month</span>
+                            <span class="summary-value">KES {{apprenticeship.stipend_per_month || '0'}}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Application Fees</span>
+                            <span class="summary-value">KES {{apprenticeship.application_fees || '0'}}</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- About Internship Section -->
+        <!-- About Apprenticeship Section -->
         <div class="about-section">
-            <h2 class="section-title">About Internship</h2>
-            <p class="about-text">{{apprenticeship.description}}</p>
+            <h2 class="section-title">About Apprenticeship</h2>
+            <p class="about-text">{{apprenticeship.description || apprenticeship.terms_of_engagement || 'No description available'}}</p>
         </div>
 
         <!-- Who Can Apply Section -->
         <div class="who-can-apply-section">
             <h2 class="section-title">Who Can Apply</h2>
-            <p class="who-can-apply-text">{{apprenticeship.requirements?.join(', ')}}</p>
+            <p class="who-can-apply-text">{{apprenticeship.who_can_apply || 'Open to all eligible candidates'}}</p>
         </div>
 
         <!-- Terms of Engagement Section -->
         <div class="terms-section">
             <h2 class="section-title">Terms Of Engagement</h2>
-            <p class="terms-text">Standard terms and conditions apply. Candidates must adhere to company policies and professional standards.</p>
+            <p class="terms-text">{{apprenticeship.terms_of_engagement || 'Standard terms and conditions apply. Candidates must adhere to company policies and professional standards.'}}</p>
         </div>
 
         <!-- Enroll Button - Only for All Apprenticeships and AI Apprenticeships -->
         <div class="action-section" *ngIf="sourceComponent === 'all' || sourceComponent === 'ai'">
-            <button class="btn-enroll" (click)="enrollNow()">
-                <i class="bi bi-check-circle"></i> Enroll
+            <button class="btn-enroll" (click)="openEnrollModal()" [disabled]="isEnrolling">
+                <i class="bi bi-check-circle"></i> {{isEnrolling ? 'Enrolling...' : 'Enroll'}}
             </button>
         </div>
     </div>
 </div>
 
-<div class="no-data" *ngIf="!apprenticeship">
+<div class="no-data" *ngIf="!apprenticeship && !isLoading">
     <p>Apprenticeship not found</p>
+</div>
+
+<!-- Enrollment Modal -->
+<div class="modal-overlay" *ngIf="showEnrollModal" (click)="closeEnrollModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Enroll in Apprenticeship</h3>
+            <button class="btn-close-modal" (click)="closeEnrollModal()">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="enrollmentForm">
+                <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" class="form-control" formControlName="fullName" placeholder="Enter your full name">
+                    <div class="error-message" *ngIf="enrollmentForm.get('fullName')?.invalid && enrollmentForm.get('fullName')?.touched">
+                        Full name is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" class="form-control" formControlName="email" placeholder="Enter your email">
+                    <div class="error-message" *ngIf="enrollmentForm.get('email')?.invalid && enrollmentForm.get('email')?.touched">
+                        Valid email is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" class="form-control" formControlName="phone" placeholder="Enter your phone number">
+                    <div class="error-message" *ngIf="enrollmentForm.get('phone')?.invalid && enrollmentForm.get('phone')?.touched">
+                        Phone number is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Education Level <span class="required">*</span></label>
+                    <select class="form-control" formControlName="educationLevel">
+                        <option value="">Select education level</option>
+                        <option value="High School">High School</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Degree">Degree</option>
+                        <option value="Masters">Masters</option>
+                        <option value="PhD">PhD</option>
+                    </select>
+                    <div class="error-message" *ngIf="enrollmentForm.get('educationLevel')?.invalid && enrollmentForm.get('educationLevel')?.touched">
+                        Education level is required
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Why do you want to join this apprenticeship? <span class="required">*</span></label>
+                    <textarea class="form-control" formControlName="motivation" rows="4" placeholder="Tell us why you're interested..."></textarea>
+                    <div class="error-message" *ngIf="enrollmentForm.get('motivation')?.invalid && enrollmentForm.get('motivation')?.touched">
+                        Please provide your motivation
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" formControlName="agreeTerms">
+                        I agree to the terms and conditions <span class="required">*</span>
+                    </label>
+                    <div class="error-message" *ngIf="enrollmentForm.get('agreeTerms')?.invalid && enrollmentForm.get('agreeTerms')?.touched">
+                        You must agree to the terms
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-cancel" (click)="closeEnrollModal()">Cancel</button>
+            <button class="btn-submit" (click)="submitEnrollment()" [disabled]="enrollmentForm.invalid || isEnrolling">
+                {{isEnrolling ? 'Submitting...' : 'Submit Application'}}
+            </button>
+        </div>
+    </div>
 </div>

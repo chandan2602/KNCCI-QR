@@ -199,6 +199,19 @@
     box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
 }
 
+.btn-view {
+    background-color: #2e7d32;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-view:hover {
+    background-color: #1b5e20;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+}
+
 .btn-trainers {
     background-color: #2196f3;
 }

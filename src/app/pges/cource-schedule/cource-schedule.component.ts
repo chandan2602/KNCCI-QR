@@ -116,6 +116,10 @@ export class CourceScheduleComponent extends BaseComponent implements OnInit {
   edit(item) {
     this.route.navigate(['HOME/courseSchedule/edit'], { queryParams: { cId: item.COURSESHD_ID } })
   }
+
+  viewDetails(item) {
+    this.route.navigate(['HOME/courseSchedule/edit'], { queryParams: { cId: item.COURSESHD_ID } })
+  }
   
   navigate(data, route) {
     this.route.navigate(['HOME/' + route], { queryParams: { csId: data.COURSESHD_ID, cId: data.COURSE_ID } })

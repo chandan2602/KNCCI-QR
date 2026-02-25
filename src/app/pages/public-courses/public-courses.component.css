@@ -1,3 +1,8 @@
 :host {
   display: contents;
 }
+
+.courses-container {
+  margin-top: -750px;
+}
+
