@@ -1,8 +1,13 @@
 .courses-page {
-    padding: 100px 20px 40px;
+    padding: 20px 20px 40px;
     background-color: #f8f9fa;
     min-height: 100vh;
-    margin-top: 0;
+    margin-top: 100px;
+}
+
+/* Add top padding when used in public layout (with public header) */
+:host-context(app-public-courses) .courses-page {
+    padding-top: 100px;
 }
 
 .page-header {
@@ -620,4 +625,154 @@
     padding: 40px;
     color: #666;
     font-size: 16px;
+}
+
+/* Enrollment Modal Styles */
+.enrollment-course-info {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #2e7d32;
+}
+
+.enrollment-course-info h6 {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.qr-code-section {
+  padding: 20px;
+}
+
+.qr-code-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+}
+
+.qr-code-placeholder {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px dashed #2e7d32;
+}
+
+.qr-code-image-wrapper {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid #2e7d32;
+}
+
+.qr-code-img {
+  width: 250px;
+  height: 250px;
+  border-radius: 8px;
+}
+
+.payment-instructions {
+  background-color: #e8f5e9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.payment-instructions h6 {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.payment-instructions ol {
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+
+.payment-instructions li {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.success-message {
+  padding: 40px 20px;
+}
+
+.success-message h4 {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* Modal Enhancements */
+.modal-lg {
+  max-width: 800px;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #2e7d32;
+}
+
+.modal-title {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 0.2rem rgba(46, 125, 91, 0.25);
+}
+
+.text-danger {
+  color: #dc3545;
+}
+
+/* Button Styles */
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+.btn-success {
+  background-color: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.btn-success:hover {
+  background-color: #1b5e20;
+  border-color: #1b5e20;
+}
+
+/* Readonly form fields styling */
+.form-control[readonly] {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  cursor: not-allowed;
+  color: #495057;
+}
+
+.form-control[readonly]:focus {
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  box-shadow: none;
+}
+
+.text-muted {
+  font-size: 12px;
+  color: #6c757d;
+  font-style: italic;
 }

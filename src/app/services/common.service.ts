@@ -152,13 +152,24 @@ export class CommonService {
     return this.http.post(uri, data)
   }
 
-  // Update course (Admin)
-  updateCourse(data: any) {
+  // Enroll in course (Student) - POST /api/courses/enroll
+  enrollCourse(data: any) {
     // For localhost testing
-    let uri = 'http://127.0.0.1:8000/api/courses/update';
+    let uri = 'http://127.0.0.1:8000/api/courses/enroll';
     
     // For server
-    // let uri = url + 'courses/update';
+    // let uri = url + 'courses/enroll';
+    
+    return this.http.post(uri, data)
+  }
+
+  // Update course (Admin) - PUT /api/courses/update/{course_id}
+  updateCourse(data: any) {
+    // For localhost testing
+    let uri = `http://127.0.0.1:8000/api/courses/update/${data.id}`;
+    
+    // For server
+    // let uri = url + `courses/update/${data.id}`;
     
     return this.http.put(uri, data)
   }
