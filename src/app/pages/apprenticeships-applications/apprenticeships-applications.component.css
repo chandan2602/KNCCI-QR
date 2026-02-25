@@ -75,9 +75,10 @@
 
 .applications-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: white;
+    table-layout: fixed;
+    min-width: 1000px;
 }
 
 .applications-table thead {
@@ -91,14 +92,30 @@
     font-size: 14px;
     text-align: left;
     border: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
-.applications-table thead th:first-child {
-    border-top-left-radius: 8px;
+.applications-table thead th:nth-child(1) {
+    width: 15%;
 }
 
-.applications-table thead th:last-child {
-    border-top-right-radius: 8px;
+.applications-table thead th:nth-child(2),
+.applications-table thead th:nth-child(3) {
+    width: 15%;
+}
+
+.applications-table thead th:nth-child(4),
+.applications-table thead th:nth-child(5) {
+    width: 12%;
+}
+
+.applications-table thead th:nth-child(6) {
+    width: 10%;
+}
+
+.applications-table thead th:nth-child(7) {
+    width: 21%;
 }
 
 .applications-table tbody tr {
@@ -108,14 +125,37 @@
 
 .applications-table tbody tr:hover {
     background-color: #e9ecef;
-    transform: scale(1.01);
 }
 
 .applications-table tbody td {
     padding: 12px 15px;
     font-size: 14px;
     color: #333;
-    border-bottom: 10px solid white;
+    border-bottom: 1px solid #e0e0e0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.applications-table tbody td:nth-child(1) {
+    width: 15%;
+}
+
+.applications-table tbody td:nth-child(2),
+.applications-table tbody td:nth-child(3) {
+    width: 15%;
+}
+
+.applications-table tbody td:nth-child(4),
+.applications-table tbody td:nth-child(5) {
+    width: 12%;
+}
+
+.applications-table tbody td:nth-child(6) {
+    width: 10%;
+}
+
+.applications-table tbody td:nth-child(7) {
+    width: 21%;
 }
 
 .program-name-cell {

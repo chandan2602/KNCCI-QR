@@ -16,20 +16,20 @@
             <ng-container *ngIf="ROLEID !== '1'">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'applied'"
-                        (click)="activeTab = 'applied'" type="button"
+                        (click)="onTabChange('applied')" type="button"
                         role="tab">Applied Apprenticeships</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'all'"
-                        (click)="activeTab = 'all'" type="button" role="tab">All Apprenticeships</button>
+                        (click)="onTabChange('all')" type="button" role="tab">All Apprenticeships</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'ai'"
-                        (click)="activeTab = 'ai'" type="button" role="tab">AI Apprenticeships</button>
+                        (click)="onTabChange('ai')" type="button" role="tab">AI Apprenticeships</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'my'"
-                        (click)="activeTab = 'my'" type="button" role="tab">My Apprenticeships</button>
+                        (click)="onTabChange('my')" type="button" role="tab">My Apprenticeships</button>
                 </li>
             </ng-container>
 
@@ -37,7 +37,7 @@
             <ng-container *ngIf="ROLEID === '1'">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'all'"
-                        (click)="activeTab = 'all'" type="button" role="tab">All Apprenticeships</button>
+                        (click)="onTabChange('all')" type="button" role="tab">All Apprenticeships</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" [class.active]="activeTab === 'schedule'"
@@ -101,8 +101,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add Apprenticeship</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <!-- <h5 class="modal-title">Add Apprenticeship</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
             </div>
             <div class="modal-body">
                 <form [formGroup]="addApprenticeshipForm">

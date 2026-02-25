@@ -33,26 +33,20 @@
             <table class="schedule-table">
                 <thead>
                     <tr>
-                        <th>Program Name</th>
-                        <th>Company</th>
-                        <th>Phase</th>
+                        <th>Apprenticeship Name</th>
+                        <th>Batch Detail</th>
                         <th>Start Date</th>
                         <th>End Date</th>
-                        <th>Mentor</th>
-                        <th>Location</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of paginatedSchedules">
-                        <td class="program-name-cell">{{item.programName}}</td>
-                        <td class="company-name-cell">{{item.company}}</td>
-                        <td>{{item.phase}}</td>
-                        <td>{{item.startDate}}</td>
-                        <td>{{item.endDate}}</td>
-                        <td class="mentor-cell">{{item.mentor}}</td>
-                        <td>{{item.location}}</td>
+                        <td class="program-name-cell">{{item.apprenticeship_name}}</td>
+                        <td>{{item.batch_details}}</td>
+                        <td>{{item.start_date}}</td>
+                        <td>{{item.end_date}}</td>
                         <td>
                             <span class="status-badge" [ngClass]="getStatusClass(item.status)">
                                 {{item.status}}
@@ -147,9 +141,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="internshipName" class="form-label">Internship Name <span class="text-danger">*</span></label>
-                                <select class="form-select" id="internshipName" formControlName="internshipName">
-                                    <option value="">Select</option>
-                                </select>
+                                <input type="text" class="form-control" id="internshipName" formControlName="internshipName" placeholder="Enter internship name">
                             </div>
                         </div>
                     </div>
@@ -478,9 +470,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="editInternshipName" class="form-label">Internship Name <span class="text-danger">*</span></label>
-                                <select class="form-select" id="editInternshipName" formControlName="internshipName">
-                                    <option value="">Select</option>
-                                </select>
+                                <input type="text" class="form-control" id="editInternshipName" formControlName="internshipName" placeholder="Enter internship name">
                             </div>
                         </div>
                     </div>

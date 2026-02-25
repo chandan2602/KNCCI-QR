@@ -1,5 +1,12 @@
 <div class="table-container">
-    <!-- Table Controls with Add Button -->
+    <!-- Add Button -->
+    <div class="add-button-container">
+        <!-- <button class="btn-add-apprenticeship" (click)="openAddModal()">
+            <i class="bi bi-plus-circle"></i> Add Apprenticeship
+        </button> -->
+    </div>
+
+    <!-- Table Controls -->
     <div class="table-controls">
         <div class="entries-control">
             <label>
@@ -18,12 +25,6 @@
                 <input type="text" [(ngModel)]="searchTerm" (input)="currentPage = 1" placeholder="Search apprenticeships...">
             </label>
         </div>
-        <!-- Add Button (Admin/Company Only) - Right Side -->
-        <div class="add-button-control" *ngIf="ROLEID === '1'">
-            <button class="btn btn-add-green" (click)="openAddModal()">
-                <i class="bi bi-plus-circle"></i> Add Apprenticeship
-            </button>
-        </div>
     </div>
 
     <!-- Apprenticeships Table -->
@@ -31,25 +32,25 @@
         <table class="apprenticeships-table">
             <thead>
                 <tr>
-                    <th>Apprenticeship Name </th>
-                    <th>Is Certified</th>
+                    <th>Apprenticeship Name</th>
+                    <th>Company Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                     <th>Status</th>
-                    <th>Approve / Reject Status</th>
-                    <th>Approve / Reject Date</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of paginatedApprenticeships">
-                    <td class="program-name-cell">{{item.programName}}</td>
-                    <td>Yes</td>
+                    <td class="program-name-cell">{{item.apprenticeship_name}}</td>
+                    <td>{{item.company_name}}</td>
+                    <td>{{item.start_date}}</td>
+                    <td>{{item.end_date}}</td>
                     <td>
-                        <span class="status-badge" [ngClass]="item.status === 'Open' ? 'status-open' : 'status-closed'">
+                        <span class="status-badge" [ngClass]="item.status === 'Active' ? 'status-open' : 'status-closed'">
                             {{item.status}}
                         </span>
                     </td>
-                    <td>Approved</td>
-                    <td>{{item.startDate}}</td>
                     <td>
                         <button class="btn-view-details" (click)="viewDetails(item)">
                             <i class="bi bi-eye"></i> View Details
@@ -86,106 +87,6 @@
             <button class="btn-page" (click)="nextPage()" [disabled]="currentPage === totalPages.length">
                 Next
             </button>
-        </div>
-    </div>
-</div>
-
-<!-- Add Apprenticeship Modal -->
-<div class="modal fade" id="addApprenticeshipModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Apprenticeship</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="addApprenticeshipForm">
-                    <!-- Apprenticeship Category -->
-                    <div class="form-group mb-3">
-                        <label for="category" class="form-label">Apprenticeship Category <span class="text-danger">*</span></label>
-                        <select class="form-select" id="category" formControlName="category">
-                            <option value="">Select</option>
-                            <option value="Technology">Technology</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Hospitality">Hospitality</option>
-                            <option value="Design">Design</option>
-                        </select>
-                    </div>
-
-                    <!-- Apprenticeship Name -->
-                    <div class="form-group mb-3">
-                        <label for="name" class="form-label">Apprenticeship Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter apprenticeship name">
-                    </div>
-
-                    <!-- Description -->
-                    <div class="form-group mb-3">
-                        <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="description" formControlName="description" rows="4" placeholder="Enter description"></textarea>
-                    </div>
-
-                    <!-- Two Column Layout -->
-                    <div class="row">
-                        <!-- Left Column -->
-                        <div class="col-md-6">
-                            <!-- Apprenticeship Type -->
-                            <div class="form-group mb-3">
-                                <label class="form-label">Apprenticeship Type</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="certified" value="Certified" formControlName="type">
-                                    <label class="form-check-label" for="certified">Certified</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="uncertified" value="Uncertified" formControlName="type" checked>
-                                    <label class="form-check-label" for="uncertified">Uncertified</label>
-                                </div>
-                            </div>
-
-                            <!-- Certificate Name -->
-                            <div class="form-group mb-3">
-                                <label for="certificateName" class="form-label">Certificate Name</label>
-                                <input type="text" class="form-control" id="certificateName" formControlName="certificateName" placeholder="Enter certificate name">
-                            </div>
-
-                            <!-- Upload Attachments -->
-                            <div class="form-group mb-3">
-                                <button type="button" class="btn btn-upload">
-                                    <i class="bi bi-cloud-upload"></i> Upload Attachments if any
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Right Column -->
-                        <div class="col-md-6">
-                            <!-- Apprenticeship Image -->
-                            <div class="form-group mb-3">
-                                <label class="form-label">Apprenticeship Image</label>
-                                <div class="image-upload-area">
-                                    <button type="button" class="btn btn-upload">
-                                        <i class="bi bi-cloud-upload"></i> Upload Image
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Apprenticeship Status -->
-                    <div class="form-group mb-3">
-                        <label for="status" class="form-label">Apprenticeship Status <span class="text-danger">*</span></label>
-                        <select class="form-select" id="status" formControlName="status">
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                            <option value="Closed">Closed</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-save" (click)="saveApprenticeship()">Save</button>
-            </div>
         </div>
     </div>
 </div>

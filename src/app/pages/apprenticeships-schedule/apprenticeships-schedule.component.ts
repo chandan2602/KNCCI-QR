@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-apprenticeships-schedule',
@@ -12,107 +14,17 @@ export class ApprenticeshipsScheduleComponent implements OnInit {
   editScheduleForm: FormGroup;
   addTrainerForm: FormGroup;
   selectedSchedule: any = null;
-  ROLEID: string = ''; // Get from sessionStorage
+  ROLEID: string = '';
+  isLoading: boolean = false;
 
-  scheduleList = [
-    {
-      id: 1,
-      programName: 'Software Development Apprenticeship',
-      company: 'Tech Solutions Kenya',
-      startDate: '01-04-2026',
-      endDate: '01-04-2027',
-      phase: 'Phase 1: Foundation',
-      duration: '3 months',
-      location: 'Nairobi',
-      mentor: 'John Kariuki',
-      status: 'Upcoming',
-      image: 'assets/kncci-img/img-1.png',
-      category: 'Technology',
-      description: 'Learn full-stack web development with hands-on projects and mentorship from experienced developers.'
-    },
-    {
-      id: 2,
-      programName: 'Digital Marketing Apprenticeship',
-      company: 'Marketing Pro Ltd',
-      startDate: '15-03-2026',
-      endDate: '15-09-2026',
-      phase: 'Phase 2: Advanced',
-      duration: '6 months',
-      location: 'Mombasa',
-      mentor: 'Sarah Mwangi',
-      status: 'In Progress',
-      image: 'assets/kncci-img/img-2.png',
-      category: 'Marketing',
-      description: 'Gain practical experience in SEO, social media marketing, content creation, and digital advertising.'
-    },
-    {
-      id: 3,
-      programName: 'Electrical Engineering Apprenticeship',
-      company: 'Power Systems Kenya',
-      startDate: '01-05-2026',
-      endDate: '01-11-2027',
-      phase: 'Phase 1: Foundation',
-      duration: '18 months',
-      location: 'Kisumu',
-      mentor: 'Peter Omondi',
-      status: 'Upcoming',
-      image: 'assets/kncci-img/img-3.png',
-      category: 'Engineering',
-      description: 'Work on real electrical installations and maintenance projects under the guidance of certified engineers.'
-    },
-    {
-      id: 4,
-      programName: 'Accounting & Finance Apprenticeship',
-      company: 'Financial Services Group',
-      startDate: '10-04-2026',
-      endDate: '10-04-2027',
-      phase: 'Phase 3: Specialization',
-      duration: '12 months',
-      location: 'Nairobi',
-      mentor: 'Grace Kipchoge',
-      status: 'Upcoming',
-      image: 'assets/kncci-img/img-4.png',
-      category: 'Finance',
-      description: 'Learn bookkeeping, financial reporting, tax preparation, and auditing in a professional environment.'
-    },
-    {
-      id: 5,
-      programName: 'Mechanical Engineering Apprenticeship',
-      company: 'Manufacturing Industries Ltd',
-      startDate: '01-06-2026',
-      endDate: '01-06-2028',
-      phase: 'Phase 1: Foundation',
-      duration: '24 months',
-      location: 'Thika',
-      mentor: 'David Kiplagat',
-      status: 'Upcoming',
-      image: 'assets/kncci-img/img-6.jpg',
-      category: 'Engineering',
-      description: 'Hands-on training in machine operation, maintenance, and manufacturing processes.'
-    },
-    {
-      id: 6,
-      programName: 'Data Analytics Apprenticeship',
-      company: 'Data Insights Africa',
-      startDate: '01-05-2026',
-      endDate: '01-05-2027',
-      phase: 'Phase 2: Advanced',
-      duration: '12 months',
-      location: 'Nairobi',
-      mentor: 'Emily Njoroge',
-      status: 'Upcoming',
-      image: 'assets/kncci-img/img-7.png',
-      category: 'Technology',
-      description: 'Learn data collection, analysis, visualization, and reporting using industry-standard tools.'
-    }
-  ];
+  scheduleList: any[] = [];
 
   searchTerm: string = '';
   entriesPerPage: number = 10;
   currentPage: number = 1;
   Math = Math;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private commonService: CommonService, private toastr: ToastrService) {
     this.addScheduleForm = this.fb.group({
       meetingType: ['', Validators.required],
       internshipCategory: ['', Validators.required],
@@ -173,6 +85,28 @@ export class ApprenticeshipsScheduleComponent implements OnInit {
   ngOnInit(): void {
     // Get ROLEID from sessionStorage (same as header component - note: it's 'RoleId' not 'ROLEID')
     this.ROLEID = sessionStorage.getItem('RoleId') || '';
+    
+    // Load apprenticeships from API
+    this.loadApprenticeships();
+  }
+
+  loadApprenticeships() {
+    this.isLoading = true;
+    this.commonService.getApprenticeshipsList().subscribe(
+      (res: any) => {
+        if (res?.status === true && res?.data) {
+          this.scheduleList = res.data;
+        } else {
+          this.scheduleList = [];
+        }
+        this.isLoading = false;
+      },
+      (err) => {
+        console.error('Error loading apprenticeships:', err);
+        this.toastr.error('Failed to load apprenticeships');
+        this.isLoading = false;
+      }
+    );
   }
 
   get filteredSchedules() {
@@ -181,9 +115,9 @@ export class ApprenticeshipsScheduleComponent implements OnInit {
     }
     const search = this.searchTerm.toLowerCase();
     return this.scheduleList.filter(item =>
-      item.programName?.toLowerCase().includes(search) ||
-      item.company?.toLowerCase().includes(search) ||
-      item.mentor?.toLowerCase().includes(search)
+      item.apprenticeship_name?.toLowerCase().includes(search) ||
+      item.company_name?.toLowerCase().includes(search) ||
+      item.batch_details?.toLowerCase().includes(search)
     );
   }
 
@@ -235,25 +169,47 @@ export class ApprenticeshipsScheduleComponent implements OnInit {
 
   saveSchedule() {
     if (this.addScheduleForm.valid) {
-      const newSchedule = {
-        id: this.scheduleList.length + 1,
-        programName: this.addScheduleForm.get('internshipName')?.value,
-        company: 'New Company',
-        startDate: this.addScheduleForm.get('batchStartDate')?.value,
-        endDate: this.addScheduleForm.get('batchEndDate')?.value,
-        phase: 'Phase 1',
-        duration: this.addScheduleForm.get('batchDurationDays')?.value + ' days',
-        location: 'Location',
-        mentor: 'Mentor',
-        status: 'Upcoming',
-        image: 'assets/kncci-img/img-1.png',
-        category: 'Professional Development',
-        description: 'New apprenticeship schedule'
+      const payload = {
+        meetingType: this.addScheduleForm.get('meetingType')?.value,
+        internshipCategory: this.addScheduleForm.get('internshipCategory')?.value,
+        internshipName: this.addScheduleForm.get('internshipName')?.value,
+        studentLevel: this.addScheduleForm.get('studentLevel')?.value,
+        batchName: this.addScheduleForm.get('batchName')?.value,
+        applicationFees: this.addScheduleForm.get('applicationFees')?.value,
+        internshipClassification: this.addScheduleForm.get('internshipClassification')?.value,
+        batchEndDate: this.addScheduleForm.get('batchEndDate')?.value,
+        stipendPerMonth: this.addScheduleForm.get('stipendPerMonth')?.value,
+        registrationStartDate: this.addScheduleForm.get('registrationStartDate')?.value,
+        batchStartDate: this.addScheduleForm.get('batchStartDate')?.value,
+        numberOfStudents: this.addScheduleForm.get('numberOfStudents')?.value,
+        batchStartTime: this.addScheduleForm.get('batchStartTime')?.value,
+        paymentMethod: this.addScheduleForm.get('paymentMethod')?.value,
+        batchEndTime: this.addScheduleForm.get('batchEndTime')?.value,
+        registrationEndDate: this.addScheduleForm.get('registrationEndDate')?.value,
+        batchDurationDays: this.addScheduleForm.get('batchDurationDays')?.value,
+        externalLink: this.addScheduleForm.get('externalLink')?.value,
+        termsOfEngagement: this.addScheduleForm.get('termsOfEngagement')?.value,
+        whoCanApply: this.addScheduleForm.get('whoCanApply')?.value
       };
-      this.scheduleList.push(newSchedule);
-      const modal = (window as any).bootstrap.Modal.getInstance(document.getElementById('addScheduleModal'));
-      modal?.hide();
-      this.addScheduleForm.reset();
+
+      this.commonService.createApprenticeshipSchedule(payload).subscribe(
+        (res: any) => {
+          if (res?.status === true) {
+            this.toastr.success('Batch schedule created successfully!');
+            this.loadApprenticeships();
+            
+            const modal = (window as any).bootstrap.Modal.getInstance(document.getElementById('addScheduleModal'));
+            modal?.hide();
+            this.addScheduleForm.reset();
+          } else {
+            this.toastr.error(res?.message || 'Failed to create batch schedule');
+          }
+        },
+        (err) => {
+          console.error('Error creating batch schedule:', err);
+          this.toastr.error('Failed to create batch schedule');
+        }
+      );
     }
   }
 

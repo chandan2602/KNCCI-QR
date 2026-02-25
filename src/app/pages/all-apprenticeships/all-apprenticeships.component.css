@@ -2,6 +2,39 @@
   padding: 20px;
 }
 
+.add-button-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.btn-add-apprenticeship {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add-apprenticeship:hover {
+  background-color: #1b5e20;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-add-apprenticeship i {
+  font-size: 18px;
+}
+
 .table-controls {
   display: flex;
   justify-content: space-between;
@@ -15,11 +48,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.add-button-control {
-  display: flex;
-  align-items: center;
 }
 
 .entries-control label,
@@ -41,38 +69,19 @@
   width: 300px;
 }
 
-.btn-add-green {
-  padding: 10px 16px;
-  background-color: #2e7d32;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.btn-add-green:hover {
-  background-color: #256D4F;
-}
-
-.btn-add-green i {
-  font-size: 16px;
-}
-
 .table-responsive {
   overflow-x: auto;
   margin-bottom: 20px;
+  min-width: 0;
+  display: block;
 }
 
 .apprenticeships-table {
   width: 100%;
   border-collapse: collapse;
   background-color: white;
+  table-layout: fixed;
+  min-width: 1000px;
 }
 
 .apprenticeships-table thead {
@@ -85,11 +94,45 @@
   text-align: left;
   font-weight: 600;
   border-bottom: 2px solid #2e7d32;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.apprenticeships-table th:nth-child(1) {
+  width: 20%;
+}
+
+.apprenticeships-table th:nth-child(2),
+.apprenticeships-table th:nth-child(3),
+.apprenticeships-table th:nth-child(4),
+.apprenticeships-table th:nth-child(5) {
+  width: 15%;
+}
+
+.apprenticeships-table th:nth-child(6) {
+  width: 15%;
 }
 
 .apprenticeships-table td {
   padding: 12px;
   border-bottom: 1px solid #e0e0e0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.apprenticeships-table td:nth-child(1) {
+  width: 20%;
+}
+
+.apprenticeships-table td:nth-child(2),
+.apprenticeships-table td:nth-child(3),
+.apprenticeships-table td:nth-child(4),
+.apprenticeships-table td:nth-child(5) {
+  width: 15%;
+}
+
+.apprenticeships-table td:nth-child(6) {
+  width: 15%;
 }
 
 .apprenticeships-table tbody tr:hover {
