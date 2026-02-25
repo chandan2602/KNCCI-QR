@@ -287,6 +287,7 @@ import { IncubatorProfileComponent } from './components/incubator-profile/incuba
 import { InvestorProfileComponent } from './components/investor-profile/investor-profile.component';
 import { FounderProfileComponent } from './components/founder-profile/founder-profile.component';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import { SystemSettingsComponent } from './pages/system-settings/system-settings.component';
 import { IntrenshipLstComponent } from './components/intrenship-lst/intrenship-lst.component';
 import { ResumesListComponent } from './components/resumes-list/resumes-list.component';
 import { InternshipSummaryComponent } from './components/internship-summary/internship-summary.component';
@@ -589,6 +590,7 @@ export function momentAdapterFactory() {
     InvestorProfileComponent,
     FounderProfileComponent,
     SubscribeComponent,
+    SystemSettingsComponent,
     IntrenshipLstComponent,
     ResumesListComponent,
     InternshipSummaryComponent,

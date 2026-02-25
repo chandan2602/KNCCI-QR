@@ -6,6 +6,94 @@
             </h1>
         </div>
 
+        <!-- Subscription Control Section (Super Admin Only) -->
+        <div class="subscription-control-card" *ngIf="isSuperAdmin">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-gradient-purple">
+                    <h5 class="mb-0 text-white">
+                        <i class="fas fa-crown"></i> Subscription Settings
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Global Subscription Control -->
+                    <div class="row align-items-center mb-4 pb-3 border-bottom">
+                        <div class="col-md-8">
+                            <h6 class="mb-2">
+                                <i class="fas fa-globe"></i> Global Subscription Feature Control
+                            </h6>
+                            <p class="text-muted mb-0">
+                                <i class="bi bi-info-circle"></i>
+                                Enable or disable the subscription feature system-wide for all tenants. When disabled, no users can view or purchase subscription plans.
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="subscription-toggle-wrapper">
+                                <div class="form-check form-switch d-inline-block">
+                                    <input 
+                                        class="form-check-input subscription-toggle" 
+                                        type="checkbox" 
+                                        role="switch" 
+                                        id="globalSubscriptionToggle"
+                                        [checked]="subscriptionEnabled"
+                                        (change)="toggleGlobalSubscription()"
+                                        style="width: 3.5rem; height: 1.8rem; cursor: pointer;">
+                                    <label class="form-check-label ms-2" for="globalSubscriptionToggle">
+                                        <span class="badge badge-lg" 
+                                              [ngClass]="subscriptionEnabled ? 'bg-success' : 'bg-secondary'">
+                                            <i class="fas" [ngClass]="subscriptionEnabled ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                                            {{ subscriptionEnabled ? 'Enabled' : 'Disabled' }}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tenant-Level Subscription Control -->
+                    <div class="row align-items-center" *ngIf="tId">
+                        <div class="col-md-8">
+                            <h6 class="mb-2">
+                                <i class="fas fa-building"></i> Tenant Subscription Control
+                            </h6>
+                            <p class="text-muted mb-0">
+                                <i class="bi bi-info-circle"></i>
+                                Enable or disable subscription for <strong>{{getSelectedTenantName()}}</strong> tenant only. 
+                                When disabled, all users in this tenant cannot access subscriptions.
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="subscription-toggle-wrapper">
+                                <div class="form-check form-switch d-inline-block">
+                                    <input 
+                                        class="form-check-input subscription-toggle" 
+                                        type="checkbox" 
+                                        role="switch" 
+                                        id="tenantSubscriptionToggle"
+                                        [checked]="tenantSubscriptionEnabled"
+                                        [disabled]="!subscriptionEnabled"
+                                        (change)="toggleTenantSubscription()"
+                                        style="width: 3.5rem; height: 1.8rem; cursor: pointer;">
+                                    <label class="form-check-label ms-2" for="tenantSubscriptionToggle">
+                                        <span class="badge badge-lg" 
+                                              [ngClass]="tenantSubscriptionEnabled ? 'bg-info' : 'bg-warning'">
+                                            <i class="fas" [ngClass]="tenantSubscriptionEnabled ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                                            {{ tenantSubscriptionEnabled ? 'Enabled' : 'Disabled' }}
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Alert -->
+                    <div class="alert alert-info mt-3 mb-0" *ngIf="!subscriptionEnabled">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Note:</strong> Global subscription is disabled. Enable it first to control tenant-level subscriptions.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="table-container">
             <!-- Filters Section -->
             <div class="filters-section">
@@ -47,6 +135,7 @@
                             <th>First Name</th>
                             <th>Role</th>
                             <th>Status</th>
+                            <th>Subscription</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -68,6 +157,14 @@
                                 </span>
                             </td>
                             <td>
+                                <button class="btn-action btn-subscription" 
+                                        (click)="manageSubscription(item)"
+                                        title="Manage Subscription">
+                                    <i class="fas fa-crown"></i>
+                                    Subscription
+                                </button>
+                            </td>
+                            <td>
                                 <div class="action-buttons">
                                     <button class="btn-action btn-edit" 
                                             (click)="edit(item)"
@@ -86,6 +183,108 @@
                 <i class="fas fa-users"></i>
                 <p>No users found</p>
                 <small>Select a role to view users or add a new user</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Subscription Management Modal -->
+<div class="modal fade" id="subscriptionModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fas fa-crown"></i> Manage Subscription - {{selectedUser?.FIRSTNAME}} {{selectedUser?.LASTNAME}}
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeSubscriptionModal()"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Current Subscription Info -->
+                <div class="subscription-info-card" *ngIf="userSubscription">
+                    <h6>Current Subscription</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Plan:</strong> {{userSubscription.subscription_name || 'N/A'}}</p>
+                            <p><strong>Status:</strong> 
+                                <span class="badge" [ngClass]="userSubscription.is_active ? 'bg-success' : 'bg-danger'">
+                                    {{userSubscription.is_active ? 'Active' : 'Expired'}}
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Start Date:</strong> {{userSubscription.start_date | date: 'dd-MM-yyyy'}}</p>
+                            <p><strong>Expiry Date:</strong> {{userSubscription.expired_date | date: 'dd-MM-yyyy'}}</p>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <p><strong>Access:</strong></p>
+                            <ul class="subscription-features">
+                                <li><i class="fas fa-check-circle text-success"></i> {{userSubscription.jobs_count}} Jobs</li>
+                                <li><i class="fas fa-check-circle text-success"></i> {{userSubscription.internships_count}} Internships</li>
+                                <li *ngIf="userSubscription.startups_count"><i class="fas fa-check-circle text-success"></i> {{userSubscription.startups_count}} Startups</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" *ngIf="!userSubscription">
+                    <i class="bi bi-info-circle"></i> This user does not have an active subscription.
+                </div>
+
+                <!-- Subscription Actions -->
+                <div class="subscription-actions mt-4">
+                    <h6>Subscription Actions</h6>
+                    
+                    <!-- Assign New Subscription -->
+                    <div class="action-card">
+                        <h6><i class="fas fa-plus-circle"></i> Assign New Subscription</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Subscription Plan</label>
+                                <select [(ngModel)]="newSubscription.subscription_type_id" class="form-select form-select-sm">
+                                    <option value="">Select Plan</option>
+                                    <option *ngFor="let plan of subscriptionPlans" [value]="plan.subscription_type_id">
+                                        {{plan.name}} - KES {{plan.amount}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Duration (Days)</label>
+                                <input type="number" [(ngModel)]="newSubscription.duration" class="form-control form-control-sm" placeholder="30" min="1">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-sm mt-3" (click)="assignSubscription()">
+                            <i class="fas fa-check"></i> Assign Subscription
+                        </button>
+                    </div>
+
+                    <!-- Extend Subscription -->
+                    <div class="action-card mt-3" *ngIf="userSubscription">
+                        <h6><i class="fas fa-calendar-plus"></i> Extend Current Subscription</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">Extend By (Days)</label>
+                                <input type="number" [(ngModel)]="extendDays" class="form-control form-control-sm" placeholder="30" min="1">
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm mt-3" (click)="extendSubscription()">
+                            <i class="fas fa-clock"></i> Extend Subscription
+                        </button>
+                    </div>
+
+                    <!-- Cancel Subscription -->
+                    <div class="action-card mt-3" *ngIf="userSubscription && userSubscription.is_active">
+                        <h6><i class="fas fa-times-circle"></i> Cancel Subscription</h6>
+                        <p class="text-muted">This will immediately deactivate the user's subscription.</p>
+                        <button class="btn btn-danger btn-sm" (click)="cancelSubscription()">
+                            <i class="fas fa-ban"></i> Cancel Subscription
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" (click)="closeSubscriptionModal()">Close</button>
             </div>
         </div>
     </div>

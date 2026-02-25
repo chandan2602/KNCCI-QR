@@ -15,7 +15,12 @@
 					</h5>
                                     </div>
                                     <div class="card-body">
-                                        <div class="py-5">
+                                        <div class="alert alert-warning" *ngIf="!subscriptionEnabled">
+                                            <i class="bi bi-exclamation-triangle-fill"></i>
+                                            <strong>Subscription Feature Disabled:</strong> The subscription feature is currently disabled by the administrator. Please contact support for more information.
+                                        </div>
+
+                                        <div class="py-5" *ngIf="subscriptionEnabled">
                                             <div class="row g-4 justify-content-center">
                                                 <div class="col-md-4" *ngFor="let item of listData">
                                                     <div class="card plan-card text-center p-4" [ngStyle]="{'background-color': item.bg_colour}">
@@ -26,8 +31,14 @@
                                                             <li>✔ {{item.internships_count}} Internships</li>
                                                             <li *ngIf="roleId == '3'">✔ {{item.startups_count}} Start-up</li>
                                                         </ul>
-                                                        <a class="btn btn-dark btn-plan mt-3" data-bs-toggle="modal" data-bs-target="#signupModal" 
-                                                            (click)="rowData=item;GotoHome(item)">Subscription</a>
+                                                        <a class="btn btn-dark btn-plan mt-3" 
+                                                            [class.disabled]="!subscriptionEnabled"
+                                                            [attr.data-bs-toggle]="subscriptionEnabled ? 'modal' : null" 
+                                                            [attr.data-bs-target]="subscriptionEnabled ? '#signupModal' : null" 
+                                                            (click)="handleSubscriptionClick(item)"
+                                                            style="cursor: pointer;">
+                                                            Subscription
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>

@@ -209,6 +209,7 @@ import { FounderProfileComponent } from './components/founder-profile/founder-pr
 import { IncubatorProfileComponent } from './components/incubator-profile/incubator-profile.component';
 import { InvestorProfileComponent } from './components/investor-profile/investor-profile.component';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import { SystemSettingsComponent } from './pages/system-settings/system-settings.component';
 import { LandingComponent } from './landing/landing.component';
 import { LandingAboutComponent } from './landing/landing-about/landing-about.component';
 import { LandingContactComponent } from './landing/landing-contact/landing-contact.component';
@@ -855,6 +856,7 @@ const routes: Routes = [
       { path: 'apply_job', component: ApplyJobComponent },
       { path: 'startsUp', component: StartsUpComponent },
       { path: 'subscribe', component: SubscribeComponent},
+      { path: 'system-settings', component: SystemSettingsComponent},
       { path: 'jobSummery', component: JobSummeryComponent },
       // { path: 'internshipSummery', component: InternshipSummaryComponent },
     ],

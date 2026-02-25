@@ -45,6 +45,27 @@
               <!--  -->
               <li><hr class="dropdown-divider"></li>
               
+              <!-- Subscription Section (Static) -->
+              <li class="dropdown-submenu-parent">
+                <a class="dropdown-item has-submenu">
+                  <i class="fas fa-crown"></i> Subscription
+                </a>
+                <ul class="dropdown-submenu">
+                  <li>
+                    <a class="dropdown-item" [routerLink]="['/HOME/usersRegistrationList']">
+                      <i class="fas fa-users"></i> Manage User Subscriptions
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" [routerLink]="['/HOME/system-settings']">
+                      <i class="fas fa-cog"></i> Subscription Settings
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              <li><hr class="dropdown-divider"></li>
+              
               <!-- Dynamic menu items as submenus -->
               <li *ngFor="let item of menus" [hidden]="!item.childs.length" class="dropdown-submenu-parent">
                 <a class="dropdown-item has-submenu">
@@ -105,6 +126,7 @@
           </li> -->
 
           <!-- Subscriptions (Admin/Trainer) -->
+          <!-- COMMENTED OUT: Subscription menu for Admin/Trainer
           <li class="nav-item dropdown" *ngIf="ROLEID=='1' || ROLEID=='2'">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
               Subscriptions
@@ -114,6 +136,7 @@
               <li><a class="dropdown-item" [routerLink]="['/HOME/my-subscriptions']">My Subscriptions</a></li>
             </ul>
           </li>
+          -->
 
           <!-- Super Admin specific items -->
           <!-- TODO: Uncomment when advertisements feature is needed -->
@@ -142,6 +165,7 @@
           </li>
 
           <!-- Subscriptions (Student) -->
+          <!-- COMMENTED OUT: Subscription menu for Student
           <li class="nav-item dropdown" *ngIf="ROLEID=='3'">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
               Subscriptions
@@ -151,8 +175,10 @@
               <li><a class="dropdown-item" [routerLink]="['/HOME/my-subscriptions']">My Subscriptions</a></li>
             </ul>
           </li>
+          -->
 
           <!-- Subscription Info Display -->
+          <!-- COMMENTED OUT: Subscription package info display in header
           <li class="nav-item" *ngIf="(ROLEID == '3' || ROLEID == '5' || ROLEID == '1') && subscribeData !=''">
             <div class="subscription-info">
               <span class="sub-name">{{subscribeData?.name}}</span>
@@ -161,6 +187,8 @@
               <span class="sub-detail" *ngIf="ROLEID == '3'">Start-Ups: {{subscribeData?.startups_remaining}}</span>
             </div>
           </li>
+          -->
+          
           <!-- Notifications -->
           <li class="nav-item dropdown">
           <!-- Notifications -->

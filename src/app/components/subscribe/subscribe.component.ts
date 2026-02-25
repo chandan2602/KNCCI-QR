@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,7 @@ declare const $: any;
   templateUrl: './subscribe.component.html',
   styleUrls: ['./subscribe.component.css']
 })
-export class SubscribeComponent extends BaseComponent implements OnInit {
+export class SubscribeComponent extends BaseComponent implements OnInit, OnDestroy {
 
   dtF = DateFrmts; roleId: any = sessionStorage.getItem('RoleId');
   cardType: string = ''; fromDate: any = new Date(); toDate: any = new Date(); listData: any = []; rowData: any = '';
@@ -23,6 +23,8 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
   silverStartUps: number = 2;
   goldStartUps: number = 5;
   platiumStartUps: number = 10;
+  subscriptionEnabled: boolean = false;
+  private statusCheckInterval: any;
   	tooltipContent = `
 					Choose a subscription plan (Silver, Gold, or Platinum) to unlock access to internships and job applications. Click on a plan card to proceed with payment. Once the payment is successful, you'll gain access to all features included in the selected plan.
 					`;
@@ -40,8 +42,73 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.toDate.setDate(this.fromDate.getDate() + 30);
-    this.GetList();
-    // this.GotoHome()
+    this.checkSubscriptionStatus();
+    
+    // Check subscription status every 10 seconds
+    this.statusCheckInterval = setInterval(() => {
+      this.checkSubscriptionStatusSilently();
+    }, 10000); // 10 seconds
+  }
+
+  ngOnDestroy(): void {
+    // Clear interval when component is destroyed
+    if (this.statusCheckInterval) {
+      clearInterval(this.statusCheckInterval);
+    }
+  }
+
+  checkSubscriptionStatusSilently() {
+    // Check without showing spinner or toasts
+    this.CommonService.getCall('SystemSettings/GetSettings', '', false).subscribe(
+      (res: any) => {
+        const previousStatus = this.subscriptionEnabled;
+        if (res?.status && res.data) {
+          this.subscriptionEnabled = res.data.subscriptionEnabled || false;
+        } else {
+          this.subscriptionEnabled = false;
+        }
+        
+        // If status changed from enabled to disabled, clear the list and show warning
+        if (previousStatus && !this.subscriptionEnabled) {
+          this.listData = [];
+          this.toastr.warning('Subscription feature has been disabled by administrator');
+        }
+        // If status changed from disabled to enabled, reload the list
+        else if (!previousStatus && this.subscriptionEnabled) {
+          this.GetList();
+          this.toastr.success('Subscription feature has been enabled');
+        }
+      },
+      err => {
+        // Silently fail
+      }
+    );
+  }
+
+  checkSubscriptionStatus() {
+    this.activeSpinner();
+    this.CommonService.getCall('SystemSettings/GetSettings', '', false).subscribe(
+      (res: any) => {
+        this.deactivateSpinner();
+        if (res?.status && res.data) {
+          this.subscriptionEnabled = res.data.subscriptionEnabled || false;
+        } else {
+          this.subscriptionEnabled = false;
+        }
+        
+        if (!this.subscriptionEnabled) {
+          this.toastr.warning('Subscription feature is currently disabled by administrator');
+        } else {
+          this.GetList();
+        }
+      },
+      err => {
+        this.deactivateSpinner();
+        // If API fails, assume disabled for safety
+        this.subscriptionEnabled = false;
+        this.toastr.warning('Unable to check subscription status. Feature is currently unavailable.');
+      }
+    );
   }
 
   GetList() { // http://localhost:56608/api/InternshipJobs/GetAllSubscriptionPackage
@@ -79,6 +146,11 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
   }
 
   Save() { // http://localhost:56608/api/InternshipJobs/InsertSubscriber
+    if (!this.subscriptionEnabled) {
+      this.toastr.error('Subscription feature is currently disabled');
+      return;
+    }
+    
     this.activeSpinner();
     let payLoad: any = {
       user_id: sessionStorage.UserId,
@@ -133,6 +205,12 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
   }
 
   GotoHome(ctrl: string = '') {
+    // Check subscription status before opening modal
+    if (!this.subscriptionEnabled) {
+      this.toastr.error('Subscription feature is currently disabled. Cannot proceed with payment.');
+      return;
+    }
+    
     this.cardType = ctrl;
     if(ctrl == 'Silver') {
       
@@ -162,6 +240,19 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
 
   close() {
 
+  }
+
+  showDisabledMessage() {
+    this.toastr.error('Subscription feature is currently disabled. Cannot proceed with payment.');
+  }
+
+  handleSubscriptionClick(item: any) {
+    if (!this.subscriptionEnabled) {
+      this.showDisabledMessage();
+      return;
+    }
+    this.rowData = item;
+    this.GotoHome(item);
   }
 
 }
