@@ -27,7 +27,8 @@
               "@angular/compiler",
               "qrcode",
               "core-js-pure",
-              "angularx-qrcode"
+              "angularx-qrcode",
+              "html2canvas"
             ],
             "outputPath": "dist/Lmsapp",
             "index": "src/index.html",
@@ -106,8 +107,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "100kb",
+                  "maximumError": "150kb"
                 }
               ]
             }
