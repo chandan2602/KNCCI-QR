@@ -36,6 +36,8 @@
                     <th>Batch Details</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>Duration</th>
+                    <th>Stipend</th>
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
@@ -44,10 +46,12 @@
                 <tr *ngFor="let item of paginatedApprenticeships">
                     <td class="program-name-cell">{{item.apprenticeship_name}}</td>
                     <td>{{item.batch_name || '-'}}</td>
-                    <td>{{item.batch_start_date || item.start_date || '-'}}</td>
-                    <td>{{item.batch_end_date || item.end_date || '-'}}</td>
+                    <td>{{(item.batch_start_date || item.start_date) | date:'dd-MM-yyyy'}}</td>
+                    <td>{{(item.batch_end_date || item.end_date) | date:'dd-MM-yyyy'}}</td>
+                    <td>{{item.batch_duration_days || item.duration}} {{item.batch_duration_days ? 'days' : 'months'}}</td>
+                    <td class="stipend-cell">KES {{item.stipend_per_month || item.stipend}}/month</td>
                     <td>
-                        <span class="status-badge" [ngClass]="item.status === 'Active' ? 'status-open' : 'status-closed'">
+                        <span class="status-badge" [ngClass]="item.status === 'Open' || item.status === 'Active' ? 'status-open' : 'status-closed'">
                             {{item.status}}
                         </span>
                     </td>

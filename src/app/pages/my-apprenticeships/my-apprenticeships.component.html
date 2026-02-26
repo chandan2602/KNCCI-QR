@@ -1,4 +1,4 @@
-<div class="table-container">
+ <div class="table-container">
     <!-- Table Controls -->
     <div class="table-controls">
         <div class="entries-control">
@@ -30,7 +30,6 @@
                     <th>End Date</th>
                     <th>Start Time</th>
                     <th>End Time</th>
-                    <th>Company Name</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -41,7 +40,6 @@
                     <td>{{item.endDate}}</td>
                     <td>{{item.startTime}}</td>
                     <td>{{item.endTime}}</td>
-                    <td class="company-name-cell">{{item.company}}</td>
                     <td>
                         <button class="btn-review" (click)="viewDetails(item)">
                             <i class="bi bi-eye"></i> Review

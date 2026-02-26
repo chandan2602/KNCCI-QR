@@ -17,6 +17,8 @@ export class ApprenticeshipDetailsComponent implements OnInit {
   showEnrollModal: boolean = false;
   isEnrolling: boolean = false;
   enrollmentForm: FormGroup;
+  roleId: string = '';
+  isAdmin: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,6 +38,10 @@ export class ApprenticeshipDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Check if user is admin
+    this.roleId = sessionStorage.getItem('RoleId') || '';
+    this.isAdmin = this.roleId === '1';
+    
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.sourceComponent = params['source'] || '';

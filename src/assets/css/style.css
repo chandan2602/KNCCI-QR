@@ -1420,12 +1420,12 @@ h4.hr-line:before {
 }
 
 .btn-save {
-  background-color: #2e7a91;
+  background-color: #2e7d32;
   color: #ffffff;
 }
 
 .btn-save:hover {
-  background-color: #6e59ee;
+  background-color: #3e7e42;
   color: #fff;
 }
 
@@ -1470,7 +1470,7 @@ div.qrbox {
 
 
 .btn-primary {
-  background-color: #2e7a91 !important;
+  background-color: #c82333 !important;
 }
 
 .btn-theme ,a ,button

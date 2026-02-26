@@ -81,7 +81,7 @@
   border-collapse: collapse;
   background-color: white;
   table-layout: fixed;
-  min-width: 1000px;
+  min-width: 1200px;
 }
 
 .apprenticeships-table thead {
@@ -96,21 +96,40 @@
   border-bottom: 2px solid #2e7d32;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  white-space: nowrap;
 }
 
+/* Column widths for 8 columns */
 .apprenticeships-table th:nth-child(1) {
-  width: 20%;
+  width: 18%; /* Apprenticeship Name */
 }
 
-.apprenticeships-table th:nth-child(2),
-.apprenticeships-table th:nth-child(3),
-.apprenticeships-table th:nth-child(4),
+.apprenticeships-table th:nth-child(2) {
+  width: 12%; /* Batch Details */
+}
+
+.apprenticeships-table th:nth-child(3) {
+  width: 11%; /* Start Date */
+}
+
+.apprenticeships-table th:nth-child(4) {
+  width: 11%; /* End Date */
+}
+
 .apprenticeships-table th:nth-child(5) {
-  width: 15%;
+  width: 10%; /* Duration */
 }
 
 .apprenticeships-table th:nth-child(6) {
-  width: 15%;
+  width: 13%; /* Stipend */
+}
+
+.apprenticeships-table th:nth-child(7) {
+  width: 10%; /* Status */
+}
+
+.apprenticeships-table th:nth-child(8) {
+  width: 15%; /* Action */
 }
 
 .apprenticeships-table td {
@@ -118,21 +137,40 @@
   border-bottom: 1px solid #e0e0e0;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  vertical-align: middle;
 }
 
+/* Column widths for table body - match header */
 .apprenticeships-table td:nth-child(1) {
-  width: 20%;
+  width: 18%; /* Apprenticeship Name */
 }
 
-.apprenticeships-table td:nth-child(2),
-.apprenticeships-table td:nth-child(3),
-.apprenticeships-table td:nth-child(4),
+.apprenticeships-table td:nth-child(2) {
+  width: 12%; /* Batch Details */
+}
+
+.apprenticeships-table td:nth-child(3) {
+  width: 11%; /* Start Date */
+}
+
+.apprenticeships-table td:nth-child(4) {
+  width: 11%; /* End Date */
+}
+
 .apprenticeships-table td:nth-child(5) {
-  width: 15%;
+  width: 10%; /* Duration */
 }
 
 .apprenticeships-table td:nth-child(6) {
-  width: 15%;
+  width: 13%; /* Stipend */
+}
+
+.apprenticeships-table td:nth-child(7) {
+  width: 10%; /* Status */
+}
+
+.apprenticeships-table td:nth-child(8) {
+  width: 15%; /* Action */
 }
 
 .apprenticeships-table tbody tr:hover {

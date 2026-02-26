@@ -236,6 +236,8 @@
                         <th>Batch Detail</th>
                         <th>Start Date</th>
                         <th>End Date</th>
+                        <th>Duration</th>
+                        <th>Stipend</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -244,8 +246,10 @@
                     <tr *ngFor="let item of paginatedSchedules">
                         <td class="program-name-cell">{{item.apprenticeship_name}}</td>
                         <td>{{item.batch_name || '-'}}</td>
-                        <td>{{item.batch_start_date || '-'}}</td>
-                        <td>{{item.batch_end_date || '-'}}</td>
+                        <td>{{item.batch_start_date | date:'dd-MM-yyyy' || '-'}}</td>
+                        <td>{{item.batch_end_date | date:'dd-MM-yyyy' || '-'}}</td>
+                        <td>{{item.batch_duration_days || '-'}} days</td>
+                        <td>KES {{item.stipend_per_month || '0'}}/month</td>
                         <td>
                             <span class="status-badge" [ngClass]="getStatusClass(item.status)">
                                 {{item.status}}

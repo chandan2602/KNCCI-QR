@@ -93,8 +93,8 @@
             <p class="terms-text">{{apprenticeship.terms_of_engagement || 'Standard terms and conditions apply. Candidates must adhere to company policies and professional standards.'}}</p>
         </div>
 
-        <!-- Enroll Button - Only for All Apprenticeships and AI Apprenticeships -->
-        <div class="action-section" *ngIf="sourceComponent === 'all' || sourceComponent === 'ai'">
+        <!-- Enroll Button - Only for All Apprenticeships and AI Apprenticeships, and not for Admin -->
+        <div class="action-section" *ngIf="(sourceComponent === 'all' || sourceComponent === 'ai') && !isAdmin">
             <button class="btn-enroll" (click)="openEnrollModal()" [disabled]="isEnrolling">
                 <i class="bi bi-check-circle"></i> {{isEnrolling ? 'Enrolling...' : 'Enroll'}}
             </button>
