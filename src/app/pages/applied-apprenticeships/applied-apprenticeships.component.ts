@@ -52,7 +52,7 @@ export class AppliedApprenticeshipsComponent implements OnInit {
       },
       (err) => {
         console.error('Error loading applied apprenticeships:', err);
-        this.toastr.error('Failed to load applied apprenticeships');
+        // this.toastr.error('Failed to load applied apprenticeships');
         this.isLoading = false;
       }
     );
