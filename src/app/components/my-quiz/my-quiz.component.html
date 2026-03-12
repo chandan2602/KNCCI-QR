@@ -1,0 +1,326 @@
+<div class="wrapper">
+  <div class="page-wrapper pt-4">
+    <div class="page-content pt-0 pe-2 ps-2">
+      <div class="container-fluid">
+        <div class="default_class">
+          <div class="content-wrapper p-0">
+            <div class="container-fluid">
+              <div class="main-wrapper">
+                <div class="breadcrumb-bar text-center">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 col-12">
+                        <h2 class="breadcrumb-title mb-2">My Quiz Attempts</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="content">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-lg-12 quiz-wizard">
+                        <fieldset>
+                          <div class="page-title d-flex align-items-center justify-content-between">
+                            <h5>My Quiz Attempts</h5>
+                          </div>
+
+                          <!-- ===== QUESTION CARD ===== -->
+                          <div class="quiz-attempt-card border-0" *ngIf="!isShowResult && !isAnalyzing">
+                            <div class="quiz-attempt-body p-0">
+                              <div class="quiz-card-with-bg border p-3 mb-3 rounded-2" [class.loading-state]="isLoading"
+                                [style.background-image]="!isLoading && currentQuestionImage ? 'url(' + currentQuestionImage + ')' : 'none'">
+
+                                <!-- Preload current question image -->
+                                <img *ngIf="currentQuestionImage && !isLoading" [src]="currentQuestionImage"
+                                  (error)="onImageError($event)" style="display: none;" alt="Question background" />
+
+                                <!-- Simple Professional Loading State -->
+                                <div *ngIf="isLoading && !isAnalyzing" class="simple-loading-container">
+
+                                  <!-- Loading Animation -->
+                                  <div class="loading-animation">
+                                    <div class="pulse-circle">
+                                      <div class="inner-circle">
+                                        <i class="fas fa-brain"></i>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <!-- Loading Message -->
+                                  <div class="loading-message">
+                                    <h6>{{ getCurrentLoadingMessage() }}</h6>
+                                    <div class="loading-dots">
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+
+
+                                <!-- Question Content -->
+                                <div class="quiz-content-overlay" *ngIf="!isLoading">
+
+                                  <!-- Question -->
+                                  <div *ngIf="currentQuestion">
+                                    <div class="d-flex justify-content-between mb-2">
+                                      <span class="fw-semibold">Question {{ chosenTraits.length + 1 }}</span>
+                                    </div>
+
+                                    <h6 class="mb-3">{{ currentQuestion.question }}</h6>
+
+                                    <!-- Options -->
+                                    <div *ngFor="let option of currentQuestion.options" class="quiz-option"
+                                      [ngClass]="{ 'selected': selectedOption === option }"
+                                      (click)="onOptionSelect(option)" role="button" tabindex="0">
+                                      <input type="radio" class="quiz-option-radio" name="quizOption" [value]="option"
+                                        [checked]="selectedOption === option" aria-hidden="true" tabindex="-1" />
+                                      <span class="quiz-option-text">{{ option.text }}</span>
+                                    </div>
+
+                                    <div class="text-end mt-4">
+                                      <button type="button" class="btn btn-secondary rounded-pill"
+                                        (click)="goToNextQuestion()" [disabled]="!selectedOption || isLoading">
+                                        Next
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- ===== ANALYSIS ANIMATION CARD ===== -->
+                          <div class="quiz-attempt-card border-0" *ngIf="isAnalyzing">
+                            <div class="quiz-attempt-body p-0">
+                              <div class="analysis-animation-card border p-4 mb-3 rounded-2">
+
+                                <!-- Analysis Header -->
+                                <div class="analysis-header text-center mb-4">
+                                  <div class="analysis-icon mb-3">
+                                    <i class="fas fa-brain fa-3x text-primary"></i>
+                                  </div>
+                                  <h4 class="analysis-title mb-2">Analyzing Your Personality</h4>
+                                  <p class="text-muted">Please wait while we process your responses and generate your
+                                    personalized profile</p>
+                                </div>
+
+                                <!-- Analysis Steps -->
+                                <div class="analysis-steps mb-4">
+                                  <div class="current-step text-center mb-3">
+                                    <div class="step-icon mb-2">
+                                      <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                      </div>
+                                    </div>
+                                    <h6 class="step-text">{{ getCurrentAnalysisStep() }}</h6>
+                                  </div>
+
+                                  <!-- Progress Bar -->
+                                  <div class="progress mb-3" style="height: 8px;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                      role="progressbar" [style.width.%]="getAnalysisProgress()"
+                                      [attr.aria-valuenow]="getAnalysisProgress()" aria-valuemin="0"
+                                      aria-valuemax="100">
+                                    </div>
+                                  </div>
+
+                                  <!-- Step Indicators -->
+                                  <div class="step-indicators d-flex justify-content-between">
+                                    <div class="step-indicator" *ngFor="let step of analysisSteps; let i = index"
+                                      [class.active]="i <= analysisStep" [class.current]="i === analysisStep">
+                                      <div class="indicator-dot">
+                                        <i class="fas fa-check" *ngIf="i < analysisStep"></i>
+                                        <div class="pulse-dot" *ngIf="i === analysisStep"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!-- Fun Facts -->
+                                <div class="analysis-facts text-center">
+                                  <div class="fact-item">
+                                    <i class="fas fa-lightbulb text-warning me-2"></i>
+                                    <small class="text-muted">Did you know? Your personality type influences your career
+                                      satisfaction by up to 70%!</small>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- ===== RESULT CARD ===== -->
+                          <div class="quiz-attempt-card border-0" *ngIf="isShowResult && summaryResult">
+                            <div class="quiz-attempt-body p-0">
+
+                              <!-- ENHANCED ANALYTICAL RESULTS CARD -->
+                              <div class="analytical-results-container">
+
+                                <!-- Hero Header with Gradient Background -->
+                                <div class="results-hero-header">
+                                  <div class="hero-content">
+                                    <div class="personality-badge">
+                                      <div class="badge-icon">
+                                        <i class="fas fa-user-graduate"></i>
+                                      </div>
+                                      <div class="badge-text">
+                                        <span class="badge-label">Your Personality Type</span>
+                                        <h1 class="personality-title">
+                                          <span class="highlight-trait">{{ summaryResult?.dominant_trait }}</span>
+                                        </h1>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+                                <!-- Personality Analysis Dashboard -->
+                                <div class="analysis-dashboard">
+
+                                  <!-- Trait Distribution Chart -->
+                                  <!-- <div class="chart-section">
+                                    <h3 class="section-title">
+                                      <i class="fas fa-chart-pie me-2"></i>
+                                      Personality Trait Distribution
+                                    </h3>
+                                    <div class="trait-chart-container">
+                                      <div class="trait-bars">
+                                        <div class="trait-bar" *ngFor="let trait of getTraitDistribution()"
+                                          [class.dominant]="trait.name === summaryResult?.dominant_trait?.toLowerCase()">
+                                          <div class="trait-info">
+                                            <span class="trait-name">{{ trait.displayName }}</span>
+                                            <span class="trait-percentage">{{ trait.percentage }}%</span>
+                                          </div>
+                                          <div class="progress-bar">
+                                            <div class="progress-fill" [style.width.%]="trait.percentage"
+                                              [style.background]="trait.color">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div> -->
+
+                                  <!-- Profile Summary Card -->
+                                  <div class="profile-summary-card">
+                                    <h3 class="section-title">
+                                      <i class="fas fa-user-circle me-2"></i>
+                                      Your Personality Profile
+                                    </h3>
+                                    <div class="profile-content">
+                                      <div class="profile-description">
+                                        {{ summaryResult.profile_description }}
+                                      </div>
+                                      <div class="profile-highlights">
+                                        <div class="highlight-item">
+                                          <i class="fas fa-star"></i>
+                                          <span>Dominant Trait: {{ summaryResult?.dominant_trait }}</span>
+                                        </div>
+                                        <div class="highlight-item">
+                                          <i class="fas fa-code"></i>
+                                          <span>Holland Code: {{ summaryResult?.holland_code }}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <!-- Career Paths Grid -->
+                                  <!-- <div class="career-paths-section">
+                                    <h3 class="section-title">
+                                      <i class="fas fa-briefcase me-2"></i>
+                                      Recommended Career Paths
+                                    </h3>
+                                    <div class="career-grid">
+                                      <div class="career-card"
+                                        *ngFor="let career of summaryResult.career_paths; let i = index">
+                                        <div class="career-icon">
+                                          <i [class]="getCareerIcon(i)"></i>
+                                        </div>
+                                        <div class="career-name">{{ career }}</div>
+                                      </div>
+                                    </div>
+                                  </div> -->
+
+                                  <!-- Work Environment Analysis -->
+                                  <div class="environment-section">
+                                    <h3 class="section-title">
+                                      <i class="fas fa-building me-2"></i>
+                                      Ideal Work Environment
+                                    </h3>
+                                    <div class="environment-card">
+                                      <div class="environment-visual">
+                                        <div class="environment-icon">
+                                          <i class="fas fa-users"></i>
+                                        </div>
+                                      </div>
+                                      <div class="environment-content">
+                                        <p class="environment-description">
+                                          {{ summaryResult.work_environment }}
+                                        </p>
+                                        <div class="environment-tags">
+                                          <span class="env-tag" *ngFor="let tag of getEnvironmentTags()">
+                                            {{ tag }}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <!-- Key Strengths Section -->
+                                  <div class="strengths-section">
+                                    <h3 class="section-title">
+                                      <i class="fas fa-trophy me-2"></i>
+                                      Your Key Strengths
+                                    </h3>
+                                    <div class="strengths-grid">
+                                      <div class="strength-item" *ngFor="let strength of getPersonalityStrengths()">
+                                        <div class="strength-icon">
+                                          <i [class]="strength.icon"></i>
+                                        </div>
+                                        <div class="strength-content">
+                                          <h4>{{ strength.title }}</h4>
+                                          <p>{{ strength.description }}</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                              <!-- /ENHANCED ANALYTICAL RESULTS CARD -->
+
+                              <div class="text-end d-flex justify-content-end gap-2 mt-3">
+                                <!-- <button type="button" class="btn btn-info rounded-pill" (click)="navToInternships()">
+                                  View Internships
+                                </button> -->
+                                <button type="button" class="btn btn-secondary rounded-pill" (click)="navToMyCourses()">
+                                  View internships
+                                
+                                </button>
+                                <button type="button" class="btn btn-secondary rounded-pill" (click)="navToMyCourses()">
+                                  View Jobs
+                                
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- ===== /RESULT CARD ===== -->
+
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /content -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

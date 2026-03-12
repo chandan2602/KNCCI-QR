@@ -7,6 +7,10 @@
 .main-content {
   flex: 1;
   width: 100%;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  overflow: visible;
   /* padding-top: 70px;  */
 }
 

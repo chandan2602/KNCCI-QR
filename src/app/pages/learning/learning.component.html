@@ -1,0 +1,118 @@
+<div class="learning-container">
+  <div class="learning-header">
+    <h1>Learning Center</h1>
+    <p class="subtitle">Expand your skills with our comprehensive courses</p>
+  </div>
+
+  <div class="learning-content">
+    <!-- Courses Sidebar -->
+    <div class="courses-sidebar">
+      <h3 class="sidebar-title">Available Courses</h3>
+      <div class="courses-list">
+        <div *ngFor="let course of courses" class="course-card" [class.active]="selectedCourse?.id === course.id"
+          (click)="selectCourse(course)">
+          <div class="course-header">
+            <h4 class="course-name">{{ course.name }}</h4>
+            <span class="course-badge">{{ course.modules.length }} Modules</span>
+          </div>
+          <p class="course-instructor">by {{ course.instructor }}</p>
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="course.progress"
+                [ngClass]="'bg-' + getProgressColor(course.progress)">
+              </div>
+            </div>
+            <span class="progress-text">{{ course.progress }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <div *ngIf="selectedCourse" class="course-detail">
+        <!-- Course Header -->
+        <div class="course-header-section">
+          <h2 class="course-title">{{ selectedCourse.name }}</h2>
+          <p class="course-description">{{ selectedCourse.description }}</p>
+          <div class="course-meta">
+            <span class="meta-item">
+              <i class="fas fa-user"></i> {{ selectedCourse.instructor }}
+            </span>
+            <span class="meta-item">
+              <i class="fas fa-book"></i> {{ selectedCourse.modules.length }} Modules
+            </span>
+            <span class="meta-item">
+              <i class="fas fa-chart-pie"></i> {{ selectedCourse.progress }}% Complete
+            </span>
+          </div>
+        </div>
+
+        <!-- Modules Section -->
+        <div class="modules-section">
+          <h3 class="section-title">Course Modules</h3>
+
+          <div class="modules-list">
+            <div *ngFor="let module of selectedCourse.modules; let i = index" class="module-item">
+
+              <!-- Module Header -->
+              <div class="module-header" (click)="toggleModule(module)" [class.expanded]="module.isExpanded">
+                <div class="module-title-section">
+                  <i class="fas" [ngClass]="module.isExpanded ? 'fa-chevron-down' : 'fa-chevron-right'"></i>
+                  <div class="module-info">
+                    <h4 class="module-name">Module {{ i + 1 }}: {{ module.name }}</h4>
+                    <p class="module-description">{{ module.description }}</p>
+                  </div>
+                </div>
+                <span class="module-badge">{{ module.subModules.length }} Lessons</span>
+              </div>
+
+              <!-- Sub-modules (Lessons) -->
+              <div class="submodules-container" *ngIf="module.isExpanded">
+                <div *ngFor="let subModule of module.subModules; let j = index" class="submodule-item">
+                  <div class="submodule-content">
+                    <div class="lesson-number">{{ j + 1 }}</div>
+                    <div class="lesson-info">
+                      <h5 class="lesson-name">{{ subModule.name }}</h5>
+                      <p class="lesson-description">{{ subModule.description }}</p>
+                      <span class="lesson-duration">
+                        <i class="fas fa-clock"></i> {{ subModule.duration }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="lesson-actions">
+                    <button class="btn btn-sm btn-primary" (click)="startLesson(subModule)">
+                      <i class="fas fa-play"></i> Start
+                    </button>
+                    <button class="btn btn-sm btn-success" (click)="completeLesson(subModule)">
+                      <i class="fas fa-check"></i> Complete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Course Completion Section -->
+          <div class="course-completion-section">
+            <div class="completion-card">
+              <h4>Course Completion</h4>
+              <p>Have you completed all the modules? Take the assessment exam to proceed to internships.</p>
+              <button class="btn btn-success btn-lg" (click)="completeCourse()">
+                <i class="fas fa-graduation-cap"></i> Course Completed - Take Exam
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!selectedCourse" class="empty-state">
+        <i class="fas fa-book-open"></i>
+        <p>Select a course to get started</p>
+      </div>
+    </div>
+  </div>
+</div>

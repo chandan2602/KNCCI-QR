@@ -101,35 +101,43 @@
 
 /* Column widths for 8 columns */
 .apprenticeships-table th:nth-child(1) {
-  width: 18%; /* Apprenticeship Name */
+  width: 18%;
+  /* Apprenticeship Name */
 }
 
 .apprenticeships-table th:nth-child(2) {
-  width: 12%; /* Batch Details */
+  width: 12%;
+  /* Batch Details */
 }
 
 .apprenticeships-table th:nth-child(3) {
-  width: 11%; /* Start Date */
+  width: 11%;
+  /* Start Date */
 }
 
 .apprenticeships-table th:nth-child(4) {
-  width: 11%; /* End Date */
+  width: 11%;
+  /* End Date */
 }
 
 .apprenticeships-table th:nth-child(5) {
-  width: 10%; /* Duration */
+  width: 10%;
+  /* Duration */
 }
 
 .apprenticeships-table th:nth-child(6) {
-  width: 13%; /* Stipend */
+  width: 13%;
+  /* Stipend */
 }
 
 .apprenticeships-table th:nth-child(7) {
-  width: 10%; /* Status */
+  width: 10%;
+  /* Status */
 }
 
 .apprenticeships-table th:nth-child(8) {
-  width: 15%; /* Action */
+  width: 15%;
+  /* Action */
 }
 
 .apprenticeships-table td {
@@ -142,35 +150,43 @@
 
 /* Column widths for table body - match header */
 .apprenticeships-table td:nth-child(1) {
-  width: 18%; /* Apprenticeship Name */
+  width: 18%;
+  /* Apprenticeship Name */
 }
 
 .apprenticeships-table td:nth-child(2) {
-  width: 12%; /* Batch Details */
+  width: 12%;
+  /* Batch Details */
 }
 
 .apprenticeships-table td:nth-child(3) {
-  width: 11%; /* Start Date */
+  width: 11%;
+  /* Start Date */
 }
 
 .apprenticeships-table td:nth-child(4) {
-  width: 11%; /* End Date */
+  width: 11%;
+  /* End Date */
 }
 
 .apprenticeships-table td:nth-child(5) {
-  width: 10%; /* Duration */
+  width: 10%;
+  /* Duration */
 }
 
 .apprenticeships-table td:nth-child(6) {
-  width: 13%; /* Stipend */
+  width: 13%;
+  /* Stipend */
 }
 
 .apprenticeships-table td:nth-child(7) {
-  width: 10%; /* Status */
+  width: 10%;
+  /* Status */
 }
 
 .apprenticeships-table td:nth-child(8) {
-  width: 15%; /* Action */
+  width: 15%;
+  /* Action */
 }
 
 .apprenticeships-table tbody tr:hover {

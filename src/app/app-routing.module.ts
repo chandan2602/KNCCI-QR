@@ -229,6 +229,10 @@ import { PublicApprenticeshipsComponent } from './pages/public-apprenticeships/p
 import { PublicCoursesComponent } from './pages/public-courses/public-courses.component';
 import { PublicInternshipsComponent } from './pages/public-internships/public-internships.component';
 import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
+import { LearningComponent } from './pages/learning/learning.component';
+import { MyQuizComponent } from './components/my-quiz/my-quiz.component';
+import { HoolandCodeComponent } from './pages/hooland-code/hooland-code.component';
+
 const routes: Routes = [
   {
     path: 'HOME',
@@ -244,14 +248,18 @@ const routes: Routes = [
         component: KncciCoursesComponent
       },
       {
+        path: 'learning',
+        component: LearningComponent
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
       },
-      { path: 'founderProfile', component: FounderProfileComponent},
+      { path: 'founderProfile', component: FounderProfileComponent },
       { path: 'incubtrProfile', component: IncubatorProfileComponent },
       { path: 'investrProfile', component: InvestorProfileComponent },
-      { path: 'founder-view', component: FounderProfileComponent},
+      { path: 'founder-view', component: FounderProfileComponent },
       { path: 'incubtr-view', component: IncubatorProfileComponent },
       { path: 'investr-view', component: InvestorProfileComponent },
       { path: 'startup-profle', component: StartupProfileComponent },
@@ -291,6 +299,14 @@ const routes: Routes = [
       {
         path: 'takeExam',
         component: StartexamComponent
+      },
+      {
+        path: 'hooland-exam',
+        component: MyQuizComponent
+      },
+      {
+        path: 'hooland-code',
+        component: HoolandCodeComponent
       },
       {
         path: 'timeTracker',
@@ -852,11 +868,11 @@ const routes: Routes = [
       // TODO: Uncomment when advertisements feature is needed
       // { path: 'advertisements', component: AdvertisementsComponent },
       { path: 'appliedInternships', component: StudentAppliedInternshipsComponent },
-      { path: 'myJobs', component:  MyJobsComponent},
+      { path: 'myJobs', component: MyJobsComponent },
       { path: 'apply_job', component: ApplyJobComponent },
       { path: 'startsUp', component: StartsUpComponent },
-      { path: 'subscribe', component: SubscribeComponent},
-      { path: 'system-settings', component: SystemSettingsComponent},
+      { path: 'subscribe', component: SubscribeComponent },
+      { path: 'system-settings', component: SystemSettingsComponent },
       { path: 'jobSummery', component: JobSummeryComponent },
       // { path: 'internshipSummery', component: InternshipSummaryComponent },
     ],
@@ -898,7 +914,7 @@ const routes: Routes = [
     path: 'all-category-courses',
     component: AllCategoryCoursesComponent
   },
- 
+
   { path: 'view-course-details', component: ViewCourseDetailsComponent },
   { path: 'jobSummery', component: JobSummeryComponent },
   { path: 'apply_job', component: ApplyJobComponent },
@@ -945,7 +961,7 @@ const routes: Routes = [
       { path: 'jobSummery', component: JobSummeryComponent },
       { path: 'internship-view', component: PostingInternshipViewComponent },
       { path: 'job-view', component: PostingJobViewComponent },
-     
+
       // { path: 'view-profile:/id', component: ViewProfileComponent },
     ]
   },

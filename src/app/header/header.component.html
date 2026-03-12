@@ -21,6 +21,13 @@
             </a>
           </li>
 
+          <!-- Learning -->
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/HOME/learning']">
+              Learning
+            </a>
+          </li>
+
           <!-- Courses (Available for all roles EXCEPT Super Admin) -->
           <li class="nav-item" *ngIf="ROLEID!='4'">
             <a class="nav-link" [routerLink]="['/HOME/kncci-courses']">

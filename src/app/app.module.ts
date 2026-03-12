@@ -3,9 +3,11 @@ import { PrivacyPolicyComponent } from './components/organization-details/privac
 import { HeaderNewComponent } from './components/shared/header-new/header-new.component';
 import { FooterNewComponent } from './components/shared/footer/footer-new.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from "@angular/common/http";
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -248,6 +250,7 @@ import { ShowFileComponent } from './pages/trainee-report/show-file/show-file.co
 import { NotificationComponent } from './pages/notification/notification.component';
 import { LearningResourcesComponent } from './pages/learning-resources/learning-resources.component';
 import { CompanyDetailsComponent } from './pages/company-details/company-details.component';
+import { LearningComponent } from './pages/learning/learning.component';
 import { AdvertisementsComponent } from './pages/advertisements/advertisements.component';
 import { ViewAdsComponent } from './view-ads/view-ads.component';
 import { StudentAppliedInternshipsComponent } from './pages/student-applied-internships/student-applied-internships.component';
@@ -318,6 +321,10 @@ import { AllApprenticeshipsComponent } from './pages/all-apprenticeships/all-app
 import { AiApprenticeshipsComponent } from './pages/ai-apprenticeships/ai-apprenticeships.component';
 import { MyApprenticeshipsComponent } from './pages/my-apprenticeships/my-apprenticeships.component';
 import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
+import { MyQuizComponent } from './components/my-quiz/my-quiz.component';
+import { HoolandCodeComponent } from './pages/hooland-code/hooland-code.component';
+// import { RegisteredStudentsComponent } from './registered-students/registered-students.component';
+// import { PaymentComponent } from './payment/payment.component';
 
 
 
@@ -621,11 +628,16 @@ export function momentAdapterFactory() {
     AiApprenticeshipsComponent,
     MyApprenticeshipsComponent,
     PublicJobsComponent,
-    
+    LearningComponent,
+    MyQuizComponent,
+    HoolandCodeComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
+    RouterModule,
     BsDatepickerModule.forRoot(),
     MetismenuAngularModule, PerfectScrollbarModule, AutocompleteLibModule, QRCodeModule,
     HttpClientModule, FormsModule, ReactiveFormsModule, DataTablesModule, CountdownModule, BrowserAnimationsModule, NgxSpinnerModule,
@@ -637,6 +649,7 @@ export function momentAdapterFactory() {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
