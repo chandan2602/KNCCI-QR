@@ -8,6 +8,10 @@ export const environment = {
   production: false,
   // serviceUrl: "http://10.10.11.74:8090/api/",
   serviceUrl: `${apiURL}/api/`,
+  // Add counselor API URL - update this to your backend URL
+  counselorApiUrl: 'http://localhost:8000/api',
+  // Add application API URL (without /api prefix)
+  applicationApiUrl: 'http://localhost:8000',
   internUrl: `${'https://oukdev.samvaadpro.com'}/api/`,
   // serviceUrl:"https://lmsqa.dhanushinfotech.com/api/",
   fileUrl: `${apiURL}/`,

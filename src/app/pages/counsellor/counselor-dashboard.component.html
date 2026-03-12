@@ -1,0 +1,344 @@
+<div class="counselor-dashboard">
+  <!-- Navigation Header -->
+  <div class="dashboard-navigation">
+    <div class="nav-left">
+      <button class="back-to-dashboard-btn" (click)="navigateToMainDashboard()">
+        <i class="fas fa-arrow-left me-2"></i>
+        Back to Dashboard
+      </button>
+      <h1 class="page-title">Application Management</h1>
+    </div>
+    <div class="nav-right">
+      <button class="logout-btn" (click)="logout()">
+        <i class="fas fa-sign-out-alt me-2"></i>
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button 
+      class="tab-btn"
+      [class.active]="activeTab === 'all'"
+      (click)="activeTab = 'all'"
+    >
+      All Applications ({{ getAllCount() }})
+    </button>
+    <button 
+      class="tab-btn"
+      [class.active]="activeTab === 'pending'"
+      (click)="activeTab = 'pending'"
+    >
+      Pending Review ({{ getPendingCount() }})
+    </button>
+    <button 
+      class="tab-btn"
+      [class.active]="activeTab === 'documents'"
+      (click)="activeTab = 'documents'"
+    >
+      Document Upload ({{ getDocumentReviewCount() }})
+    </button>
+    <button 
+      class="tab-btn"
+      [class.active]="activeTab === 'approved'"
+      (click)="activeTab = 'approved'"
+    >
+      Approved ({{ getApprovedCount() }})
+    </button>
+    <button 
+      class="tab-btn nav-btn"
+      (click)="navigateToApplicationReg()"
+    >
+      New Application
+    </button>
+  </div>
+
+  <div class="dashboard-content">
+    <!-- Applications List -->
+    <div class="applications-list">
+      <div class="list-header">
+        <h2>Applications</h2>
+        <div class="header-actions">
+          <div class="search-container">
+            <input 
+              type="email" 
+              [(ngModel)]="searchEmail" 
+              placeholder="Search by email..."
+              class="search-input"
+            >
+            <button 
+              class="search-btn" 
+              (click)="searchApplicationByEmail()" 
+              [disabled]="isLoading"
+            >
+              Search
+            </button>
+            <button 
+              class="clear-btn" 
+              (click)="clearSearch()" 
+              [disabled]="isLoading"
+            >
+              Clear
+            </button>
+          </div>
+          <button class="refresh-btn" (click)="refreshApplications()" [disabled]="isLoading">
+            {{ isLoading ? 'Loading...' : 'Refresh' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="applications-grid">
+        <div 
+          *ngFor="let application of getFilteredApplications()" 
+          class="application-card"
+          [class.selected]="selectedApplication?.id === application.id"
+          (click)="selectApplication(application)"
+        >
+          <div class="card-header">
+            <h3>{{ application.personalInfo.firstName || 'N/A' }} {{ application.personalInfo.lastName || 'N/A' }}</h3>
+            <span class="status-badge" [class]="getStatusBadgeClass(application.status)">
+              {{ getStatusLabel(application.status) }}
+            </span>
+          </div>
+          
+          <div class="card-content">
+            <p><strong>ID:</strong> {{ application.id || 'N/A' }}</p>
+            <p><strong>Mobile:</strong> {{ application.personalInfo.phone || 'N/A' }}</p>
+          </div>
+        </div>
+
+        <div *ngIf="getFilteredApplications().length === 0" class="no-applications">
+          <p>No applications found for this category.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Application Details -->
+    <div class="application-details" *ngIf="selectedApplication">
+      <div class="details-header">
+        <h2>Application Details</h2>
+        <span class="application-id">ID: {{ selectedApplication?.id }}</span>
+      </div>
+
+      <div class="details-content">
+        <!-- Application Status -->
+        <div class="info-section">
+          <h3>Application Status</h3>
+          <div class="status-timeline-horizontal compact">
+            <div class="timeline-step" [class.completed]="true" [class.active]="selectedApplication?.status === 'form-submitted'">
+              <div class="step-indicator">
+                <div class="step-circle">1</div>
+                <div class="step-label">Application Submitted</div>
+                <div class="step-date">{{ formatDate(selectedApplication?.createdAt) }}</div>
+              </div>
+            </div>
+            
+            <div class="timeline-connector" [class.completed]="['documents-requested', 'documents-uploaded', 'payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')"></div>
+            
+            <div class="timeline-step" [class.completed]="['documents-requested', 'documents-uploaded', 'payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')" [class.active]="selectedApplication?.status === 'documents-requested'">
+              <div class="step-indicator">
+                <div class="step-circle">2</div>
+                <div class="step-label">Counselor Review & Call</div>
+                <div class="step-date" *ngIf="selectedApplication?.status !== 'form-submitted'">Pending counselor call</div>
+              </div>
+            </div>
+            
+            <div class="timeline-connector" [class.completed]="['documents-uploaded', 'payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')"></div>
+            
+            <div class="timeline-step" [class.completed]="['documents-uploaded', 'payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')" [class.active]="['documents-requested', 'documents-uploaded'].includes(selectedApplication?.status || '')">
+              <div class="step-indicator">
+                <div class="step-circle">3</div>
+                <div class="step-label">Document Collection</div>
+                <div class="step-date" *ngIf="selectedApplication?.status === 'documents-requested'">Pending</div>
+              </div>
+            </div>
+            
+            <div class="timeline-connector" [class.completed]="['payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')"></div>
+            
+            <div class="timeline-step" [class.completed]="['payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')" [class.active]="selectedApplication?.status === 'payment-requested'">
+              <div class="step-indicator">
+                <div class="step-circle">4</div>
+                <div class="step-label">Payment Process</div>
+                <div class="step-date" *ngIf="selectedApplication?.status === 'payment-requested'">Pending</div>
+              </div>
+            </div>
+            
+            <div class="timeline-connector" [class.completed]="selectedApplication?.status === 'payment-completed'"></div>
+            
+            <div class="timeline-step" [class.completed]="selectedApplication?.status === 'payment-completed'" [class.active]="selectedApplication?.status === 'payment-completed'">
+              <div class="step-indicator">
+                <div class="step-circle">5</div>
+                <div class="step-label">Final Approval</div>
+                <div class="step-date" *ngIf="selectedApplication?.status === 'payment-completed'">${{ selectedApplication?.paymentAmount }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Information -->
+        <div class="info-section">
+          <h3>Personal Information</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Full Name:</label>
+              <span>{{ selectedApplication?.personalInfo?.firstName || 'N/A' }} {{ selectedApplication?.personalInfo?.lastName || 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <label>Email:</label>
+              <span>{{ selectedApplication?.personalInfo?.email || 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <label>Phone:</label>
+              <span>{{ selectedApplication?.personalInfo?.phone || 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <label>Date of Birth:</label>
+              <span>{{ selectedApplication?.personalInfo?.dateOfBirth || 'N/A' }} 
+                ({{ selectedApplication?.personalInfo?.dateOfBirth ? calculateAge(selectedApplication!.personalInfo!.dateOfBirth) : 'N/A' }} years old)</span>
+            </div>
+            <div class="info-item" *ngIf="selectedApplication?.userType">
+              <label>User Type:</label>
+              <span>{{ selectedApplication?.userType }}</span>
+            </div>
+            <div class="info-item" *ngIf="selectedApplication?.companyName && selectedApplication?.userType !== 'student'">
+              <label>Company Name:</label>
+              <span>{{ selectedApplication?.companyName }}</span>
+            </div>
+            <div class="info-item" *ngIf="selectedApplication?.qualification && selectedApplication?.userType !== 'professional' && selectedApplication?.userType !== 'corporate'">
+              <label>Qualification:</label>
+              <span>{{ selectedApplication?.qualification }}</span>
+            </div>
+            <div class="info-item" *ngIf="selectedApplication?.appointmentDate">
+              <label>Appointment Date:</label>
+              <span>{{ selectedApplication?.appointmentDate }}</span>
+            </div>
+            <div class="info-item" *ngIf="selectedApplication?.slot">
+              <label>Time Slot:</label>
+              <span>{{ formatTimeSlot(selectedApplication?.slot) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Documents Section -->
+        <div class="info-section" *ngIf="['documents-uploaded', 'documents-verified', 'payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')">
+          <h3>Uploaded Documents</h3>
+          <div class="documents-list">
+            <div class="document-item">
+              <span class="document-name">Government ID</span>
+              <span class="document-status">{{ getDocumentName(selectedApplication?.documents?.document1) }}</span>
+              <button 
+                *ngIf="selectedApplication?.documents?.document1" 
+                class="download-btn"
+                (click)="downloadDocument(1)"
+              >
+                Download
+              </button>
+            </div>
+            <div class="document-item">
+              <span class="document-name">Proof of Address</span>
+              <span class="document-status">{{ getDocumentName(selectedApplication?.documents?.document2) }}</span>
+              <button 
+                *ngIf="selectedApplication?.documents?.document2" 
+                class="download-btn"
+                (click)="downloadDocument(2)"
+              >
+                Download
+              </button>
+            </div>
+            <div class="document-item">
+              <span class="document-name">Educational Certificate</span>
+              <span class="document-status">{{ getDocumentName(selectedApplication?.documents?.document3) }}</span>
+              <button 
+                *ngIf="selectedApplication?.documents?.document3" 
+                class="download-btn"
+                (click)="downloadDocument(3)"
+              >
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Counselor Notes -->
+        <div class="info-section">
+          <h3>Counselor Notes</h3>
+          <textarea 
+            [(ngModel)]="counselorNotes"
+            placeholder="Add notes about this application..."
+            rows="4"
+            class="notes-textarea"
+          ></textarea>
+          <div *ngIf="selectedApplication?.counselorNotes" class="existing-notes">
+            <h4>Previous Notes:</h4>
+            <p>{{ selectedApplication?.counselorNotes }}</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <!-- Pending Review Actions -->
+          <button 
+            *ngIf="selectedApplication?.status === 'form-submitted'"
+            class="approve-btn"
+            (click)="requestDocuments()"
+            [disabled]="isLoading"
+          >
+            {{ isLoading ? 'Processing...' : 'Request Documents' }}
+          </button>
+
+          <button 
+            *ngIf="selectedApplication?.status === 'form-submitted'"
+            class="reject-btn"
+            (click)="rejectApplication()"
+            [disabled]="isLoading"
+          >
+            {{ isLoading ? 'Processing...' : 'Reject Application' }}
+          </button>
+
+          <!-- Document Upload Actions -->
+          <button 
+            *ngIf="selectedApplication?.status === 'documents-requested'"
+            class="upload-btn"
+            (click)="uploadDocuments()"
+            [disabled]="isLoading"
+          >
+            {{ isLoading ? 'Processing...' : 'Upload Documents' }}
+          </button>
+
+          <button 
+            *ngIf="selectedApplication?.status === 'documents-uploaded'"
+            class="payment-btn"
+            (click)="requestPayment()"
+            [disabled]="isLoading"
+          >
+            {{ isLoading ? 'Processing...' : 'Send Payment Link' }}
+          </button>
+
+          <!-- Payment Confirmation -->
+          <button 
+            *ngIf="selectedApplication?.status === 'payment-requested'"
+            class="confirm-btn"
+            (click)="confirmPayment()"
+            [disabled]="isLoading"
+          >
+            {{ isLoading ? 'Processing...' : 'Confirm Payment Completed' }}
+          </button>
+
+          <!-- Completed Status -->
+          <button 
+            *ngIf="selectedApplication?.status === 'payment-completed'"
+            class="completed-btn"
+            disabled
+          >
+            Application Approved
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-selection" *ngIf="!selectedApplication">
+      <p>Select an application from the list to view details</p>
+    </div>
+  </div>
+</div>

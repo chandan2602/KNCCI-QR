@@ -8,6 +8,7 @@ import {
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
+import { environment } from "../environments/environment";
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
@@ -18,14 +19,21 @@ export class NoopInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-  
-    const secureReq = req.clone({
-     
-      setHeaders: {
-      
-        "Authorization":sessionStorage.getItem('stoken')||''
-      }
-    });
+    
+    // Check if this is a counselor API request or application API request
+    const isCounselorApi = req.url.startsWith(environment.counselorApiUrl) || 
+                          req.url.startsWith(environment.applicationApiUrl);
+    
+    let secureReq = req;
+    
+    // Only add authorization header for non-counselor/application API requests
+    if (!isCounselorApi) {
+      secureReq = req.clone({
+        setHeaders: {
+          "Authorization": sessionStorage.getItem('stoken') || ''
+        }
+      });
+    }
 
     return next.handle(secureReq).pipe(
       catchError((error: HttpErrorResponse) => {

@@ -96,6 +96,22 @@ export class LoginComponent implements OnInit {
       this.toastr.error("Please enter username or password");
       return;
     }
+
+    // Check if this is counselor login
+    if (user.userName === 'counsellor@kncci.org') {
+      this.commonService.activateSpinner();
+      this.userService.counselorLogin(user.userName, user.password).subscribe((result) => {
+        this.commonService.deactivateSpinner();
+        if (result.success) {
+          this.toastr.success('Login successful');
+          this.route.navigate(['/counsellor-page']);
+        } else {
+          this.toastr.error(result.message);
+        }
+      });
+      return;
+    }
+
     // user.company_id = sessionStorage.company_id || 0;
     this.commonService.activateSpinner();
     this.userService.login(user).subscribe((succ) => {
