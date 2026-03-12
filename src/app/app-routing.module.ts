@@ -232,7 +232,8 @@ import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
 import { LearningComponent } from './pages/learning/learning.component';
 import { MyQuizComponent } from './components/my-quiz/my-quiz.component';
 import { HoolandCodeComponent } from './pages/hooland-code/hooland-code.component';
-
+import { CounsellorPageComponent } from './pages/counsellor-page/counsellor-page.component';
+import { CounselorGuard } from './guards/counselor.guard';
 const routes: Routes = [
   {
     path: 'HOME',
@@ -982,6 +983,20 @@ const routes: Routes = [
   { path: 'corporate', component: LandingComponent },
   { path: 'contacts', component: LandingContactComponent },
   { path: 'cmpnyLst', component: JobsInCompanyLstComponent },
+  
+  // Counselor routes
+  { 
+    path: 'counsellor-page', 
+    component: CounsellorPageComponent,
+    canActivate: [CounselorGuard]
+  },
+  { 
+    path: 'counselor-dashboard', 
+    loadComponent: () => import('./pages/counsellor/counselor-dashboard.component').then(m => m.CounselorDashboardComponent),
+    canActivate: [CounselorGuard]
+  },
+  { path: 'application-registration', loadComponent: () => import('./pages/application-reg/application-flow.component').then(m => m.ApplicationFlowComponent) },
+  
   // { path: '', component: TutorHomeComponent },
   { path: '**', redirectTo: 'default' },
   // { path: 'invalid', component: LandingComponent },

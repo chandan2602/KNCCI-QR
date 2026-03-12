@@ -1,0 +1,333 @@
+<div class="application-flow-container">
+  <!-- Progress Indicator -->
+  <div class="progress-bar">
+    <div class="progress-step" [class.active]="currentStep === 'form'" [class.completed]="currentStep !== 'form'">
+      <span class="step-number">1</span>
+      <span class="step-label">Application Form</span>
+    </div>
+    <div class="progress-step" [class.active]="currentStep === 'submitted'" [class.completed]="['documents-requested', 'documents-uploaded', 'payment-requested', 'payment-completed'].includes(currentStep)">
+      <span class="step-number">2</span>
+      <span class="step-label">Counselor Review</span>
+    </div>
+    <div class="progress-step" [class.active]="['documents-requested', 'documents-uploaded'].includes(currentStep)" [class.completed]="['payment-requested', 'payment-completed'].includes(currentStep)">
+      <span class="step-number">3</span>
+      <span class="step-label">Document Upload</span>
+    </div>
+    <div class="progress-step" [class.active]="currentStep === 'payment-requested'" [class.completed]="currentStep === 'payment-completed'">
+      <span class="step-number">4</span>
+      <span class="step-label">Payment</span>
+    </div>
+  </div>
+
+  <!-- Error and Success Messages -->
+  <div class="message-container">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+  </div>
+
+  <!-- Step 1: Application Form -->
+  <div *ngIf="currentStep === 'form'" class="step-content">
+    <h2>Application Form</h2>
+    <p>Please fill out all the required information below. A counselor will contact you personally to discuss your application.</p>
+    
+    <form [formGroup]="applicationForm" (ngSubmit)="submitApplication()" class="application-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input 
+            type="text" 
+            id="firstName" 
+            formControlName="firstName"
+            [class.error]="getFieldError('firstName')"
+          >
+          <span class="error-text">{{ getFieldError('firstName') }}</span>
+        </div>
+        
+        <div class="form-group">
+          <label for="lastName">Last Name *</label>
+          <input 
+            type="text" 
+            id="lastName" 
+            formControlName="lastName"
+            [class.error]="getFieldError('lastName')"
+          >
+          <span class="error-text">{{ getFieldError('lastName') }}</span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            [class.error]="getFieldError('email')"
+          >
+          <span class="error-text">{{ getFieldError('email') }}</span>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input 
+            type="tel" 
+            id="phone" 
+            formControlName="phone"
+            [class.error]="getFieldError('phone')"
+          >
+          <span class="error-text">{{ getFieldError('phone') }}</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address *</label>
+        <textarea 
+          id="address" 
+          formControlName="address"
+          rows="3"
+          [class.error]="getFieldError('address')"
+        ></textarea>
+        <span class="error-text">{{ getFieldError('address') }}</span>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth *</label>
+        <input 
+          type="date" 
+          id="dateOfBirth" 
+          formControlName="dateOfBirth"
+          [class.error]="getFieldError('dateOfBirth')"
+        >
+        <span class="error-text">{{ getFieldError('dateOfBirth') }}</span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userType">User Type *</label>
+          <select 
+            id="userType" 
+            formControlName="userType"
+            [class.error]="getFieldError('userType')"
+          >
+            <option value="student">Student</option>
+            <option value="professional">Professional</option>
+            <option value="corporate">Corporate</option>
+          </select>
+          <span class="error-text">{{ getFieldError('userType') }}</span>
+        </div>
+        
+        <div class="form-group">
+          <label for="companyName">Company Name</label>
+          <input 
+            type="text" 
+            id="companyName" 
+            formControlName="companyName"
+            placeholder="Optional - if applicable"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="qualification">Qualification</label>
+        <input 
+          type="text" 
+          id="qualification" 
+          formControlName="qualification"
+          placeholder="Your highest qualification"
+        >
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="appointmentDate">Preferred Appointment Date *</label>
+          <input 
+            type="date" 
+            id="appointmentDate" 
+            formControlName="appointmentDate"
+            [class.error]="getFieldError('appointmentDate')"
+            [min]="getTomorrowDate()"
+          >
+          <span class="error-text">{{ getFieldError('appointmentDate') }}</span>
+        </div>
+        
+        <div class="form-group">
+          <label for="slot">Preferred Time Slot *</label>
+          <select 
+            id="slot" 
+            formControlName="slot"
+            [class.error]="getFieldError('slot')"
+          >
+            <option value="9-10">9:00 AM - 10:00 AM</option>
+            <option value="10-11">10:00 AM - 11:00 AM</option>
+            <option value="11-12">11:00 AM - 12:00 PM</option>
+            <option value="14-15">2:00 PM - 3:00 PM</option>
+            <option value="15-16">3:00 PM - 4:00 PM</option>
+            <option value="16-17">4:00 PM - 5:00 PM</option>
+          </select>
+          <span class="error-text">{{ getFieldError('slot') }}</span>
+        </div>
+      </div>
+
+      <button 
+        type="submit" 
+        class="submit-btn"
+        [disabled]="isLoading"
+      >
+        {{ isLoading ? 'Submitting...' : 'Submit Application' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Step 2: Application Submitted -->
+  <div *ngIf="currentStep === 'submitted'" class="step-content">
+    <div class="status-card">
+      <h2>Application Submitted Successfully!</h2>
+      <p>Thank you for submitting your application. A counselor will contact you personally within 24 hours to discuss your application and next steps.</p>
+      
+      <div class="contact-info">
+        <h3>What happens next?</h3>
+        <ul>
+          <li>Our counselor will call you at {{ applicationForm.get('phone')?.value }}</li>
+          <li>They will discuss your application and answer any questions</li>
+          <li>If approved, you'll receive instructions for document upload</li>
+        </ul>
+      </div>
+
+      <!-- Demo button for counselor approval -->
+      <button class="demo-btn" (click)="simulateCounselorApproval()">
+        Simulate Counselor Approval (Demo)
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 3: Document Upload -->
+  <div *ngIf="['documents-requested', 'documents-uploaded'].includes(currentStep)" class="step-content">
+    <div class="status-card">
+      <h2>Document Upload Required</h2>
+      <p>Your application has been approved by our counselor! Please upload the following three documents:</p>
+      
+      <div class="document-requirements">
+        <h3>Required Documents:</h3>
+        <ul>
+          <li>Government-issued ID (Passport, Driver's License, etc.)</li>
+          <li>Proof of Address (Utility bill, Bank statement, etc.)</li>
+          <li>Educational Certificate or Transcript</li>
+        </ul>
+        <p class="file-requirements">
+          <strong>File Requirements:</strong> PDF, JPG, or PNG format. Maximum 5MB per file.
+        </p>
+      </div>
+
+      <div *ngIf="currentStep === 'documents-requested'" class="document-upload">
+        <div class="upload-section">
+          <div class="upload-group">
+            <label>Document 1: Government ID</label>
+            <input 
+              type="file" 
+              accept=".pdf,.jpg,.jpeg,.png"
+              (change)="onFileSelected($event, 'document1')"
+            >
+            <span *ngIf="selectedFiles.document1" class="file-selected">
+              ✓ {{ selectedFiles.document1?.name }}
+            </span>
+          </div>
+
+          <div class="upload-group">
+            <label>Document 2: Proof of Address</label>
+            <input 
+              type="file" 
+              accept=".pdf,.jpg,.jpeg,.png"
+              (change)="onFileSelected($event, 'document2')"
+            >
+            <span *ngIf="selectedFiles.document2" class="file-selected">
+              ✓ {{ selectedFiles.document2?.name }}
+            </span>
+          </div>
+
+          <div class="upload-group">
+            <label>Document 3: Educational Certificate</label>
+            <input 
+              type="file" 
+              accept=".pdf,.jpg,.jpeg,.png"
+              (change)="onFileSelected($event, 'document3')"
+            >
+            <span *ngIf="selectedFiles.document3" class="file-selected">
+              ✓ {{ selectedFiles.document3?.name }}
+            </span>
+          </div>
+        </div>
+
+        <button 
+          class="submit-btn"
+          (click)="uploadDocuments()"
+          [disabled]="isLoading || !selectedFiles.document1 || !selectedFiles.document2 || !selectedFiles.document3"
+        >
+          {{ isLoading ? 'Uploading...' : 'Upload Documents' }}
+        </button>
+      </div>
+
+      <div *ngIf="currentStep === 'documents-uploaded'" class="verification-status">
+        <h3>Documents Under Review</h3>
+        <p>Your documents have been uploaded successfully and are currently being verified by our counselor. This process typically takes 1-2 business days.</p>
+        
+        <!-- Demo button for document verification -->
+        <button class="demo-btn" (click)="simulateDocumentVerification()">
+          Simulate Document Verification (Demo)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: Payment -->
+  <div *ngIf="currentStep === 'payment-requested'" class="step-content">
+    <div class="status-card">
+      <h2>Payment Required</h2>
+      <p>Your documents have been verified successfully! Please proceed with the payment to complete your application.</p>
+      
+      <div class="payment-details">
+        <h3>Payment Information</h3>
+        <div class="payment-amount">
+          <span class="label">Application Fee:</span>
+          <span class="amount">$299.00</span>
+        </div>
+        <div class="payment-description">
+          <p>This fee covers application processing, document verification, and counselor consultation services.</p>
+        </div>
+      </div>
+
+      <button 
+        class="payment-btn"
+        (click)="processPayment()"
+        [disabled]="isLoading"
+      >
+        {{ isLoading ? 'Processing Payment...' : 'Proceed to Payment' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Step 5: Payment Completed -->
+  <div *ngIf="currentStep === 'payment-completed'" class="step-content">
+    <div class="status-card success">
+      <div class="success-icon">✓</div>
+      <h2>Payment Completed Successfully!</h2>
+      <p>Congratulations! Your application has been completed successfully. You will receive a confirmation email shortly with further instructions.</p>
+      
+      <div class="completion-details">
+        <h3>What's Next?</h3>
+        <ul>
+          <li>You will receive a confirmation email within 24 hours</li>
+          <li>Our team will contact you with next steps</li>
+          <li>Keep your application reference number for future correspondence</li>
+        </ul>
+        
+        <div class="reference-number">
+          <strong>Reference Number:</strong> APP-{{ getCurrentTimestamp() }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

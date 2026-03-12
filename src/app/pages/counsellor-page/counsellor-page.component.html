@@ -1,0 +1,238 @@
+<!-- COUNSELLOR DASHBOARD -->
+<div class="page-wrapper mt-5 pt-2">
+  <div class="container-fluid mt-3">
+    
+    <!-- TOP NAVIGATION BAR -->
+    <div class="row mb-3">
+      <div class="col-xl-12">
+        <div class="top-navigation">
+          <div class="nav-left">
+            <h2 class="page-title">Counsellor Dashboard</h2>
+          </div>
+          <div class="nav-right">
+            <button class="logout-btn" (click)="logout()">
+              <i class="fas fa-sign-out-alt me-2"></i>
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- HEADER SECTION -->
+    <div class="row mb-4">
+      <div class="col-xl-12">
+        <div class="hero-welcome-card">
+          <div class="hero-content">
+            <p class="hero-greeting">Hi</p>
+            <h1 class="hero-name">COUNSELLOR</h1>
+            <div class="hero-notification">
+              <span class="notification-badge">●</span>
+              <p class="notification-text">You have {{dashboardData.pendingApplications}} new student requests</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP STATISTICS CARDS ROW -->
+    <div class="row mb-4">
+      <!-- Total Assigned Students Card -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="stat-card">
+          <div class="stat-card-accent"></div>
+          <div class="stat-card-content">
+            <div class="stat-icon-container">
+              <i class="fas fa-users stat-icon-font"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label">Total Assigned Students</p>
+              <h3 class="stat-number">{{dashboardData.totalStudents}}</h3>
+            </div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-footer">
+            <span class="stat-badge active">Active: {{dashboardData.activeStudents}}</span>
+            <span class="stat-badge inactive">Inactive: {{dashboardData.inactiveStudents}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Applications Pending Review Card -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="stat-card">
+          <div class="stat-card-accent"></div>
+          <div class="stat-card-content">
+            <div class="stat-icon-container">
+              <i class="fas fa-file-alt stat-icon-font"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label">Applications Pending Review</p>
+              <h3 class="stat-number">{{dashboardData.pendingApplications}}</h3>
+            </div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-footer">
+            <span class="stat-badge pending">Pending: {{dashboardData.pendingApplications}}</span>
+            <span class="stat-badge urgent">Urgent: {{dashboardData.urgentApplications}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Students Approved Card -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="stat-card">
+          <div class="stat-card-accent"></div>
+          <div class="stat-card-content">
+            <div class="stat-icon-container">
+              <i class="fas fa-check-circle stat-icon-font"></i>
+            </div>
+            <div class="stat-info">
+              <p class="stat-label">Students Approved</p>
+              <h3 class="stat-number">{{dashboardData.approvedStudents}}</h3>
+            </div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-footer">
+            <span class="stat-badge approved">This Month: {{dashboardData.approvedThisMonth}}</span>
+            <span class="stat-badge inactive">Total: {{dashboardData.approvedStudents}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY CARDS ROW -->
+    <div class="row mb-4">
+      <!-- Calls Scheduled Card -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="performance-card">
+          <div class="performance-icon-wrapper">
+            <i class="fas fa-phone performance-icon-font"></i>
+          </div>
+          <div class="performance-content">
+            <p class="performance-label">Calls Scheduled</p>
+            <h2 class="performance-number">{{dashboardData.scheduledCalls}}</h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Counselling Completed Card -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="performance-card">
+          <div class="performance-icon-wrapper">
+            <i class="fas fa-check-double performance-icon-font"></i>
+          </div>
+          <div class="performance-content">
+            <p class="performance-label">Counselling Completed</p>
+            <h2 class="performance-number">{{dashboardData.completedSessions}}</h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student Feedback Card -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="performance-card">
+          <div class="performance-icon-wrapper">
+            <i class="fas fa-comments performance-icon-font"></i>
+          </div>
+          <div class="performance-content">
+            <p class="performance-label">Student Feedback</p>
+            <h2 class="performance-number">{{dashboardData.studentFeedbackCount}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTION PANELS ROW -->
+    <div class="row">
+      <!-- Student Applications Card -->
+      <div class="col-xl-6 col-lg-12 mb-3">
+        <div class="action-card">
+          <div class="action-card-header">
+            <div class="action-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="action-title-section">
+              <h3 class="action-title">Student Applications</h3>
+              <p class="action-description">Review and process student onboarding applications.</p>
+            </div>
+          </div>
+          
+          <!-- Status Tabs -->
+          <div class="status-tabs mb-3">
+            <div class="status-tab">
+              <span class="tab-label">All Applications</span>
+              <span class="tab-count">{{dashboardData.applicationStats.all}}</span>
+            </div>
+            <div class="status-tab">
+              <span class="tab-label">Pending Review</span>
+              <span class="tab-count pending">{{dashboardData.applicationStats.pending}}</span>
+            </div>
+            <div class="status-tab">
+              <span class="tab-label">Document Upload</span>
+              <span class="tab-count warning">{{dashboardData.applicationStats.documentUpload}}</span>
+            </div>
+            <div class="status-tab">
+              <span class="tab-label">Approved</span>
+              <span class="tab-count approved">{{dashboardData.applicationStats.approved}}</span>
+            </div>
+          </div>
+          
+          <button class="action-button" (click)="viewApplications()">VIEW APPLICATIONS</button>
+        </div>
+      </div>
+
+      <!-- Counselling Actions Card -->
+      <div class="col-xl-6 col-lg-12 mb-3">
+        <div class="action-card">
+          <div class="action-card-header">
+            <div class="action-icon">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="action-title-section">
+              <h3 class="action-title">Counselling Actions</h3>
+              <p class="action-description">Manage counselling calls, track progress and guide students.</p>
+            </div>
+          </div>
+          
+          <div class="action-buttons-group">
+            <button class="action-button secondary mb-2" (click)="scheduleCall()">
+              <i class="fas fa-calendar-plus me-2"></i>
+              Schedule Call
+            </button>
+            <button class="action-button secondary mb-2" (click)="addCounsellingNotes()">
+              <i class="fas fa-sticky-note me-2"></i>
+              Add Counselling Notes
+            </button>
+            <button class="action-button secondary mb-2" (click)="viewApplications()">
+              <i class="fas fa-list me-2"></i>
+              Manage Applications
+            </button>
+            <button class="action-button" (click)="viewStudentProfile()">
+              <i class="fas fa-user me-2"></i>
+              View Student Profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Loading Skeleton (shown while API loads) -->
+<div class="loading-skeleton" *ngIf="isLoading">
+  <div class="container-fluid mt-3">
+    <div class="skeleton-header mb-4"></div>
+    <div class="row mb-4">
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3" *ngFor="let i of [1,2,3]">
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3" *ngFor="let i of [1,2,3]">
+        <div class="skeleton-performance-card"></div>
+      </div>
+    </div>
+  </div>
+</div>
