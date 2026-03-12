@@ -1,18 +1,12 @@
-<div class="counselor-dashboard">
+<!-- COUNSELLOR HEADER COMPONENT -->
+<app-counsellor-header></app-counsellor-header>
+
+<div class="counselor-dashboard" style="margin-top: 70px;">
   <!-- Navigation Header -->
   <div class="dashboard-navigation">
     <div class="nav-left">
-      <button class="back-to-dashboard-btn" (click)="navigateToMainDashboard()">
-        <i class="fas fa-arrow-left me-2"></i>
-        Back to Dashboard
-      </button>
+     
       <h1 class="page-title">Application Management</h1>
-    </div>
-    <div class="nav-right">
-      <button class="logout-btn" (click)="logout()">
-        <i class="fas fa-sign-out-alt me-2"></i>
-        Logout
-      </button>
     </div>
   </div>
 
@@ -220,38 +214,158 @@
           </div>
         </div>
 
-        <!-- Documents Section -->
-        <div class="info-section" *ngIf="['documents-uploaded', 'documents-verified', 'payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')">
-          <h3>Uploaded Documents</h3>
-          <div class="documents-list">
-            <div class="document-item">
-              <span class="document-name">Government ID</span>
-              <span class="document-status">{{ getDocumentName(selectedApplication?.documents?.document1) }}</span>
+        <!-- Document Upload Section (when documents are requested) -->
+        <div class="info-section" *ngIf="selectedApplication?.status === 'documents-requested'">
+          <h3>Upload Required Documents</h3>
+          
+          <div class="upload-instruction-box">
+            <p><strong>Important:</strong> Please select all three documents. Upload will start automatically once all files are selected.</p>
+          </div>
+          
+          <div class="uploaded-documents-container">
+            <!-- Government ID -->
+            <div class="uploaded-document-row" [class.file-selected]="selectedFiles.document1">
+              <span class="uploaded-doc-name">Government ID</span>
+              <span class="uploaded-doc-file">
+                {{ selectedFiles.document1 ? selectedFiles.document1.name : 'No file selected' }}
+              </span>
+              <input 
+                type="file" 
+                #fileInput1
+                (change)="onFileSelected($event, 'document1')"
+                accept=".pdf,.jpg,.jpeg,.png"
+                style="display: none;"
+              >
               <button 
-                *ngIf="selectedApplication?.documents?.document1" 
-                class="download-btn"
+                *ngIf="!uploadProgress.document1"
+                class="upload-button"
+                (click)="fileInput1.click()"
+                [disabled]="isLoading"
+              >
+                {{ selectedFiles.document1 ? 'Change File' : 'Select File' }}
+              </button>
+              <button 
+                *ngIf="uploadProgress.document1"
+                class="download-button"
                 (click)="downloadDocument(1)"
               >
                 Download
               </button>
             </div>
-            <div class="document-item">
-              <span class="document-name">Proof of Address</span>
-              <span class="document-status">{{ getDocumentName(selectedApplication?.documents?.document2) }}</span>
+
+            <!-- Proof of Address -->
+            <div class="uploaded-document-row" [class.file-selected]="selectedFiles.document2">
+              <span class="uploaded-doc-name">Proof of Address</span>
+              <span class="uploaded-doc-file">
+                {{ selectedFiles.document2 ? selectedFiles.document2.name : 'No file selected' }}
+              </span>
+              <input 
+                type="file" 
+                #fileInput2
+                (change)="onFileSelected($event, 'document2')"
+                accept=".pdf,.jpg,.jpeg,.png"
+                style="display: none;"
+              >
               <button 
-                *ngIf="selectedApplication?.documents?.document2" 
-                class="download-btn"
+                *ngIf="!uploadProgress.document2"
+                class="upload-button"
+                (click)="fileInput2.click()"
+                [disabled]="isLoading"
+              >
+                {{ selectedFiles.document2 ? 'Change File' : 'Select File' }}
+              </button>
+              <button 
+                *ngIf="uploadProgress.document2"
+                class="download-button"
                 (click)="downloadDocument(2)"
               >
                 Download
               </button>
             </div>
-            <div class="document-item">
-              <span class="document-name">Educational Certificate</span>
-              <span class="document-status">{{ getDocumentName(selectedApplication?.documents?.document3) }}</span>
+
+            <!-- Educational Certificate -->
+            <div class="uploaded-document-row" [class.file-selected]="selectedFiles.document3">
+              <span class="uploaded-doc-name">Educational Certificate</span>
+              <span class="uploaded-doc-file">
+                {{ selectedFiles.document3 ? selectedFiles.document3.name : 'No file selected' }}
+              </span>
+              <input 
+                type="file" 
+                #fileInput3
+                (change)="onFileSelected($event, 'document3')"
+                accept=".pdf,.jpg,.jpeg,.png"
+                style="display: none;"
+              >
+              <button 
+                *ngIf="!uploadProgress.document3"
+                class="upload-button"
+                (click)="fileInput3.click()"
+                [disabled]="isLoading"
+              >
+                {{ selectedFiles.document3 ? 'Change File' : 'Select File' }}
+              </button>
+              <button 
+                *ngIf="uploadProgress.document3"
+                class="download-button"
+                (click)="downloadDocument(3)"
+              >
+                Download
+              </button>
+            </div>
+          </div>
+
+          <!-- Upload Status -->
+          <div class="upload-status-section">
+            <div *ngIf="!isLoading && !areAllDocumentsUploaded()" class="upload-waiting">
+              <i class="fas fa-info-circle"></i>
+              <span>Selected: {{ (selectedFiles.document1 ? 1 : 0) + (selectedFiles.document2 ? 1 : 0) + (selectedFiles.document3 ? 1 : 0) }} / 3 documents</span>
+              <span *ngIf="areAllDocumentsSelected()" class="ready-to-upload">Ready to upload!</span>
+            </div>
+            
+            <div *ngIf="isLoading" class="upload-loading">
+              <i class="fas fa-spinner fa-spin"></i>
+              <span>Uploading all documents...</span>
+            </div>
+            
+            <div *ngIf="areAllDocumentsUploaded()" class="upload-complete">
+              <i class="fas fa-check-circle"></i>
+              <span>All documents uploaded successfully!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Documents Section (when documents are uploaded) -->
+        <div class="info-section" *ngIf="['documents-uploaded', 'documents-verified', 'payment-requested', 'payment-completed'].includes(selectedApplication?.status || '')">
+          <h3>Uploaded Documents</h3>
+          <div class="uploaded-documents-container">
+            <div class="uploaded-document-row">
+              <span class="uploaded-doc-name">Government ID</span>
+              <span class="uploaded-doc-file">{{ getDocumentName(selectedApplication?.documents?.document1) }}</span>
+              <button 
+                *ngIf="selectedApplication?.documents?.document1" 
+                class="download-button"
+                (click)="downloadDocument(1)"
+              >
+                Download
+              </button>
+            </div>
+            <div class="uploaded-document-row">
+              <span class="uploaded-doc-name">Proof of Address</span>
+              <span class="uploaded-doc-file">{{ getDocumentName(selectedApplication?.documents?.document2) }}</span>
+              <button 
+                *ngIf="selectedApplication?.documents?.document2" 
+                class="download-button"
+                (click)="downloadDocument(2)"
+              >
+                Download
+              </button>
+            </div>
+            <div class="uploaded-document-row">
+              <span class="uploaded-doc-name">Educational Certificate</span>
+              <span class="uploaded-doc-file">{{ getDocumentName(selectedApplication?.documents?.document3) }}</span>
               <button 
                 *ngIf="selectedApplication?.documents?.document3" 
-                class="download-btn"
+                class="download-button"
                 (click)="downloadDocument(3)"
               >
                 Download
@@ -296,15 +410,14 @@
             {{ isLoading ? 'Processing...' : 'Reject Application' }}
           </button>
 
-          <!-- Document Upload Actions -->
-          <button 
-            *ngIf="selectedApplication?.status === 'documents-requested'"
-            class="upload-btn"
-            (click)="uploadDocuments()"
-            [disabled]="isLoading"
+          <!-- Document Upload Actions - No bulk upload button needed since individual uploads happen automatically -->
+          <div 
+            *ngIf="selectedApplication?.status === 'documents-requested' && areAllDocumentsUploaded()"
+            class="upload-complete-message"
           >
-            {{ isLoading ? 'Processing...' : 'Upload Documents' }}
-          </button>
+            <i class="fas fa-check-circle success-icon"></i>
+            <span>All documents uploaded successfully! Application will be processed.</span>
+          </div>
 
           <button 
             *ngIf="selectedApplication?.status === 'documents-uploaded'"
