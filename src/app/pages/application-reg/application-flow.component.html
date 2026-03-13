@@ -299,15 +299,81 @@
         </div>
       </div>
 
-      <button 
-        class="payment-btn"
-        (click)="processPayment()"
-        [disabled]="isLoading"
-      >
-        {{ isLoading ? 'Processing Payment...' : 'Proceed to Payment' }}
-      </button>
+      <!-- Step 1: Send Payment Request -->
+      <div *ngIf="!paymentRequestSent">
+        <button 
+          class="payment-btn"
+          (click)="processPayment()"
+          [disabled]="isLoading"
+        >
+          {{ isLoading ? 'Sending Payment Request...' : 'Proceed to Payment' }}
+        </button>
+      </div>
+
+      <!-- Step 2: Upload Receipt (after payment request sent) -->
+      <div *ngIf="paymentRequestSent && !selectedReceipt" class="receipt-upload-section">
+        <div class="payment-sent-message">
+          <i class="fas fa-check-circle"></i>
+          <p>Payment request sent successfully! Please complete your payment and upload the receipt below.</p>
+        </div>
+
+        <div class="payment-instructions">
+          <h3>Payment Instructions</h3>
+          <div class="instruction-box">
+            <p><strong>Amount:</strong> $299.00</p>
+            <p><strong>Payment Methods:</strong> Bank Transfer, UPI, Credit/Debit Card</p>
+            <p><strong>Reference:</strong> APP-{{ getCurrentTimestamp() }}</p>
+          </div>
+        </div>
+
+        <div class="upload-area">
+          <input 
+            type="file" 
+            id="receiptFile"
+            accept=".pdf,.jpg,.jpeg,.png"
+            (change)="onReceiptSelected($event)"
+            style="display: none;"
+          >
+          <label for="receiptFile" class="upload-label">
+            <div class="upload-icon">
+              <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <div class="upload-text">
+              <p><strong>Click to upload payment receipt</strong></p>
+              <p>Supported formats: PDF, JPG, PNG (Max 5MB)</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Step 3: Confirm Payment (after receipt uploaded) -->
+      <div *ngIf="paymentRequestSent && selectedReceipt" class="payment-confirmation">
+        <div class="receipt-uploaded-message">
+          <i class="fas fa-check-circle"></i>
+          <p>Receipt uploaded successfully!</p>
+        </div>
+
+        <div class="file-selected">
+          <i class="fas fa-file-alt"></i>
+          <span>{{ selectedReceipt.name }}</span>
+          <button class="remove-file" (click)="selectedReceipt = null">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <button 
+          class="confirm-payment-btn"
+          (click)="confirmPaymentCompleted()"
+          [disabled]="isReceiptUploading"
+        >
+          {{ isReceiptUploading ? 'Confirming Payment...' : 'Confirm Payment Completed' }}
+        </button>
+      </div>
     </div>
   </div>
+
+  <!-- Step 4.5: Receipt Upload -->
+  <!-- This step is now integrated into the payment-requested step above -->
 
   <!-- Step 5: Payment Completed -->
   <div *ngIf="currentStep === 'payment-completed'" class="step-content">

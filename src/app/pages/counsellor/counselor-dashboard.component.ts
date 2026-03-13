@@ -820,6 +820,37 @@ export class CounselorDashboardComponent implements OnInit {
     }
   }
 
+  async uploadReceipt() {
+    const app = this.selectedApplication;
+    if (!app) return;
+
+    this.isLoading = true;
+    try {
+      // Simulate receipt upload process
+      setTimeout(() => {
+        console.log('Receipt uploaded for application:', app.id);
+        
+        // Mark receipt as uploaded
+        if (this.selectedApplication) {
+          this.selectedApplication.receiptUploaded = true;
+        }
+        
+        // Update the application in the list
+        const appIndex = this.applications.findIndex(a => a.id === app.id);
+        if (appIndex !== -1) {
+          this.applications[appIndex].receiptUploaded = true;
+        }
+        
+        this.isLoading = false;
+        alert('Receipt uploaded successfully! You can now confirm payment completion.');
+      }, 2000);
+    } catch (error) {
+      console.error('Failed to upload receipt:', error);
+      this.isLoading = false;
+      alert('Failed to upload receipt. Please try again.');
+    }
+  }
+
   async confirmPayment() {
     const app = this.selectedApplication;
     if (!app) return;

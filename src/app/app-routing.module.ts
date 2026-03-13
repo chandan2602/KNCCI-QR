@@ -995,6 +995,11 @@ const routes: Routes = [
     loadComponent: () => import('./pages/counsellor/counselor-dashboard.component').then(m => m.CounselorDashboardComponent),
     canActivate: [CounselorGuard]
   },
+  { 
+    path: 'payment-management', 
+    loadComponent: () => import('./pages/counsellor/payment-management.component').then(m => m.PaymentManagementComponent),
+    canActivate: [CounselorGuard]
+  },
   { path: 'application-registration', loadComponent: () => import('./pages/application-reg/application-flow.component').then(m => m.ApplicationFlowComponent) },
   
   // { path: '', component: TutorHomeComponent },

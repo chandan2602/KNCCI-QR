@@ -40,6 +40,14 @@ import { LoginService } from '../../services/login.service';
                 </a>
               </li>
 
+              <!-- Payment Management -->
+              <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/payment-management']" routerLinkActive="active">
+                  <i class='bx bx-credit-card me-2'></i>
+                  Payment Management
+                </a>
+              </li>
+
               <!-- Notifications -->
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle position-relative" href="#" role="button" data-bs-toggle="dropdown">

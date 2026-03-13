@@ -2,6 +2,14 @@
 <app-counsellor-header></app-counsellor-header>
 
 <div class="counselor-dashboard" style="margin-top: 70px;">
+  <!-- Back Button -->
+  <div class="back-button-container">
+    <button class="back-to-dashboard-btn" (click)="navigateToMainDashboard()">
+      <i class="fas fa-arrow-left me-2"></i>
+      Back to Dashboard
+    </button>
+  </div>
+
   <!-- Navigation Header -->
   <div class="dashboard-navigation">
     <div class="nav-left">
@@ -429,14 +437,27 @@
           </button>
 
           <!-- Payment Confirmation -->
-          <button 
-            *ngIf="selectedApplication?.status === 'payment-requested'"
-            class="confirm-btn"
-            (click)="confirmPayment()"
-            [disabled]="isLoading"
-          >
-            {{ isLoading ? 'Processing...' : 'Confirm Payment Completed' }}
-          </button>
+          <div *ngIf="selectedApplication?.status === 'payment-requested'">
+            <!-- Upload Receipt Button (shown first) -->
+            <button 
+              *ngIf="!selectedApplication?.receiptUploaded"
+              class="upload-receipt-btn"
+              (click)="uploadReceipt()"
+              [disabled]="isLoading"
+            >
+              {{ isLoading ? 'Processing...' : 'Upload Payment Receipt' }}
+            </button>
+
+            <!-- Confirm Payment Button (shown after receipt upload) -->
+            <button 
+              *ngIf="selectedApplication?.receiptUploaded"
+              class="confirm-btn"
+              (click)="confirmPayment()"
+              [disabled]="isLoading"
+            >
+              {{ isLoading ? 'Processing...' : 'Confirm Payment Completed' }}
+            </button>
+          </div>
 
           <!-- Completed Status -->
           <button 

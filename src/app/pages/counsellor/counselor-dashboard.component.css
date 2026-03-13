@@ -7,6 +7,40 @@
   background-color: #f8f9fa;
 }
 
+/* ============================================
+   BACK BUTTON CONTAINER
+   ============================================ */
+
+.back-button-container {
+  padding: 16px 20px;
+}
+
+.back-to-dashboard-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #1B7D4F 0%, #2E9B6F 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(27, 125, 79, 0.2);
+}
+
+.back-to-dashboard-btn:hover {
+  background: linear-gradient(135deg, #2E9B6F 0%, #1B7D4F 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(27, 125, 79, 0.3);
+}
+
+.back-to-dashboard-btn:active {
+  transform: translateY(0);
+}
+
 .dashboard-header {
   text-align: center;
   padding: 20px;
@@ -1271,4 +1305,28 @@
 .uploaded-document-row.file-selected .uploaded-doc-file {
   color: #28a745;
   font-weight: 500;
+}
+/* Upload Receipt Button */
+.upload-receipt-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.upload-receipt-btn:hover:not(:disabled) {
+  background-color: #138496;
+}
+
+.upload-receipt-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.6;
 }

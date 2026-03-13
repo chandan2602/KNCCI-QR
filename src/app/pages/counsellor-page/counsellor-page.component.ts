@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/login.service';
 import { CounselorService, DashboardStats } from '../../services/consullor.services';
+import { PaymentService, PaymentKPI } from '../../services/payment.service';
 import { CounsellorHeaderComponent } from '../counsellor/counsellor-header.component';
 
 interface DashboardData {
@@ -34,6 +35,19 @@ interface DashboardData {
 export class CounsellorPageComponent implements OnInit {
   
   isLoading = true;
+  isPaymentKpiLoading = true;
+  
+  // Payment KPI data
+  paymentKpiData: PaymentKPI = {
+    total_successful_payments: 0,
+    successful_transactions: 0,
+    students_paid: 0,
+    total_successful_amount: '₹0',
+    growth_percentage: 0,
+    transactions_growth: 0,
+    students_growth: 0
+  };
+  
   dashboardData: DashboardData = {
     totalStudents: 0,
     activeStudents: 0,
@@ -56,11 +70,47 @@ export class CounsellorPageComponent implements OnInit {
   constructor(
     private router: Router,
     private loginService: LoginService,
-    private counselorService: CounselorService
+    private counselorService: CounselorService,
+    private paymentService: PaymentService
   ) {}
 
   ngOnInit(): void {
     this.loadDashboardData();
+    this.loadPaymentKpiData();
+  }
+
+  /**
+   * Load payment KPI data from API with status filter
+   */
+  loadPaymentKpiData(): void {
+    this.isPaymentKpiLoading = true;
+    console.log('🔄 [Counsellor Page] Starting payment KPI load...');
+    
+    this.paymentService.getPaymentKPI('payment-completed').subscribe({
+      next: (kpiData: PaymentKPI) => {
+        console.log('✅ [Counsellor Page] Payment KPI API Response:', kpiData);
+        console.log('📊 [Counsellor Page] KPI Data type:', typeof kpiData);
+        console.log('📊 [Counsellor Page] KPI Data keys:', Object.keys(kpiData || {}));
+        
+        if (kpiData && typeof kpiData === 'object') {
+          // Merge the API response with default values to handle optional fields
+          this.paymentKpiData = { ...this.paymentKpiData, ...kpiData };
+          console.log('✅ [Counsellor Page] KPI data assigned:', this.paymentKpiData);
+        } else {
+          console.error('❌ [Counsellor Page] Invalid KPI data structure:', kpiData);
+        }
+        
+        this.isPaymentKpiLoading = false;
+        console.log('✅ [Counsellor Page] KPI loading completed');
+      },
+      error: (error) => {
+        console.error('❌ [Counsellor Page] Failed to load payment KPI data:', error);
+        console.error('❌ [Counsellor Page] Error status:', error.status);
+        console.error('❌ [Counsellor Page] Error message:', error.message);
+        
+        this.isPaymentKpiLoading = false;
+      }
+    });
   }
 
   /**
@@ -110,6 +160,7 @@ export class CounsellorPageComponent implements OnInit {
    */
   refreshDashboard(): void {
     this.loadDashboardData();
+    this.loadPaymentKpiData();
   }
 
   /**
@@ -150,5 +201,39 @@ export class CounsellorPageComponent implements OnInit {
   logout(): void {
     console.log('Logging out counselor...');
     this.loginService.counselorLogout();
+  }
+
+  /**
+   * Check payment status - redirects to KIPS payment page
+   */
+  checkPaymentStatus(): void {
+    console.log('Redirecting to KIPS payment page...');
+    // TODO: Implement redirect to KIPS payment page
+    // window.open('https://kips-payment-url.com', '_blank');
+  }
+
+  /**
+   * Navigate to payment management dashboard
+   */
+  navigateToPaymentManagement(): void {
+    console.log('Navigating to payment management dashboard...');
+    this.router.navigate(['/payment-management']);
+  }
+
+  /**
+   * Test payment KPI API connection (for debugging)
+   */
+  testPaymentKpiApi(): void {
+    console.log('🧪 [Counsellor Page] Testing Payment KPI API...');
+    this.paymentService.getPaymentKPI('payment-completed').subscribe({
+      next: (data) => {
+        console.log('🧪 [Counsellor Page] KPI Test Success:', data);
+        alert('Payment KPI API Test Success! Check console for details.');
+      },
+      error: (error) => {
+        console.error('🧪 [Counsellor Page] KPI Test Error:', error);
+        alert('Payment KPI API Test Failed! Check console for details.');
+      }
+    });
   }
 }

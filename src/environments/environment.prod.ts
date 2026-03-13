@@ -1,4 +1,4 @@
-let apiURL: string = location.origin.includes("localhost") ? "https://oukinternship.dhanushinfotech.com" : location.origin;
+let apiURL: string = location.origin.includes("localhost") ? "http://localhost:8000" : location.origin;
 
 export const environment = {
   production: true,

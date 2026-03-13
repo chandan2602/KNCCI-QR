@@ -129,75 +129,79 @@
       </div>
     </div>
 
-    <!-- ACTION PANELS ROW -->
-    <div class="row">
-      <!-- Student Applications Card -->
-      <div class="col-xl-6 col-lg-12 mb-3">
-        <div class="action-card">
-          <div class="action-card-header">
-            <div class="action-icon">
-              <i class="fas fa-file-alt"></i>
+    <!-- PAYMENT KPI CARDS ROW -->
+    <div class="row mb-4">
+      <!-- Total Successful Payments -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="payment-kpi-card">
+          <div class="payment-kpi-accent collected"></div>
+          <div class="payment-kpi-content">
+            <div class="payment-kpi-icon">
+              <i class="fas fa-check-circle"></i>
             </div>
-            <div class="action-title-section">
-              <h3 class="action-title">Student Applications</h3>
-              <p class="action-description">Review and process student onboarding applications.</p>
-            </div>
-          </div>
-          
-          <!-- Status Tabs -->
-          <div class="status-tabs mb-3">
-            <div class="status-tab">
-              <span class="tab-label">All Applications</span>
-              <span class="tab-count">{{dashboardData.applicationStats.all}}</span>
-            </div>
-            <div class="status-tab">
-              <span class="tab-label">Pending Review</span>
-              <span class="tab-count pending">{{dashboardData.applicationStats.pending}}</span>
-            </div>
-            <div class="status-tab">
-              <span class="tab-label">Document Upload</span>
-              <span class="tab-count warning">{{dashboardData.applicationStats.documentUpload}}</span>
-            </div>
-            <div class="status-tab">
-              <span class="tab-label">Approved</span>
-              <span class="tab-count approved">{{dashboardData.applicationStats.approved}}</span>
+            <div class="payment-kpi-info">
+              <h3 class="payment-kpi-value" *ngIf="!isPaymentKpiLoading">₹{{paymentKpiData.total_successful_payments}}</h3>
+              <h3 class="payment-kpi-value" *ngIf="isPaymentKpiLoading">
+                <i class="fas fa-spinner fa-spin"></i>
+              </h3>
+              <p class="payment-kpi-label">Total Successful Payments</p>
+              <span class="payment-kpi-subtitle">Successfully received payments</span>
+              <div class="payment-kpi-trend positive" *ngIf="paymentKpiData.growth_percentage && paymentKpiData.growth_percentage > 0">
+                <i class="fas fa-arrow-up"></i>
+                <span>+{{paymentKpiData.growth_percentage}}%</span>
+              </div>
             </div>
           </div>
-          
-          <button class="action-button" (click)="viewApplications()">VIEW APPLICATIONS</button>
         </div>
       </div>
 
-      <!-- Counselling Actions Card -->
-      <div class="col-xl-6 col-lg-12 mb-3">
-        <div class="action-card">
-          <div class="action-card-header">
-            <div class="action-icon">
-              <i class="fas fa-user-tie"></i>
+      <!-- Successful Transactions -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="payment-kpi-card">
+          <div class="payment-kpi-accent pending"></div>
+          <div class="payment-kpi-content">
+            <div class="payment-kpi-icon">
+              <i class="fas fa-credit-card"></i>
             </div>
-            <div class="action-title-section">
-              <h3 class="action-title">Counselling Actions</h3>
-              <p class="action-description">Manage counselling calls, track progress and guide students.</p>
+            <div class="payment-kpi-info">
+              <h3 class="payment-kpi-value" *ngIf="!isPaymentKpiLoading">{{paymentKpiData.successful_transactions}}</h3>
+              <h3 class="payment-kpi-value" *ngIf="isPaymentKpiLoading">
+                <i class="fas fa-spinner fa-spin"></i>
+              </h3>
+              <p class="payment-kpi-label">Successful Transactions</p>
+              <span class="payment-kpi-subtitle">Completed payments this month</span>
+              <div class="payment-kpi-trend positive" *ngIf="paymentKpiData.transactions_growth && paymentKpiData.transactions_growth > 0">
+                <i class="fas fa-arrow-up"></i>
+                <span>+{{paymentKpiData.transactions_growth}}</span>
+              </div>
             </div>
           </div>
-          
-          <div class="action-buttons-group">
-            <button class="action-button secondary mb-2" (click)="scheduleCall()">
-              <i class="fas fa-calendar-plus me-2"></i>
-              Schedule Call
-            </button>
-            <button class="action-button secondary mb-2" (click)="addCounsellingNotes()">
-              <i class="fas fa-sticky-note me-2"></i>
-              Add Counselling Notes
-            </button>
-            <button class="action-button secondary mb-2" (click)="viewApplications()">
-              <i class="fas fa-list me-2"></i>
-              Manage Applications
-            </button>
-            <button class="action-button" (click)="viewStudentProfile()">
-              <i class="fas fa-user me-2"></i>
-              View Student Profile
-            </button>
+        </div>
+      </div>
+
+      <!-- Students Paid -->
+      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+        <div class="payment-kpi-card clickable-card" (click)="navigateToPaymentManagement()">
+          <div class="payment-kpi-accent collection-rate"></div>
+          <div class="payment-kpi-content">
+            <div class="payment-kpi-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="payment-kpi-info">
+              <h3 class="payment-kpi-value" *ngIf="!isPaymentKpiLoading">{{paymentKpiData.students_paid}}</h3>
+              <h3 class="payment-kpi-value" *ngIf="isPaymentKpiLoading">
+                <i class="fas fa-spinner fa-spin"></i>
+              </h3>
+              <p class="payment-kpi-label">Students Paid</p>
+              <span class="payment-kpi-subtitle">Students who completed payment</span>
+              <div class="payment-kpi-trend positive" *ngIf="paymentKpiData.students_growth && paymentKpiData.students_growth > 0">
+                <i class="fas fa-arrow-up"></i>
+                <span>+{{paymentKpiData.students_growth}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-arrow">
+            <i class="fas fa-arrow-right"></i>
           </div>
         </div>
       </div>

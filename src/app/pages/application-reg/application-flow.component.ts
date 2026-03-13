@@ -28,6 +28,7 @@ export interface ApplicationData {
     document3?: File;
   };
   paymentAmount?: number;
+  receiptUploaded?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -56,6 +57,11 @@ export class ApplicationFlowComponent implements OnInit {
     document2: null,
     document3: null
   };
+
+  // Receipt upload
+  selectedReceipt: File | null = null;
+  isReceiptUploading = false;
+  paymentRequestSent = false;
 
   constructor(
     private fb: FormBuilder,
@@ -224,6 +230,48 @@ export class ApplicationFlowComponent implements OnInit {
   processPayment() {
     this.isLoading = true;
     this.errorMessage = '';
+    
+    // Simulate payment request being sent
+    setTimeout(() => {
+      console.log('Payment request sent successfully');
+      this.paymentRequestSent = true;
+      this.successMessage = 'Payment request sent! Please complete the payment and upload your receipt.';
+      this.isLoading = false;
+    }, 2000);
+  }
+
+  /**
+   * Handle receipt file selection
+   */
+  onReceiptSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      const file = target.files[0];
+      
+      // Validate file type
+      const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+      if (!allowedTypes.includes(file.type)) {
+        this.errorMessage = 'Please select a valid file type (JPG, PNG, or PDF)';
+        return;
+      }
+      
+      // Validate file size (5MB max)
+      if (file.size > 5 * 1024 * 1024) {
+        this.errorMessage = 'File size must be less than 5MB';
+        return;
+      }
+      
+      this.selectedReceipt = file;
+      this.errorMessage = '';
+      this.successMessage = 'Receipt uploaded successfully! You can now confirm payment completion.';
+      console.log('Receipt selected:', file.name);
+    }
+  }
+
+  /**
+   * Confirm payment completed after receipt upload
+   */
+  confirmPaymentCompleted() {
     const applicationId = this.applicationData?.id;
     if (applicationId) {
       this.applicationService.confirmPayment(applicationId).subscribe({
@@ -231,11 +279,11 @@ export class ApplicationFlowComponent implements OnInit {
           console.log('Payment completed successfully:', result);
           this.currentStep = 'payment-completed';
           this.successMessage = 'Payment completed successfully! Your application is now complete.';
-          this.isLoading = false;
+          this.isReceiptUploading = false;
         },
         error: (error) => {
-          console.error('Payment failed:', error);
-          let errorMsg = 'Payment failed. Please try again.';
+          console.error('Payment confirmation failed:', error);
+          let errorMsg = 'Payment confirmation failed. Please try again.';
           
           if (error.error) {
             if (typeof error.error === 'string') {
@@ -248,9 +296,14 @@ export class ApplicationFlowComponent implements OnInit {
           }
           
           this.errorMessage = errorMsg;
-          this.isLoading = false;
+          this.isReceiptUploading = false;
         }
       });
+    } else {
+      // Fallback for demo mode
+      this.currentStep = 'payment-completed';
+      this.successMessage = 'Payment completed successfully! Your application is now complete.';
+      this.isReceiptUploading = false;
     }
   }
 

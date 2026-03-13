@@ -397,3 +397,177 @@
     display: none;
   }
 }
+
+/* Receipt Upload Styles */
+.payment-instructions {
+  margin: 20px 0;
+}
+
+.instruction-box {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.instruction-box p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.note {
+  font-style: italic;
+  color: #666;
+  font-size: 14px;
+}
+
+.receipt-upload-section {
+  margin-top: 30px;
+}
+
+.upload-area {
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  margin: 20px 0;
+  transition: border-color 0.3s ease;
+}
+
+.upload-area:hover {
+  border-color: #007bff;
+}
+
+.upload-label {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
+.upload-icon {
+  font-size: 48px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.upload-text p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.upload-text p:first-child {
+  color: #333;
+  font-size: 16px;
+}
+
+.file-selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  color: #155724;
+}
+
+.file-selected i {
+  color: #28a745;
+}
+
+.remove-file {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
+}
+
+.remove-file:hover {
+  background-color: #f8d7da;
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+/* Payment Request Sent Message */
+.payment-sent-message {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.payment-sent-message i {
+  color: #28a745;
+  font-size: 20px;
+}
+
+.payment-sent-message p {
+  margin: 0;
+  color: #155724;
+  font-weight: 500;
+}
+
+/* Receipt Uploaded Message */
+.receipt-uploaded-message {
+  background-color: #d1ecf1;
+  border: 1px solid #bee5eb;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.receipt-uploaded-message i {
+  color: #17a2b8;
+  font-size: 20px;
+}
+
+.receipt-uploaded-message p {
+  margin: 0;
+  color: #0c5460;
+  font-weight: 500;
+}
+
+/* Confirm Payment Button */
+.confirm-payment-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.confirm-payment-btn:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.confirm-payment-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Payment Confirmation Section */
+.payment-confirmation {
+  text-align: center;
+  margin-top: 20px;
+}

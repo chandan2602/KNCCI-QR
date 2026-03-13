@@ -1,0 +1,204 @@
+<div class="payment-management">
+  <!-- COUNSELLOR HEADER COMPONENT -->
+  <app-counsellor-header></app-counsellor-header>
+
+  <!-- Back Button -->
+  <div class="back-button-container">
+    <button class="back-to-dashboard-btn" (click)="navigateToMainDashboard()">
+      <i class="fas fa-arrow-left me-2"></i>
+      Back to Dashboard
+    </button>
+  </div>
+
+  <!-- Navigation Header -->
+  <!-- <div class="dashboard-navigation" style="margin-top: 70px;">
+    <div class="nav-left">
+      <button class="back-to-dashboard-btn" (click)="navigateToMainDashboard()">
+        <i class="fas fa-arrow-left me-2"></i>
+        Back to Dashboard
+      </button>
+      <h1 class="page-title">Payment Management</h1>
+    </div>
+    <div class="nav-right">
+      <button class="logout-btn" (click)="logout()">
+        <i class="fas fa-sign-out-alt me-2"></i>
+        Logout
+      </button>
+    </div>
+  </div> -->
+
+  <!-- Main Content -->
+  <div class="payment-dashboard">
+    
+    <!-- KPI CARDS ROW -->
+    <div class="kpi-cards-row">
+      <!-- Total Successful Payments -->
+      <div class="kpi-card collected">
+        <div class="kpi-left-border"></div>
+        <div class="kpi-content">
+          <div class="kpi-value" *ngIf="!isKpiLoading">₹{{kpiData.total_successful_payments}}</div>
+          <div class="kpi-value" *ngIf="isKpiLoading">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <div class="kpi-title">Total Successful Payments</div>
+          <div class="kpi-subtitle">Successfully received payments</div>
+          <!-- <small style="color: #999;">Debug: {{kpiData.total_successful_payments}} | Loading: {{isKpiLoading}}</small> -->
+          <div class="kpi-trend positive" *ngIf="kpiData.growth_percentage && kpiData.growth_percentage > 0">
+            <i class="fas fa-arrow-up"></i>
+            <span>+{{kpiData.growth_percentage}}%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Number of Successful Payments -->
+      <div class="kpi-card pending">
+        <div class="kpi-left-border"></div>
+        <div class="kpi-content">
+          <div class="kpi-value" *ngIf="!isKpiLoading">{{kpiData.successful_transactions}}</div>
+          <div class="kpi-value" *ngIf="isKpiLoading">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <div class="kpi-title">Successful Transactions</div>
+          <div class="kpi-subtitle">Completed payments this month</div>
+          <div class="kpi-trend positive" *ngIf="kpiData.transactions_growth && kpiData.transactions_growth > 0">
+            <i class="fas fa-arrow-up"></i>
+            <span>+{{kpiData.transactions_growth}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Students Paid -->
+      <div class="kpi-card collection-rate">
+        <div class="kpi-left-border"></div>
+        <div class="kpi-content">
+          <div class="kpi-value" *ngIf="!isKpiLoading">{{kpiData.students_paid}}</div>
+          <div class="kpi-value" *ngIf="isKpiLoading">
+            <i class="fas fa-spinner fa-spin"></i>
+          </div>
+          <div class="kpi-title">Students Paid</div>
+          <div class="kpi-subtitle">Students who completed payment</div>
+          <div class="kpi-trend positive" *ngIf="kpiData.students_growth && kpiData.students_growth > 0">
+            <i class="fas fa-arrow-up"></i>
+            <span>+{{kpiData.students_growth}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL WIDTH TABLE SECTION -->
+    <div class="table-section-expanded">
+      <div class="table-header">
+        <h3 class="table-title">Successful Payments ({{paymentStatus}})</h3>
+        <!-- <h3 class="table-title">Successful Payments ({{paymentStatus}}) - Count: {{currentPageData.length}}</h3> -->
+        <div class="table-actions">
+          <!-- Debug info -->
+          <!-- <small style="color: #666; margin-right: 10px;">
+            Loading: {{isTableLoading}} | Total: {{totalItems}} | Page: {{currentPage}}
+          </small> -->
+          <!-- Debug buttons -->
+          <!-- <button class="btn btn-sm btn-primary" (click)="testKpiApi()" style="margin-right: 5px;">Test KPI API</button>
+          <button class="btn btn-sm btn-secondary" (click)="testListApi()" style="margin-right: 5px;">Test List API</button>
+          <button class="btn btn-sm btn-success" (click)="loadPaymentData()">Reload Data</button> -->
+          <!-- <button class="refresh-btn" (click)="refreshPaymentData()" [disabled]="isLoading">
+            <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
+            {{ isLoading ? 'Loading...' : 'Refresh' }}
+          </button> -->
+          <!-- <button class="export-btn" (click)="exportPaymentData('csv')" [disabled]="isLoading">
+            <i class="fas fa-download"></i>
+            Export CSV
+          </button> -->
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div class="error-message" *ngIf="errorMessage">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>{{errorMessage}}</span>
+        <button class="retry-btn" (click)="loadPaymentData()">Retry</button>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-container" *ngIf="isTableLoading">
+        <div class="loading-spinner">
+          <i class="fas fa-spinner fa-spin"></i>
+          <span>Loading payment data...</span>
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div class="table-container" *ngIf="!isTableLoading">
+        <table class="payment-table">
+          <thead>
+            <tr>
+              <th>USER NAME</th>
+              <th>EMAIL ID</th>
+              <th>FEE AMOUNT</th>
+              <th>PAYMENT STATUS</th>
+              <th>PAID DATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let payment of currentPageData">
+              <td>
+                <div class="user-info">
+                  <div class="user-avatar">{{payment.avatar}}</div>
+                  <span>{{payment.name}}</span>
+                </div>
+              </td>
+              <td class="email">{{payment.email}}</td>
+              <td class="amount">₹{{payment.payment_amount}}</td>
+              <td><span class="status-badge paid">{{payment.payment_status}}</span></td>
+              <td>{{payment.paid_date | date:'MMM dd, yyyy HH:mm'}}</td>
+            </tr>
+            
+            <!-- Empty State -->
+            <tr *ngIf="currentPageData.length === 0" class="empty-row">
+              <td colspan="5" class="empty-message">
+                <i class="fas fa-inbox"></i>
+                <span>No payment records found</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAGINATION CONTROLS -->
+      <div class="pagination-container">
+        <div class="pagination-info">
+          <span>Showing {{((currentPage - 1) * itemsPerPage) + 1}} to {{Math.min(currentPage * itemsPerPage, totalItems)}} of {{totalItems}} entries</span>
+        </div>
+        
+        <div class="pagination-controls">
+          <button 
+            class="pagination-btn" 
+            [class.disabled]="currentPage === 1" 
+            (click)="previousPage()"
+            [disabled]="currentPage === 1">
+            <i class="fas fa-chevron-left"></i>
+            Previous
+          </button>
+          
+          <div class="pagination-numbers">
+            <button 
+              *ngFor="let page of getPageNumbers()" 
+              class="pagination-number" 
+              [class.active]="page === currentPage"
+              (click)="goToPage(page)">
+              {{page}}
+            </button>
+          </div>
+          
+          <button 
+            class="pagination-btn" 
+            [class.disabled]="currentPage === totalPages" 
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages">
+            Next
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
