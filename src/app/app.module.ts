@@ -322,7 +322,7 @@ import { AiApprenticeshipsComponent } from './pages/ai-apprenticeships/ai-appren
 import { MyApprenticeshipsComponent } from './pages/my-apprenticeships/my-apprenticeships.component';
 import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
 import { MyQuizComponent } from './components/my-quiz/my-quiz.component';
-import { HoolandCodeComponent } from './pages/hooland-code/hooland-code.component';
+import { RecommendedPathComponent } from './components/recommended-path/recommended-path.component';
 // import { RegisteredStudentsComponent } from './registered-students/registered-students.component';
 // import { PaymentComponent } from './payment/payment.component';
 
@@ -630,7 +630,7 @@ export function momentAdapterFactory() {
     PublicJobsComponent,
     LearningComponent,
     MyQuizComponent,
-    HoolandCodeComponent,
+    RecommendedPathComponent,
 
   ],
   imports: [

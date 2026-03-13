@@ -231,7 +231,7 @@ import { PublicInternshipsComponent } from './pages/public-internships/public-in
 import { PublicJobsComponent } from './pages/public-jobs/public-jobs.component';
 import { LearningComponent } from './pages/learning/learning.component';
 import { MyQuizComponent } from './components/my-quiz/my-quiz.component';
-import { HoolandCodeComponent } from './pages/hooland-code/hooland-code.component';
+import { RecommendedPathComponent } from './components/recommended-path/recommended-path.component';
 import { CounsellorPageComponent } from './pages/counsellor-page/counsellor-page.component';
 import { CounselorGuard } from './guards/counselor.guard';
 const routes: Routes = [
@@ -306,8 +306,8 @@ const routes: Routes = [
         component: MyQuizComponent
       },
       {
-        path: 'hooland-code',
-        component: HoolandCodeComponent
+        path: 'recommended-path',
+        component: RecommendedPathComponent
       },
       {
         path: 'timeTracker',
