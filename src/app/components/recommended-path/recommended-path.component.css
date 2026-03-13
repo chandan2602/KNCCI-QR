@@ -1,0 +1,632 @@
+.recommended-path-container {
+  width: 100%;
+  padding: 20px;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* Header Section */
+.header-section {
+  margin-bottom: 20px;
+}
+
+.btn-back {
+  background: white;
+  border: 1px solid #e0e0e0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #333;
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.btn-back:hover {
+  background: #f5f5f5;
+  border-color: #999;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 10px 0 5px;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: #666;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Search Section */
+.search-section {
+  margin-bottom: 20px;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-box i {
+  position: absolute;
+  left: 15px;
+  color: #999;
+  font-size: 14px;
+}
+
+.search-box input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 15px 10px 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  font-size: 13px;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  background: white;
+  border: 2px solid #e0e0e0;
+  padding: 10px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #333;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+.tab-button:hover {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.tab-button.active {
+  background: #1a7a4a;
+  border-color: #1a7a4a;
+  color: white;
+}
+
+.tab-count {
+  margin-left: 4px;
+  opacity: 0.8;
+  font-size: 11px;
+}
+
+/* Tab Content */
+.tab-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Opportunities Grid */
+.opportunities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.opportunity-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.opportunity-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Card Image Section */
+.card-image-section {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.verified-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #1a7a4a;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.bookmark-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: white;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #667eea;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bookmark-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Card Body */
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.opportunity-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.company-name {
+  font-size: 12px;
+  color: #666;
+  margin: 0 0 12px;
+  font-weight: 500;
+}
+
+/* Opportunity Meta */
+.opportunity-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.meta-tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.meta-tag.job-type {
+  background: #e8f4f8;
+  color: #0066cc;
+}
+
+.meta-tag.internship-type {
+  background: #e8f4f8;
+  color: #0066cc;
+}
+
+.meta-tag.apprenticeship-type {
+  background: #f0e8f8;
+  color: #6600cc;
+}
+
+.meta-tag.course-type {
+  background: #f8f0e8;
+  color: #cc6600;
+}
+
+.meta-tag.duration {
+  background: #f0f8e8;
+  color: #00aa00;
+}
+
+/* Opportunity Details */
+.opportunity-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #666;
+}
+
+.detail-item i {
+  color: #667eea;
+  width: 14px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.opportunity-description {
+  font-size: 12px;
+  color: #666;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  flex: 1;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.btn-quick-apply {
+  flex: 1;
+  background: #1a7a4a;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-quick-apply:hover {
+  background: #156a3d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(26, 122, 74, 0.3);
+}
+
+.btn-view-details {
+  flex: 1;
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-view-details:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* View All Section */
+.view-all-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn-view-all {
+  background: linear-gradient(135deg, #1a7a4a 0%, #156a3d 100%);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-view-all:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(26, 122, 74, 0.3);
+}
+
+.btn-view-all i {
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-view-all:hover i {
+  transform: translateX(3px);
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f0f0f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-state p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .opportunities-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .recommended-path-container {
+    padding: 15px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .page-subtitle {
+    font-size: 12px;
+  }
+
+  .search-box input {
+    max-width: 100%;
+    padding: 9px 12px 9px 35px;
+    font-size: 12px;
+  }
+
+  .tab-navigation {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .tab-button {
+    padding: 8px 14px;
+    font-size: 11px;
+  }
+
+  .opportunities-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 15px;
+  }
+
+  .card-image-section {
+    height: 140px;
+  }
+
+  .card-body {
+    padding: 14px;
+  }
+
+  .opportunity-title {
+    font-size: 15px;
+  }
+
+  .company-name {
+    font-size: 11px;
+  }
+
+  .opportunity-description {
+    font-size: 11px;
+  }
+
+  .btn-quick-apply,
+  .btn-view-details {
+    padding: 9px 10px;
+    font-size: 11px;
+  }
+
+  .view-all-section {
+    margin-top: 25px;
+    padding-top: 15px;
+  }
+
+  .btn-view-all {
+    padding: 12px 24px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommended-path-container {
+    padding: 12px;
+  }
+
+  .page-title {
+    font-size: 20px;
+    margin: 8px 0 4px;
+  }
+
+  .page-subtitle {
+    font-size: 11px;
+  }
+
+  .search-box input {
+    max-width: 100%;
+    padding: 8px 10px 8px 32px;
+    font-size: 11px;
+  }
+
+  .search-box i {
+    left: 12px;
+    font-size: 12px;
+  }
+
+  .tab-navigation {
+    gap: 6px;
+    margin-bottom: 15px;
+  }
+
+  .tab-button {
+    padding: 7px 12px;
+    font-size: 10px;
+  }
+
+  .tab-count {
+    display: none;
+  }
+
+  .opportunities-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card-image-section {
+    height: 120px;
+  }
+
+  .card-body {
+    padding: 12px;
+  }
+
+  .opportunity-title {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .company-name {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+
+  .opportunity-meta {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .meta-tag {
+    padding: 4px 8px;
+    font-size: 9px;
+  }
+
+  .opportunity-details {
+    gap: 6px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+
+  .detail-item {
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .opportunity-description {
+    font-size: 11px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  .card-actions {
+    gap: 8px;
+  }
+
+  .btn-quick-apply,
+  .btn-view-details {
+    padding: 8px 10px;
+    font-size: 10px;
+  }
+
+  .verified-badge {
+    padding: 4px 8px;
+    font-size: 9px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .bookmark-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    top: 8px;
+    left: 8px;
+  }
+
+  .view-all-section {
+    margin-top: 20px;
+    padding-top: 15px;
+  }
+
+  .btn-view-all {
+    padding: 11px 20px;
+    font-size: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+}

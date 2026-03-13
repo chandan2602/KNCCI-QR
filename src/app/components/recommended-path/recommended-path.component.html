@@ -1,0 +1,232 @@
+<div class="recommended-path-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <button class="btn-back" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <h1 class="page-title">Recommemded career paths</h1>
+    <p class="page-subtitle">Explore opportunities tailored to your personality profile</p>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-section">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search by title, company, or keyword..." [(ngModel)]="searchQuery">
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button *ngFor="let tab of tabs" class="tab-button" [class.active]="activeTab === tab.id"
+      (click)="selectTab(tab.id)">
+      {{ tab.label }} <span class="tab-count">({{ tab.count }})</span>
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading opportunities...</p>
+  </div>
+
+  <!-- Jobs Tab -->
+  <div *ngIf="activeTab === 'jobs' && !isLoading" class="tab-content">
+    <div class="opportunities-grid">
+      <div *ngFor="let job of staticJobs" class="opportunity-card">
+        <div class="card-image-section">
+          <img src="https://via.placeholder.com/300x150?text=Job" alt="Job" class="card-image">
+          <span class="verified-badge">✓ VERIFIED</span>
+          <button class="bookmark-btn"><i class="fas fa-bookmark"></i></button>
+        </div>
+
+        <div class="card-body">
+          <h3 class="opportunity-title">{{ job.title }}</h3>
+          <p class="company-name">{{ job.company }}</p>
+
+          <div class="opportunity-meta">
+            <span class="meta-tag job-type">{{ job.type }}</span>
+            <span class="meta-tag duration">{{ job.salary }}</span>
+          </div>
+
+          <div class="opportunity-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>{{ job.location }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-money-bill-wave"></i>
+              <span>{{ job.salary }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: 15 Mar 2026</span>
+            </div>
+          </div>
+
+          <p class="opportunity-description">{{ job.description }}</p>
+
+          <div class="card-actions">
+            <button class="btn-quick-apply" (click)="applyForJob(job)">Quick Apply</button>
+            <button class="btn-view-details" (click)="viewJobDetails(job)">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="view-all-section">
+      <button class="btn-view-all" (click)="navigateToAllJobs()">
+        <i class="fas fa-arrow-right"></i> Explore More Jobs
+      </button>
+    </div>
+  </div>
+
+  <!-- Internships Tab -->
+  <div *ngIf="activeTab === 'internships' && !isLoading" class="tab-content">
+    <div class="opportunities-grid">
+      <div *ngFor="let internship of staticInternships" class="opportunity-card">
+        <div class="card-image-section">
+          <img src="https://via.placeholder.com/300x150?text=Internship" alt="Internship" class="card-image">
+          <span class="verified-badge">✓ VERIFIED</span>
+          <button class="bookmark-btn"><i class="fas fa-bookmark"></i></button>
+        </div>
+
+        <div class="card-body">
+          <h3 class="opportunity-title">{{ internship.title }}</h3>
+          <p class="company-name">{{ internship.company }}</p>
+
+          <div class="opportunity-meta">
+            <span class="meta-tag internship-type">INTERNSHIP</span>
+            <span class="meta-tag duration">{{ internship.duration }}</span>
+          </div>
+
+          <div class="opportunity-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>{{ internship.location }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-coins"></i>
+              <span>KES 30,000/month</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: 20 Mar 2026</span>
+            </div>
+          </div>
+
+          <p class="opportunity-description">{{ internship.description }}</p>
+
+          <div class="card-actions">
+            <button class="btn-quick-apply" (click)="applyForInternship(internship)">Quick Apply</button>
+            <button class="btn-view-details" (click)="viewInternshipDetails(internship)">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="view-all-section">
+      <button class="btn-view-all" (click)="navigateToAllInternships()">
+        <i class="fas fa-arrow-right"></i> Explore More Internships
+      </button>
+    </div>
+  </div>
+
+  <!-- Apprenticeships Tab -->
+  <div *ngIf="activeTab === 'apprenticeships' && !isLoading" class="tab-content">
+    <div class="opportunities-grid">
+      <div *ngFor="let apprenticeship of staticApprenticeships" class="opportunity-card">
+        <div class="card-image-section">
+          <img src="https://via.placeholder.com/300x150?text=Apprenticeship" alt="Apprenticeship" class="card-image">
+          <span class="verified-badge">✓ VERIFIED</span>
+          <button class="bookmark-btn"><i class="fas fa-bookmark"></i></button>
+        </div>
+
+        <div class="card-body">
+          <h3 class="opportunity-title">{{ apprenticeship.title }}</h3>
+          <p class="company-name">{{ apprenticeship.company }}</p>
+
+          <div class="opportunity-meta">
+            <span class="meta-tag apprenticeship-type">APPRENTICESHIP</span>
+            <span class="meta-tag duration">{{ apprenticeship.duration }}</span>
+          </div>
+
+          <div class="opportunity-details">
+            <div class="detail-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>{{ apprenticeship.location }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-coins"></i>
+              <span>KES 15,000/month</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-calendar"></i>
+              <span>Deadline: 25 Mar 2026</span>
+            </div>
+          </div>
+
+          <p class="opportunity-description">{{ apprenticeship.description }}</p>
+
+          <div class="card-actions">
+            <button class="btn-quick-apply" (click)="applyForApprenticeship(apprenticeship)">Quick Apply</button>
+            <button class="btn-view-details" (click)="viewApprenticeshipDetails(apprenticeship)">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="view-all-section">
+      <button class="btn-view-all" (click)="navigateToAllApprenticeships()">
+        <i class="fas fa-arrow-right"></i> Explore More Apprenticeships
+      </button>
+    </div>
+  </div>
+
+  <!-- Short Courses Tab -->
+  <div *ngIf="activeTab === 'courses' && !isLoading" class="tab-content">
+    <div class="opportunities-grid">
+      <div *ngFor="let course of staticCourses" class="opportunity-card">
+        <div class="card-image-section">
+          <img src="https://via.placeholder.com/300x150?text=Course" alt="Course" class="card-image">
+          <span class="verified-badge">✓ VERIFIED</span>
+          <button class="bookmark-btn"><i class="fas fa-bookmark"></i></button>
+        </div>
+
+        <div class="card-body">
+          <h3 class="opportunity-title">{{ course.title }}</h3>
+          <p class="company-name">{{ course.provider }}</p>
+
+          <div class="opportunity-meta">
+            <span class="meta-tag course-type">jobs</span>
+            <span class="meta-tag duration">{{ course.duration }}</span>
+          </div>
+
+          <div class="opportunity-details">
+            <div class="detail-item">
+              <i class="fas fa-globe"></i>
+              <span>{{ course.mode }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-coins"></i>
+              <span>{{ course.price }}</span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-calendar"></i>
+              <span>Starts: {{ course.startDate }}</span>
+            </div>
+          </div>
+
+          <p class="opportunity-description">{{ course.description }}</p>
+
+          <div class="card-actions">
+            <button class="btn-quick-apply" (click)="enrollCourse(course)">Enroll Now</button>
+            <button class="btn-view-details" (click)="viewCourseDetails(course)">View Details</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="view-all-section">
+      <button class="btn-view-all" (click)="navigateToAllCourses()">
+        <i class="fas fa-arrow-right"></i> Explore More Jobs
+      </button>
+    </div>
+  </div>
+</div>

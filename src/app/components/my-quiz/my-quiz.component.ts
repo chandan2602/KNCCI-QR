@@ -535,6 +535,26 @@ export class MyQuizComponent implements OnInit {
     }
   }
 
+  navToRecommendedPaths(): void {
+    if (this.summaryResult?.holland_code) {
+      this.router.navigate(['/HOME/recommended-path'], {
+        state: { holland_code: this.summaryResult.holland_code }
+      }).then(
+        (success) => {
+          if (!success) {
+            this.toastr.error('Failed to navigate to recommended paths');
+          }
+        },
+        (error) => {
+          this.toastr.error('Error navigating to recommended paths');
+          console.error('Navigation error:', error);
+        }
+      );
+    } else {
+      this.toastr.error('Holland code not available to find recommended paths.');
+    }
+  }
+
   /**
    * Handles image loading errors
    */
