@@ -38,6 +38,14 @@ export interface DashboardStats {
   document_review: number;
   approved: number;
   rejected: number;
+  total_students: number;
+  active_students: number;
+  inactive_students: number;
+  urgent_applications: number;
+  approved_this_month: number;
+  scheduled_calls: number;
+  completed_sessions: number;
+  student_feedback_count: number;
 }
  
 @Injectable({
@@ -178,12 +186,47 @@ export class CounselorService {
     document3: File | null;
   }): Observable<ApiResponse> {
     const formData = new FormData();
-    if (documents.document1) formData.append('document1', documents.document1);
-    if (documents.document2) formData.append('document2', documents.document2);
-    if (documents.document3) formData.append('document3', documents.document3);
+    
+    // Log what we're about to send
+    console.log('Preparing upload for application:', applicationId);
+    
+    if (documents.document1) {
+      formData.append('document1', documents.document1);
+      console.log('Added document1:', {
+        name: documents.document1.name,
+        type: documents.document1.type,
+        size: documents.document1.size
+      });
+    }
+    
+    if (documents.document2) {
+      formData.append('document2', documents.document2);
+      console.log('Added document2:', {
+        name: documents.document2.name,
+        type: documents.document2.type,
+        size: documents.document2.size
+      });
+    }
+    
+    if (documents.document3) {
+      formData.append('document3', documents.document3);
+      console.log('Added document3:', {
+        name: documents.document3.name,
+        type: documents.document3.type,
+        size: documents.document3.size
+      });
+    }
+    
+    // Log FormData summary (without using entries() method)
+    console.log('FormData prepared with documents:', {
+      document1: documents.document1 ? 'included' : 'not included',
+      document2: documents.document2 ? 'included' : 'not included',
+      document3: documents.document3 ? 'included' : 'not included'
+    });
     
     const url = `${this.baseUrl}/applications/${applicationId}/documents`;
     console.log('Making API call to:', url);
+    
     return this.http.post<ApiResponse>(url, formData);
   }
  

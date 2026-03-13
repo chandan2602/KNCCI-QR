@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CounselorService, ApiApplicationData } from 'src/app/services/consullor.services';
+import { CounselorService, ApiApplicationData, DashboardStats } from 'src/app/services/consullor.services';
 import { ApplicationData } from 'src/app/pages/application-reg/application-flow.component';
 import { environment } from 'src/environments/environment';
 import { LoginService } from 'src/app/services/login.service';
+import { CounsellorHeaderComponent } from './counsellor-header.component';
 
 @Component({
   selector: 'app-counselor-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CounsellorHeaderComponent],
   templateUrl: './counselor-dashboard.component.html',
   styleUrls: ['./counselor-dashboard.component.css']
 })
@@ -21,7 +22,28 @@ export class CounselorDashboardComponent implements OnInit {
   counselorNotes = '';
   activeTab: 'all' | 'pending' | 'documents' | 'approved' = 'all';
   searchEmail = '';
-  dashboardStats: any = null;
+  dashboardStats: DashboardStats | null = null;
+  
+  // Document upload properties
+  selectedFiles: {
+    document1: File | null;
+    document2: File | null;
+    document3: File | null;
+  } = {
+    document1: null,
+    document2: null,
+    document3: null
+  };
+  
+  uploadProgress: {
+    document1: boolean;
+    document2: boolean;
+    document3: boolean;
+  } = {
+    document1: false,
+    document2: false,
+    document3: false
+  };
 
   constructor(
     private applicationService: CounselorService,
@@ -188,12 +210,74 @@ export class CounselorDashboardComponent implements OnInit {
         },
         error: (error) => {
           console.error('Failed to load dashboard stats from API:', error);
-          // Stats will be calculated from loaded applications instead
+          // Calculate stats from loaded applications as fallback
+          this.calculateStatsFromApplications();
         }
       });
     } catch (error) {
       console.error('Failed to load dashboard stats:', error);
+      // Calculate stats from loaded applications as fallback
+      this.calculateStatsFromApplications();
     }
+  }
+
+  // Calculate dashboard stats from loaded applications (fallback method)
+  private calculateStatsFromApplications() {
+    if (this.applications.length === 0) {
+      this.dashboardStats = {
+        total_applications: 0,
+        pending_review: 0,
+        document_review: 0,
+        approved: 0,
+        rejected: 0,
+        total_students: 0,
+        active_students: 0,
+        inactive_students: 0,
+        urgent_applications: 0,
+        approved_this_month: 0,
+        scheduled_calls: 0,
+        completed_sessions: 0,
+        student_feedback_count: 0
+      };
+      return;
+    }
+
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    this.dashboardStats = {
+      total_applications: this.applications.length,
+      pending_review: this.applications.filter(app => app.status === 'form-submitted').length,
+      document_review: this.applications.filter(app => 
+        ['documents-requested', 'documents-uploaded', 'payment-requested'].includes(app.status)
+      ).length,
+      approved: this.applications.filter(app => app.status === 'payment-completed').length,
+      rejected: this.applications.filter(app => app.status === 'rejected').length,
+      total_students: this.applications.length,
+      active_students: this.applications.filter(app => 
+        !['rejected', 'payment-completed'].includes(app.status)
+      ).length,
+      inactive_students: this.applications.filter(app => 
+        ['rejected'].includes(app.status)
+      ).length,
+      urgent_applications: this.applications.filter(app => {
+        const daysSinceCreated = Math.floor(
+          (now.getTime() - new Date(app.createdAt).getTime()) / (1000 * 60 * 60 * 24)
+        );
+        return daysSinceCreated > 7 && app.status === 'form-submitted';
+      }).length,
+      approved_this_month: this.applications.filter(app => {
+        if (app.status !== 'payment-completed') return false;
+        const updatedDate = new Date(app.updatedAt);
+        return updatedDate.getMonth() === currentMonth && updatedDate.getFullYear() === currentYear;
+      }).length,
+      scheduled_calls: 0, // This would need to come from a separate calls API
+      completed_sessions: 0, // This would need to come from a separate sessions API
+      student_feedback_count: 0 // This would need to come from a separate feedback API
+    };
+
+    console.log('Calculated dashboard stats from applications:', this.dashboardStats);
   }
 
   // Search application by email
@@ -319,6 +403,8 @@ export class CounselorDashboardComponent implements OnInit {
   selectApplication(application: ApplicationData) {
     this.selectedApplication = application;
     this.counselorNotes = application.counselorNotes || '';
+    // Reset file selections when selecting a new application
+    this.resetFileSelections();
   }
 
   async approveApplication() {
@@ -408,18 +494,27 @@ export class CounselorDashboardComponent implements OnInit {
     const app = this.selectedApplication;
     if (!app) return;
 
+    // Check if all three documents are selected
+    if (!this.selectedFiles.document1 || !this.selectedFiles.document2 || !this.selectedFiles.document3) {
+      alert('Please upload all three required documents before proceeding.');
+      return;
+    }
+
     this.isLoading = true;
     try {
-      const mockDocuments = {
-        document1: new File(['mock content'], 'government_id.pdf', { type: 'application/pdf' }),
-        document2: new File(['mock content'], 'address_proof.pdf', { type: 'application/pdf' }),
-        document3: new File(['mock content'], 'education_certificate.pdf', { type: 'application/pdf' })
+      const documentsToUpload = {
+        document1: this.selectedFiles.document1,
+        document2: this.selectedFiles.document2,
+        document3: this.selectedFiles.document3
       };
 
-      this.applicationService.uploadDocuments(app.id!, mockDocuments).subscribe({
+      this.applicationService.uploadDocuments(app.id!, documentsToUpload).subscribe({
         next: (response) => {
           console.log('Documents uploaded:', response);
           this.loadApplications();
+          
+          // Reset file selections after successful upload
+          this.resetFileSelections();
           
           const updatedApp = this.applications.find(a => a.id === app.id);
           if (updatedApp) {
@@ -428,6 +523,7 @@ export class CounselorDashboardComponent implements OnInit {
         },
         error: (error) => {
           console.error('Failed to upload documents:', error);
+          alert('Failed to upload documents. Please try again.');
         },
         complete: () => {
           this.isLoading = false;
@@ -435,8 +531,264 @@ export class CounselorDashboardComponent implements OnInit {
       });
     } catch (error) {
       console.error('Failed to upload documents:', error);
+      alert('Failed to upload documents. Please try again.');
       this.isLoading = false;
     }
+  }
+
+  // Handle file selection for each document type
+  onFileSelected(event: any, documentType: 'document1' | 'document2' | 'document3') {
+    const file = event.target.files[0];
+    if (file) {
+      console.log(`File selected for ${documentType}:`, {
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        sizeInMB: (file.size / (1024 * 1024)).toFixed(2),
+        lastModified: new Date(file.lastModified).toISOString()
+      });
+
+      // Enhanced file validation
+      const validationResult = this.validateFile(file, documentType);
+      if (!validationResult.isValid) {
+        alert(validationResult.errorMessage);
+        console.error('File validation failed:', validationResult.errorMessage);
+        // Clear the file input
+        event.target.value = '';
+        return;
+      }
+      
+      // Store the selected file but don't upload immediately
+      this.selectedFiles[documentType] = file;
+      console.log(`File stored for ${documentType}, waiting for all three documents...`);
+      
+      // Check if all three documents are now selected
+      if (this.areAllDocumentsSelected()) {
+        console.log('All three documents selected, starting upload...');
+        this.uploadAllDocuments();
+      } else {
+        console.log('Still waiting for more documents. Current status:', {
+          document1: this.selectedFiles.document1 ? 'selected' : 'missing',
+          document2: this.selectedFiles.document2 ? 'selected' : 'missing',
+          document3: this.selectedFiles.document3 ? 'selected' : 'missing'
+        });
+      }
+    } else {
+      console.log(`No file selected for ${documentType}`);
+    }
+  }
+
+  // Check if all three documents are selected
+  areAllDocumentsSelected(): boolean {
+    return !!(this.selectedFiles.document1 && this.selectedFiles.document2 && this.selectedFiles.document3);
+  }
+
+  // Upload all three documents together (as required by backend)
+  async uploadAllDocuments() {
+    const app = this.selectedApplication;
+    if (!app) return;
+
+    if (!this.areAllDocumentsSelected()) {
+      console.error('Cannot upload: not all documents are selected');
+      return;
+    }
+
+    this.isLoading = true;
+    try {
+      console.log('Uploading all three documents together...');
+      
+      const documentsToUpload = {
+        document1: this.selectedFiles.document1!,
+        document2: this.selectedFiles.document2!,
+        document3: this.selectedFiles.document3!
+      };
+
+      this.applicationService.uploadDocuments(app.id!, documentsToUpload).subscribe({
+        next: (response) => {
+          console.log('All documents uploaded successfully:', response);
+          
+          // Mark all documents as uploaded
+          this.uploadProgress.document1 = true;
+          this.uploadProgress.document2 = true;
+          this.uploadProgress.document3 = true;
+          
+          // Update the application's document status
+          if (this.selectedApplication) {
+            if (!this.selectedApplication.documents) {
+              this.selectedApplication.documents = {};
+            }
+            this.selectedApplication.documents.document1 = this.selectedFiles.document1!;
+            this.selectedApplication.documents.document2 = this.selectedFiles.document2!;
+            this.selectedApplication.documents.document3 = this.selectedFiles.document3!;
+          }
+          
+          // Refresh applications to get updated status
+          this.loadApplications();
+          
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Failed to upload documents:', error);
+          this.handleUploadError('all documents', error);
+        }
+      });
+    } catch (error) {
+      console.error('Failed to upload documents:', error);
+      this.handleUploadError('all documents', error);
+    }
+  }
+
+  // Enhanced file validation
+  private validateFile(file: File, documentType: string): { isValid: boolean; errorMessage: string } {
+    // Check if file exists
+    if (!file) {
+      return { isValid: false, errorMessage: 'No file selected.' };
+    }
+
+    // Validate file name
+    if (!file.name || file.name.trim() === '') {
+      return { isValid: false, errorMessage: `Invalid file name for ${documentType}.` };
+    }
+
+    // Check for file name length (some servers have limits)
+    if (file.name.length > 255) {
+      return { isValid: false, errorMessage: `File name too long for ${documentType}. Please use a shorter name.` };
+    }
+
+    // Validate file type - be more specific about allowed types
+    const allowedTypes = [
+      'application/pdf',
+      'image/jpeg', 
+      'image/jpg',
+      'image/png'
+    ];
+    
+    // Also check file extension as backup
+    const fileExtension = file.name.toLowerCase().split('.').pop();
+    const allowedExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+    
+    if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExtension || '')) {
+      return { 
+        isValid: false, 
+        errorMessage: `Invalid file type for ${documentType}. File type: ${file.type}, Extension: ${fileExtension}. Please upload only PDF, JPEG, or PNG files.` 
+      };
+    }
+    
+    // Validate file size (limit to 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      return { 
+        isValid: false, 
+        errorMessage: `File size too large for ${documentType}. Size: ${(file.size / (1024 * 1024)).toFixed(2)}MB. Please use a file under 5MB.` 
+      };
+    }
+
+    // Check minimum file size (avoid empty files)
+    if (file.size < 100) { // 100 bytes minimum
+      return { 
+        isValid: false, 
+        errorMessage: `File too small for ${documentType}. The file appears to be empty or corrupted.` 
+      };
+    }
+
+    // Additional validation for PDF files
+    if (file.type === 'application/pdf' || fileExtension === 'pdf') {
+      // Check if it's actually a PDF by looking at file signature (basic check)
+      // This is a simple check - for production, you might want more thorough validation
+    }
+
+    return { isValid: true, errorMessage: '' };
+  }
+
+  // Handle upload errors and keep buttons enabled
+  private handleUploadError(documentType: string, error: any) {
+    // Log detailed error information for debugging
+    console.error(`Upload error for ${documentType}:`, {
+      status: error.status,
+      statusText: error.statusText,
+      error: error.error,
+      message: error.message,
+      url: error.url
+    });
+
+    // More detailed error handling
+    let errorMessage = `Failed to upload ${documentType}. `;
+    if (error.status === 422) {
+      // Log the specific validation errors from the server
+      if (error.error && error.error.errors) {
+        console.error('Server validation errors:', error.error.errors);
+        errorMessage += `Server validation failed: ${JSON.stringify(error.error.errors)}`;
+      } else if (error.error && error.error.message) {
+        console.error('Server error message:', error.error.message);
+        errorMessage += `Server says: ${error.error.message}`;
+      } else {
+        errorMessage += 'Validation error: Please check the file format and size. Only PDF, JPEG, and PNG files under 5MB are allowed.';
+      }
+    } else if (error.status === 400) {
+      if (error.error && error.error.detail) {
+        errorMessage += `${error.error.detail}`;
+      } else {
+        errorMessage += 'Bad request. Please check your files and try again.';
+      }
+    } else if (error.status === 413) {
+      errorMessage += 'File size is too large. Please use files under 5MB.';
+    } else if (error.status === 415) {
+      errorMessage += 'Unsupported file type. Please use PDF, JPEG, or PNG files.';
+    } else if (error.status === 404) {
+      errorMessage += 'Application not found. Please refresh and try again.';
+    } else if (error.status === 500) {
+      errorMessage += 'Server error. Please try again later.';
+    } else {
+      errorMessage += `Server error (${error.status}). Please try again.`;
+    }
+    
+    alert(errorMessage);
+    
+    // Reset all file selections on error since backend requires all three
+    this.selectedFiles = {
+      document1: null,
+      document2: null,
+      document3: null
+    };
+    this.uploadProgress = {
+      document1: false,
+      document2: false,
+      document3: false
+    };
+    
+    // Ensure loading state is reset
+    this.isLoading = false;
+  }
+
+  // Reset file selections
+  resetFileSelections() {
+    this.selectedFiles = {
+      document1: null,
+      document2: null,
+      document3: null
+    };
+    this.uploadProgress = {
+      document1: false,
+      document2: false,
+      document3: false
+    };
+  }
+
+  // Check if all documents are uploaded
+  areAllDocumentsUploaded(): boolean {
+    return this.uploadProgress.document1 && this.uploadProgress.document2 && this.uploadProgress.document3;
+  }
+
+  // Get file name for display
+  getFileName(documentType: 'document1' | 'document2' | 'document3'): string {
+    const file = this.selectedFiles[documentType];
+    return file ? file.name : 'No file chosen';
+  }
+
+  // Remove selected file
+  removeFile(documentType: 'document1' | 'document2' | 'document3') {
+    this.selectedFiles[documentType] = null;
+    this.uploadProgress[documentType] = false;
   }
 
   async requestPayment() {
@@ -555,21 +907,21 @@ export class CounselorDashboardComponent implements OnInit {
   }
 
   getPendingCount(): number {
-    return this.applications.filter(app => app.status === 'form-submitted').length;
+    return this.dashboardStats?.pending_review || this.applications.filter(app => app.status === 'form-submitted').length;
   }
 
   getDocumentReviewCount(): number {
-    return this.applications.filter(app => 
+    return this.dashboardStats?.document_review || this.applications.filter(app => 
       ['documents-requested', 'documents-uploaded', 'payment-requested'].includes(app.status)
     ).length;
   }
 
   getApprovedCount(): number {
-    return this.applications.filter(app => app.status === 'payment-completed').length;
+    return this.dashboardStats?.approved || this.applications.filter(app => app.status === 'payment-completed').length;
   }
 
   getAllCount(): number {
-    return this.applications.length;
+    return this.dashboardStats?.total_applications || this.applications.length;
   }
 
   calculateAge(dateOfBirth: string): number {
