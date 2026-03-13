@@ -2,11 +2,7 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-<<<<<<< HEAD
-let apiURL: string = location.origin.includes("localhost") ? "http://localhost:8000" : location.origin;
-=======
 let apiURL: string = location.origin.includes("localhost") ? "https://kncci-internship.dhanushinfotech.com" : location.origin;
->>>>>>> c9186647eb0d2c248c4baa3b05aa2ba85ad8aba7
 
 export const environment = {
   production: false,
@@ -28,6 +24,7 @@ export const environment = {
   // RazorPay_Key: 'rzp_test_n9kOog8GmBqfim'//Test
   RazorPay_Key: 'rzp_live_FuIlkhr9QlHKMl'//Live
 };
+
 // http://localhost:56608/swagger/index.html
 //  serviceUrl:"http://lmsav.dhanushinfotech.com/",https://lmsqa.dhanushinfotech.com
 
@@ -39,19 +36,3 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
-// let apiURL: string = "https://oukinternship.dhanushinfotech.com";
-
-// export const environment = {
-//   production: false,
-//   serviceUrl: `${apiURL}/api/`,
-//   internUrl: `https://oukdev.samvaadpro.com/api/`,
-//   fileUrl: `${apiURL}/`,
-//   urlFiles: `${apiURL}`,
-//   internUrlFiles: `https://oukdev.samvaadpro.com`,
-//   reportUrl: `${apiURL}/internship/v1/generate`,
-//   downloadReportUrl: `${apiURL}/internship/v1/download/`,
-//   SOCKET_ENDPOINT: 'http://localhost:3000',
-//   SamvaadUrl: 'https://scheduling.samvaad.pro/conference/',
-//   RazorPay_Key: 'rzp_live_FuIlkhr9QlHKMl'
-// };
-
