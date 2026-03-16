@@ -121,7 +121,7 @@ export class RecommendedPathComponent implements OnInit {
     this.http.post<any>(`${this.apiUrl}hollandcode/jobs-recommendations/`, payload).subscribe({
       next: (response) => {
         if (Array.isArray(response)) {
-          this.staticJobs = response.map(job => ({
+          this.staticJobs = this.getTop5(response.map(job => ({
             id: job.id || job.Job_ID,
             title: job.Title || job.title,
             company: job.Company || job.company,
@@ -130,7 +130,7 @@ export class RecommendedPathComponent implements OnInit {
             salary: job.Salary || '$80k - $120k',
             description: job.Description || job.description,
             matchScore: job.Match_Score || 0
-          }));
+          })));
           this.updateTabCount('jobs', this.staticJobs.length);
         } else {
           this.toastr.info(response.message || 'No jobs found');
@@ -151,15 +151,15 @@ export class RecommendedPathComponent implements OnInit {
     console.log('=== INTERNSHIPS REQUEST ===');
     console.log('URL:', `${this.apiUrl}hollandcode/internships-recommendations/`);
     console.log('Payload:', JSON.stringify(payload));
-    
+
     this.http.post<any>(`${this.apiUrl}hollandcode/internships-recommendations/`, payload).subscribe({
       next: (response) => {
         console.log('=== INTERNSHIPS RESPONSE ===');
         console.log('Response:', response);
         console.log('Is Array:', Array.isArray(response));
-        
+
         if (Array.isArray(response)) {
-          this.staticInternships = response.map(internship => ({
+          this.staticInternships = this.getTop5(response.map(internship => ({
             id: internship.id || internship.Internship_ID,
             title: internship.Title || internship.title,
             company: internship.Company || internship.company,
@@ -168,7 +168,7 @@ export class RecommendedPathComponent implements OnInit {
             duration: internship.Duration || '6 months',
             description: internship.Description || internship.description,
             matchScore: internship.Match_Score || 0
-          }));
+          })));
           this.updateTabCount('internships', this.staticInternships.length);
         } else if (response && typeof response === 'object') {
           this.toastr.info(response.message || 'No internships found');
@@ -184,7 +184,7 @@ export class RecommendedPathComponent implements OnInit {
         console.error('=== INTERNSHIPS ERROR ===');
         console.error('Full error object:', err);
         console.error('Status:', err.status);
-        
+
         let errorMessage = 'Failed to load internships';
         if (err.status === 0) {
           errorMessage = 'Network error - Cannot reach server';
@@ -193,7 +193,7 @@ export class RecommendedPathComponent implements OnInit {
         } else if (err.status === 422) {
           errorMessage = 'Invalid request format';
         }
-        
+
         this.toastr.error(errorMessage);
         this.staticInternships = [];
       }
@@ -205,16 +205,16 @@ export class RecommendedPathComponent implements OnInit {
     console.log('URL:', `${this.apiUrl}hollandcode/apprenticeship-recommendations/`);
     console.log('Payload:', JSON.stringify(payload));
     console.log('Payload type:', typeof payload);
-    
+
     this.http.post<any>(`${this.apiUrl}hollandcode/apprenticeship-recommendations/`, payload).subscribe({
       next: (response) => {
         console.log('=== APPRENTICESHIPS RESPONSE ===');
         console.log('Response:', response);
         console.log('Response type:', typeof response);
         console.log('Is Array:', Array.isArray(response));
-        
+
         if (Array.isArray(response)) {
-          this.staticApprenticeships = response.map(apprenticeship => ({
+          this.staticApprenticeships = this.getTop5(response.map(apprenticeship => ({
             id: apprenticeship.id || apprenticeship.course_id,
             title: apprenticeship.Title || apprenticeship.title,
             company: apprenticeship.Company || apprenticeship.company,
@@ -223,7 +223,7 @@ export class RecommendedPathComponent implements OnInit {
             duration: apprenticeship.Duration || '4 years',
             description: apprenticeship.Description || apprenticeship.description,
             matchScore: apprenticeship.Match_Score || 0
-          }));
+          })));
           this.updateTabCount('apprenticeships', this.staticApprenticeships.length);
           console.log('Mapped apprenticeships:', this.staticApprenticeships);
         } else if (response && typeof response === 'object') {
@@ -249,10 +249,10 @@ export class RecommendedPathComponent implements OnInit {
         console.error('Status text:', err.statusText);
         console.error('Error body:', err.error);
         console.error('Error message:', err.message);
-        
+
         // Try to extract meaningful error message
         let errorMessage = 'Failed to load apprenticeships';
-        
+
         if (err.status === 0) {
           errorMessage = 'Network error - Cannot reach server';
         } else if (err.status === 404) {
@@ -266,7 +266,7 @@ export class RecommendedPathComponent implements OnInit {
         } else if (err.error?.message) {
           errorMessage = err.error.message;
         }
-        
+
         this.toastr.error(errorMessage);
         this.staticApprenticeships = [];
       }
@@ -278,7 +278,7 @@ export class RecommendedPathComponent implements OnInit {
     this.http.post<any>(`${this.apiUrl}hollandcode/jobs-recommendations/`, payload).subscribe({
       next: (response) => {
         if (Array.isArray(response)) {
-          this.staticCourses = response.map(course => ({
+          this.staticCourses = this.getTop5(response.map(course => ({
             id: course.id || course.course_id,
             title: course.Title || course.title,
             provider: course.Company || course.provider,
@@ -288,7 +288,7 @@ export class RecommendedPathComponent implements OnInit {
             startDate: '1 Apr 2026',
             description: course.Description || course.description,
             matchScore: course.Match_Score || 0
-          }));
+          })));
           this.updateTabCount('courses', this.staticCourses.length);
         } else {
           this.toastr.info(response.message || 'No courses found');
@@ -318,6 +318,10 @@ export class RecommendedPathComponent implements OnInit {
     if (tab) {
       tab.count = count;
     }
+  }
+
+  private getTop5(items: any[]): any[] {
+    return items.slice(0, 5);
   }
 
   applyForJob(job: any): void {
@@ -363,7 +367,7 @@ export class RecommendedPathComponent implements OnInit {
   }
 
   navigateToAllInternships(): void {
-    this.router.navigate(['/HOME/intereShipList'], {
+    this.router.navigate(['/HOME/sIntrnShpMnu'], {
       state: { holland_code: this.hollandCode }
     });
   }
