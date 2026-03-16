@@ -158,26 +158,41 @@ export class ApplicationFlowComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
+      this.processFile(file, documentType);
+    }
+  }
+
+  private validateImageFile(file: File, documentType: string) {
+    const img = new Image();
+    img.onload = () => {
+      // Check minimum resolution (optional)
+      if (img.width < 300 || img.height < 300) {
+        this.errorMessage = 'Image resolution should be at least 300x300 pixels for better quality';
+        return;
+      }
       
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        this.errorMessage = 'File size must be less than 5MB';
-        return;
-      }
-
-      // Validate file type
-      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
-      if (!allowedTypes.includes(file.type)) {
-        this.errorMessage = 'Only PDF, JPG, and PNG files are allowed';
-        return;
-      }
-
       this.selectedFiles = {
         ...this.selectedFiles,
         [documentType]: file
       };
       this.errorMessage = '';
-    }
+      this.successMessage = `${this.getDocumentLabel(documentType)} selected successfully`;
+    };
+    
+    img.onerror = () => {
+      this.errorMessage = 'Invalid image file. Please select a valid image.';
+    };
+    
+    img.src = URL.createObjectURL(file);
+  }
+
+  private getDocumentLabel(documentType: string): string {
+    const labels: { [key: string]: string } = {
+      document1: 'Government ID',
+      document2: 'Proof of Address', 
+      document3: 'Educational Certificate'
+    };
+    return labels[documentType] || documentType;
   }
 
   uploadDocuments() {
@@ -224,6 +239,61 @@ export class ApplicationFlowComponent implements OnInit {
           this.isLoading = false;
         }
       });
+    }
+  }
+
+  // Drag and drop functionality
+  onDragOver(event: DragEvent, documentType: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    const label = event.currentTarget as HTMLElement;
+    label.classList.add('drag-over');
+  }
+
+  onDragLeave(event: DragEvent, documentType: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    const label = event.currentTarget as HTMLElement;
+    label.classList.remove('drag-over');
+  }
+
+  onDrop(event: DragEvent, documentType: string) {
+    event.preventDefault();
+    event.stopPropagation();
+    const label = event.currentTarget as HTMLElement;
+    label.classList.remove('drag-over');
+    
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      this.processFile(file, documentType);
+    }
+  }
+
+  private processFile(file: File, documentType: string) {
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      this.errorMessage = 'File size must be less than 5MB';
+      return;
+    }
+
+    // Validate file type
+    const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
+    if (!allowedTypes.includes(file.type)) {
+      this.errorMessage = 'Only PDF, JPG, and PNG files are allowed';
+      return;
+    }
+
+    // Additional validation for image files
+    if (file.type.startsWith('image/')) {
+      this.validateImageFile(file, documentType);
+    } else {
+      this.selectedFiles = {
+        ...this.selectedFiles,
+        [documentType]: file
+      };
+      this.errorMessage = '';
+      this.successMessage = `${this.getDocumentLabel(documentType)} selected successfully`;
     }
   }
 

@@ -226,38 +226,83 @@
         <div class="upload-section">
           <div class="upload-group">
             <label>Document 1: Government ID</label>
-            <input 
-              type="file" 
-              accept=".pdf,.jpg,.jpeg,.png"
-              (change)="onFileSelected($event, 'document1')"
-            >
-            <span *ngIf="selectedFiles.document1" class="file-selected">
-              ✓ {{ selectedFiles.document1?.name }}
-            </span>
+            <div class="file-input-wrapper">
+              <input 
+                type="file" 
+                accept=".pdf,.jpg,.jpeg,.png"
+                (change)="onFileSelected($event, 'document1')"
+                id="document1"
+                class="file-input"
+              >
+              <label 
+                for="document1" 
+                class="file-input-label" 
+                [class.has-file]="selectedFiles.document1"
+                (dragover)="onDragOver($event, 'document1')"
+                (dragleave)="onDragLeave($event, 'document1')"
+                (drop)="onDrop($event, 'document1')"
+              >
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span *ngIf="!selectedFiles.document1">Drag & drop or click to choose Government ID</span>
+                <span *ngIf="selectedFiles.document1" class="file-selected">
+                  <i class="fas fa-check-circle"></i> {{ selectedFiles.document1?.name }}
+                </span>
+              </label>
+            </div>
           </div>
 
           <div class="upload-group">
             <label>Document 2: Proof of Address</label>
-            <input 
-              type="file" 
-              accept=".pdf,.jpg,.jpeg,.png"
-              (change)="onFileSelected($event, 'document2')"
-            >
-            <span *ngIf="selectedFiles.document2" class="file-selected">
-              ✓ {{ selectedFiles.document2?.name }}
-            </span>
+            <div class="file-input-wrapper">
+              <input 
+                type="file" 
+                accept=".pdf,.jpg,.jpeg,.png"
+                (change)="onFileSelected($event, 'document2')"
+                id="document2"
+                class="file-input"
+              >
+              <label 
+                for="document2" 
+                class="file-input-label" 
+                [class.has-file]="selectedFiles.document2"
+                (dragover)="onDragOver($event, 'document2')"
+                (dragleave)="onDragLeave($event, 'document2')"
+                (drop)="onDrop($event, 'document2')"
+              >
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span *ngIf="!selectedFiles.document2">Drag & drop or click to choose Proof of Address</span>
+                <span *ngIf="selectedFiles.document2" class="file-selected">
+                  <i class="fas fa-check-circle"></i> {{ selectedFiles.document2?.name }}
+                </span>
+              </label>
+            </div>
           </div>
 
           <div class="upload-group">
             <label>Document 3: Educational Certificate</label>
-            <input 
-              type="file" 
-              accept=".pdf,.jpg,.jpeg,.png"
-              (change)="onFileSelected($event, 'document3')"
-            >
-            <span *ngIf="selectedFiles.document3" class="file-selected">
-              ✓ {{ selectedFiles.document3?.name }}
-            </span>
+            <div class="file-input-wrapper">
+              <input 
+                type="file" 
+                accept=".pdf,.jpg,.jpeg,.png"
+                (change)="onFileSelected($event, 'document3')"
+                id="document3"
+                class="file-input"
+              >
+              <label 
+                for="document3" 
+                class="file-input-label" 
+                [class.has-file]="selectedFiles.document3"
+                (dragover)="onDragOver($event, 'document3')"
+                (dragleave)="onDragLeave($event, 'document3')"
+                (drop)="onDrop($event, 'document3')"
+              >
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span *ngIf="!selectedFiles.document3">Drag & drop or click to choose Educational Certificate</span>
+                <span *ngIf="selectedFiles.document3" class="file-selected">
+                  <i class="fas fa-check-circle"></i> {{ selectedFiles.document3?.name }}
+                </span>
+              </label>
+            </div>
           </div>
         </div>
 
