@@ -22,7 +22,11 @@ export const environment = {
   SOCKET_ENDPOINT: 'http://localhost:3000',
   SamvaadUrl: 'https://scheduling.samvaad.pro/conference/',
   // RazorPay_Key: 'rzp_test_n9kOog8GmBqfim'//Test
-  RazorPay_Key: 'rzp_live_FuIlkhr9QlHKMl'//Live
+  RazorPay_Key: 'rzp_live_FuIlkhr9QlHKMl',//Live
+  // Payment API endpoints
+  paymentApiUrl: 'http://127.0.0.1:8000',
+  paymentKpisEndpoint: '/payments/kpis',
+  paymentAllEndpoint: '/payments/all'
 };
 
 // http://localhost:56608/swagger/index.html

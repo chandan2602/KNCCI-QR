@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 export interface PaymentKPI {
@@ -49,7 +49,9 @@ export interface PaymentDashboard {
   providedIn: 'root'
 })
 export class PaymentService {
-  private baseUrl = environment.counselorApiUrl;
+  private paymentApiUrl = environment.paymentApiUrl;
+  private paymentKpisEndpoint = environment.paymentKpisEndpoint;
+  private paymentAllEndpoint = environment.paymentAllEndpoint;
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -58,27 +60,40 @@ export class PaymentService {
   };
 
   constructor(private http: HttpClient) {
-    console.log('PaymentService initialized with baseUrl:', this.baseUrl);
+    console.log('PaymentService initialized with:');
+    console.log('- Payment API URL:', this.paymentApiUrl);
+    console.log('- KPIs Endpoint:', this.paymentKpisEndpoint);
+    console.log('- All Payments Endpoint:', this.paymentAllEndpoint);
   }
 
   /**
-   * Get payment KPI data with status filter
-   * GET /api/payment/kpi?status=Paid
+   * Get payment KPI data
+   * GET {paymentApiUrl}{paymentKpisEndpoint}
+   * Response: { total_payment_amount: number, successful_transactions: number, students_paid: number }
    */
   getPaymentKPI(status: string = 'Paid'): Observable<PaymentKPI> {
-    const url = `${this.baseUrl}/payment/kpi`;
-    const params = { status };
+    const url = `${this.paymentApiUrl}${this.paymentKpisEndpoint}`;
     
     console.log('🌐 [Payment Service] Making KPI API call to:', url);
-    console.log('🌐 [Payment Service] With params:', params);
-    console.log('🌐 [Payment Service] Base URL:', this.baseUrl);
     
-    return this.http.get<PaymentKPI>(url, {
-      ...this.httpOptions,
-      params
-    }).pipe(
+    return this.http.get<any>(url, this.httpOptions).pipe(
       tap(response => {
         console.log('🌐 [Payment Service] KPI API Response received:', response);
+      }),
+      // Map the API response to PaymentKPI interface
+      map((response: any) => {
+        console.log('🌐 [Payment Service] Mapping KPI response');
+        const mappedKpi: PaymentKPI = {
+          total_successful_payments: response.total_payment_amount || 0,
+          successful_transactions: response.successful_transactions || 0,
+          students_paid: response.students_paid || 0,
+          total_successful_amount: response.total_payment_amount ? `₹${response.total_payment_amount}` : '₹0',
+          growth_percentage: response.growth_percentage || 0,
+          transactions_growth: response.transactions_growth || 0,
+          students_growth: response.students_growth || 0
+        };
+        console.log('🌐 [Payment Service] Mapped KPI:', mappedKpi);
+        return mappedKpi;
       }),
       catchError(error => {
         console.error('🌐 [Payment Service] KPI API Error:', error);
@@ -88,26 +103,32 @@ export class PaymentService {
   }
 
   /**
-   * Get paginated payment list with status filter
-   * GET /api/payment/list?status=Paid
+   * Get paginated payment list
+   * GET http://127.0.0.1:8000/payments/all
+   * Response: { total_payments: number, data: PaymentRecord[] }
    */
   getPaymentList(page: number = 1, perPage: number = 10, status: string = 'Paid'): Observable<PaymentRecord[]> {
-    const url = `${this.baseUrl}/payment/list`;
-    const params = {
-      page: page.toString(),
-      per_page: perPage.toString(),
-      status: status
-    };
+    const url = `${this.paymentApiUrl}${this.paymentAllEndpoint}`;
     
     console.log('🌐 [Payment Service] Making Payment List API call to:', url);
-    console.log('🌐 [Payment Service] With params:', params);
     
-    return this.http.get<PaymentRecord[]>(url, { 
-      ...this.httpOptions,
-      params 
-    }).pipe(
+    return this.http.get<any>(url, this.httpOptions).pipe(
       tap(response => {
         console.log('🌐 [Payment Service] Payment List API Response received:', response);
+      }),
+      // Extract the data array from the response
+      map((response: any) => {
+        console.log('🌐 [Payment Service] Extracting data from response');
+        if (response && Array.isArray(response.data)) {
+          console.log('🌐 [Payment Service] Found data array with', response.data.length, 'items');
+          return response.data;
+        } else if (Array.isArray(response)) {
+          console.log('🌐 [Payment Service] Response is already an array');
+          return response;
+        } else {
+          console.warn('🌐 [Payment Service] Unexpected response structure:', response);
+          return [];
+        }
       }),
       catchError(error => {
         console.error('🌐 [Payment Service] Payment List API Error:', error);
@@ -117,64 +138,83 @@ export class PaymentService {
   }
 
   /**
-   * Get complete payment dashboard data with status filter
-   * GET /api/payment/dashboard?status=Paid
+   * Get complete payment dashboard data
+   * GET {paymentApiUrl}{paymentAllEndpoint}
    */
   getPaymentDashboard(status: string = 'Paid'): Observable<PaymentDashboard> {
-    const url = `${this.baseUrl}/payment/dashboard`;
-    const params = { status };
+    const url = `${this.paymentApiUrl}${this.paymentAllEndpoint}`;
     
-    console.log('Making API call to:', url, 'with params:', params);
-    return this.http.get<PaymentDashboard>(url, {
-      ...this.httpOptions,
-      params
-    });
+    console.log('Making API call to:', url);
+    return this.http.get<any>(url, this.httpOptions).pipe(
+      map((response: any) => {
+        const data = Array.isArray(response.data) ? response.data : response;
+        return {
+          kpi: {
+            total_successful_payments: 0,
+            successful_transactions: 0,
+            students_paid: 0
+          },
+          recent_payments: data,
+          payment_trends: {
+            monthly_data: []
+          }
+        };
+      })
+    );
   }
 
   /**
-   * Search payments by email with status filter
-   * GET /api/payment/search?status=Paid
+   * Search payments by email
+   * GET {paymentApiUrl}{paymentAllEndpoint}
    */
   searchPaymentsByEmail(email: string, status: string = 'Paid'): Observable<PaymentRecord[]> {
-    const url = `${this.baseUrl}/payment/search`;
-    const params = { email, status };
+    const url = `${this.paymentApiUrl}${this.paymentAllEndpoint}`;
     
-    console.log('Making API call to:', url, 'with params:', params);
-    return this.http.get<PaymentRecord[]>(url, {
-      ...this.httpOptions,
-      params
-    });
+    console.log('Making API call to:', url);
+    return this.http.get<any>(url, this.httpOptions).pipe(
+      map((response: any) => {
+        const data = Array.isArray(response.data) ? response.data : response;
+        // Filter by email on client side
+        return data.filter((payment: any) => 
+          payment.email && payment.email.toLowerCase().includes(email.toLowerCase())
+        );
+      })
+    );
   }
 
   /**
-   * Get payment statistics for date range with status filter
-   * GET /api/payment/stats?status=Paid
+   * Get payment statistics
+   * GET {paymentApiUrl}{paymentKpisEndpoint}
    */
   getPaymentStats(startDate?: string, endDate?: string, status: string = 'Paid'): Observable<PaymentKPI> {
-    const url = `${this.baseUrl}/payment/stats`;
-    const params: any = { status };
+    const url = `${this.paymentApiUrl}${this.paymentKpisEndpoint}`;
     
-    if (startDate) params.start_date = startDate;
-    if (endDate) params.end_date = endDate;
-    
-    console.log('Making API call to:', url, 'with params:', params);
-    return this.http.get<PaymentKPI>(url, {
-      ...this.httpOptions,
-      params
-    });
+    console.log('Making API call to:', url);
+    return this.http.get<any>(url, this.httpOptions).pipe(
+      map((response: any) => {
+        const mappedKpi: PaymentKPI = {
+          total_successful_payments: response.total_payment_amount || 0,
+          successful_transactions: response.successful_transactions || 0,
+          students_paid: response.students_paid || 0,
+          total_successful_amount: response.total_payment_amount ? `₹${response.total_payment_amount}` : '₹0',
+          growth_percentage: response.growth_percentage || 0,
+          transactions_growth: response.transactions_growth || 0,
+          students_growth: response.students_growth || 0
+        };
+        return mappedKpi;
+      })
+    );
   }
 
   /**
-   * Export payment data with status filter
-   * GET /api/payment/export?status=Paid
+   * Export payment data
+   * GET {paymentApiUrl}{paymentAllEndpoint}
    */
   exportPaymentData(format: 'csv' | 'excel' = 'csv', status: string = 'Paid'): Observable<Blob> {
-    const url = `${this.baseUrl}/payment/export`;
-    const params = { format, status };
+    const url = `${this.paymentApiUrl}${this.paymentAllEndpoint}`;
     
-    console.log('Making API call to:', url, 'with params:', params);
+    console.log('Making API call to:', url);
     return this.http.get(url, {
-      params,
       responseType: 'blob'
     });
   }

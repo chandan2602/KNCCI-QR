@@ -98,18 +98,29 @@ export class PaymentManagementComponent implements OnInit {
     return new Promise((resolve, reject) => {
       try {
         this.paymentService.getPaymentKPI(this.paymentStatus).subscribe({
-          next: (kpiData: PaymentKPI) => {
+          next: (kpiData: any) => {
             console.log('✅ KPI API Response received:', kpiData);
             console.log('📊 KPI Data type:', typeof kpiData);
             console.log('📊 KPI Data keys:', Object.keys(kpiData || {}));
-            console.log('📊 total_successful_payments:', kpiData?.total_successful_payments);
-            console.log('📊 successful_transactions:', kpiData?.successful_transactions);
-            console.log('📊 students_paid:', kpiData?.students_paid);
             
             // Check if response has expected structure
             if (kpiData && typeof kpiData === 'object') {
-              this.kpiData = { ...this.kpiData, ...kpiData };
+              // Map API response to PaymentKPI interface
+              const mappedKpi: PaymentKPI = {
+                total_successful_payments: kpiData.total_successful_payments || kpiData.total_payments || 0,
+                successful_transactions: kpiData.successful_transactions || kpiData.transactions || 0,
+                students_paid: kpiData.students_paid || kpiData.total_students || 0,
+                total_successful_amount: kpiData.total_successful_amount || kpiData.total_amount || '₹0',
+                growth_percentage: kpiData.growth_percentage || 0,
+                transactions_growth: kpiData.transactions_growth || 0,
+                students_growth: kpiData.students_growth || 0
+              };
+              
+              this.kpiData = mappedKpi;
               console.log('✅ KPI data assigned to component:', this.kpiData);
+              console.log('📊 total_successful_payments:', this.kpiData.total_successful_payments);
+              console.log('📊 successful_transactions:', this.kpiData.successful_transactions);
+              console.log('📊 students_paid:', this.kpiData.students_paid);
             } else {
               console.error('❌ Invalid KPI data structure:', kpiData);
             }
@@ -150,21 +161,32 @@ export class PaymentManagementComponent implements OnInit {
     return new Promise((resolve, reject) => {
       try {
         this.paymentService.getPaymentList(this.currentPage, this.itemsPerPage, this.paymentStatus).subscribe({
-          next: (response: PaymentRecord[]) => {
+          next: (response: any) => {
             console.log('✅ Payment List API Response received:', response);
             console.log('📊 Response type:', typeof response);
             console.log('📊 Response is array:', Array.isArray(response));
             console.log('📊 Response length:', response?.length);
             
-            if (Array.isArray(response)) {
+            if (Array.isArray(response) && response.length > 0) {
               console.log('📊 First payment record:', response[0]);
+              console.log('📊 First record keys:', Object.keys(response[0]));
               
-              this.currentPageData = response.map(payment => {
+              this.currentPageData = response.map((payment: any) => {
                 console.log('📊 Processing payment:', payment);
-                return {
-                  ...payment,
-                  avatar: this.generateAvatar(payment.name)
+                
+                // Map API response to PaymentRecord interface
+                const mappedPayment: PaymentRecord = {
+                  id: payment.id,
+                  name: payment.name || payment.user_name || payment.student_name || '',
+                  email: payment.email || payment.email_id || '',
+                  payment_amount: payment.payment_amount || payment.amount || payment.fee_amount || 0,
+                  payment_status: payment.payment_status || payment.status || 'Pending',
+                  paid_date: payment.paid_date || payment.payment_date || new Date().toISOString(),
+                  avatar: this.generateAvatar(payment.name || payment.user_name || payment.student_name || '')
                 };
+                
+                console.log('📊 Mapped payment:', mappedPayment);
+                return mappedPayment;
               });
               
               this.totalItems = response.length;
@@ -174,6 +196,11 @@ export class PaymentManagementComponent implements OnInit {
               console.log('✅ Total items:', this.totalItems);
               console.log('✅ Total pages:', this.totalPages);
               console.log('✅ Current page data length:', this.currentPageData.length);
+            } else if (Array.isArray(response) && response.length === 0) {
+              console.log('⚠️ API returned empty array');
+              this.currentPageData = [];
+              this.totalItems = 0;
+              this.totalPages = 0;
             } else {
               console.error('❌ API response is not an array:', response);
               this.handlePaymentListError();
