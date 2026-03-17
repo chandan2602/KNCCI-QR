@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap, catchError, map } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 
 export interface PaymentKPI {
   total_successful_payments: number;
@@ -49,9 +48,10 @@ export interface PaymentDashboard {
   providedIn: 'root'
 })
 export class PaymentService {
-  private paymentApiUrl = environment.paymentApiUrl;
-  private paymentKpisEndpoint = environment.paymentKpisEndpoint;
-  private paymentAllEndpoint = environment.paymentAllEndpoint;
+  // Payment API configuration - moved from environment
+  private paymentApiUrl = 'http://127.0.0.1:8000';
+  private paymentKpisEndpoint = '/KNCCI/api/payments/kpis';
+  private paymentAllEndpoint = '/KNCCI/api/payments/all';
 
   private httpOptions = {
     headers: new HttpHeaders({

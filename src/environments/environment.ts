@@ -9,7 +9,7 @@ export const environment = {
   // serviceUrl: "http://10.10.11.74:8090/api/",
   serviceUrl: `${apiURL}/api/`,
   // Add counselor API URL - update this to your backend URL
-  counselorApiUrl: 'http://localhost:8000/api',
+  counselorApiUrl: 'http://localhost:8000/KNCCI/api',
   // Add application API URL (without /api prefix)
   applicationApiUrl: 'http://localhost:8000',
   internUrl: `${'https://oukdev.samvaadpro.com'}/api/`,
@@ -22,11 +22,7 @@ export const environment = {
   SOCKET_ENDPOINT: 'http://localhost:3000',
   SamvaadUrl: 'https://scheduling.samvaad.pro/conference/',
   // RazorPay_Key: 'rzp_test_n9kOog8GmBqfim'//Test
-  RazorPay_Key: 'rzp_live_FuIlkhr9QlHKMl',//Live
-  // Payment API endpoints
-  paymentApiUrl: 'http://127.0.0.1:8000',
-  paymentKpisEndpoint: '/payments/kpis',
-  paymentAllEndpoint: '/payments/all'
+  RazorPay_Key: 'rzp_live_FuIlkhr9QlHKMl'//Live
 };
 
 // http://localhost:56608/swagger/index.html
